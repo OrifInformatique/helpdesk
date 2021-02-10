@@ -1,86 +1,56 @@
-# Project Title
+# CodeIgniter 4 Framework
 
-One Paragraph of project description goes here
+## What is CodeIgniter?
 
-## Getting Started
+CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
+More information can be found at the [official site](http://codeigniter.com).
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+This repository holds the distributable version of the framework,
+including the user guide. It has been built from the
+[development repository](https://github.com/codeigniter4/CodeIgniter4).
 
-### Prerequisites
+More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
 
-What things you need to install the software and how to install them
+The user guide corresponding to this version of the framework can be found
+[here](https://codeigniter4.github.io/userguide/).
 
-```
-Give examples
-```
 
-### Installing
+## Important Change with index.php
 
-A step by step series of examples that tell you how to get a development env running
+`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
+for better security and separation of components.
 
-Say what the step will be
+This means that you should configure your web server to "point" to your project's *public* folder, and
+not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
+framework are exposed.
 
-```
-Give the example
-```
+**Please** read the user guide for a better explanation of how CI4 works!
 
-And repeat
+## Repository Management
 
-```
-until finished
-```
+We use Github issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
+We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
+FEATURE REQUESTS.
 
-End with an example of getting some data out of the system or using it for a little demo
-
-## Running the tests
-
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
-
-## Built With
-
-* [CodeIgniter 4](https://www.codeigniter.com/) - PHP framework
-* [Bootstrap](https://getbootstrap.com/) - To simplify views design
+This repository is a "distribution" one, built by our release preparation script.
+Problems with it can be raised on our forum, or as issues in the main repository.
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+We welcome contributions from the community.
 
-## Versioning
+Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/contributing.md) section in the development repository.
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+## Server Requirements
 
-## Authors
+PHP version 7.3 or higher is required, with the following extensions installed:
 
-* **Orif, domaine informatique** - *Initiating and following the project* - [GitHub account](https://github.com/OrifInformatique)
+- [intl](http://php.net/manual/en/intl.requirements.php)
+- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+Additionally, make sure that the following extensions are enabled in your PHP:
 
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+- json (enabled by default - don't turn it off)
+- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
+- xml (enabled by default - don't turn it off)
