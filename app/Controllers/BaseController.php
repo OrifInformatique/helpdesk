@@ -46,4 +46,10 @@ class BaseController extends Controller
 		//--------------------------------------------------------------------
 		// E.g.: $this->session = \Config\Services::session();
 	}
+	public function display_view(String $view){
+	    echo view("Common\header");
+	    echo view("Common\login_bar");
+	    echo view($view);
+	    echo view("Common\\footer");
+    }
 }
