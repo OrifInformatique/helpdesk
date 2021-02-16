@@ -1,0 +1,8 @@
+/* ADD CUSTOM STYLES HERE */
+/* Nav menu style */
+#my-navbar .active {
+    border-bottom: 3px #1a661a solid;
+}
+li.nav-item {
+	margin: 0 10px;
+}
