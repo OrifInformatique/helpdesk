@@ -23,7 +23,7 @@ if (ENVIRONMENT !== 'testing') {
     <?php //echo $config->access_lvl_guest; ?>
   <div class="row xs-center">
     <div class="col-sm-3">
-      <a href="<?php echo base_url(); ?>" ><img src="<?php echo base_url("assets/images/logo.png"); ?>" ></a>
+      <a href="<?php echo base_url(); ?>" ><img src="<?php echo base_url("/assets/images/logo.png"); ?>" ></a>
     </div>
     <div class="col-sm-6">
       <a href="<?php echo base_url(); ?>" class="text-info"><h1><?php echo lang('MY_application_lang.app_title'); ?></h1></a>
