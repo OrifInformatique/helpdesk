@@ -14,7 +14,8 @@
     ?></title>
 
     <!-- Icon -->
-    <link rel="shortcut icon" href="<?= base_url("images/favicon.ico"); ?>" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="<?= base_url("images/favicon.png"); ?>" />
+    <link rel="shortcut icon" type="image/png" href="<?= base_url("images/favicon.png"); ?>" />
 
     <!-- Bootstrap  -->
     <!-- Orif Bootstrap CSS personalized with https://bootstrap.build/app -->
