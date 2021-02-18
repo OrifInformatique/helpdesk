@@ -16,7 +16,7 @@ Element ids and classes are in kebab-case, as Bootstrap classes.
 
 ## CSS ##
 
-Files are stored in */assets/css*.  
+Files are stored in */public/css*.  
 Filenames start with *MY_* and end with *.css*.
 
 ## Javascript ##
@@ -24,13 +24,13 @@ Filenames start with *MY_* and end with *.css*.
 Variables and functions are named in camelCase.  
 Variables should be declared using `let` or `const` instead of `var`.  
 Classes are named in PascalCase.  
-Files are stored in */assets/js*.  
+Files are stored in */public/js*.  
 Filenames start with *MY_* and end with *.js*.  
 If a function is used only in one view, it can be added at the end of that view.
 
 ## Images ##
 
-Images used in the application's template are stored in */assets/images*.  
+Images used in the application's template are stored in */public/images*.  
 If the application lets the user upload his own pictures, these will be stored in a separate folder (for example "uploads" folder).
 
 ## SQL and database ##
