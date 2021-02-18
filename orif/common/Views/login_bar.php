@@ -1,27 +1,7 @@
-<?php
-//\Modules\common\Views\login_bar
-//$MY_user_lang=include basename();
-//$CI =& get_instance();
-//$config=new \Config\auth_config();
-if (ENVIRONMENT !== 'testing') {
-    //$config=config("\Modules\user\MY_user_config");
-//$CI->config->load('user/MY_user_config');
-
-//$CI->lang->load('user/MY_user');
-} else {
-	// CI-PHPUnit checks from application/folder instead of module/folder
-    //$config=config("\Modules\user\MY_user_config");
-//	$CI->config->load('../modules/user/config/MY_user_config');
-//	$CI->lang->load('../../modules/user/language/fr/MY_user');
-
-}
-
-?>
 <div class="container" >
-    <?php //echo $config->access_lvl_guest; ?>
   <div class="row xs-center">
     <div class="col-sm-3">
-      <a href="<?php echo base_url(); ?>" ><img src="<?php echo base_url("/assets/images/logo.png"); ?>" ></a>
+      <a href="<?php echo base_url(); ?>" ><img src="<?php echo base_url("images/logo.png"); ?>" ></a>
     </div>
     <div class="col-sm-6">
       <a href="<?php echo base_url(); ?>" class="text-info"><h1><?php echo lang('common_lang.app_title'); ?></h1></a>

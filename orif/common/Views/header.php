@@ -1,28 +1,24 @@
-<?php
-
-?><!DOCTYPE html>
-<html>
+<!DOCTYPE html>
+<html lang="fr">
 <head>
     <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- Copied from Bootstrap model (http://getbootstrap.com/getting-started/) -->
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Copied from Bootstrap model https://getbootstrap.com/docs/4.6/getting-started/introduction/) -->
 
     <title><?php
         if (!isset($title) || is_null($title) || $title == '') {
-            echo lang('MY_application_lang.page_prefix');
+            echo lang('Common_lang.page_prefix');
         } else {
-            echo lang('MY_application_lang.page_prefix').' - '.$title;
+            echo lang('Common_lang.page_prefix').' - '.$title;
         }
     ?></title>
 
     <!-- Icon -->
-    <link rel="shortcut icon" href="<?= base_url("assets/images/favicon.png"); ?>" type="image/x-icon" />
+    <link rel="shortcut icon" href="<?= base_url("images/favicon.ico"); ?>" type="image/x-icon" />
 
     <!-- Bootstrap  -->
     <!-- Orif Bootstrap CSS personalized with https://bootstrap.build/app -->
-    <link rel="stylesheet" href="<?= base_url("assets/css/bootstrap.min.css"); ?>" />
+    <link rel="stylesheet" href="<?= base_url("css/bootstrap.min.css"); ?>" />
     <!-- jquery, popper and Bootstrap javascript -->
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
@@ -36,11 +32,11 @@
     <![endif]-->
 
     <!-- Application styles -->
-    <link rel="stylesheet" href="<?= base_url("assets/css/MY_styles.css"); ?>" />
+    <link rel="stylesheet" href="<?= base_url("css/MY_styles.css"); ?>" />
 </head>
 <body>
     <?php
         if (ENVIRONMENT != 'production') {
-            echo '<div class="alert alert-warning text-center">CodeIgniter environment variable is set to '.strtoupper(ENVIRONMENT).'. You can change it in .htaccess file.</div>';
+            echo '<div class="alert alert-warning text-center">CodeIgniter environment variable is set to '.strtoupper(ENVIRONMENT).'. You can change it in .env file.</div>';
         }
     ?>
