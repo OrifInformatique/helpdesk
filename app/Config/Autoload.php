@@ -43,7 +43,8 @@ class Autoload extends AutoloadConfig
 		APP_NAMESPACE => APPPATH, // For custom app namespace
 		'Config'      => APPPATH . 'Config',
         'Common'      => ROOTPATH.'orif/common',
-        'Welcome'     => ROOTPATH.'orif/welcome'
+        'Welcome'     => ROOTPATH.'orif/welcome',
+        'User'        => ROOTPATH.'orif/user'
 	];
 
 	/**

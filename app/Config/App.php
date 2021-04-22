@@ -108,7 +108,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $appTimezone = 'America/Chicago';
+	public $appTimezone = 'Europe/Zurich';
 
 	/**
 	 * --------------------------------------------------------------------------
@@ -151,8 +151,8 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler';
-
+    public $sessionDriver='CodeIgniter\Session\Handlers\DatabaseHandler';
+	
 	/**
 	 * --------------------------------------------------------------------------
 	 * Session Cookie Name
@@ -193,7 +193,7 @@ class App extends BaseConfig
 	 *
 	 * @var string
 	 */
-	public $sessionSavePath = WRITEPATH . 'session';
+    public $sessionSavePath = 'ci_sessions';
 
 	/**
 	 * --------------------------------------------------------------------------
