@@ -17,12 +17,26 @@ class User_model extends \CodeIgniter\Model{
     protected $useSoftDeletes=true;
     protected $deletedField="archive";
     private $user_type_model=null;
-
+    protected $validationRules;
+    protected $validationMessages;
 
     public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
     {
-        parent::__construct($db, $validation);
         $this->user_type_model=new User_type_model();
+        $this->validationRules=[
+            'id'        =>['rules'=>'cb_not_null_user'],
+            'username' =>['label'=>lang('user_lang.field_username'),'rules'=>'cb_unique_user[u]|required|trim|'.
+                'min_length['.config('\User\Config\UserConfig')->username_min_length.']|'.
+                'max_length['.config('\User\Config\UserConfig')->username_max_length.']'],
+            'fk_user_type'=>['label'=>lang('user_lang.field_usertype'),'rules'=>'required|cb_not_null_user_type'],
+            'email'=>'required|valid_email|max_length['.config("\User\Config\UserConfig")->email_max_length.']'];
+        $this->validationMessages=[
+            'id'=>['cb_not_null_user' => lang('user_lang.msg_err_user_not_exist')],
+            'username'=>['cb_unique_user' => lang('user_lang.msg_err_user_not_unique')],
+            'fk_user_type'=>['cb_not_null_user_type' => lang('user_lang.msg_err_user_type_not_exist')]
+        ];
+        parent::__construct($db, $validation);
+
     }
 
     /**

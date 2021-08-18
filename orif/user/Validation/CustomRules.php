@@ -37,10 +37,10 @@ class CustomRules
      * @param int $user_id = ID of the user if it is an update
      * @return boolean = TRUE if the username is unique, FALSE otherwise
      */
-    public function cb_unique_user($username, $user_id) : bool
+    public function cb_unique_user($username,$method='U',array $datas) : bool
     {
         $user = (new \User\Models\User_model())->withDeleted()->where('username', [$username])->first();
-        return is_null($user) || $user['id'] == $user_id;
+        return is_null($user) || $user['id']==$datas['id'];
     }
     /**
      * Checks that an user type exists

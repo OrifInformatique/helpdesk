@@ -35,11 +35,11 @@ $validation=\Config\Services::validation();
     ]);
     ?>
         <!-- ERROR MESSAGES -->
-        <?php if (! empty($validation->getErrors())) : ?>
+        <?php foreach ($errors as $error) { ?>
             <div class="alert alert-danger" role="alert">
-                <?= $validation->listErrors(); ?>
+                <?= $error ?>
             </div>
-        <?php endif ?>
+        <?php } ?>
 
         <!-- USER FIELDS -->
         <div class="row">
