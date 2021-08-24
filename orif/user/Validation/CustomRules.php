@@ -26,6 +26,12 @@ class CustomRules
     {
         return (new \User\Models\User_model())->check_password_name($user, $pwd);
     }
+
+    /**
+     * verify if the user that we would like update exists else returns error
+     * @param $user_id
+     * @return bool
+     */
     public function cb_not_null_user($user_id)
     {
         return $user_id == 0 || !is_null((new \User\Models\User_model())->withDeleted()->find($user_id));
