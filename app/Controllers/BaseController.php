@@ -130,7 +130,17 @@ class BaseController extends Controller
 
         // Display common headers
         echo view('Common\header', $data);
+
+        // Display login bar
         echo view('Common\login_bar');
+
+        // Display admin menu if appropriate
+        foreach (config('Common\Config\AdminPanelConfig')->tabs as $tab){
+            if (strstr(current_url(), $tab['pageLink'])) {
+                $data['title'] = lang($tab['title']);
+                echo view('\Common\Adminmenu');
+            }
+        }
 
         if (is_array($view_parts)) {
             // Display multiple view parts

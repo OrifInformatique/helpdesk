@@ -25,8 +25,23 @@ return[
     'btn_add'                        => 'Ajouter',
     'btn_new_m'                      => 'Nouveau',
     'btn_new_f'                      => 'Nouvelle',
+    'btn_details'                    => 'Détails',
+    'btn_edit'                       => 'Modifier',
+    'btn_disable'                    => 'Désactiver',
+    'btn_reactivate'                 => 'Réactiver',
+    'btn_show_disabled'              => 'Afficher les éléments désactivés',
+    'btn_delete'                     => 'Supprimer',
+    'btn_search'                     => 'Rechercher',
 
 // Other common texts
     'yes'                            => 'Oui',
-    'no'                             => 'Non'
+    'no'                             => 'Non',
+    'all_m'                          => 'Tous',
+    'all_f'                          => 'Toutes',
+    'reactivate'                     => 'Réactiver',
+    'initialization'                 => 'Initialisation',
+    'initialize'                     => 'Initialiser',
+    'for'                            => 'Pour',
+    'click_on_the_button'            => 'Cliquez sur le bouton',
+    'above'                          => 'Ci-dessous',
 ];
