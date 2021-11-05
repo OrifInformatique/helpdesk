@@ -77,53 +77,35 @@ class Admin extends BaseController
      */
     public function save_user($user_id = 0)
     {
-        //reset validation if already in use
-        $this->validation->reset();
         //store the user name and user type to display them again in the form
         $oldName = NULL;
         $oldUsertype = NULL;
-
+        //added user in current scope to manage its datas
+        $user=null;
         if (count($_POST) > 0) {
             $user_id = $this->request->getPost('id');
             $oldName = $this->request->getPost('user_name');
             if($_SESSION['user_id'] != $user_id) {
                 $oldUsertype = $this->request->getPost('user_usertype');
             }
+            $user = array(
+                'id'    => $user_id,
+                'fk_user_type' => intval($this->request->getPost('user_usertype')),
+                'username' => $this->request->getPost('user_name'),
+                'email' => $this->request->getPost('user_email') ?: NULL
+            );
+            if ($user_id > 0) {
+                $this->user_model->update($user_id, $user);
+            }
+            else {
+                $password = $this->request->getPost('user_password');
+                $user['password'] = password_hash($password, config('\User\Config\UserConfig')->password_hash_algorithm);
+                $this->user_model->insert($user);
 
-            $validationRules=['id'        =>['label'=>'Id','rules'=>'cb_not_null_user'],
-                              'user_name' =>['label'=>lang('user_lang.field_username'),'rules'=>'required|trim|'.
-                              'min_length['.config('\User\Config\UserConfig')->username_min_length.']|'.
-                              'max_length['.config('\User\Config\UserConfig')->username_max_length.']|'.
-                              'cb_unique_user['.$user_id.']'],
-                              'user_usertype'=>['label'=>lang('user_lang.field_usertype'),'rules'=>'required|cb_not_null_user_type']];
-            $validationErrors=['id'=>['cb_not_null_user' => lang('user_lang.msg_err_user_not_exist')],
-                'user_name'=>['cb_unique_user' => lang('user_lang.msg_err_user_not_unique')],
-                'user_usertype'=>['cb_not_null_user_type' => lang('user_lang.msg_err_user_type_not_exist')]];
-            if ($this->request->getPost('user_email')) {
-            $validationRules['user_email']=['label'=>lang('user_lang.field_email'),'rules'=>'required|valid_email|max_length['.config("\User\Config\UserConfig")->email_max_length.']'];
+
             }
-            if ($user_id==0){
-            $validationRules['user_password']=['label'=>lang('user_lang.field_password'),'rules'=>'required|trim|'.
-                'min_length['.config("\User\Config\UserConfig")->password_min_length.']|'.
-                'max_length['.config("\User\Config\UserConfig")->password_max_length.']'];
-            $validationRules['user_password_again']=['label'=>lang('user_lang.field_password_confirm'),'rules'=>'required|trim|matches[user_password]|'.
-                'min_length['.config("\User\Config\UserConfig")->password_min_length.']|'.
-                'max_length['.config("\User\Config\UserConfig")->password_max_length.']'];
-            }
-            $this->validation->setRules($validationRules,$validationErrors);
-            if ($this->validation->withRequest($this->request)->run()) {
-                $user = array(
-                    'fk_user_type' => intval($this->request->getPost('user_usertype')),
-                    'username' => $this->request->getPost('user_name'),
-                    'email' => $this->request->getPost('user_email') ?: NULL
-                );
-                if ($user_id > 0) {
-                    $this->user_model->update($user_id, $user);
-                } else {
-                    $password = $this->request->getPost('user_password');
-                    $user['password'] = password_hash($password, config('\User\Config\UserConfig')->password_hash_algorithm);
-                    $this->user_model->insert($user);
-                }
+            //In the case of errors
+            if ($this->user_model->errors()==null){
                 return redirect()->to('/user/admin/list_user');
             }
         }
@@ -135,11 +117,13 @@ class Admin extends BaseController
             $usertypes[$row['id']]=$row['name'];
         }
         $output = array(
-            'title' => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
-            'user' => $this->user_model->withDeleted()->find($user_id),
-            'user_types' => $usertypes,
-            'user_name' => $oldName,
-            'user_usertype' => $oldUsertype
+            'title'         => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
+            'user'          => $this->user_model->withDeleted()->find($user_id),
+            'user_types'    => $usertypes,
+            'user_name'     => $oldName,
+            'user_usertype' => $oldUsertype,
+            'email'         => $user['email']??null,
+            'errors'        => $this->user_model->errors()==null?[]:$this->user_model->errors()
         );
 
         $this->display_view('\User\admin\form_user', $output);

@@ -38,14 +38,15 @@ return[
 'field_usertype'                 => 'Type d\'utilisateur',
 'field_user_active'              => 'Activé',
 'field_deleted_users_display'    => 'Afficher les utilisateurs désactivés',
-'field_login_input'              => 'Nom d\'utilisateur ou e-mail',
+'field_login_input'              => 'Identifiant ou e-mail',
 
 // Error messages
 'msg_err_user_not_exist'         => 'L\'utilisateur sélectionné n\'existe pas',
 'msg_err_user_already_inactive'  => 'L\'utilisateur est déjà inactif',
 'msg_err_user_already_active'    => 'L\'utilisateur est déjà actif',
 'msg_err_user_type_not_exist'    => 'Le type d\'utilisateur n\'existe pas',
-'msg_err_user_not_unique'        => 'Ce nom d\'utilisateur est déjà utilisé, merci d\'en choisir un autre',
+'msg_err_username_not_unique'    => 'Cet identifiant est déjà utilisé, merci d\'en choisir un autre',
+'msg_err_useremail_not_unique'   => 'Cette adresse e-mail est déjà utilisée, merci d\'en choisir une autre',
 'msg_err_access_denied_header'   => 'Accès interdit',
 'msg_err_access_denied_message'  => 'Vous n\'êtes pas autorisé à accéder à cette fonction',
 'msg_err_invalid_password'       => 'L\'identifiant et le mot de passe ne sont pas valides',

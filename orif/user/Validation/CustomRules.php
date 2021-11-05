@@ -26,21 +26,39 @@ class CustomRules
     {
         return (new \User\Models\User_model())->check_password_name($user, $pwd);
     }
+
+    /**
+     * verify if the user that we would like update exists else returns error
+     * @param $user_id
+     * @return bool
+     */
     public function cb_not_null_user($user_id)
     {
         return $user_id == 0 || !is_null((new \User\Models\User_model())->withDeleted()->find($user_id));
     }
     /**
-     * Checks that a username doesn't exist
+     * Checks that a username doesn't allready exist
      *
      * @param string $username = Username to check
      * @param int $user_id = ID of the user if it is an update
      * @return boolean = TRUE if the username is unique, FALSE otherwise
      */
-    public function cb_unique_user($username, $user_id) : bool
+    public function cb_unique_username($username, $user_id) : bool
     {
         $user = (new \User\Models\User_model())->withDeleted()->where('username', [$username])->first();
-        return is_null($user) || $user['id'] == $user_id;
+        return is_null($user) || $user['id']==$user_id;
+    }
+    /**
+     * Checks that a user email doesn't allready exist
+     *
+     * @param string $useremail = user email to check
+     * @param int $user_id = ID of the user if it is an update
+     * @return boolean = TRUE if the user email is unique, FALSE otherwise
+     */
+    public function cb_unique_useremail($useremail, $user_id) : bool
+    {
+        $user = (new \User\Models\User_model())->withDeleted()->where('email', [$useremail])->first();
+        return is_null($user) || $user['id']==$user_id;
     }
     /**
      * Checks that an user type exists
