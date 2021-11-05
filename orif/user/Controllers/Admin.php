@@ -123,7 +123,7 @@ class Admin extends BaseController
             'user_name'     => $oldName,
             'user_usertype' => $oldUsertype,
             'email'         => $user['email']??null,
-            'errors'=>$this->user_model->errors()==null?[]:$this->user_model->errors()
+            'errors'        => $this->user_model->errors()==null?[]:$this->user_model->errors()
         );
 
         $this->display_view('\User\admin\form_user', $output);
