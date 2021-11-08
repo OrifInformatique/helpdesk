@@ -122,7 +122,7 @@
         </div>
     </div>
 
-    <div class="table-responsive">
+    <div id="itemsList" class="table-responsive">
         <table class="table table-striped table-hover">
             <thead>
                 <tr>
@@ -137,7 +137,7 @@
                     <?php } ?>
                 </tr>
             </thead>
-            <tbody id="itemsList">
+            <tbody>
                 <!-- One table row for each item -->
                 <?php foreach ($items as $itemEntity): ?>
                 <tr>
