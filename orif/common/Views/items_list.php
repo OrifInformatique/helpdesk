@@ -128,7 +128,7 @@
                 <tr>
                     <!-- Get columns headers from the "columns" variable -->
                     <?php foreach ($columns as $column): ?>
-                        <th scope="col"><?= esc($column) ?></th>
+                        <th scope="col"><?= $column ?></th>
                     <?php endforeach ?>
 
                     <!-- Add the "action" column (for detail/update/delete links) -->
@@ -144,7 +144,7 @@
                     <!-- Only display item's properties wich are listed in "columns" variable -->
                     <?php foreach ($itemEntity as $propertyKey => $propertyValue): 
                         if (array_key_exists($propertyKey, $columns)) {
-                            echo ('<td>'.esc($propertyValue).'</td>');
+                            echo ('<td>'.$propertyValue.'</td>');
                         }
                     endforeach ?>
                     
