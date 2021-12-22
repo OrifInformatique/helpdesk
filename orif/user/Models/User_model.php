@@ -24,8 +24,7 @@ class User_model extends \CodeIgniter\Model{
     {
         $this->user_type_model=new User_type_model();
         $this->validationRules=[
-            'id'        =>['rules'=>'cb_not_null_user'],
-            'username' =>['label'=>lang('user_lang.field_username'),'rules'=>'cb_unique_username[{id}]|required|trim|'.
+            'username'  =>['label'=>lang('user_lang.field_username'),'rules'=>'cb_unique_username[{id}]|required|trim|'.
                 'min_length['.config('\User\Config\UserConfig')->username_min_length.']|'.
                 'max_length['.config('\User\Config\UserConfig')->username_max_length.']'],
             'fk_user_type'=>['label'=>lang('user_lang.field_usertype'),'rules'=>'required|cb_not_null_user_type'],
