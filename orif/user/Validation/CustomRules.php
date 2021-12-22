@@ -28,15 +28,6 @@ class CustomRules
     }
 
     /**
-     * verify if the user that we would like update exists else returns error
-     * @param $user_id
-     * @return bool
-     */
-    public function cb_not_null_user($user_id)
-    {
-        return $user_id == 0 || !is_null((new \User\Models\User_model())->withDeleted()->find($user_id));
-    }
-    /**
      * Checks that a username doesn't allready exist
      *
      * @param string $username = Username to check
