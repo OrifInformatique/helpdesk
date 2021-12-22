@@ -94,15 +94,17 @@ class Admin extends BaseController
                 'username' => $this->request->getPost('user_name'),
                 'email' => $this->request->getPost('user_email') ?: NULL
             );
+            if($this->request->getPost('user_password_again') !== null) {
+                $user['password_confirm'] = $this->request->getPost('user_password_again');
+            }
             if ($user_id > 0) {
                 $this->user_model->update($user_id, $user);
             }
             else {
-                $password = $this->request->getPost('user_password');
-                $user['password'] = password_hash($password, config('\User\Config\UserConfig')->password_hash_algorithm);
+                $user['password'] = $this->request->getPost('user_password');
+                $user['password_confirm'] = $this->request->getPost('user_password_again');
+
                 $this->user_model->insert($user);
-
-
             }
             //In the case of errors
             if ($this->user_model->errors()==null){

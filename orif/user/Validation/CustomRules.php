@@ -24,7 +24,7 @@ class CustomRules
      */
     public function old_password_check($pwd, $user)
     {
-        return (new \User\Models\User_model())->check_password_name($user, $pwd);
+        return (new User_model())->check_password_name($user, $pwd);
     }
 
     /**
@@ -36,9 +36,10 @@ class CustomRules
      */
     public function cb_unique_username($username, $user_id) : bool
     {
-        $user = (new \User\Models\User_model())->withDeleted()->where('username', [$username])->first();
+        $user = (new User_model())->withDeleted()->where('username', [$username])->first();
         return is_null($user) || $user['id']==$user_id;
     }
+
     /**
      * Checks that a user email doesn't allready exist
      *
@@ -48,11 +49,12 @@ class CustomRules
      */
     public function cb_unique_useremail($useremail, $user_id) : bool
     {
-        $user = (new \User\Models\User_model())->withDeleted()->where('email', [$useremail])->first();
+        $user = (new User_model())->withDeleted()->where('email', [$useremail])->first();
         return is_null($user) || $user['id']==$user_id;
     }
+    
     /**
-     * Checks that an user type exists
+     * Checks that a user type exists in the database
      *
      * @param integer $user_type_id = Id of the user type to check
      * @return boolean = TRUE if the user type exists, FALSE otherwise
