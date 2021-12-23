@@ -31,6 +31,7 @@ class AddCiSessions extends \CodeIgniter\Database\Migration
         ]);
 
         $this->forge->addKey('id', TRUE);
+        $this->forge->addKey('timestamp');
         $this->forge->createTable('ci_sessions',true);
     }
 
