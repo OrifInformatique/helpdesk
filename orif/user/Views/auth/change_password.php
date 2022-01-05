@@ -15,12 +15,19 @@
             <?php
             $validation=\Config\Services::validation();
             $attributes = array("class" => "form-horizontal",
-                                    "id" => "change_password",
-                                    "name" => "change_password");
-                echo form_open("user/auth/change_password", $attributes);
+                                "id" => "change_password",
+                                "name" => "change_password");
+            echo form_open("user/auth/change_password", $attributes);
             ?>
             <fieldset>
                 <legend><?= lang('user_lang.page_my_password_change'); ?></legend>
+
+                <!-- ERROR MESSAGES -->
+                <?php foreach ($errors as $error) { ?>
+                    <div class="alert alert-danger" role="alert">
+                        <?= $error ?>
+                    </div>
+                <?php } ?>
                 
                 <div class="form-group">
                     <div class="row colbox">

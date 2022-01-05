@@ -54,7 +54,9 @@ class User_model extends \CodeIgniter\Model{
             'email'=>
                 ['cb_unique_useremail' => lang('user_lang.msg_err_useremail_not_unique')],
             'fk_user_type' =>
-                ['cb_not_null_user_type' => lang('user_lang.msg_err_user_type_not_exist')]
+                ['cb_not_null_user_type' => lang('user_lang.msg_err_user_type_not_exist')],
+            'password' =>
+                ['matches' => lang('user_lang.msg_err_password_not_matches')],
         ];
 
         parent::__construct($db, $validation);
@@ -89,8 +91,6 @@ class User_model extends \CodeIgniter\Model{
             return false;
 
         }
-
-
     }
 
     /**
