@@ -51,6 +51,7 @@ return[
 'msg_err_access_denied_message'  => 'Vous n\'êtes pas autorisé à accéder à cette fonction',
 'msg_err_invalid_password'       => 'L\'identifiant et le mot de passe ne sont pas valides',
 'msg_err_invalid_old_password'   => 'L\'ancien mot de passe n\'est pas valide',
+'msg_err_password_not_matches'   => 'Le mot de passe ne coïncide pas avec la confirmation du mot de passe.',
 
 // Error code messages
 'code_error_403'                 => '403 - Accès refusé',

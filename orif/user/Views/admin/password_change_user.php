@@ -26,31 +26,29 @@ $validation=\Config\Services::validation();
         </div>
     </div>
     
-    <!-- ERRORS -->
-    <div class="row">
-        <?php if (! empty($validation->getErrors())) : ?>
-        <div class="col-12 alert alert-danger" role="alert">
-            <?= $validation->listErrors(); ?>
+    <!-- ERROR MESSAGES -->
+    <?php foreach ($errors as $error) { ?>
+        <div class="alert alert-danger" role="alert">
+            <?= $error ?>
         </div>
-        <?php endif;?>
-    </div>
+    <?php } ?>
     
     <!-- PASSWORD -->    
     <div class="row">
         <div class="col-sm-6">
             <div class="form-group">
-                <?= form_label(lang('user_lang.field_new_password'), 'user_password_new', ['class' => 'form-label']); ?>
-                <?= form_password('user_password_new', '', [
-                    'class' => 'form-control', 'id' => 'user_password_new',
+                <?= form_label(lang('user_lang.field_new_password'), 'password_new', ['class' => 'form-label']); ?>
+                <?= form_password('password_new', '', [
+                    'class' => 'form-control', 'id' => 'password_new',
                     'maxlength' => config('\User\Config\UserConfig')->password_max_length
                 ]); ?>
             </div>
         </div>
         <div class="col-sm-6">
             <div class="form-group">
-                <?= form_label(lang('user_lang.field_password_confirm'), 'user_password_again', ['class' => 'form-label']); ?>
-                <?= form_password('user_password_again', '', [
-                    'class' => 'form-control', 'id' => 'user_password_new',
+                <?= form_label(lang('user_lang.field_password_confirm'), 'password_confirm', ['class' => 'form-label']); ?>
+                <?= form_password('password_confirm', '', [
+                    'class' => 'form-control', 'id' => 'password_confirm',
                     'maxlength' => config('\User\Config\UserConfig')->password_max_length
                 ]); ?>
             </div>

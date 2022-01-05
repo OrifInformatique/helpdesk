@@ -94,15 +94,17 @@ class Admin extends BaseController
                 'username' => $this->request->getPost('user_name'),
                 'email' => $this->request->getPost('user_email') ?: NULL
             );
+            if($this->request->getPost('user_password_again') !== null) {
+                $user['password_confirm'] = $this->request->getPost('user_password_again');
+            }
             if ($user_id > 0) {
                 $this->user_model->update($user_id, $user);
             }
             else {
-                $password = $this->request->getPost('user_password');
-                $user['password'] = password_hash($password, config('\User\Config\UserConfig')->password_hash_algorithm);
+                $user['password'] = $this->request->getPost('user_password');
+                $user['password_confirm'] = $this->request->getPost('user_password_again');
+
                 $this->user_model->insert($user);
-
-
             }
             //In the case of errors
             if ($this->user_model->errors()==null){
@@ -194,39 +196,28 @@ class Admin extends BaseController
      */
     public function password_change_user($user_id)
     {
-        if (count($_POST) > 0) {
-            $this->validation->setRules([
-                'id'=>['label'=>'id',
-                    'rules'=>'cb_not_null_user'
-                ],
-                'user_password_new'=>['label'=>lang('user_lang.field_new_password'),
-                    'rules'=>'required|trim|'.
-                'min_length['.config('\User\Config\UserConfig')->password_min_length.']|'.
-                'max_length['.config('\User\Config\UserConfig')->password_max_length.']'
-                ],
-                'user_password_again'=>['label'=>lang('user_lang.field_password_confirm'),
-                    'rules'=>'required|trim|matches[user_password_new]|'.
-                        'min_length['.config('\User\Conifg\UserConfig')->password_min_length.']|'.
-                        'max_length['.config('\User\Config\UserConfig')->password_max_length.']']
-                ],['cb_not_null_user'=>lang('user_lang.msg_err_user_not_exist')]);
+        // Get user from DB, redirect if user doesn't exist
+        $user = $this->user_model->withDeleted()->find($user_id);
+        if (is_null($user)) return redirect()->to('/user/admin/list_user');
 
+        if ($this->request->getPost('password_new') !== null) {
+            // Save new password
+            $user['password'] = $this->request->getPost('password_new');
+            $user['password_confirm'] = $this->request->getPost('password_confirm');
+            $this->user_model->update($user_id, $user);
 
-            if ($this->validation->withRequest($this->request)->run()) {
-                $password = $this->request->getPost('user_password_new');
-                $password = password_hash($password, config('\User\Config\UserConfig')->password_hash_algorithm);
-                $this->user_model->update($user_id, ['password' => $password]);
+            // If no error happened, redirect
+            if ($this->user_model->errors()==null) {
                 return redirect()->to('/user/admin/list_user');
             }
         }
 
-        $user = $this->user_model->withDeleted()->find($user_id);
-        if (is_null($user)) return redirect()->to('/user/admin/list_user');
-
+        // Display password change form
         $output = array(
             'user' => $user,
-            'title' => lang('user_lang.title_user_password_reset')
+            'title' => lang('user_lang.title_user_password_reset'),
+            'errors' => $this->user_model->errors()==null?[]:$this->user_model->errors()
         );
-
         $this->display_view('\User\admin\password_change_user', $output);
     }
 }
