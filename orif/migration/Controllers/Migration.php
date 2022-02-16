@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
 class Migration extends \App\Controllers\BaseController{
 public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
 {
+    //if user is not authenticated return to authentication view
     if (Services::session()->get('mig_authorized')!='true'){
         echo view('\Migration\migration\authentication');
         exit();
@@ -29,14 +30,19 @@ public function initController(RequestInterface $request, ResponseInterface $res
     $tempHistory=null;
     $history=null;
     $migrationFiles=[];
-    $statusFile=fopen(config('\Migration\Config\MigrationConfig')->writablePath.'/appStatus.json','r');
+    $migrationElements=[];
+
+        $statusFile=fopen(config('\Migration\Config\MigrationConfig')->writablePath.'/appStatus.json','r');
+    //verify if app is initialized
     $appstatus=(json_decode(fread($statusFile,filesize(config('\Migration\Config\MigrationConfig')->writablePath.'/appStatus.json')),true));
-    //If the application isn't initialized, read modules migration files
     foreach ($this->listDirectories(ROOTPATH.'orif') as $module){
        foreach ($module as $directoryLbl => $directory) {
            //when its Database Directory
+           //if element index is not numeric then it's a path
            if (!is_numeric($directoryLbl)) {
+               //when the iterator has reached Database directory
                if (strpos($directoryLbl,'Database')) {
+                   //list all files in migration directory and add it to $migrationFiles
                    foreach ($directory as $databaseDirectoryLbl => $databaseDirectory) {
                        if (strpos($databaseDirectoryLbl,'Migration')) {
                            $migrationFiles[$databaseDirectoryLbl] = $databaseDirectory;
@@ -46,9 +52,8 @@ public function initController(RequestInterface $request, ResponseInterface $res
            }
        }
     }
-    $migrationElements=[];
 
-
+    //form migration file get [creation_date, path, name, class, namespace, status with default value not migrated]
     foreach ($migrationFiles as $migrationModuleLbl => $migrationModuleDatas){
         foreach ($migrationModuleDatas as $migrationModuleFile){
             $file=fopen($migrationModuleLbl.'/'.$migrationModuleFile,'r');
@@ -61,16 +66,20 @@ public function initController(RequestInterface $request, ResponseInterface $res
         }
 
     }
+    //order $migrationElements array
     asort($migrationElements);
     $error=null;
+    //if error is in url store it in $error
     $this->request->getGet('error')==null?:$error=base64_decode($this->request->getGet('error'));
+    //if the app is initialized verify in the database which file is migrated
     if ($appstatus['initialized']=="true"){
         $migrationModel=new MigrationModel();
-        //verify wich has been done
         foreach($migrationElements as $migrationElementLbl=>$migrationElement){
             foreach ($migrationElement as $migrationRowLbl => $migrationRow){
+                //get class of migration element separated by \
                 $reformatedClass=(str_replace('/','\\',$migrationRow['namespace'].'\\'.$migrationRow['class']));
                 $migrationRowDb=$migrationModel->where('class',$reformatedClass)->first();
+                //if file is found on filesystem and database it means that is migrated
                 if ($migrationRowDb!==null&&$migrationRowDb['version']==$migrationRow['creation_date']){
                     $selected='history';
                     $migrationRow['status']=config('\Migration\Config\MigrationConfig')->migrate_status_migrated;
@@ -106,6 +115,12 @@ public function initController(RequestInterface $request, ResponseInterface $res
     return $this->display_view('\Migration\migration\index',['migrations'=>$migrationElements,'error'=>$error,'history'=>$history,'selected'=>isset($_COOKIE['selected'])?$_COOKIE['selected']:$selected]);
 
 }
+
+    /**
+     * This function migrate application to specified migration file in param
+     * @param $migrationElement /the migration element to migrate
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function migrate($migrationElement){
         $migrationElement=json_decode(base64_decode($migrationElement),true);
         $migrationRunner=new MigrationRunner(new Migrations());
@@ -113,12 +128,19 @@ public function initController(RequestInterface $request, ResponseInterface $res
             $migrationResult = $migrationRunner->force($migrationElement['path'], $migrationElement['namespace']);
         }catch(\Exception $e){
             $error=($e->getMessage());
+            //if error occur send it to the view in base64 format
             return redirect()->to(base_url('migration').'?error='.base64_encode($error));
         }
         return redirect()->to(base_url('migration'));
 
 
     }
+
+    /**
+     * This function roolback application state to batch number
+     * @param $batchNumber
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function rollback($batchNumber){
         $migrationRunner=new MigrationRunner(new Migrations());
         try {
@@ -130,6 +152,12 @@ public function initController(RequestInterface $request, ResponseInterface $res
         return redirect()->to(base_url('migration'));
 
     }
+
+    /**
+     * This fuction remove migration file from filesystem
+     * @param $migrationElement
+     * @return \CodeIgniter\HTTP\RedirectResponse
+     */
     public function remove($migrationElement){
 
         $migrationElement=json_decode(base64_decode($migrationElement),true);
@@ -160,6 +188,10 @@ public function initController(RequestInterface $request, ResponseInterface $res
         return redirect()->to(base_url('migration'));
 
     }
+    /**
+     * This function list all repository from a specified path
+     * @return array
+     */
     private function listDirectories(string $path){
         $directories=[];
         $directoryPtr=opendir($path);
