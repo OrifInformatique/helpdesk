@@ -13,6 +13,6 @@ use CodeIgniter\Validation\ValidationInterface;
 class MigrationModel extends \CodeIgniter\Model{
     protected $table='migrations';
     protected $primaryKey='id';
-    protected $allowedFields=['id','version','class','group','namespace','time','batch'];
+    protected $allowedFields=[];
 
 }
