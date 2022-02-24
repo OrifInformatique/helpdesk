@@ -107,11 +107,14 @@ public function initController(RequestInterface $request, ResponseInterface $res
             $history[]=$migRow;
         }
     }
-    if (isset($history))
-    foreach($history as $historyIndex => $historyRow){
-        if (!isset($historyRow['status']))
-            $historyRow['status']=config('\Migration\Config\MigrationConfig')->migrate_status_removed;
-        $history[$historyIndex]=$historyRow;
+    if (isset($history)) {
+        foreach ($history as $historyIndex => $historyRow) {
+            if (!isset($historyRow['status']))
+                $historyRow['status'] = config('\Migration\Config\MigrationConfig')->migrate_status_removed;
+            $history[$historyIndex] = $historyRow;
+        }
+        krsort($history);
+
     }
     return $this->display_view('\Migration\migration\index',['migrations'=>$migrationElements,'error'=>$error,'history'=>$history,'selected'=>isset($_COOKIE['selected'])?$_COOKIE['selected']:$selected]);
 
