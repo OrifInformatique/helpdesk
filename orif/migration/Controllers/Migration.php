@@ -20,6 +20,7 @@ public function initController(RequestInterface $request, ResponseInterface $res
     //if user is not authenticated return to authentication view
     if (Services::session()->get('mig_authorized')!='true'){
         echo view('\Migration\migration\authentication');
+        header('location:'.base_url('migration'));
         exit();
     }
     parent::initController($request, $response, $logger);

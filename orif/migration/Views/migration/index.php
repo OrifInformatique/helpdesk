@@ -5,6 +5,7 @@ use User\Database;?>
 <div class="migrationBody">
     <h1 style="padding-left: 15%">Migrations</h1>
     <?php if ($error!==null):?>
+
     <div class="alert alert-danger text-center" style="max-width: max(350px,70%);align-self: center;display: block">
         <p><?=$error?></p>
     </div>
@@ -96,4 +97,5 @@ use User\Database;?>
 
         }
     }
+    window.history.replaceState(null,null,'<?=base_url('migration')?>')
 </script>
