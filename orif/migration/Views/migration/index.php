@@ -73,6 +73,7 @@ use User\Database;?>
         }?>
         </tbody>
     </table>
+    <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger" style="max-width: 190px;margin-left: 10%;margin-block: 15px">Supprimmer le module</a>
 </div>
 
 

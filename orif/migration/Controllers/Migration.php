@@ -188,6 +188,47 @@ public function initController(RequestInterface $request, ResponseInterface $res
         return redirect()->to(base_url('migration'));
 
     }
+    public function delete_module(){
+        $this->remove_files(ROOTPATH.'orif/migration');
+        $filterFile=fopen(APPPATH.'Config/Filters.php','c+');
+        $filterContents=fread($filterFile,filesize(APPPATH.'Config/Filters.php'));
+        while(($cursorPosition=strpos($filterContents,'migration'))!=false){
+            //put the cursor to BOF
+            fseek($filterFile,0);
+            //read filter file
+            $filterContents=fread($filterFile,filesize(APPPATH.'Config/Filters.php'));
+            //reset the cursor to BOF
+            fseek($filterFile,$cursorPosition-1);
+            //remove migration first instance line and store to $datas
+            $datas=str_replace(fgets($filterFile),'',$filterContents);
+            //truncate the file
+            ftruncate($filterFile,0);
+            //reset the cursor to BOF
+            fseek($filterFile,0);
+            //write datas to file
+            fwrite($filterFile,$datas);
+            //reset the cursor to BOF
+            fseek($filterFile,0);
+            //read entire file
+            $filterContents=fread($filterFile,filesize(APPPATH.'Config/Filters.php'));
+        }
+        return redirect()->to(base_url());
+    }
+    private function remove_files($path){
+        $files=glob($path.'/*');
+        foreach($files as $file){
+            if (is_dir($file)){
+                $this->remove_files($file);
+            }
+            else{
+                unlink($file);
+            }
+        }
+        rmdir($path);
+        return;
+
+
+    }
     /**
      * This function list all repository from a specified path
      * @return array
