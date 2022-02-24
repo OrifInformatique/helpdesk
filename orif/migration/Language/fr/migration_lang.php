@@ -13,4 +13,5 @@ return[
     'wrong_credentials' => 'Identifiants invalides',
     'header_migration' => 'Migration',
     'header_history'   => 'Historique',
+    'batch_number'     => 'Numéro de batch',
 ];

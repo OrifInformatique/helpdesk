@@ -46,7 +46,7 @@ use User\Database;?>
     </table>
         <table class="table-hover table-striped migrationHistoryTable migrationTable" style="display: <?=isset($selected)&&$selected=='history'?'table':'none'?>">
         <thead>
-        <tr><th></th><th><?=lang('migration_lang.module_name')?></th><th><?=lang('migration_lang.migration_class')?></th><th><?=lang('migration_lang.migration_date')?></th><th></th></tr>
+        <tr><th></th><th><?=lang('migration_lang.module_name')?></th><th><?=lang('migration_lang.migration_class')?></th><th><?=lang('migration_lang.migration_date')?></th><th><?=lang('migration_lang.batch_number')?></th></tr>
         </thead>
         <tbody>
         <?php $i=0;
@@ -56,6 +56,7 @@ use User\Database;?>
                     <td></td>
                     <td><?=strtoupper(explode('\\',$migrationRow['class'])[0])?></td><td><?=explode('\\',$migrationRow['class'])[count(explode('\\',$migrationRow['class']))-1]?></td>
                     <td><?=isset($migrationRow['time'])?(new Time())->setTimestamp($migrationRow['time'])->toLocalizedString():'' ?></td>
+                    <td><?=($migrationRow['batch'])?></td>
                     <td>
                         <span>
                             <?php if($migrationRow['status']!=0):?>
