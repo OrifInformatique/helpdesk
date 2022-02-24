@@ -64,7 +64,7 @@ use User\Database;?>
                             <?php endif;?>
                             <?php if($migrationRow['status']!=2):?>
                                 <a href="<?=base_url('migration/remove/'.base64_encode(json_encode($migrationRow)))?>" class="btn btn-primary btn-danger"><?=lang('migration_lang.remove')?></a>
-                            <?php endif
+                            <?php endif;
                             ?>
                     </span>
                     </td>
