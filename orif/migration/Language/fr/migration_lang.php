@@ -10,5 +10,7 @@ return[
     'migration_date' => 'Date de migration',
     'initialization' => 'Initilialiser',
     'migration_connexion_explanation' => 'Pour initialiser cette application,<br>Merci de saisir votre Mot de passe',
-    'wrong_credentials' => 'Identifiants invalides'
+    'wrong_credentials' => 'Identifiants invalides',
+    'header_migration' => 'Migration',
+    'header_history'   => 'Historique',
 ];

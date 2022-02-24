@@ -12,7 +12,7 @@ use User\Database;?>
     <?php endif;?>
     <div class="migrationViewContainer">
         <div class="migrationViewHeader">
-            <span><div class="migrationViewHeaderSelector" style=" left: <?=isset($selected)&&$selected=='migration'?'50%':'10.1%'?>;"></div><h2 class="btn btn-secondary text-white " onclick="moveSelector('l')">Historique</h2><h2 class="btn btn-secondary text-white text-white" onclick="moveSelector('r')">Migration</h2></span>
+            <span><div class="migrationViewHeaderSelector" style=" left: <?=isset($selected)&&$selected=='migration'?'10.1%':'50%'?>;"></div><h2 class="btn btn-secondary text-white " onclick="moveSelector('l')"><?=lang('migration_lang.header_migration')?></h2><h2 class="btn btn-secondary text-white text-white" onclick="moveSelector('r')"><?=lang('migration_lang.header_history')?></h2></span>
         </div>
         <div class="migrationViewBody">
         </div>
@@ -83,17 +83,17 @@ use User\Database;?>
     function moveSelector(direction){
         if (direction==='r') {
             document.querySelector('.migrationViewHeaderSelector').style.left = '50%';
-            document.querySelector('.migrationTable').style.display='table'
-            document.querySelector('.migrationHistoryTable').style.display='none'
-            document.cookie = "selected=migration";
+            document.querySelector('.migrationHistoryTable').style.display='table'
+            document.querySelector('.migrationTable').style.display='none'
+            document.cookie = "selected=history";
 
         }
 
         else{
             document.querySelector('.migrationViewHeaderSelector').style.left = '10.1%';
-            document.querySelector('.migrationHistoryTable').style.display='table'
-            document.querySelector('.migrationTable').style.display='none'
-            document.cookie = `selected=history;`;
+            document.querySelector('.migrationTable').style.display='table'
+            document.querySelector('.migrationHistoryTable').style.display='none'
+            document.cookie = `selected=migration;`;
 
         }
     }
