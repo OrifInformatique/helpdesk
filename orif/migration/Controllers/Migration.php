@@ -162,9 +162,14 @@ public function initController(RequestInterface $request, ResponseInterface $res
      * @param $migrationElement
      * @return \CodeIgniter\HTTP\RedirectResponse
      */
-    public function remove($migrationElement){
-
+    public function remove($migrationElement,$action=0){
         $migrationElement=json_decode(base64_decode($migrationElement),true);
+
+        if ($action==0){
+
+            return $this->display_view('\Migration\Views\migration\delete_migration',['migration'=>$migrationElement]);
+        }
+
         foreach ($this->listDirectories(ROOTPATH.'orif'.'/'.explode('/',$migrationElement['namespace'])[0]) as $directoryName => $directory){
             if (is_dir($directoryName)&&strpos($directoryName,'Database')){
                 foreach ($directory as $directoryNameIn => $directoryIn){
