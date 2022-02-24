@@ -16,7 +16,7 @@ class AuthenticateMigration extends BaseController
         //if password is correct add mig_authorized param to session with true value and cookie
         if (password_verify($password,config('\Migration\Config\MigrationConfig')->migrationpass)){
             $session->set('mig_authorized','true');
-            setcookie('mig_authorized','true',strtotime('+1 hour'));
+            setcookie('mig_authorized','true',strtotime('+1 hour'),'','',true);
             return redirect()->to(base_url('migration'));
         }
         else{
