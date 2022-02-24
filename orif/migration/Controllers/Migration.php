@@ -73,7 +73,6 @@ public function initController(RequestInterface $request, ResponseInterface $res
     //if error is in url store it in $error
     $this->request->getGet('error')==null?:$error=base64_decode($this->request->getGet('error'));
     //if the app is initialized verify in the database which file is migrated
-    if ($appstatus['initialized']=="true"){
         $migrationModel=new MigrationModel();
         foreach($migrationElements as $migrationElementLbl=>$migrationElement){
             foreach ($migrationElement as $migrationRowLbl => $migrationRow){
@@ -106,7 +105,6 @@ public function initController(RequestInterface $request, ResponseInterface $res
             }
             $history[]=$migRow;
         }
-    }
     if (isset($history)) {
         foreach ($history as $historyIndex => $historyRow) {
             if (!isset($historyRow['status']))
