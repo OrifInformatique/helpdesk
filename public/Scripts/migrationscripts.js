@@ -115,14 +115,14 @@ async function migrateMultipleFile(){
 
 }
 async function removeMultipleFile(){
-    displaySpinner();
     const removemigrationLinks=[];
     document.querySelectorAll('.migrationTable input[type=checkbox]').forEach((checkbox)=>{
         if (checkbox.checked===true){
             const checkLine=(checkbox.closest('tr'));
             const removemigrateLink=checkLine.querySelector('a[href*="remove/"]');
             const tdCreDate=checkLine.querySelector('td:nth-of-type(4)');
-            removemigrationLinks.push({creationDate:new Date(tdCreDate.innerText).getTime(),link:removemigrateLink.getAttribute('href')+'/2'});
+            const migrationName=checkLine.querySelector('td:nth-of-type(3)').innerText;
+            removemigrationLinks.push({creationDate:new Date(tdCreDate.innerText).getTime(),link:removemigrateLink.getAttribute('href'),name:migrationName});
 
         }
     })
@@ -134,14 +134,43 @@ async function removeMultipleFile(){
             return 1
         }
     });
-    for (let i=0;i<removemigrationLinks.length;i++){
-        const migration=removemigrationLinks[i];
-        const response=await fetch(migration.link);
-        await response.text();
+    if (removemigrationLinks.length!==0&&await displayWarnings(removemigrationLinks[0].link,removemigrationLinks)) {
+        displaySpinner();
 
-        if (response.url.includes('?error')){
-            return window.location.href=response.url;
+        for (let i = 0; i < removemigrationLinks.length; i++) {
+            const migration = removemigrationLinks[i];
+            const response = await fetch(migration.link+'/2');
+            await response.text();
+
+            if (response.url.includes('?error')) {
+                return window.location.href = response.url;
+            }
         }
+        return window.location.reload(true);
     }
-    return window.location.refresh(true);
+    return window.location.reload(true);
+
+}
+async function displayWarnings(deleteMigrationLink,migrationNames){
+   return new Promise(async (resolve,reject)=>{
+
+       const response=await fetch(deleteMigrationLink);
+       const pageTxt=await response.text();
+       const page=(new DOMParser()).parseFromString(pageTxt,"text/html");
+       document.querySelector('.migrationBody').replaceChildren(page.querySelector('.container:not(#login-bar)'));
+       document.querySelector('.container:not(#login-bar) h1').innerText=document.querySelector('.container:not(#login-bar) h1').innerText.split(' ')[0]
+       migrationNames.forEach((element,index)=>{
+           document.querySelector('.container:not(#login-bar) h1').innerText=document.querySelector('.container:not(#login-bar) h1').innerText+` "${element.name}"`
+       });
+       document.querySelector('.migrationBody .btn-danger').classList.add('text-white');
+       document.querySelector('.migrationBody .btn-danger').style.cursor='pointer';
+       document.querySelector('.migrationBody .btn-danger').removeAttribute('href');
+       document.querySelector('.migrationBody .btn-danger').addEventListener('click',()=>{
+           resolve(true);
+       });
+       document.querySelector('.migrationBody .btn-default').addEventListener('click',()=>{
+           resolve(false);
+       })
+   })
+
 }
