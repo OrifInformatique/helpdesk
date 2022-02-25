@@ -17,4 +17,5 @@ return[
     'what_to_do'       => 'La suppression d\'un fichier de migration permet de le supprimmer du serveur.<br>
                            De ce fait tous moyen de rollback ou de migration seront impossible. Voulez-vous vraiment continuer ?',
     'btn_hard_delete_migration'=>'Supprimer cette migration',
+    'selected_elements' => 'Elément(s) séléctionné(s)',
 ];

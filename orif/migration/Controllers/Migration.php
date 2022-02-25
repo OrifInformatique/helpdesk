@@ -73,38 +73,40 @@ public function initController(RequestInterface $request, ResponseInterface $res
     //if error is in url store it in $error
     $this->request->getGet('error')==null?:$error=base64_decode($this->request->getGet('error'));
     //if the app is initialized verify in the database which file is migrated
-        $migrationModel=new MigrationModel();
-        foreach($migrationElements as $migrationElementLbl=>$migrationElement){
-            foreach ($migrationElement as $migrationRowLbl => $migrationRow){
-                //get class of migration element separated by \
-                $reformatedClass=(str_replace('/','\\',$migrationRow['namespace'].'\\'.$migrationRow['class']));
-                $migrationRowDb=$migrationModel->where('class',$reformatedClass)->first();
-                //if file is found on filesystem and database it means that is migrated
-                if ($migrationRowDb!==null&&$migrationRowDb['version']==$migrationRow['creation_date']){
-                    $selected='history';
-                    $migrationRow['status']=config('\Migration\Config\MigrationConfig')->migrate_status_migrated;
-                    $migrationRow['batch']=$migrationRowDb['batch'];
-                    $migrationRow['migration_date']=(new Time())->setTimestamp($migrationRowDb['time'])->toLocalizedString();
-                    $migrationElement[$migrationRowLbl]=$migrationRow;
-                }
-                $tempHistory[]=$migrationRowDb;
-            }
-            $migrationElements[$migrationElementLbl]=$migrationElement;
-        }
-        //now the history contains all presents migration on filesystem
-
-        foreach ($migrationModel->orderBy('time','desk')->findAll() as $migRow){
-            if (isset($tempHistory)) {
-                foreach ($tempHistory as $presentsRow) {
-                    if (isset($presentsRow))
-                    if ($migRow['id'] == $presentsRow['id']) {
-                        $migRow['status'] = config('\Migration\Config\MigrationConfig')->migrate_status_migrated;
+        try {
+            $migrationModel = new MigrationModel();
+            foreach ($migrationElements as $migrationElementLbl => $migrationElement) {
+                foreach ($migrationElement as $migrationRowLbl => $migrationRow) {
+                    //get class of migration element separated by \
+                    $reformatedClass = (str_replace('/', '\\', $migrationRow['namespace'] . '\\' . $migrationRow['class']));
+                    $migrationRowDb = $migrationModel->where('class', $reformatedClass)->first();
+                    //if file is found on filesystem and database it means that is migrated
+                    if ($migrationRowDb !== null && $migrationRowDb['version'] == $migrationRow['creation_date']) {
+                        $selected = 'history';
+                        $migrationRow['status'] = config('\Migration\Config\MigrationConfig')->migrate_status_migrated;
+                        $migrationRow['batch'] = $migrationRowDb['batch'];
+                        $migrationRow['migration_date'] = (new Time())->setTimestamp($migrationRowDb['time'])->toLocalizedString();
+                        $migrationElement[$migrationRowLbl] = $migrationRow;
                     }
-
+                    $tempHistory[] = $migrationRowDb;
                 }
+                $migrationElements[$migrationElementLbl] = $migrationElement;
             }
-            $history[]=$migRow;
-        }
+            //now the history contains all presents migration on filesystem
+
+            foreach ($migrationModel->orderBy('time', 'desk')->findAll() as $migRow) {
+                if (isset($tempHistory)) {
+                    foreach ($tempHistory as $presentsRow) {
+                        if (isset($presentsRow))
+                            if ($migRow['id'] == $presentsRow['id']) {
+                                $migRow['status'] = config('\Migration\Config\MigrationConfig')->migrate_status_migrated;
+                            }
+
+                    }
+                }
+                $history[] = $migRow;
+            }
+        }catch (\mysqli_sql_exception $e){}
     if (isset($history)) {
         foreach ($history as $historyIndex => $historyRow) {
             if (!isset($historyRow['status']))
@@ -196,6 +198,8 @@ public function initController(RequestInterface $request, ResponseInterface $res
 
     }
     public function delete_module(){
+        unlink(APPPATH.'../public/Scripts/migrationscripts.js');
+        rmdir(APPPATH.'../public/Scripts');
         $this->remove_files(ROOTPATH.'orif/migration');
         $filterFile=fopen(APPPATH.'Config/Filters.php','c+');
         $filterContents=fread($filterFile,filesize(APPPATH.'Config/Filters.php'));

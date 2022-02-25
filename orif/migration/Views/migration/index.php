@@ -25,7 +25,7 @@ use User\Database;?>
         <?php foreach ($migrations as $migrationmodulelbl => $migrationModuleDatas){?>
         <?php foreach($migrationModuleDatas as $migrationElement){ ?>
                 <tr>
-                    <td></td>
+                    <td><input type="checkbox" class="form-check"/> </td>
                     <td><?=strtoupper($migrationmodulelbl)?></td><td><?=substr($migrationElement['name'],0,strlen($migrationElement['name'])-4)?></td>
                     <td><?=(new Time(str_replace('-','/',$migrationElement['creation_date'])))->toLocalizedString()?></td>
                     <td>
@@ -43,9 +43,10 @@ use User\Database;?>
 
         <?php }?>
         </tbody>
+
     </table>
         <table class="table-hover table-striped migrationHistoryTable migrationTable" style="display: <?=isset($selected)&&$selected=='history'?'table':'none'?>">
-        <thead>
+            <thead>
         <tr><th></th><th><?=lang('migration_lang.module_name')?></th><th><?=lang('migration_lang.migration_class')?></th><th><?=lang('migration_lang.migration_date')?></th><th><?=lang('migration_lang.batch_number')?></th></tr>
         </thead>
         <tbody>
@@ -73,30 +74,19 @@ use User\Database;?>
         <?php
         $i++;
         }?>
+
         </tbody>
-    </table>
+        </table>
+    <span class="multipleControlMigration" style="display: none">
+        <span class="text-white"><p class="text-white migrationSelectedElement">N</p><span><?=lang('migration_lang.selected_elements')?></span></span><span class="migrationControlContainer"><span><button class="btn btn-success" onclick="migrateMultipleFile()"><?=lang('migration_lang.migrate')?></button><button class="btn btn-danger" onclick="removeMultipleFile()"><?=lang('migration_lang.remove')?></button></span></span>
+    </span>
+
     <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger" style="max-width: 190px;margin-left: 10%;margin-block: 15px">Supprimmer le module</a>
+
 </div>
 
 
-<script type="text/javascript">
-    document.querySelectorAll('#login-bar .col-sm-12.col-md-3.text-right').forEach((loginBarLink)=>{loginBarLink.remove()});
-    function moveSelector(direction){
-        if (direction==='r') {
-            document.querySelector('.migrationViewHeaderSelector').style.left = '50%';
-            document.querySelector('.migrationHistoryTable').style.display='table'
-            document.querySelector('.migrationTable').style.display='none'
-            document.cookie = "selected=history";
-
-        }
-
-        else{
-            document.querySelector('.migrationViewHeaderSelector').style.left = '10.1%';
-            document.querySelector('.migrationTable').style.display='table'
-            document.querySelector('.migrationHistoryTable').style.display='none'
-            document.cookie = `selected=migration;`;
-
-        }
-    }
-    window.history.replaceState(null,null,'<?=base_url('migration')?>')
+<script type="text/javascript" src="<?=base_url('Scripts/migrationscripts.js')?>" defer></script>
+<script defer>
+    setTimeout(()=>{initMigrationView();},100)
 </script>
