@@ -110,7 +110,7 @@ async function migrateMultipleFile(){
             return;
         }
     }
-    return window.location.refresh(true);
+    return window.location.reload(true);
 
 
 }
