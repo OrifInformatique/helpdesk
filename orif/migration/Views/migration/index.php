@@ -1,16 +1,20 @@
 <?php
-
 use CodeIgniter\I18n\Time;
 use User\Database;?>
-<div class="migrationBody">
-    <h1 style="padding-left: 15%">Migrations</h1>
-    <?php if ($error!==null):?>
 
-    <div class="alert alert-danger text-center" style="max-width: max(350px,70%);align-self: center;display: block">
-        <p><?=$error?></p>
-    </div>
+<div id="migrationBody" class="container" >
+    <!-- Page title -->
+    <h2>Migration de la base de données</h2>
+
+    <!-- Error messages -->
+    <?php if ($error!==null):?>
+        <div class="alert alert-danger text-center" style="max-width: max(350px,70%);align-self: center;display: block">
+            <p><?=$error?></p>
+        </div>
     <?php endif;?>
-    <div class="migrationViewContainer">
+
+    <!-- Applied and "to apply" migration tabs -->
+    <div class="migrationTabs">
         <div class="migrationViewHeader">
             <span><div class="migrationViewHeaderSelector" style=" left: <?=isset($selected)&&$selected=='migration'?'10.1%':'50%'?>;"></div><h2 class="btn btn-secondary text-white " onclick="moveSelector('l')"><?=lang('migration_lang.header_migration')?></h2><h2 class="btn btn-secondary text-white text-white" onclick="moveSelector('r')"><?=lang('migration_lang.header_history')?></h2></span>
         </div>
