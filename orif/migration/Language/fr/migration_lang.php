@@ -16,6 +16,6 @@ return[
     'batch_number'                      => 'Numéro de batch',
     'what_to_do'                        => 'La suppression d\'un fichier de migration permet de le supprimmer du serveur.<br>
                                             De ce fait tous moyen de rollback ou de migration seront impossible. Voulez-vous vraiment continuer ?',
-    'btn_hard_delete_migration'         => 'Supprimer',
+    'btn_hard_delete_migration'         => 'Supprimer le module',
     'selected_elements'                 => 'Elément(s) séléctionné(s)',
 ];

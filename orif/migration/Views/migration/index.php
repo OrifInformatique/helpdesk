@@ -14,14 +14,13 @@ use User\Database;?>
     <?php endif;?>
 
     <!-- Applied and "to apply" migration tabs -->
-    <div class="migrationTabs">
-        <div class="migrationViewHeader">
-            <span><div class="migrationViewHeaderSelector" style=" left: <?=isset($selected)&&$selected=='migration'?'10.1%':'50%'?>;"></div><h2 class="btn btn-secondary text-white " onclick="moveSelector('l')"><?=lang('migration_lang.header_migration')?></h2><h2 class="btn btn-secondary text-white text-white" onclick="moveSelector('r')"><?=lang('migration_lang.header_history')?></h2></span>
-        </div>
-        <div class="migrationViewBody">
-        </div>
-    </div>
-    <table class="table-hover table-striped migrationTable" style="display: <?=isset($selected)&&$selected=='migration'?'table':'none'?>">
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a aria-current="page" class="nav-link active text-primary" onclick="selectTab(event,'M')"><?=lang('migration_lang.header_migration') ?></a>
+        </li>
+        <li class="nav-item"><a class="nav-link text-primary" onclick="selectTab(event,'H')"><?=lang('migration_lang.header_history') ?></a></li>
+    </ul>
+    <table class="table-hover table-striped migrationTable col-sm-12" style="display: <?=isset($selected)&&$selected=='migration'?'table':'none'?>">
         <thead>
         <tr><th></th><th><?=lang('migration_lang.module_name')?></th><th><?=lang('migration_lang.migration_name')?></th><th><?=lang('migration_lang.creation_date')?></th><th></th></tr>
         </thead>
@@ -49,7 +48,7 @@ use User\Database;?>
         </tbody>
 
     </table>
-        <table class="table-hover table-striped migrationHistoryTable migrationTable" style="display: <?=isset($selected)&&$selected=='history'?'table':'none'?>">
+        <table class="table-hover table-striped migrationHistoryTable migrationTable col-sm-12" style="display: <?=isset($selected)&&$selected=='history'?'table':'none'?>">
             <thead>
         <tr><th></th><th><?=lang('migration_lang.module_name')?></th><th><?=lang('migration_lang.migration_class')?></th><th><?=lang('migration_lang.migration_date')?></th><th><?=lang('migration_lang.batch_number')?></th></tr>
         </thead>
@@ -85,7 +84,7 @@ use User\Database;?>
         <span class="text-white"><p class="text-white migrationSelectedElement">N</p><span><?=lang('migration_lang.selected_elements')?></span></span><span class="migrationControlContainer"><span><button class="btn btn-success" onclick="migrateMultipleFile()"><?=lang('migration_lang.migrate')?></button><button class="btn btn-danger" onclick="removeMultipleFile()"><?=lang('migration_lang.remove')?></button></span></span>
     </span>
 
-    <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger" style="max-width: 190px;margin-left: 10%;margin-block: 15px">Supprimmer le module</a>
+    <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger" style="max-width: 190px;margin-left: 10%;margin-block: 15px"><?=lang('migration_lang.btn_hard_delete_migration')?></a>
 
 </div>
 

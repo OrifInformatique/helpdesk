@@ -22,23 +22,18 @@ function initMigrationView(){
             hideMultiSelector();
         }
     });
-}
-function moveSelector(direction){
-    if (direction==='r') {
-        document.querySelector('.migrationViewHeaderSelector').style.left = '50%';
-        document.querySelector('.migrationHistoryTable').style.display='table'
-        document.querySelector('.migrationTable').style.display='none'
-        document.cookie = "selected=history";
-
-    }
-
-    else{
-        document.querySelector('.migrationViewHeaderSelector').style.left = '10.1%';
-        document.querySelector('.migrationTable').style.display='table'
-        document.querySelector('.migrationHistoryTable').style.display='none'
-        document.cookie = `selected=migration;`;
-
-    }
+    const cookies=document.cookie.split(';');
+    cookies.forEach((cookie)=>{
+        if (cookie.includes('selected')){
+            const value=cookie.split('=')[cookie.split('=').length-1];
+            if (value==='MIGRATION'){
+                document.querySelector('#migrationBody .nav.nav-tabs .nav-item:first-of-type .nav-link').click();
+            }
+            else{
+                document.querySelector('#migrationBody .nav.nav-tabs .nav-item:nth-of-type(2) .nav-link').click();
+            }
+        }
+    })
 }
 function displayMultiSelector(){
     document.querySelectorAll('.multipleControlMigration').forEach((element)=>{
@@ -75,6 +70,23 @@ function displaySpinner(){
     }
     spinner.appendChild(background);
     document.body.appendChild(spinner);
+}
+function selectTab(event,direction){
+    document.querySelectorAll('#migrationBody .nav-link.text-primary').forEach((tab)=>{
+        tab.classList.remove('active');
+    });
+    event.target.classList.add('active');
+    if (direction==='M'){
+        document.querySelector('.migrationTable:not(.migrationHistoryTable)').style.display='table';
+        document.querySelector('.migrationTable.migrationHistoryTable').style.display='none';
+        document.cookie='selected=MIGRATION';
+    }
+    else{
+        document.querySelector('.migrationTable.migrationHistoryTable').style.display='table';
+        document.querySelector('.migrationTable:not(.migrationHistoryTable)').style.display='none';
+        document.cookie='selected=HISTORY';
+    }
+
 }
 function removeSpinner(){
     document.getElementById('spinnerContainer')!==null?document.getElementById('spinnerContainer').remove():null;

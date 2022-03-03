@@ -27,7 +27,6 @@ li.nav-item {
     flex-direction: column;
 }
 .migrationTable{
-    width: max(350px,70%);align-self: center
 }
 .migrationTable tr:active{
     background-color: rgba(0,0,0,.1)!important;
@@ -105,7 +104,7 @@ li.nav-item {
 .multipleControlMigration{
     display: flex;
     justify-content: space-between;
-    width: 75%;
+    width: 100%;
     background-color: #DBCEB1;
     align-self: center;
     margin-top: 1.2rem;
