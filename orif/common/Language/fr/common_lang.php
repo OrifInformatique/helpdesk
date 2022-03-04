@@ -38,5 +38,10 @@ return[
     'no'                             => 'Non',
     'all_m'                          => 'Tous',
     'all_f'                          => 'Toutes',
-    'reactivate'                     => 'Réactiver'
+    'reactivate'                     => 'Réactiver',
+    'initialization'                 => 'Initialisation',
+    'initialize'                     => 'Initialiser',
+    'for'                            => 'Pour',
+    'click_on_the_button'            => 'Cliquez sur le bouton',
+    'above'                          => 'Ci-dessous',
 ];
