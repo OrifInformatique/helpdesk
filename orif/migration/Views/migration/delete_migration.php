@@ -15,7 +15,7 @@
                             <?= lang('common_lang.btn_cancel'); ?>
                         </a>
                         <a href="<?= base_url(uri_string().'/2'); ?>" class="btn btn-danger">
-                            <?= lang('migration_lang.btn_hard_delete_migration'); ?>
+                            <?= lang('migration_lang.remove'); ?>
                         </a>
                     </div>
             </div>

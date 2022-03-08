@@ -139,7 +139,7 @@ async function migrateMultipleFile(){
 async function removeMultipleFile(){
     const removemigrationLinks=[];
     document.querySelectorAll('.migrationTable input[type=checkbox]').forEach((checkbox)=>{
-        if (checkbox.checked===true){
+        if (checkbox.checked===true&&!checkbox.parentElement.parentElement.classList.contains('migrationModuleIndex')){
             const checkLine=(checkbox.closest('tr'));
             const removemigrateLink=checkLine.querySelector('a[href*="remove/"]');
             const tdCreDate=checkLine.querySelector('td:nth-of-type(4)');
@@ -179,18 +179,18 @@ async function displayWarnings(deleteMigrationLink,migrationNames){
        const response=await fetch(deleteMigrationLink);
        const pageTxt=await response.text();
        const page=(new DOMParser()).parseFromString(pageTxt,"text/html");
-       document.querySelector('.migrationBody').replaceChildren(page.querySelector('.container:not(#login-bar)'));
+       document.querySelector('#migrationBody').replaceChildren(page.querySelector('.container:not(#login-bar)'));
        document.querySelector('.container:not(#login-bar) h1').innerText=document.querySelector('.container:not(#login-bar) h1').innerText.split(' ')[0]
        migrationNames.forEach((element,index)=>{
            document.querySelector('.container:not(#login-bar) h1').innerText=document.querySelector('.container:not(#login-bar) h1').innerText+` "${element.name}"`
        });
-       document.querySelector('.migrationBody .btn-danger').classList.add('text-white');
-       document.querySelector('.migrationBody .btn-danger').style.cursor='pointer';
-       document.querySelector('.migrationBody .btn-danger').removeAttribute('href');
-       document.querySelector('.migrationBody .btn-danger').addEventListener('click',()=>{
+       document.querySelector('#migrationBody .btn-danger').classList.add('text-white');
+       document.querySelector('#migrationBody .btn-danger').style.cursor='pointer';
+       document.querySelector('#migrationBody .btn-danger').removeAttribute('href');
+       document.querySelector('#migrationBody .btn-danger').addEventListener('click',()=>{
            resolve(true);
        });
-       document.querySelector('.migrationBody .btn-default').addEventListener('click',()=>{
+       document.querySelector('#migrationBody .btn-default').addEventListener('click',()=>{
            resolve(false);
        })
    })
