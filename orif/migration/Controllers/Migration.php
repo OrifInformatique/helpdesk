@@ -43,6 +43,7 @@ class Migration extends \App\Controllers\BaseController{
                     if (strpos($directoryLbl,'Database')) {
                         //list all files in migration directory and add it to $migrationFiles
                         foreach ($directory as $databaseDirectoryLbl => $databaseDirectory) {
+
                             if (strpos($databaseDirectoryLbl,'Migration')) {
                                 $migrationFiles[$databaseDirectoryLbl] = $databaseDirectory;
                             }
@@ -54,9 +55,21 @@ class Migration extends \App\Controllers\BaseController{
 
         //form migration file get [creation_date, path, name, class, namespace, status with default value not migrated]
         foreach ($migrationFiles as $migrationModuleLbl => $migrationModuleDatas) {
-            foreach ($migrationModuleDatas as $migrationModuleFile) {
+            foreach ($migrationModuleDatas as $migrationInDriectoryLbl =>$migrationModuleFile) {
+                if (is_array($migrationModuleFile)){
+                    foreach ($migrationModuleFile as $migrationInFile){
+                        $ifile=fopen($migrationInDriectoryLbl.'/'.$migrationInFile,'r');
+                        $str=fread($ifile,filesize($migrationInDriectoryLbl.'/'.$migrationInFile)/2);
+                        fseek($ifile,strpos($str,'class'));
+                        $strC=fgets($ifile);
+                        $migrationElement=['creation_date'=>explode('_',$migrationInFile,2)[0],'path'=>$migrationInDriectoryLbl.'/'.$migrationInFile,'name'=>explode('_',$migrationInFile,2)[1],'class'=>substr($strC,strpos($strC,' ')+1,strpos($strC,' extends')-strpos($strC,' ')-1),'namespace'=>ucfirst(str_replace(ROOTPATH.'orif/','',$migrationInDriectoryLbl)),'status'=>config('\Migration\Config\MigrationConfig')->migrate_status_not_migrated];
+                        $migrationElements[explode('/',((explode(ROOTPATH.'orif',$migrationModuleLbl))[1]))[1]][]=$migrationElement;
+                        fclose($ifile);
+                    }
+                    continue;
+                }
                 $file=fopen($migrationModuleLbl.'/'.$migrationModuleFile,'r');
-                $str=fread($file,300);
+                $str=fread($file,filesize($migrationModuleLbl.'/'.$migrationModuleFile)/2);
                 fseek($file,strpos($str,'class'));
                 $strC=fgets($file);
                 $migrationElement=['creation_date'=>explode('_',$migrationModuleFile,2)[0],'path'=>$migrationModuleLbl.'/'.$migrationModuleFile,'name'=>explode('_',$migrationModuleFile,2)[1],'class'=>substr($strC,strpos($strC,' ')+1,strpos($strC,' extends')-strpos($strC,' ')-1),'namespace'=>ucfirst(str_replace(ROOTPATH.'orif/','',$migrationModuleLbl)),'status'=>config('\Migration\Config\MigrationConfig')->migrate_status_not_migrated];

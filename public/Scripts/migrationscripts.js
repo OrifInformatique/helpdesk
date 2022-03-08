@@ -11,7 +11,17 @@ function initMigrationView(){
         tableMigrationRow.addEventListener('click',(event)=>{
             if (event.target.tagName!=='INPUT')
                 tableMigrationRow.querySelector('input').checked=!tableMigrationRow.querySelector('input').checked;
-        })
+            if ((event.target.classList.contains('migrationModuleIndex'))||event.target.parentElement.parentElement.classList.contains('migrationModuleIndex')){
+                const moduleName=event.target.innerText===''?event.target.parentElement.parentElement.innerText:event.target.innerText;
+                const indexChecked=event.target.querySelector('input')!==null?event.target.querySelector('input').checked:event.target.parentElement.querySelector('input').checked;
+                document.querySelectorAll('.migrationTable:not(.migrationHistoryTable) tr:not(.migrationModuleIndex) td:nth-of-type(2)').forEach((moduleRowElementText)=>{
+                    if (moduleRowElementText.innerText===moduleName){
+                        moduleRowElementText.parentElement.querySelector('input').checked=indexChecked;
+                    }
+                })
+            }
+        });
+
     });
     document.querySelector('.migrationTable:not(.migrationHistoryTable)').addEventListener('click',(event)=>{
 
@@ -48,7 +58,7 @@ function hideMultiSelector(){
 }
 function countSelectedElement(){
     let count=0;
-    document.querySelectorAll('.migrationTable:not(.migrationHistoryTable) tbody tr td input').forEach((checkbox)=>{
+    document.querySelectorAll('.migrationTable:not(.migrationHistoryTable) tbody tr:not(.migrationModuleIndex) td input').forEach((checkbox)=>{
         if (checkbox.checked){
             count++;
         }
@@ -95,7 +105,7 @@ async function migrateMultipleFile(){
     displaySpinner();
 
     const migrationLinks=[];
-    document.querySelectorAll('.migrationTable input[type=checkbox]').forEach((checkbox)=>{
+    document.querySelectorAll('.migrationTable tr:not(.migrationModuleIndex) input[type=checkbox]').forEach((checkbox)=>{
         if (checkbox.checked===true){
             const checkLine=(checkbox.closest('tr'));
             const migrateLink=checkLine.querySelector('a[href*="migrate/"]');

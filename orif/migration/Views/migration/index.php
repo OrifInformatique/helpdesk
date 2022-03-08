@@ -26,6 +26,7 @@ use User\Database;?>
         </thead>
         <tbody>
         <?php foreach ($migrations as $migrationmodulelbl => $migrationModuleDatas){?>
+            <tr class="migrationModuleIndex"><td><input type="checkbox" class="form-check"/></td><td style="pointer-events: none"><?=strtoupper($migrationmodulelbl)?></td></tr>
         <?php foreach($migrationModuleDatas as $migrationElement){ ?>
                 <tr>
                     <td><input type="checkbox" class="form-check"/> </td>
