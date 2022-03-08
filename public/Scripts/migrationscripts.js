@@ -110,6 +110,7 @@ async function migrateMultipleFile(){
             const checkLine=(checkbox.closest('tr'));
             const migrateLink=checkLine.querySelector('a[href*="migrate/"]');
             const tdCreDate=checkLine.querySelector('td:nth-of-type(4)');
+            if (migrateLink!==null)
             migrationLinks.push({creationDate:new Date(tdCreDate.innerText).getTime(),link:migrateLink.getAttribute('href')});
 
         }

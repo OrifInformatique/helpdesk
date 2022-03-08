@@ -181,36 +181,23 @@ class Migration extends \App\Controllers\BaseController{
      */
     public function remove($migrationElement,$action=0){
         $migrationElement=json_decode(base64_decode($migrationElement),true);
-
         if ($action==0){
 
             return $this->display_view('\Migration\Views\migration\delete_migration',['migration'=>$migrationElement]);
         }
-
-        foreach ($this->listDirectories(ROOTPATH.'orif'.'/'.explode('/',$migrationElement['namespace'])[0]) as $directoryName => $directory){
-            if (is_dir($directoryName)&&strpos($directoryName,'Database')){
-                foreach ($directory as $directoryNameIn => $directoryIn){
-                    if (is_dir($directoryNameIn)&&strpos($directoryNameIn,'Migrations')){
-                        foreach ($directory as $migrationDirectoryName => $migrationFiles){
-                            foreach ($migrationFiles as $migrationFile){
-                                $file=fopen($migrationDirectoryName.'/'.$migrationFile,'r');
-                                $str=fread($file,300);
-                                fseek($file,strpos($str,'class'));
-                                $strC=fgets($file);
-                                $researchedClassParts=explode('\\',$migrationElement['class']);
-                                $classname=explode(' ',$strC)[1];
-                                $researchedClass=(array_pop($researchedClassParts));
-                                fclose($file);
-                                if ($classname==$researchedClass){
-                                    unlink($migrationDirectoryName.'/'.$migrationFile);
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
+        else if ($action==2){
+            $migrationDirectoryPathPart=explode('/',$migrationElement['path']);
+            unset($migrationDirectoryPathPart[count($migrationDirectoryPathPart)-1]);
+            $migrationDirectoryPath=join('/',$migrationDirectoryPathPart);
+            unlink($migrationElement['path']);
+            $directory=(array_diff(scandir($migrationDirectoryPath),['.','..']));
+            if (count($directory)==0){
+                rmdir($migrationDirectoryPath);
             }
         }
+
+
+
         return redirect()->to(base_url('migration'));
 
     }
