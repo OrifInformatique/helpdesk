@@ -65,7 +65,7 @@ use User\Database;?>
                     <td>
                         <span>
                             <?php if($migrationRow['status']!=0):?>
-                                <a href="<?=base_url('migration/rollback/'.($migrationRow['batch']-1))?>" class="btn btn-primary"><?=lang('migration_lang.rollback')?></a>
+                                <a class="btn btn-primary" onclick="displayPopup('<?=strtoupper(explode('\\',$migrationRow['class'])[0])?>','<?=explode('\\',$migrationRow['class'])[count(explode('\\',$migrationRow['class']))-1]?>','<?=($migrationRow['batch'])-1?>')"><?=lang('migration_lang.rollback')?></a>
                             <?php endif;?>
                             <?php if($migrationRow['status']!=2):?>
                                 <a href="<?=base_url('migration/remove/'.base64_encode(json_encode($migrationRow)))?>" class="btn btn-primary btn-danger"><?=lang('migration_lang.remove')?></a>

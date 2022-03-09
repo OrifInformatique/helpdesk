@@ -22,5 +22,6 @@ return[
     'migration_module_delete'           => 'Supprimer le module migration',
     'delete_module_explanation'         => 'La suppression du module effacera tous les fichier du module,<br>
                                             De ce fait tout action concernant les migrations devront se faire par commande sur le serveur<br>
-                                            Cette action est irreversible, Voulez-vous vraiment continuer ?'
+                                            Cette action est irreversible, Voulez-vous vraiment continuer ?',
+    'cancel_migration'                  => 'Cette action revient à un état antérieur à la migration séléctionnée'
 ];

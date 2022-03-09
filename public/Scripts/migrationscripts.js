@@ -106,6 +106,17 @@ function selectAllMigration(){
         element.click();
     })
 }
+function closePopup(e){
+    e.target.closest('.overlay-modal').remove();
+}
+async function displayPopup(modulename,classname,batchnumber){
+    let parser=new DOMParser();
+    const response=await fetch(window.location.href+`/showpopup/${modulename}/${classname}/${batchnumber}`);
+    let view=await response.text();
+    view=parser.parseFromString(view,'text/html');
+    document.body.appendChild(view.body);
+
+}
 async function migrateMultipleFile(){
     displaySpinner();
 

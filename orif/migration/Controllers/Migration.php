@@ -232,6 +232,9 @@ class Migration extends \App\Controllers\BaseController{
         }
         return redirect()->to(base_url());
     }
+    public function showpopup($moduleName,$class,$batchNumber){
+        return view('\Migration\Views\popup\cancel_migration_popup',['moduleName'=>$moduleName,'className'=>$class,'batchNumber'=>$batchNumber]);
+    }
     private function remove_files($path){
         $files=glob($path.'/*');
         foreach($files as $file){
