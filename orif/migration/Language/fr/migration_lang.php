@@ -18,4 +18,9 @@ return[
                                             De ce fait tous moyen de rollback ou de migration seront impossible. Voulez-vous vraiment continuer ?',
     'btn_hard_delete_migration'         => 'Supprimer le module',
     'selected_elements'                 => 'Elément(s) séléctionné(s)',
+    'select_all_migration'              => 'Séléctionner toutes les migrations',
+    'migration_module_delete'           => 'Supprimer le module migration',
+    'delete_module_explanation'         => 'La suppression du module effacera tous les fichier du module,<br>
+                                            De ce fait tout action concernant les migrations devront se faire par commande sur le serveur<br>
+                                            Cette action est irreversible, Voulez-vous vraiment continuer ?'
 ];

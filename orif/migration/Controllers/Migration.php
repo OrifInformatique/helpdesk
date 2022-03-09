@@ -201,7 +201,10 @@ class Migration extends \App\Controllers\BaseController{
         return redirect()->to(base_url('migration'));
 
     }
-    public function delete_module(){
+    public function delete_module(int $action=0){
+        if ($action!==2){
+            return $this->display_view('\Migration\Views\migration\delete_module');
+        }
         unlink(APPPATH.'../public/Scripts/migrationscripts.js');
         rmdir(APPPATH.'../public/Scripts');
         $this->remove_files(ROOTPATH.'orif/migration');

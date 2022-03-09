@@ -101,6 +101,11 @@ function selectTab(event,direction){
 function removeSpinner(){
     document.getElementById('spinnerContainer')!==null?document.getElementById('spinnerContainer').remove():null;
 }
+function selectAllMigration(){
+    document.querySelectorAll('.migrationModuleIndex').forEach((element)=>{
+        element.click();
+    })
+}
 async function migrateMultipleFile(){
     displaySpinner();
 

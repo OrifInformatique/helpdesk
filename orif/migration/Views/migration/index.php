@@ -84,9 +84,10 @@ use User\Database;?>
     <span class="multipleControlMigration" style="display: none">
         <span class="text-white"><p class="text-white migrationSelectedElement">N</p><span><?=lang('migration_lang.selected_elements')?></span></span><span class="migrationControlContainer"><span><button class="btn btn-success" onclick="migrateMultipleFile()"><?=lang('migration_lang.migrate')?></button><button class="btn btn-danger" onclick="removeMultipleFile()"><?=lang('migration_lang.remove')?></button></span></span>
     </span>
-
-    <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger" style="max-width: 190px;margin-left: 10%;margin-block: 15px"><?=lang('migration_lang.btn_hard_delete_migration')?></a>
-
+    <div class="row">
+    <a class="btn btn-primary text-white" style="margin-block: 15px;margin-inline: .75rem" onclick="selectAllMigration()"><?=lang('migration_lang.select_all_migration')?></a>
+    <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger" style="max-width: 190px;margin-block: 15px"><?=lang('migration_lang.btn_hard_delete_migration')?></a>
+    </div>
 </div>
 
 
