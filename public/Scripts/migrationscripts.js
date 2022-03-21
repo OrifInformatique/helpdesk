@@ -106,6 +106,10 @@ function selectAllMigration(){
         element.click();
     })
 }
+function migrateAllMigration(){
+    selectAllMigration();
+    migrateMultipleFile();
+}
 function closePopup(e){
     e.target.closest('.overlay-modal').remove();
 }

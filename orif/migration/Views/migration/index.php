@@ -4,8 +4,11 @@ use User\Database;?>
 
 <div id="migrationBody" class="container" >
     <!-- Page title -->
-    <h2>Migration de la base de données</h2>
-
+    <h2><?=lang("migration_lang.migration_title") ?></h2>
+    <div class="alert-danger row align-items-center justify-content-between mb-2 pl-2 pr-2">
+        <span class="text-left"><?=lang("migration_lang.delete_module_warning") ?></span>
+        <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger text-right" style="max-width: 190px;margin-block: 15px"><?=lang('migration_lang.btn_hard_delete_migration')?></a>
+    </div>
     <!-- Error messages -->
     <?php if ($error!==null):?>
         <div class="alert alert-danger text-center" style="max-width: max(350px,70%);align-self: center;display: block">
@@ -20,6 +23,16 @@ use User\Database;?>
         </li>
         <li class="nav-item"><a class="nav-link text-primary" onclick="selectTab(event,'H')"><?=lang('migration_lang.header_history') ?></a></li>
     </ul>
+    <?php foreach($migrations as $migrationModuleList) :?>
+    <?php foreach ($migrationModuleList as $migration):?>
+        <?php if ($migration['status']==0):?>
+    <div class="alert-info row align-items-center justify-content-between mt-2 mb-2 pl-2 pr-2 pb-2 pt-2">
+        <span class="text-left"><?=lang("migration_lang.migrate_all_explain") ?></span>
+        <a class="btn btn-primary text-white" style="margin-block: 15px"  onclick="migrateAllMigration()"><?=lang('migration_lang.apply_all_migrations')?></a>
+    </div>
+        <?php break;endif;?>
+    <?php endforeach;?>
+    <?php endforeach;?>
     <table class="table-hover table-striped migrationTable col-sm-12" style="display: <?=isset($selected)&&$selected=='migration'?'table':'none'?>">
         <thead>
         <tr><th></th><th><?=lang('migration_lang.module_name')?></th><th><?=lang('migration_lang.migration_name')?></th><th><?=lang('migration_lang.creation_date')?></th><th></th></tr>
@@ -84,10 +97,6 @@ use User\Database;?>
     <span class="multipleControlMigration" style="display: none">
         <span class="text-white"><p class="text-white migrationSelectedElement">N</p><span><?=lang('migration_lang.selected_elements')?></span></span><span class="migrationControlContainer"><span><button class="btn btn-success" onclick="migrateMultipleFile()"><?=lang('migration_lang.migrate')?></button><button class="btn btn-danger" onclick="removeMultipleFile()"><?=lang('migration_lang.remove')?></button></span></span>
     </span>
-    <div class="row">
-    <a class="btn btn-primary text-white" style="margin-block: 15px;margin-inline: .75rem" onclick="selectAllMigration()"><?=lang('migration_lang.select_all_migration')?></a>
-    <a href="<?=base_url('migration/delete_module/')?>" class="btn btn-danger" style="max-width: 190px;margin-block: 15px"><?=lang('migration_lang.btn_hard_delete_migration')?></a>
-    </div>
 </div>
 
 
