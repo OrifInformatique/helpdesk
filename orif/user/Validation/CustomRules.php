@@ -15,35 +15,35 @@ use User\Models\User_type_model;
 
 class CustomRules
 {
+
     /**
-     * Callback method for change_password validation rule
-     *
-     * @param string $pwd = The previous password
-     * @param string $user = The username
-     * @return boolean = Whether or not the combination is correct
-     */
-    public function old_password_check($pwd, $user)
-    {
-        return (new \User\Models\User_model())->check_password_name($user, $pwd);
-    }
-    public function cb_not_null_user($user_id)
-    {
-        return $user_id == 0 || !is_null((new \User\Models\User_model())->withDeleted()->find($user_id));
-    }
-    /**
-     * Checks that a username doesn't exist
+     * Checks that a username doesn't allready exist
      *
      * @param string $username = Username to check
      * @param int $user_id = ID of the user if it is an update
      * @return boolean = TRUE if the username is unique, FALSE otherwise
      */
-    public function cb_unique_user($username, $user_id) : bool
+    public function cb_unique_username($username, $user_id) : bool
     {
-        $user = (new \User\Models\User_model())->withDeleted()->where('username', [$username])->first();
-        return is_null($user) || $user['id'] == $user_id;
+        $user = (new User_model())->withDeleted()->where('username', [$username])->first();
+        return is_null($user) || $user['id']==$user_id;
     }
+
     /**
-     * Checks that an user type exists
+     * Checks that a user email doesn't allready exist
+     *
+     * @param string $useremail = user email to check
+     * @param int $user_id = ID of the user if it is an update
+     * @return boolean = TRUE if the user email is unique, FALSE otherwise
+     */
+    public function cb_unique_useremail($useremail, $user_id) : bool
+    {
+        $user = (new User_model())->withDeleted()->where('email', [$useremail])->first();
+        return is_null($user) || $user['id']==$user_id;
+    }
+    
+    /**
+     * Checks that a user type exists in the database
      *
      * @param integer $user_type_id = Id of the user type to check
      * @return boolean = TRUE if the user type exists, FALSE otherwise

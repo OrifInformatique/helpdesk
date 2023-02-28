@@ -35,11 +35,11 @@ $validation=\Config\Services::validation();
     ]);
     ?>
         <!-- ERROR MESSAGES -->
-        <?php if (! empty($validation->getErrors())) : ?>
+        <?php foreach ($errors as $error) { ?>
             <div class="alert alert-danger" role="alert">
-                <?= $validation->listErrors(); ?>
+                <?= $error ?>
             </div>
-        <?php endif ?>
+        <?php } ?>
 
         <!-- USER FIELDS -->
         <div class="row">
@@ -53,7 +53,7 @@ $validation=\Config\Services::validation();
                 </div>
                 <div class="form-group">
                     <?= form_label(lang('user_lang.field_email'), 'user_email', ['class' => 'form-label']); ?>
-                    <?= form_input('user_email', $user['email'] ?? '', [
+                    <?= form_input('user_email', $user['email'] ?? $email ?? '', [
                         'maxlength' => config('\User\Config\UserConfig')->email_max_length,
                         'class' => 'form-control', 'id' => 'user_email'
                     ]); ?>
