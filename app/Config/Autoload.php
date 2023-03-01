@@ -42,6 +42,10 @@ class Autoload extends AutoloadConfig
     public $psr4 = [
         APP_NAMESPACE => APPPATH, // For custom app namespace
         'Config'      => APPPATH . 'Config',
+        'Common'      => ROOTPATH.'orif/common',
+        'Welcome'     => ROOTPATH.'orif/welcome',
+        'User'        => ROOTPATH.'orif/user',
+        'Migration'   => ROOTPATH.'orif/migration',
     ];
 
     /**

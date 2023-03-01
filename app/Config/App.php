@@ -17,7 +17,7 @@ class App extends BaseConfig
      *
      *    http://example.com/
      */
-    public string $baseURL = 'http://localhost:8080/';
+    public string $baseURL = 'http://localhost/ci_packbase_v4/public/';
 
     /**
      * Allowed Hostnames in the Site URL other than the hostname in the baseURL.
@@ -71,7 +71,7 @@ class App extends BaseConfig
      * strings (like currency markers, numbers, etc), that your program
      * should run under for this request.
      */
-    public string $defaultLocale = 'en';
+    public string $defaultLocale = 'fr';
 
     /**
      * --------------------------------------------------------------------------
@@ -106,7 +106,7 @@ class App extends BaseConfig
      * The default timezone that will be used in your application to display
      * dates with the date helper, and can be retrieved through app_timezone()
      */
-    public string $appTimezone = 'UTC';
+    public string $appTimezone = 'Europe/Zurich';
 
     /**
      * --------------------------------------------------------------------------
