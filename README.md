@@ -1,62 +1,86 @@
-# CodeIgniter 4 Application Starter
+# Project Title
 
-## What is CodeIgniter?
+One Paragraph of project description goes here
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](https://codeigniter.com).
+## Getting Started
 
-This repository holds a composer-installable app starter.
-It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
-More information about the plans for version 4 can be found in [CodeIgniter 4](https://forum.codeigniter.com/forumdisplay.php?fid=28) on the forums.
+### Prerequisites
 
-The user guide corresponding to the latest version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+What things you need to install the software and how to install them
 
-## Installation & updates
+```text
+Give examples
+```
 
-`composer create-project codeigniter4/appstarter` then `composer update` whenever
-there is a new release of the framework.
+### Installing
 
-When updating, check the release notes to see if there are any changes you might need to apply
-to your `app` folder. The affected files can be copied or merged from
-`vendor/codeigniter4/framework/app`.
+A step by step series of examples that tell you how to get a development env running
 
-## Setup
+Say what the step will be
 
-Copy `env` to `.env` and tailor for your app, specifically the baseURL
-and any database settings.
+```text
+Give the example
+```
 
-## Important Change with index.php
+And repeat
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+```text
+until finished
+```
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+End with an example of getting some data out of the system or using it for a little demo
 
-**Please** read the user guide for a better explanation of how CI4 works!
+## Running the tests
 
-## Repository Management
+Explain how to run the automated tests for this system
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+### Break down into end to end tests
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
+Explain what these tests test and why
 
-## Server Requirements
+```text
+Give an example
+```
 
-PHP version 7.4 or higher is required, with the following extensions installed:
+### And coding style tests
 
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
+Explain what these tests test and why
 
-Additionally, make sure that the following extensions are enabled in your PHP:
+```text
+Give an example
+```
 
-- json (enabled by default - don't turn it off)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php) if you plan to use MySQL
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
+## Deployment
+
+Add additional notes about how to deploy this on a live system
+
+## Built With
+
+* [CodeIgniter](https://www.codeigniter.com/) - PHP framework
+* [Bootstrap](https://getbootstrap.com/) - To simplify views design
+
+## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+
+## Authors
+
+* **Orif, domaine informatique** - *Initiating and following the project* - [GitHub account](https://github.com/OrifInformatique)
+
+See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc
