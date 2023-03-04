@@ -231,6 +231,11 @@
 <!-- CONTENT -->
 
 <section>
+	<!-- Link to generic items list demo -->
+	<a href="<?= base_url("welcome/home/display_items") ?>">Afficher une démonstration de la liste générique "items_list"</a>
+</section>
+
+<section>
 
     <h1>About this page</h1>
 
