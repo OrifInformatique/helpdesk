@@ -20,8 +20,10 @@ class Mimes
 {
     /**
      * Map of extensions to mime types.
+     *
+     * @var array
      */
-    public static array $mimes = [
+    public static $mimes = [
         'hqx' => [
             'application/mac-binhex40',
             'application/mac-binhex',
@@ -53,8 +55,6 @@ class Mimes
         'lzh' => 'application/octet-stream',
         'exe' => [
             'application/octet-stream',
-            'application/vnd.microsoft.portable-executable',
-            'application/x-dosexec',
             'application/x-msdownload',
         ],
         'class' => 'application/octet-stream',
@@ -102,6 +102,8 @@ class Mimes
         ],
         'pptx' => [
             'application/vnd.openxmlformats-officedocument.presentationml.presentation',
+            'application/x-zip',
+            'application/zip',
         ],
         'wbxml' => 'application/wbxml',
         'wmlc'  => 'application/wmlc',
@@ -258,7 +260,6 @@ class Mimes
             'image/png',
             'image/x-png',
         ],
-        'webp' => 'image/webp',
         'tif'  => 'image/tiff',
         'tiff' => 'image/tiff',
         'css'  => [
@@ -508,21 +509,22 @@ class Mimes
     {
         $type = trim(strtolower($type), '. ');
 
-        $proposedExtension = trim(strtolower($proposedExtension ?? ''));
+        $proposedExtension = trim(strtolower($proposedExtension));
 
-        if (
-            $proposedExtension !== ''
-            && array_key_exists($proposedExtension, static::$mimes)
-            && in_array($type, (array) static::$mimes[$proposedExtension], true)
-        ) {
-            // The detected mime type matches with the proposed extension.
-            return $proposedExtension;
+        if ($proposedExtension !== '') {
+            if (array_key_exists($proposedExtension, static::$mimes) && in_array($type, is_string(static::$mimes[$proposedExtension]) ? [static::$mimes[$proposedExtension]] : static::$mimes[$proposedExtension], true)) {
+                // The detected mime type matches with the proposed extension.
+                return $proposedExtension;
+            }
+
+            // An extension was proposed, but the media type does not match the mime type list.
+            return null;
         }
 
         // Reverse check the mime type list if no extension was proposed.
         // This search is order sensitive!
         foreach (static::$mimes as $ext => $types) {
-            if (in_array($type, (array) $types, true)) {
+            if ((is_string($types) && $types === $type) || (is_array($types) && in_array($type, $types, true))) {
                 return $ext;
             }
         }

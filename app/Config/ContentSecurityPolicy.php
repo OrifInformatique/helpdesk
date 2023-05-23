@@ -15,32 +15,38 @@ use CodeIgniter\Config\BaseConfig;
  */
 class ContentSecurityPolicy extends BaseConfig
 {
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
     // Broadbrush CSP management
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     /**
      * Default CSP report context
+     *
+     * @var bool
      */
-    public bool $reportOnly = false;
+    public $reportOnly = false;
 
     /**
      * Specifies a URL where a browser will send reports
      * when a content security policy is violated.
+     *
+     * @var string|null
      */
-    public ?string $reportURI = null;
+    public $reportURI;
 
     /**
      * Instructs user agents to rewrite URL schemes, changing
      * HTTP to HTTPS. This directive is for websites with
      * large numbers of old URLs that need to be rewritten.
+     *
+     * @var bool
      */
-    public bool $upgradeInsecureRequests = false;
+    public $upgradeInsecureRequests = false;
 
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
     // Sources allowed
     // Note: once you set a policy to 'none', it cannot be further restricted
-    // -------------------------------------------------------------------------
+    //-------------------------------------------------------------------------
 
     /**
      * Will default to self if not overridden
@@ -158,19 +164,4 @@ class ContentSecurityPolicy extends BaseConfig
      * @var string|string[]|null
      */
     public $sandbox;
-
-    /**
-     * Nonce tag for style
-     */
-    public string $styleNonceTag = '{csp-style-nonce}';
-
-    /**
-     * Nonce tag for script
-     */
-    public string $scriptNonceTag = '{csp-script-nonce}';
-
-    /**
-     * Replace nonce tag automatically
-     */
-    public bool $autoNonce = true;
 }

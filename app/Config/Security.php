@@ -15,16 +15,7 @@ class Security extends BaseConfig
      *
      * @var string 'cookie' or 'session'
      */
-    public string $csrfProtection = 'cookie';
-
-    /**
-     * --------------------------------------------------------------------------
-     * CSRF Token Randomization
-     * --------------------------------------------------------------------------
-     *
-     * Randomize the CSRF Token for added security.
-     */
-    public bool $tokenRandomize = false;
+    public $csrfProtection = 'cookie';
 
     /**
      * --------------------------------------------------------------------------
@@ -32,8 +23,10 @@ class Security extends BaseConfig
      * --------------------------------------------------------------------------
      *
      * Token name for Cross Site Request Forgery protection.
+     *
+     * @var string
      */
-    public string $tokenName = 'csrf_test_name';
+    public $tokenName = 'csrf_test_name';
 
     /**
      * --------------------------------------------------------------------------
@@ -41,8 +34,10 @@ class Security extends BaseConfig
      * --------------------------------------------------------------------------
      *
      * Header name for Cross Site Request Forgery protection.
+     *
+     * @var string
      */
-    public string $headerName = 'X-CSRF-TOKEN';
+    public $headerName = 'X-CSRF-TOKEN';
 
     /**
      * --------------------------------------------------------------------------
@@ -50,8 +45,10 @@ class Security extends BaseConfig
      * --------------------------------------------------------------------------
      *
      * Cookie name for Cross Site Request Forgery protection.
+     *
+     * @var string
      */
-    public string $cookieName = 'csrf_cookie_name';
+    public $cookieName = 'csrf_cookie_name';
 
     /**
      * --------------------------------------------------------------------------
@@ -61,8 +58,10 @@ class Security extends BaseConfig
      * Expiration time for Cross Site Request Forgery protection cookie.
      *
      * Defaults to two hours (in seconds).
+     *
+     * @var int
      */
-    public int $expires = 7200;
+    public $expires = 7200;
 
     /**
      * --------------------------------------------------------------------------
@@ -70,8 +69,10 @@ class Security extends BaseConfig
      * --------------------------------------------------------------------------
      *
      * Regenerate CSRF Token on every submission.
+     *
+     * @var bool
      */
-    public bool $regenerate = true;
+    public $regenerate = true;
 
     /**
      * --------------------------------------------------------------------------
@@ -79,8 +80,10 @@ class Security extends BaseConfig
      * --------------------------------------------------------------------------
      *
      * Redirect to previous page with error on failure.
+     *
+     * @var bool
      */
-    public bool $redirect = false;
+    public $redirect = true;
 
     /**
      * --------------------------------------------------------------------------
@@ -95,7 +98,9 @@ class Security extends BaseConfig
      *
      * @see https://portswigger.net/web-security/csrf/samesite-cookies
      *
-     * @deprecated `Config\Cookie` $samesite property is used.
+     * @var string
+     *
+     * @deprecated
      */
-    public string $samesite = 'Lax';
+    public $samesite = 'Lax';
 }

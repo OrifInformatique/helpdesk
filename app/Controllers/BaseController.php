@@ -19,7 +19,7 @@ use Psr\Log\LoggerInterface;
  *
  * For security be sure to declare any new methods as protected or private.
  */
-abstract class BaseController extends Controller
+class BaseController extends Controller
 {
     /**
      * Instance of the main Request object.
@@ -38,12 +38,6 @@ abstract class BaseController extends Controller
     protected $helpers = [];
 
     /**
-     * Be sure to declare properties for any property fetch you initialized.
-     * The creation of dynamic property is deprecated in PHP 8.2.
-     */
-    // protected $session;
-
-    /**
      * Limit the accessibility to the entire controller.
      * Modify this value in constructor of child controllers, before calling parent::initController.
      * 
@@ -55,18 +49,20 @@ abstract class BaseController extends Controller
      */
     protected $access_level = "*";
 
-    /**
-     * Constructor.
-     */
-    public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
-    {
-        // Do Not Edit This Line
-        parent::initController($request, $response, $logger);
+	/**
+	 * Constructor.
+	 */
+	public function initController(\CodeIgniter\HTTP\RequestInterface $request, \CodeIgniter\HTTP\ResponseInterface $response, \Psr\Log\LoggerInterface $logger)
+	{
+		// Do Not Edit This Line
+		parent::initController($request, $response, $logger);
 
-        // Preload any models, libraries, etc, here.
-        // E.g.: $this->session = \Config\Services::session();
+		//--------------------------------------------------------------------
+		// Preload any models, libraries, etc, here.
+		//--------------------------------------------------------------------
+		// E.g.:
+		// $this->session = \Config\Services::session();
         $this->session = \Config\Services::session();
-        
         // Check permission on construct
         if (!$this->check_permission()) {
             $this->display_view('\User\errors\403error');
@@ -90,11 +86,9 @@ abstract class BaseController extends Controller
         if (!isset($_SESSION['logged_in'])) {
             // Tests can accidentally delete $_SESSION,
             // this makes sure it always exists.
-            $_SESSION['logged_in'] = false;
+            $_SESSION['logged_in'] = FALSE;
         }
-
         if (is_null($required_level)) {
-            // No required level is defined, use the controller's default level
             $required_level = $this->access_level;
         }
 
