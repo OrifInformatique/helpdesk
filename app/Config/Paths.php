@@ -22,8 +22,10 @@ class Paths
      *
      * This must contain the name of your "system" folder. Include
      * the path if the folder is not in the same directory as this file.
+     *
+     * @var string
      */
-    public string $systemDirectory = __DIR__ . '/../../vendor/codeigniter4/framework/system';
+    public $systemDirectory = __DIR__ . '/../../system';
 
     /**
      * ---------------------------------------------------------------
@@ -32,12 +34,14 @@ class Paths
      *
      * If you want this front controller to use a different "app"
      * folder than the default one you can set its name here. The folder
-     * can also be renamed or relocated anywhere on your server. If
-     * you do, use a full server path.
+     * can also be renamed or relocated anywhere on your getServer. If
+     * you do, use a full getServer path.
      *
      * @see http://codeigniter.com/user_guide/general/managing_apps.html
+     *
+     * @var string
      */
-    public string $appDirectory = __DIR__ . '/..';
+    public $appDirectory = __DIR__ . '/..';
 
     /**
      * ---------------------------------------------------------------
@@ -49,8 +53,10 @@ class Paths
      * need write permission to a single place that can be tucked away
      * for maximum security, keeping it out of the app and/or
      * system directories.
+     *
+     * @var string
      */
-    public string $writableDirectory = __DIR__ . '/../../writable';
+    public $writableDirectory = __DIR__ . '/../../writable';
 
     /**
      * ---------------------------------------------------------------
@@ -58,8 +64,10 @@ class Paths
      * ---------------------------------------------------------------
      *
      * This variable must contain the name of your "tests" directory.
+     *
+     * @var string
      */
-    public string $testsDirectory = __DIR__ . '/../../tests';
+    public $testsDirectory = __DIR__ . '/../../tests';
 
     /**
      * ---------------------------------------------------------------
@@ -70,6 +78,8 @@ class Paths
      * contains the view files used by your application. By
      * default this is in `app/Views`. This value
      * is used when no value is provided to `Services::renderer()`.
+     *
+     * @var string
      */
-    public string $viewDirectory = __DIR__ . '/../Views';
+    public $viewDirectory = __DIR__ . '/../Views';
 }

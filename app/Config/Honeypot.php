@@ -8,35 +8,36 @@ class Honeypot extends BaseConfig
 {
     /**
      * Makes Honeypot visible or not to human
+     *
+     * @var bool
      */
-    public bool $hidden = true;
+    public $hidden = true;
 
     /**
      * Honeypot Label Content
+     *
+     * @var string
      */
-    public string $label = 'Fill This Field';
+    public $label = 'Fill This Field';
 
     /**
      * Honeypot Field Name
+     *
+     * @var string
      */
-    public string $name = 'honeypot';
+    public $name = 'honeypot';
 
     /**
      * Honeypot HTML Template
+     *
+     * @var string
      */
-    public string $template = '<label>{label}</label><input type="text" name="{name}" value="">';
+    public $template = '<label>{label}</label><input type="text" name="{name}" value=""/>';
 
     /**
      * Honeypot container
      *
-     * If you enabled CSP, you can remove `style="display:none"`.
+     * @var string
      */
-    public string $container = '<div style="display:none">{template}</div>';
-
-    /**
-     * The id attribute for Honeypot container tag
-     *
-     * Used when CSP is enabled.
-     */
-    public string $containerId = 'hpc';
+    public $container = '<div style="display:none">{template}</div>';
 }

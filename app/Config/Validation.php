@@ -2,17 +2,17 @@
 
 namespace Config;
 
-use CodeIgniter\Config\BaseConfig;
-use CodeIgniter\Validation\StrictRules\CreditCardRules;
-use CodeIgniter\Validation\StrictRules\FileRules;
-use CodeIgniter\Validation\StrictRules\FormatRules;
-use CodeIgniter\Validation\StrictRules\Rules;
+use CodeIgniter\Validation\CreditCardRules;
+use CodeIgniter\Validation\FileRules;
+use CodeIgniter\Validation\FormatRules;
+use CodeIgniter\Validation\Rules;
+use User\Validation\CustomRules;
 
-class Validation extends BaseConfig
+class Validation
 {
-    // --------------------------------------------------------------------
+    //--------------------------------------------------------------------
     // Setup
-    // --------------------------------------------------------------------
+    //--------------------------------------------------------------------
 
     /**
      * Stores the classes that contain the
@@ -20,11 +20,12 @@ class Validation extends BaseConfig
      *
      * @var string[]
      */
-    public array $ruleSets = [
+    public $ruleSets = [
         Rules::class,
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
+        CustomRules::class
     ];
 
     /**
@@ -33,12 +34,12 @@ class Validation extends BaseConfig
      *
      * @var array<string, string>
      */
-    public array $templates = [
+    public $templates = [
         'list'   => 'CodeIgniter\Validation\Views\list',
         'single' => 'CodeIgniter\Validation\Views\single',
     ];
 
-    // --------------------------------------------------------------------
+    //--------------------------------------------------------------------
     // Rules
-    // --------------------------------------------------------------------
+    //--------------------------------------------------------------------
 }

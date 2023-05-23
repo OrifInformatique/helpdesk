@@ -31,22 +31,23 @@ class Autoload extends AutoloadConfig
      * else you will need to modify all of those classes for this to work.
      *
      * Prototype:
+     *```
      *   $psr4 = [
      *       'CodeIgniter' => SYSTEMPATH,
-     *       'App'         => APPPATH
+     *       'App'	       => APPPATH
      *   ];
+     *```
      *
-     * @var array<string, array<int, string>|string>
-     * @phpstan-var array<string, string|list<string>>
+     * @var array<string, string>
      */
     public $psr4 = [
-        APP_NAMESPACE => APPPATH, // For custom app namespace
-        'Config'      => APPPATH . 'Config',
+		APP_NAMESPACE => APPPATH, // For custom app namespace
+		'Config'      => APPPATH . 'Config',
         'Common'      => ROOTPATH.'orif/common',
-        'Welcome'     => ROOTPATH.'orif/welcome',
+        'Helpdesk'     => ROOTPATH.'orif/helpdesk',
         'User'        => ROOTPATH.'orif/user',
-        'Migration'   => ROOTPATH.'orif/migration',
-    ];
+        'Migration'   => ROOTPATH.'orif/migration'
+	];
 
     /**
      * -------------------------------------------------------------------
@@ -59,9 +60,11 @@ class Autoload extends AutoloadConfig
      * were being autoloaded through a namespace.
      *
      * Prototype:
+     *```
      *   $classmap = [
      *       'MyClass'   => '/path/to/class/file.php'
      *   ];
+     *```
      *
      * @var array<string, string>
      */
@@ -76,26 +79,13 @@ class Autoload extends AutoloadConfig
      * or for loading functions.
      *
      * Prototype:
-     *   $files = [
-     *       '/path/to/my/file.php',
-     *   ];
+     * ```
+     *	  $files = [
+     *	 	   '/path/to/my/file.php',
+     *    ];
+     * ```
      *
-     * @var string[]
-     * @phpstan-var list<string>
+     * @var array<int, string>
      */
     public $files = [];
-
-    /**
-     * -------------------------------------------------------------------
-     * Helpers
-     * -------------------------------------------------------------------
-     * Prototype:
-     *   $helpers = [
-     *       'form',
-     *   ];
-     *
-     * @var string[]
-     * @phpstan-var list<string>
-     */
-    public $helpers = [];
 }
