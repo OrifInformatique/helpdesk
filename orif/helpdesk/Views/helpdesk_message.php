@@ -8,25 +8,6 @@
  */
 ?>
 
-<script>
-  // Import the functions you need from the SDKs you need
-import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyA_uxxlYWDEbuzX5Fqr8B_hEpxmib9Cxpg",
-  authDomain: "helpdesk-52638.firebaseapp.com",
-  projectId: "helpdesk-52638",
-  storageBucket: "helpdesk-52638.appspot.com",
-  messagingSenderId: "442346166412",
-  appId: "1:442346166412:web:4cbe49ac41664fe0a383a9"
-};
-
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-</script>
 
 <style>
   table {
@@ -81,7 +62,7 @@ const app = initializeApp(firebaseConfig);
   <a class="btn btn-primary mb-3" href="<?=base_url('helpdesk/home/presence')?>">Presence personnel</a>
 
   <div class="d-flex justify-content-center">
-    <div class="bg-green border border-xs-1 p-2 rounded-3 mx-4">Technicien d'astreinte</div> <!-- c5deb5 -->
+    <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">Technicien d'astreinte</div> <!-- c5deb5 -->
     <div class="bg-yellow border-xs-1 p-2 rounded rounded-3 mx-4">Technicien de backup</div> <!-- e5f874 -->
     <div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-4">Technicien de réserve</div> <!-- ffd965 -->
   </div>

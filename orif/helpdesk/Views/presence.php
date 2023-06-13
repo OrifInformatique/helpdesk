@@ -1,4 +1,6 @@
 <?php
+
+
 /**
  * welcome_message view
  *
@@ -15,7 +17,8 @@
 		width: auto;
 	}
 
-	th, td {
+	th,
+	td {
 		padding: 8px;
 		text-align: center;
 		border: 1px solid #ddd;
@@ -55,30 +58,30 @@
 		left: -9999px;
 	}
 
-	.container label input:checked + span.present {
+	.container label input:checked+span.present {
 		background-color: green;
 		color: white;
 	}
 
-	.container label input:checked + span.present:before {
+	.container label input:checked+span.present:before {
 		box-shadow: inset 0 0 0 0.4375em darkgreen;
 	}
 
-	.container label input:checked + span.absent-partie {
+	.container label input:checked+span.absent-partie {
 		background-color: orange;
 		color: white;
 	}
 
-	.container label input:checked + span.absent-partie:before {
+	.container label input:checked+span.absent-partie:before {
 		box-shadow: inset 0 0 0 0.4375em darkorange;
 	}
 
-	.container label input:checked + span.absent {
+	.container label input:checked+span.absent {
 		background-color: red;
 		color: white;
 	}
 
-	.container label input:checked + span.absent:before {
+	.container label input:checked+span.absent:before {
 		box-shadow: inset 0 0 0 0.4375em darkred;
 	}
 
@@ -107,19 +110,15 @@
 		transition: 0.25s ease;
 		box-shadow: inset 0 0 0 0.125em #004683;
 	}
-	
-
-
-
 </style>
 
 <div class="container-fluid">
 
-	<a class="btn btn-primary mb-3" href="<?=base_url('helpdesk/home')?>">Retour</a>
+	<a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
 
-	<form method="POST" action="">
-		<a class="btn btn-info mb-3" href="<?=base_url('savePresence')?>">Enregistrer</a>
-		
+	<form method="POST" action="<?= base_url('helpdesk/home/savePresence') ?>">
+		<input class="btn btn-info" type="submit" value="Enregistrer">
+
 		<!-- lundi -->
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
@@ -140,77 +139,69 @@
 							<!-- lundi 8:00 10:00 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="lundi_debut_matin" id="lundi_debut_matin1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_debut_matin" id="lundi_debut_matin2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_debut_matin" id="lundi_debut_matin3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="lundi_debut_matin" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_debut_matin" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_debut_matin" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 							<!-- lundi 10:00 12:00 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="lundi_fin_matin" id="lundi_fin_matin1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_fin_matin" id="lundi_fin_matin2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_fin_matin" id="lundi_fin_matin3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="lundi_fin_matin" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_fin_matin" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_fin_matin" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 							<!-- lundi 12:45 15:00 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="lundi_debut_apres-midi" id="lundi_debut_apres-midi1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_debut_apres-midi" id="lundi_debut_apres-midi2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_debut_apres-midi" id="lundi_debut_apres-midi3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="lundi_debut_apres-midi" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_debut_apres-midi" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_debut_apres-midi" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 							<!-- lundi 15:00 16:57 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="lundi_fin_apres-midi" id="lundi_fin_apres-midi1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_fin_apres-midi" id="lundi_fin_apres-midi2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="lundi_fin_apres-midi" id="lundi_fin_apres-midi3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="lundi_fin_apres-midi" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_fin_apres-midi" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="lundi_fin_apres-midi" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 						</tr>
@@ -238,77 +229,69 @@
 							<!-- mardi 8:00 10:00 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="mardi_debut_matin" id="mardi_debut_matin1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_debut_matin" id="mardi_debut_matin2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_debut_matin" id="mardi_debut_matin3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="mardi_debut_matin" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_debut_matin" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_debut_matin" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 							<!-- mardi 10:00 12:00 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="mardi_fin_matin" id="mardi_fin_matin1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_fin_matin" id="mardi_fin_matin2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_fin_matin" id="mardi_fin_matin3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="mardi_fin_matin" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_fin_matin" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_fin_matin" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 							<!-- mardi 12:45 15:00 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="mardi_debut_apres-midi" id="mardi_debut_apres-midi1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_debut_apres-midi" id="mardi_debut_apres-midi2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_debut_apres-midi" id="mardi_debut_apres-midi3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="mardi_debut_apres-midi" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_debut_apres-midi" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_debut_apres-midi" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 							<!-- mardi 15:00 16:57 -->
 							<td>
 								<div class="container">
-									<form>
-										<label>
-											<input class="input" type="radio" name="mardi_fin_apres-midi" id="mardi_fin_apres-midi1">
-											<span class="button present">Present</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_fin_apres-midi" id="mardi_fin_apres-midi2">
-											<span class="button absent-partie">Absent en partie</span>
-										</label>
-										<label>
-											<input class="input" type="radio" name="mardi_fin_apres-midi" id="mardi_fin_apres-midi3">
-											<span class="button absent">Absent</span>
-										</label>
-									</form>
+									<label>
+										<input class="input" type="radio" name="mardi_fin_apres-midi" value="1">
+										<span class="button present">Présent</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_fin_apres-midi" value="2">
+										<span class="button absent-partie">Absent en partie</span>
+									</label>
+									<label>
+										<input class="input" type="radio" name="mardi_fin_apres-midi" value="3">
+										<span class="button absent">Absent</span>
+									</label>
 								</div>
 							</td>
 						</tr>
@@ -335,77 +318,69 @@
 						<!-- mercredi 8:00 10:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="mercredi_debut_matin" id="mercredi_debut_matin1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_debut_matin" id="mercredi_debut_matin2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_debut_matin" id="mercredi_debut_matin3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="mercredi_debut_matin" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_debut_matin" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_debut_matin" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- mercredi 10:00 12:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="mercredi_fin_matin" id="mercredi_fin_matin1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_fin_matin" id="mercredi_fin_matin2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_fin_matin" id="mercredi_fin_matin3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="mercredi_fin_matin" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_fin_matin" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_fin_matin" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- mercredi 12:45 15:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="mercredi_debut_apres-midi" id="mercredi_debut_apres-midi1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_debut_apres-midi" id="mercredi_debut_apres-midi2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_debut_apres-midi" id="mercredi_debut_apres-midi3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="mercredi_debut_apres-midi" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_debut_apres-midi" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_debut_apres-midi" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- mercredi 15:00 16:57 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="mercredi_fin_apres-midi" id="mercredi_fin_apres-midi1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_fin_apres-midi" id="mercredi_fin_apres-midi2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="mercredi_fin_apres-midi" id="mercredi_fin_apres-midi3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="mercredi_fin_apres-midi" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_fin_apres-midi" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="mercredi_fin_apres-midi" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 					</tbody>
@@ -431,77 +406,69 @@
 						<!-- jeudi 8:00 10:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="jeudi_debut_matin" id="jeudi_debut_matin1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_debut_matin" id="jeudi_debut_matin2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_debut_matin" id="jeudi_debut_matin3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="jeudi_debut_matin" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_debut_matin" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_debut_matin" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- jeudi 10:00 12:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="jeudi_fin_matin" id="jeudi_fin_matin1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_fin_matin" id="jeudi_fin_matin2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_fin_matin" id="jeudi_fin_matin3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="jeudi_fin_matin" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_fin_matin" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_fin_matin" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- jeudi 12:45 15:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="jeudi_debut_apres-midi" id="jeudi_debut_apres-midi1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_debut_apres-midi" id="jeudi_debut_apres-midi2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_debut_apres-midi" id="jeudi_debut_apres-midi3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="jeudi_debut_apres-midi" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_debut_apres-midi" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_debut_apres-midi" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- jeudi 15:00 16:57 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="jeudi_fin_apres-midi" id="jeudi_fin_apres-midi1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_fin_apres-midi" id="jeudi_fin_apres-midi2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="jeudi_fin_apres-midi" id="jeudi_fin_apres-midi3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="jeudi_fin_apres-midi" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_fin_apres-midi" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="jeudi_fin_apres-midi" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 					</tbody>
@@ -514,7 +481,7 @@
 				<table>
 					<thead>
 						<tr>
-						<th colspan="4">Vendredi</th>
+							<th colspan="4">Vendredi</th>
 						</tr>
 						<tr>
 							<th>8:00 - 10:00</th>
@@ -527,77 +494,69 @@
 						<!-- vendredi 8:00 10:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="vendredi_debut_matin" id="vendredi_debut_matin1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_debut_matin" id="vendredi_debut_matin2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_debut_matin" id="vendredi_debut_matin3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="vendredi_debut_matin" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_debut_matin" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_debut_matin" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- vendredi 10:00 12:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="vendredi_fin_matin" id="vendredi_fin_matin1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_fin_matin" id="vendredi_fin_matin2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_fin_matin" id="vendredi_fin_matin3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="vendredi_fin_matin" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_fin_matin" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_fin_matin" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- vendredi 12:45 15:00 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="vendredi_debut_apres-midi" id="vendredi_debut_apres-midi1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_debut_apres-midi" id="vendredi_debut_apres-midi2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_debut_apres-midi" id="vendredi_debut_apres-midi3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="vendredi_debut_apres-midi" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_debut_apres-midi" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_debut_apres-midi" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 						<!-- vendredi 15:00 16:57 -->
 						<td>
 							<div class="container">
-								<form>
-									<label>
-										<input class="input" type="radio" name="vendredi_fin_apres-midi" id="vendredi_fin_apres-midi1">
-										<span class="button present">Present</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_fin_apres-midi" id="vendredi_fin_apres-midi2">
-										<span class="button absent-partie">Absent en partie</span>
-									</label>
-									<label>
-										<input class="input" type="radio" name="vendredi_fin_apres-midi" id="vendredi_fin_apres-midi3">
-										<span class="button absent">Absent</span>
-									</label>
-								</form>
+								<label>
+									<input class="input" type="radio" name="vendredi_fin_apres-midi" value="1">
+									<span class="button present">Présent</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_fin_apres-midi" value="2">
+									<span class="button absent-partie">Absent en partie</span>
+								</label>
+								<label>
+									<input class="input" type="radio" name="vendredi_fin_apres-midi" value="3">
+									<span class="button absent">Absent</span>
+								</label>
 							</div>
 						</td>
 					</tbody>
