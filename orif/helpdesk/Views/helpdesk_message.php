@@ -1,4 +1,5 @@
 <?php
+
 /**
  * welcome_message view
  *
@@ -13,9 +14,10 @@
   table {
     border-collapse: collapse;
     width: 100%;
-    }
+  }
 
-  th, td {
+  th,
+  td {
     padding: 8px;
     text-align: center;
     border: 1px solid #ddd;
@@ -53,13 +55,11 @@
   .bg-orange {
     background-color: #ffd965;
   }
-
-  
 </style>
 
 <div class="container-fluid">
 
-  <a class="btn btn-primary mb-3" href="<?=base_url('helpdesk/home/presence')?>">Presence personnel</a>
+  <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>">Presence personnel</a>
 
   <div class="d-flex justify-content-center">
     <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">Technicien d'astreinte</div> <!-- c5deb5 -->
@@ -68,12 +68,12 @@
   </div>
 
   <div class="week">
-    Planning de la semaine du 
+    Planning de la semaine du
     <span class="start-date">
       <!-- Affiche le lundi de la semaine en cours -->
       <?php echo date('d/m/Y', strtotime('last monday')); ?>
     </span>
-    au 
+    au
     <span class="end-date">
       <!-- Affiche le vendredi de la semaine en cours -->
       <?php echo date('d/m/Y', strtotime('friday')); ?>

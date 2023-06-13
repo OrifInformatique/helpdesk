@@ -10,7 +10,7 @@ use Helpdesk\Models\Presence_model;
 
 class Home extends BaseController
 {
-    
+
     protected $session;
 
     protected $presence_model;
@@ -47,7 +47,7 @@ class Home extends BaseController
         $data = [];
         if (!empty($_POST)) {
             d($_POST);
-            
+
             $data = [
                 'fk_user_id' => $_SESSION['user_id'],
 
@@ -75,18 +75,16 @@ class Home extends BaseController
                 'fk_vendredi_m2' => $_POST['vendredi_fin_matin'],
                 'fk_vendredi_a1' => $_POST['vendredi_debut_apres-midi'],
                 'fk_vendredi_a2' => $_POST['vendredi_fin_apres-midi']
-                
+
             ];
 
-            
             $this->presence_model->insert($data);
 
+            $this->display_view('Helpdesk\presence', $data);
+        } else {
 
-            
-
-        } else 
-        {
             dd('dgvdvd');
+
         }
     }
 }
