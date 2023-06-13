@@ -33,8 +33,8 @@ class Home extends BaseController
 
     public function presence()
     {
-        if (isset($_SESSION['user_id'])) {
-            $data['title'] = "Presence Apprentie";
+        if(isset($_SESSION['user_id'])) {
+            $data['title'] = "Presence Apprentis";
 
             $this->display_view('Helpdesk\presence', $data);
         } else {
