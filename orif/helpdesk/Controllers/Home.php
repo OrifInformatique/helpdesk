@@ -46,41 +46,84 @@ class Home extends BaseController
     {
         $data = [];
         if (!empty($_POST)) {
-            d($_POST);
 
-            $data = [
-                'fk_user_id' => $_SESSION['user_id'],
+            $user_id = $_SESSION['user_id'];
 
-                'fk_lundi_m1' => $_POST['lundi_debut_matin'],
-                'fk_lundi_m2' => $_POST['lundi_fin_matin'],
-                'fk_lundi_a1' => $_POST['lundi_debut_apres-midi'],
-                'fk_lundi_a2' => $_POST['lundi_fin_apres-midi'],
+            // Vérifier si les informations existent déjà dans la base de données
+            $presenceExists = $this->presence_model->checkPresenceExistence($user_id);
 
-                'fk_mardi_m1' => $_POST['mardi_debut_matin'],
-                'fk_mardi_m2' => $_POST['mardi_fin_matin'],
-                'fk_mardi_a1' => $_POST['mardi_debut_apres-midi'],
-                'fk_mardi_a2' => $_POST['mardi_fin_apres-midi'],
 
-                'fk_mercredI_m1' => $_POST['mercredi_debut_matin'],
-                'fk_mercredI_m2' => $_POST['mercredi_fin_matin'],
-                'fk_mercredI_a1' => $_POST['mercredi_debut_apres-midi'],
-                'fk_mercredI_a2' => $_POST['mercredi_fin_apres-midi'],
+            if ($presenceExists) {
+                $data = [
+                    'fk_user_id' => $_SESSION['user_id'],
 
-                'fk_jeudi_m1' => $_POST['jeudi_debut_matin'],
-                'fk_jeudi_m2' => $_POST['jeudi_fin_matin'],
-                'fk_jeudi_a1' => $_POST['jeudi_debut_apres-midi'],
-                'fk_jeudi_a2' => $_POST['jeudi_fin_apres-midi'],
+                    'fk_lundi_m1' => $_POST['lundi_debut_matin'],
+                    'fk_lundi_m2' => $_POST['lundi_fin_matin'],
+                    'fk_lundi_a1' => $_POST['lundi_debut_apres-midi'],
+                    'fk_lundi_a2' => $_POST['lundi_fin_apres-midi'],
 
-                'fk_vendredi_m1' => $_POST['vendredi_debut_matin'],
-                'fk_vendredi_m2' => $_POST['vendredi_fin_matin'],
-                'fk_vendredi_a1' => $_POST['vendredi_debut_apres-midi'],
-                'fk_vendredi_a2' => $_POST['vendredi_fin_apres-midi']
+                    'fk_mardi_m1' => $_POST['mardi_debut_matin'],
+                    'fk_mardi_m2' => $_POST['mardi_fin_matin'],
+                    'fk_mardi_a1' => $_POST['mardi_debut_apres-midi'],
+                    'fk_mardi_a2' => $_POST['mardi_fin_apres-midi'],
 
-            ];
+                    'fk_mercredI_m1' => $_POST['mercredi_debut_matin'],
+                    'fk_mercredI_m2' => $_POST['mercredi_fin_matin'],
+                    'fk_mercredI_a1' => $_POST['mercredi_debut_apres-midi'],
+                    'fk_mercredI_a2' => $_POST['mercredi_fin_apres-midi'],
 
-            $this->presence_model->insert($data);
+                    'fk_jeudi_m1' => $_POST['jeudi_debut_matin'],
+                    'fk_jeudi_m2' => $_POST['jeudi_fin_matin'],
+                    'fk_jeudi_a1' => $_POST['jeudi_debut_apres-midi'],
+                    'fk_jeudi_a2' => $_POST['jeudi_fin_apres-midi'],
 
-            $this->display_view('Helpdesk\presence', $data);
+                    'fk_vendredi_m1' => $_POST['vendredi_debut_matin'],
+                    'fk_vendredi_m2' => $_POST['vendredi_fin_matin'],
+                    'fk_vendredi_a1' => $_POST['vendredi_debut_apres-midi'],
+                    'fk_vendredi_a2' => $_POST['vendredi_fin_apres-midi']
+
+                ];
+
+                $this->presence_model->update($data, $user_id);
+
+                $this->display_view('Helpdesk\presence', $data);
+
+            }
+            else {
+                $data = [
+                    'fk_user_id' => $_SESSION['user_id'],
+
+                    'fk_lundi_m1' => $_POST['lundi_debut_matin'],
+                    'fk_lundi_m2' => $_POST['lundi_fin_matin'],
+                    'fk_lundi_a1' => $_POST['lundi_debut_apres-midi'],
+                    'fk_lundi_a2' => $_POST['lundi_fin_apres-midi'],
+
+                    'fk_mardi_m1' => $_POST['mardi_debut_matin'],
+                    'fk_mardi_m2' => $_POST['mardi_fin_matin'],
+                    'fk_mardi_a1' => $_POST['mardi_debut_apres-midi'],
+                    'fk_mardi_a2' => $_POST['mardi_fin_apres-midi'],
+
+                    'fk_mercredI_m1' => $_POST['mercredi_debut_matin'],
+                    'fk_mercredI_m2' => $_POST['mercredi_fin_matin'],
+                    'fk_mercredI_a1' => $_POST['mercredi_debut_apres-midi'],
+                    'fk_mercredI_a2' => $_POST['mercredi_fin_apres-midi'],
+
+                    'fk_jeudi_m1' => $_POST['jeudi_debut_matin'],
+                    'fk_jeudi_m2' => $_POST['jeudi_fin_matin'],
+                    'fk_jeudi_a1' => $_POST['jeudi_debut_apres-midi'],
+                    'fk_jeudi_a2' => $_POST['jeudi_fin_apres-midi'],
+
+                    'fk_vendredi_m1' => $_POST['vendredi_debut_matin'],
+                    'fk_vendredi_m2' => $_POST['vendredi_fin_matin'],
+                    'fk_vendredi_a1' => $_POST['vendredi_debut_apres-midi'],
+                    'fk_vendredi_a2' => $_POST['vendredi_fin_apres-midi']
+
+                ];
+
+                $this->presence_model->insert($data);
+
+                $this->display_view('Helpdesk\presence', $data);
+            }
         } else {
 
             dd('dgvdvd');

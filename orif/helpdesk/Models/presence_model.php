@@ -30,4 +30,17 @@ class Presence_model extends \CodeIgniter\Model
 
         parent::__construct($db, $validation);
     }
+
+    public function checkPresenceExistence($user_id)
+    {
+        $query = $this->where('fk_user_id', $user_id)->get();
+        $result = $query->getResult();
+
+        $count = count($result);
+
+        return ($count > 0);
+    }
+
+
+    
 }
