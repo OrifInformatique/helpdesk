@@ -8,6 +8,7 @@ use CodeIgniter\Filters\DebugToolbar;
 use CodeIgniter\Filters\Honeypot;
 use Migration\Filters\MigrationFilter;
 
+
 class Filters extends BaseConfig
 {
     /**

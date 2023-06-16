@@ -41,13 +41,13 @@ class Autoload extends AutoloadConfig
      * @var array<string, string>
      */
     public $psr4 = [
-		APP_NAMESPACE => APPPATH, // For custom app namespace
-		'Config'      => APPPATH . 'Config',
-        'Common'      => ROOTPATH.'orif/common',
-        'Helpdesk'     => ROOTPATH.'orif/helpdesk',
-        'User'        => ROOTPATH.'orif/user',
-        'Migration'   => ROOTPATH.'orif/migration'
-	];
+        APP_NAMESPACE => APPPATH, // For custom app namespace
+        'Config'      => APPPATH . 'Config',
+        'Common'      => ROOTPATH . 'orif/common',
+        'Helpdesk'     => ROOTPATH . 'orif/helpdesk',
+        'User'        => ROOTPATH . 'orif/user',
+        'Migration'   => ROOTPATH . 'orif/migration'
+    ];
 
     /**
      * -------------------------------------------------------------------

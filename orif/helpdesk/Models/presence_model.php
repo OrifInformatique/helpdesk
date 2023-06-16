@@ -33,14 +33,13 @@ class Presence_model extends \CodeIgniter\Model
 
     public function checkPresenceExistence($user_id)
     {
-        $query = $this->where('fk_user_id', $user_id)->get();
-        $result = $query->getResult();
-
-        $count = count($result);
-
-        return ($count > 0);
+        $result = $this->getWhere(['fk_user_id' => $user_id])->getRow();
+        return ($result !== null);
     }
 
-
-    
+    public function getByUserId($user_id)
+    {
+        return $this->where('fk_user_id', $user_id)
+            ->first();
+    }
 }
