@@ -11,6 +11,10 @@
 ?>
 
 <style>
+	h2 {
+		text-align: center;
+	}
+
 	table {
 		border-collapse: collapse;
 		margin: auto;
@@ -112,16 +116,20 @@
 	}
 </style>
 
+<!-- Affiche le titre si existant -->
+<?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
+
 <div class="container-fluid">
 
 	<a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
 
 	<form method="POST" action="<?= base_url('helpdesk/home/savePresence') ?>">
 		<input class="btn btn-info" type="submit" value="Enregistrer">
-
-	<?php if (isset($error_message)){
-		echo ('<p>'.$error_message.'</p>'
-		);} ?>
+		
+		<!-- message pour les présences non mise-->
+		<?php if (isset($error_message)){
+			echo ('<p>'.$error_message.'</p>'
+			);} ?>
 
 		<!-- lundi -->
 		<div class="d-flex justify-content-center">

@@ -33,32 +33,44 @@ class Home extends BaseController
 
     public function presence()
     {
+        // Si l'utilisateur est connecté
         if (isset($_SESSION['user_id'])) {
-            $data['title'] = "Presence Apprentie";
 
-            // Récupérer les présences déjà enregistrées
+            $data = [
+                'title' => "Présences de l'apprenti"
+            ];
+
+            // Récupére les présences déjà enregistrées
             $user_id = $_SESSION['user_id'];
-            $savedData = $this->presence_model->getByUserId($user_id);
+
+            // Récupère les présences de l'utilisateur
+            $presences_data = $this->presence_model->getPresencesUser($user_id);
 
             // Ajouter les présences à la variable $data
-            $data['savedData'] = $savedData;
+            $data = $presences_data;
 
+            // Affiche la page du formulaire des presences
             $this->display_view('Helpdesk\presence', $data);
-        } else {
+
+        } 
+
+        // Sinon, redirige vers la page de connexion
+        else 
+        {
             return redirect()->to('user/auth/login');
         }
     }
 
     function savePresence()
     {
-
-
         // Si au moins un champ est vide, réaffiche le formulaire en stockant les données déjà insérées
         if (count($_POST) != 20) {
+
             // Initialisation de variables
             $incomplete_form_data = [
                 'error_message' => 'Toutes les présences doivent être renseignées.'
             ];
+
             // Boucle parcourant chaque entrée du formulaire
             foreach ($_POST as $key => $value) {
                 // Ajoute l'entrée et sa valeur dans le tableau $incomplete_form_data
@@ -71,11 +83,9 @@ class Home extends BaseController
 
         // Si tous les champs du formulaire sont remplis
         else {
+
             // Récupére l'ID de l'utilisateur depuis la session
             $user_id = $_SESSION['user_id'];
-
-            // Vérifie si les informations existent déjà dans la base de données
-            //$presenceExists = $this->presence_model->checkPresenceExistence($user_id);
 
             // Récupére l'ID de la présence depuis la table "presence"
             $id_presence = $this->presence_model->getPresenceId($user_id);
@@ -112,15 +122,6 @@ class Home extends BaseController
                 'fk_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
                 'fk_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
             ];
-
-            /*
-            if ($presenceExists) {
-
-                $this->presence_model->save($data);
-            } else {
-                $this->presence_model->save($data);
-            }
-            */
 
             // Effectue l'insertion ou la modification dans la base de données
             $this->presence_model->save($data);
