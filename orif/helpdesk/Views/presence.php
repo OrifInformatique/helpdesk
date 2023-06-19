@@ -119,6 +119,10 @@
 	<form method="POST" action="<?= base_url('helpdesk/home/savePresence') ?>">
 		<input class="btn btn-info" type="submit" value="Enregistrer">
 
+	<?php if (isset($error_message)){
+		echo ('<p>'.$error_message.'</p>'
+		);} ?>
+
 		<!-- lundi -->
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
@@ -140,15 +144,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="lundi_debut_matin" value="1">
+										<input class="input" type="radio" name="lundi_debut_matin" value="1" 
+										<?php if ((isset($lundi_debut_matin)) && $lundi_debut_matin == 1){echo "checked";} ?> 
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_debut_matin" value="2">
+										<input class="input" type="radio" name="lundi_debut_matin" value="2"
+										<?php if ((isset($lundi_debut_matin)) && $lundi_debut_matin == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_debut_matin" value="3">
+										<input class="input" type="radio" name="lundi_debut_matin" value="3"
+										<?php if ((isset($lundi_debut_matin)) && $lundi_debut_matin == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -157,15 +167,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="lundi_fin_matin" value="1">
+										<input class="input" type="radio" name="lundi_fin_matin" value="1"
+										<?php if ((isset($lundi_fin_matin)) && $lundi_fin_matin == 1){echo "checked";} ?>
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_fin_matin" value="2">
+										<input class="input" type="radio" name="lundi_fin_matin" value="2"
+										<?php if ((isset($lundi_fin_matin)) && $lundi_fin_matin == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_fin_matin" value="3">
+										<input class="input" type="radio" name="lundi_fin_matin" value="3"
+										<?php if ((isset($lundi_fin_matin)) && $lundi_fin_matin == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -174,15 +190,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="lundi_debut_apres-midi" value="1">
+										<input class="input" type="radio" name="lundi_debut_apres_midi" value="1"
+										<?php if ((isset($lundi_debut_apres_midi)) && $lundi_debut_apres_midi == 1){echo "checked";} ?>
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_debut_apres-midi" value="2">
+										<input class="input" type="radio" name="lundi_debut_apres_midi" value="2"
+										<?php if ((isset($lundi_debut_apres_midi)) && $lundi_debut_apres_midi == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_debut_apres-midi" value="3">
+										<input class="input" type="radio" name="lundi_debut_apres_midi" value="3"
+										<?php if ((isset($lundi_debut_apres_midi)) && $lundi_debut_apres_midi == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -191,15 +213,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="lundi_fin_apres-midi" value="1">
+										<input class="input" type="radio" name="lundi_fin_apres_midi" value="1"
+										<?php if ((isset($lundi_fin_apres_midi)) && $lundi_fin_apres_midi == 1){echo "checked";} ?>
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_fin_apres-midi" value="2">
+										<input class="input" type="radio" name="lundi_fin_apres_midi" value="2"
+										<?php if ((isset($lundi_fin_apres_midi)) && $lundi_fin_apres_midi == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="lundi_fin_apres-midi" value="3">
+										<input class="input" type="radio" name="lundi_fin_apres_midi" value="3"
+										<?php if ((isset($lundi_fin_apres_midi)) && $lundi_fin_apres_midi == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -230,15 +258,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="mardi_debut_matin" value="1">
+										<input class="input" type="radio" name="mardi_debut_matin" value="1"
+										<?php if ((isset($mardi_debut_matin)) && $mardi_debut_matin == 1){echo "checked";} ?>
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_debut_matin" value="2">
+										<input class="input" type="radio" name="mardi_debut_matin" value="2"
+										<?php if ((isset($mardi_debut_matin)) && $mardi_debut_matin == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_debut_matin" value="3">
+										<input class="input" type="radio" name="mardi_debut_matin" value="3"
+										<?php if ((isset($mardi_debut_matin)) && $mardi_debut_matin == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -247,15 +281,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="mardi_fin_matin" value="1">
+										<input class="input" type="radio" name="mardi_fin_matin" value="1"
+										<?php if ((isset($mardi_fin_matin)) && $mardi_fin_matin == 1){echo "checked";} ?>
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_fin_matin" value="2">
+										<input class="input" type="radio" name="mardi_fin_matin" value="2"
+										<?php if ((isset($mardi_fin_matin)) && $mardi_fin_matin == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_fin_matin" value="3">
+										<input class="input" type="radio" name="mardi_fin_matin" value="3"
+										<?php if ((isset($mardi_fin_matin)) && $mardi_fin_matin == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -264,15 +304,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="mardi_debut_apres-midi" value="1">
+										<input class="input" type="radio" name="mardi_debut_apres_midi" value="1"
+										<?php if ((isset($mardi_debut_apres_midi)) && $mardi_debut_apres_midi == 1){echo "checked";} ?>
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_debut_apres-midi" value="2">
+										<input class="input" type="radio" name="mardi_debut_apres_midi" value="2"
+										<?php if ((isset($mardi_debut_apres_midi)) && $mardi_debut_apres_midi == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_debut_apres-midi" value="3">
+										<input class="input" type="radio" name="mardi_debut_apres_midi" value="3"
+										<?php if ((isset($mardi_debut_apres_midi)) && $mardi_debut_apres_midi == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -281,15 +327,21 @@
 							<td>
 								<div class="container">
 									<label>
-										<input class="input" type="radio" name="mardi_fin_apres-midi" value="1">
+										<input class="input" type="radio" name="mardi_fin_apres_midi" value="1"
+										<?php if ((isset($mardi_fin_apres_midi)) && $mardi_fin_apres_midi == 1){echo "checked";} ?>
+										>
 										<span class="button present">Présent</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_fin_apres-midi" value="2">
+										<input class="input" type="radio" name="mardi_fin_apres_midi" value="2"
+										<?php if ((isset($mardi_fin_apres_midi)) && $mardi_fin_apres_midi == 2){echo "checked";} ?>
+										>
 										<span class="button absent-partie">Absent en partie</span>
 									</label>
 									<label>
-										<input class="input" type="radio" name="mardi_fin_apres-midi" value="3">
+										<input class="input" type="radio" name="mardi_fin_apres_midi" value="3"
+										<?php if ((isset($mardi_fin_apres_midi)) && $mardi_fin_apres_midi == 3){echo "checked";} ?>
+										>
 										<span class="button absent">Absent</span>
 									</label>
 								</div>
@@ -319,15 +371,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="mercredi_debut_matin" value="1">
+									<input class="input" type="radio" name="mercredi_debut_matin" value="1"
+									<?php if ((isset($mercredi_debut_matin)) && $mercredi_debut_matin == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_debut_matin" value="2">
+									<input class="input" type="radio" name="mercredi_debut_matin" value="2"
+									<?php if ((isset($mercredi_debut_matin)) && $mercredi_debut_matin == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_debut_matin" value="3">
+									<input class="input" type="radio" name="mercredi_debut_matin" value="3"
+									<?php if ((isset($mercredi_debut_matin)) && $mercredi_debut_matin == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -336,15 +394,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="mercredi_fin_matin" value="1">
+									<input class="input" type="radio" name="mercredi_fin_matin" value="1"
+									<?php if ((isset($mercredi_fin_matin)) && $mercredi_fin_matin == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_fin_matin" value="2">
+									<input class="input" type="radio" name="mercredi_fin_matin" value="2"
+									<?php if ((isset($mercredi_fin_matin)) && $mercredi_fin_matin == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_fin_matin" value="3">
+									<input class="input" type="radio" name="mercredi_fin_matin" value="3"
+									<?php if ((isset($mercredi_fin_matin)) && $mercredi_fin_matin == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -353,15 +417,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="mercredi_debut_apres-midi" value="1">
+									<input class="input" type="radio" name="mercredi_debut_apres_midi" value="1"
+									<?php if ((isset($mercredi_debut_apres_midi)) && $mercredi_debut_apres_midi == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_debut_apres-midi" value="2">
+									<input class="input" type="radio" name="mercredi_debut_apres_midi" value="2"
+									<?php if ((isset($mercredi_debut_apres_midi)) && $mercredi_debut_apres_midi == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_debut_apres-midi" value="3">
+									<input class="input" type="radio" name="mercredi_debut_apres_midi" value="3"
+									<?php if ((isset($mercredi_debut_apres_midi)) && $mercredi_debut_apres_midi == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -370,15 +440,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="mercredi_fin_apres-midi" value="1">
+									<input class="input" type="radio" name="mercredi_fin_apres_midi" value="1"
+									<?php if ((isset($mercredi_fin_apres_midi)) && $mercredi_fin_apres_midi == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_fin_apres-midi" value="2">
+									<input class="input" type="radio" name="mercredi_fin_apres_midi" value="2"
+									<?php if ((isset($mercredi_fin_apres_midi)) && $mercredi_fin_apres_midi == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="mercredi_fin_apres-midi" value="3">
+									<input class="input" type="radio" name="mercredi_fin_apres_midi" value="3"
+									<?php if ((isset($mercredi_fin_apres_midi)) && $mercredi_fin_apres_midi == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -407,15 +483,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="jeudi_debut_matin" value="1">
+									<input class="input" type="radio" name="jeudi_debut_matin" value="1"
+									<?php if ((isset($jeudi_debut_matin)) && $jeudi_debut_matin == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_debut_matin" value="2">
+									<input class="input" type="radio" name="jeudi_debut_matin" value="2"
+									<?php if ((isset($jeudi_debut_matin)) && $jeudi_debut_matin == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_debut_matin" value="3">
+									<input class="input" type="radio" name="jeudi_debut_matin" value="3"
+									<?php if ((isset($jeudi_debut_matin)) && $jeudi_debut_matin == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -424,15 +506,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="jeudi_fin_matin" value="1">
+									<input class="input" type="radio" name="jeudi_fin_matin" value="1"
+									<?php if ((isset($jeudi_fin_matin)) && $jeudi_fin_matin == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_fin_matin" value="2">
+									<input class="input" type="radio" name="jeudi_fin_matin" value="2"
+									<?php if ((isset($jeudi_fin_matin)) && $jeudi_fin_matin == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_fin_matin" value="3">
+									<input class="input" type="radio" name="jeudi_fin_matin" value="3"
+									<?php if ((isset($jeudi_fin_matin)) && $jeudi_fin_matin == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -441,15 +529,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="jeudi_debut_apres-midi" value="1">
+									<input class="input" type="radio" name="jeudi_debut_apres_midi" value="1"
+									<?php if ((isset($jeudi_debut_apres_midi)) && $jeudi_debut_apres_midi == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_debut_apres-midi" value="2">
+									<input class="input" type="radio" name="jeudi_debut_apres_midi" value="2"
+									<?php if ((isset($jeudi_debut_apres_midi)) && $jeudi_debut_apres_midi == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_debut_apres-midi" value="3">
+									<input class="input" type="radio" name="jeudi_debut_apres_midi" value="3"
+									<?php if ((isset($jeudi_debut_apres_midi)) && $jeudi_debut_apres_midi == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -458,15 +552,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="jeudi_fin_apres-midi" value="1">
+									<input class="input" type="radio" name="jeudi_fin_apres_midi" value="1"
+									<?php if ((isset($jeudi_fin_apres_midi)) && $jeudi_fin_apres_midi == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_fin_apres-midi" value="2">
+									<input class="input" type="radio" name="jeudi_fin_apres_midi" value="2"
+									<?php if ((isset($jeudi_fin_apres_midi)) && $jeudi_fin_apres_midi == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="jeudi_fin_apres-midi" value="3">
+									<input class="input" type="radio" name="jeudi_fin_apres_midi" value="3"
+									<?php if ((isset($jeudi_fin_apres_midi)) && $jeudi_fin_apres_midi == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -495,15 +595,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="vendredi_debut_matin" value="1">
+									<input class="input" type="radio" name="vendredi_debut_matin" value="1"
+									<?php if ((isset($vendredi_debut_matin)) && $vendredi_debut_matin == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_debut_matin" value="2">
+									<input class="input" type="radio" name="vendredi_debut_matin" value="2"
+									<?php if ((isset($vendredi_debut_matin)) && $vendredi_debut_matin == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_debut_matin" value="3">
+									<input class="input" type="radio" name="vendredi_debut_matin" value="3"
+									<?php if ((isset($vendredi_debut_matin)) && $vendredi_debut_matin == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -512,15 +618,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="vendredi_fin_matin" value="1">
+									<input class="input" type="radio" name="vendredi_fin_matin" value="1"
+									<?php if ((isset($vendredi_fin_matin)) && $vendredi_fin_matin == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_fin_matin" value="2">
+									<input class="input" type="radio" name="vendredi_fin_matin" value="2"
+									<?php if ((isset($vendredi_fin_matin)) && $vendredi_fin_matin == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_fin_matin" value="3">
+									<input class="input" type="radio" name="vendredi_fin_matin" value="3"
+									<?php if ((isset($vendredi_fin_matin)) && $vendredi_fin_matin == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -529,15 +641,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="vendredi_debut_apres-midi" value="1">
+									<input class="input" type="radio" name="vendredi_debut_apres_midi" value="1"
+									<?php if ((isset($vendredi_debut_apres_midi)) && $vendredi_debut_apres_midi == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_debut_apres-midi" value="2">
+									<input class="input" type="radio" name="vendredi_debut_apres_midi" value="2"
+									<?php if ((isset($vendredi_debut_apres_midi)) && $vendredi_debut_apres_midi == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_debut_apres-midi" value="3">
+									<input class="input" type="radio" name="vendredi_debut_apres_midi" value="3"
+									<?php if ((isset($vendredi_debut_apres_midi)) && $vendredi_debut_apres_midi == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>
@@ -546,15 +664,21 @@
 						<td>
 							<div class="container">
 								<label>
-									<input class="input" type="radio" name="vendredi_fin_apres-midi" value="1">
+									<input class="input" type="radio" name="vendredi_fin_apres_midi" value="1"
+									<?php if ((isset($vendredi_fin_apres_midi)) && $vendredi_fin_apres_midi == 1){echo "checked";} ?>
+									>
 									<span class="button present">Présent</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_fin_apres-midi" value="2">
+									<input class="input" type="radio" name="vendredi_fin_apres_midi" value="2"
+									<?php if ((isset($vendredi_fin_apres_midi)) && $vendredi_fin_apres_midi == 2){echo "checked";} ?>
+									>
 									<span class="button absent-partie">Absent en partie</span>
 								</label>
 								<label>
-									<input class="input" type="radio" name="vendredi_fin_apres-midi" value="3">
+									<input class="input" type="radio" name="vendredi_fin_apres_midi" value="3"
+									<?php if ((isset($vendredi_fin_apres_midi)) && $vendredi_fin_apres_midi == 3){echo "checked";} ?>
+									>
 									<span class="button absent">Absent</span>
 								</label>
 							</div>

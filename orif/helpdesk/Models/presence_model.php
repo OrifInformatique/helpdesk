@@ -31,10 +31,27 @@ class Presence_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
+    /*
     public function checkPresenceExistence($user_id)
     {
         $result = $this->getWhere(['fk_user_id' => $user_id])->getRow();
         return ($result !== null);
+    }
+    */
+
+    public function getPresenceId($user_id)
+    {
+        $query = $this->db->table('presence')
+            ->select('id')
+            ->where('fk_user_id', $user_id)
+            ->get();
+
+        if (!empty($query->getRow())) {
+            $result = $query->getRow();
+            return $result->id;
+        }
+
+        return null;
     }
 
     public function getByUserId($user_id)

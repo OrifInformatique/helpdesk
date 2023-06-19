@@ -51,84 +51,82 @@ class Home extends BaseController
 
     function savePresence()
     {
-        if (
-            isset($_POST['lundi_debut_matin'], $_POST['lundi_fin_matin'], $_POST['lundi_debut_apres-midi'], $_POST['lundi_fin_apres-midi']) &&
-            isset($_POST['mardi_debut_matin'], $_POST['mardi_fin_matin'], $_POST['mardi_debut_apres-midi'], $_POST['mardi_fin_apres-midi']) &&
-            isset($_POST['mercredi_debut_matin'], $_POST['mercredi_fin_matin'], $_POST['mercredi_debut_apres-midi'], $_POST['mercredi_fin_apres-midi']) &&
-            isset($_POST['jeudi_debut_matin'], $_POST['jeudi_fin_matin'], $_POST['jeudi_debut_apres-midi'], $_POST['jeudi_fin_apres-midi']) &&
-            isset($_POST['vendredi_debut_matin'], $_POST['vendredi_fin_matin'], $_POST['vendredi_debut_apres-midi'], $_POST['vendredi_fin_apres-midi'])
-        ) {
+
+
+        // Si au moins un champ est vide, réaffiche le formulaire en stockant les données déjà insérées
+        if (count($_POST) != 20) {
+            // Initialisation de variables
+            $incomplete_form_data = [
+                'error_message' => 'Toutes les présences doivent être renseignées.'
+            ];
+            // Boucle parcourant chaque entrée du formulaire
+            foreach ($_POST as $key => $value) {
+                // Ajoute l'entrée et sa valeur dans le tableau $incomplete_form_data
+                $incomplete_form_data[$key] = $value;
+            }
+
+            // Réaffiche le formulaire avec les données des champs déjà renseignés
+            $this->display_view('Helpdesk\presence', $incomplete_form_data);
+        }
+
+        // Si tous les champs du formulaire sont remplis
+        else {
+            // Récupére l'ID de l'utilisateur depuis la session
             $user_id = $_SESSION['user_id'];
 
-            // Vérifier si les informations existent déjà dans la base de données
-            $presenceExists = $this->presence_model->checkPresenceExistence($user_id);
+            // Vérifie si les informations existent déjà dans la base de données
+            //$presenceExists = $this->presence_model->checkPresenceExistence($user_id);
 
+            // Récupére l'ID de la présence depuis la table "presence"
+            $id_presence = $this->presence_model->getPresenceId($user_id);
+
+            // Prépare les données à enregistrer
             $data = [
+
+                'id' => $id_presence,
+
                 'fk_user_id' => $user_id,
 
                 'fk_lundi_m1' => $_POST['lundi_debut_matin'],
                 'fk_lundi_m2' => $_POST['lundi_fin_matin'],
-                'fk_lundi_a1' => $_POST['lundi_debut_apres-midi'],
-                'fk_lundi_a2' => $_POST['lundi_fin_apres-midi'],
+                'fk_lundi_a1' => $_POST['lundi_debut_apres_midi'],
+                'fk_lundi_a2' => $_POST['lundi_fin_apres_midi'],
 
                 'fk_mardi_m1' => $_POST['mardi_debut_matin'],
                 'fk_mardi_m2' => $_POST['mardi_fin_matin'],
-                'fk_mardi_a1' => $_POST['mardi_debut_apres-midi'],
-                'fk_mardi_a2' => $_POST['mardi_fin_apres-midi'],
+                'fk_mardi_a1' => $_POST['mardi_debut_apres_midi'],
+                'fk_mardi_a2' => $_POST['mardi_fin_apres_midi'],
 
                 'fk_mercredI_m1' => $_POST['mercredi_debut_matin'],
                 'fk_mercredI_m2' => $_POST['mercredi_fin_matin'],
-                'fk_mercredI_a1' => $_POST['mercredi_debut_apres-midi'],
-                'fk_mercredI_a2' => $_POST['mercredi_fin_apres-midi'],
+                'fk_mercredI_a1' => $_POST['mercredi_debut_apres_midi'],
+                'fk_mercredI_a2' => $_POST['mercredi_fin_apres_midi'],
 
                 'fk_jeudi_m1' => $_POST['jeudi_debut_matin'],
                 'fk_jeudi_m2' => $_POST['jeudi_fin_matin'],
-                'fk_jeudi_a1' => $_POST['jeudi_debut_apres-midi'],
-                'fk_jeudi_a2' => $_POST['jeudi_fin_apres-midi'],
+                'fk_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
+                'fk_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
 
                 'fk_vendredi_m1' => $_POST['vendredi_debut_matin'],
                 'fk_vendredi_m2' => $_POST['vendredi_fin_matin'],
-                'fk_vendredi_a1' => $_POST['vendredi_debut_apres-midi'],
-                'fk_vendredi_a2' => $_POST['vendredi_fin_apres-midi']
+                'fk_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
+                'fk_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
             ];
 
+            /*
             if ($presenceExists) {
-                $this->presence_model->update(
-                    [
-                        'fk_lundi_m1' => $data['fk_lundi_m1'],
-                        'fk_lundi_m2' => $data['fk_lundi_m2'],
-                        'fk_lundi_a1' => $data['fk_lundi_a1'],
-                        'fk_lundi_a2' => $data['fk_lundi_a2'],
 
-                        'fk_mardi_m1' => $data['fk_mardi_m1'],
-                        'fk_mardi_m2' => $data['fk_mardi_m2'],
-                        'fk_mardi_a1' => $data['fk_mardi_a1'],
-                        'fk_mardi_a2' => $data['fk_mardi_a2'],
-
-                        'fk_mercredI_m1' => $data['fk_mercredI_m1'],
-                        'fk_mercredI_m2' => $data['fk_mercredI_m2'],
-                        'fk_mercredI_a1' => $data['fk_mercredI_a1'],
-                        'fk_mercredI_a2' => $data['fk_mercredI_a2'],
-
-                        'fk_jeudi_m1' => $data['fk_jeudi_m1'],
-                        'fk_jeudi_m2' => $data['fk_jeudi_m2'],
-                        'fk_jeudi_a1' => $data['fk_jeudi_a1'],
-                        'fk_jeudi_a2' => $data['fk_jeudi_a2'],
-                        
-                        'fk_vendredi_m1' => $data['fk_vendredi_m1'],
-                        'fk_vendredi_m2' => $data['fk_vendredi_m2'],
-                        'fk_vendredi_a1' => $data['fk_vendredi_a1'],
-                        'fk_vendredi_a2' => $data['fk_vendredi_a2']
-                    ],
-                    $user_id
-                );
+                $this->presence_model->save($data);
             } else {
                 $this->presence_model->save($data);
             }
+            */
 
+            // Effectue l'insertion ou la modification dans la base de données
+            $this->presence_model->save($data);
+
+            // Affiche la page du planning
             $this->display_view('Helpdesk\presence', $data);
-        } else {
-            dd('dgvdvd');
         }
     }
 }
