@@ -7,6 +7,7 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Helpdesk\Models\Presence_model;
+use Helpdesk\Models\Planning_model;
 
 class Home extends BaseController
 {
@@ -15,11 +16,14 @@ class Home extends BaseController
 
     protected $presence_model;
 
+    protected $planning_model;
+
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->session = \Config\Services::session();
         $this->presence_model = new Presence_model();
+        $this->planning_model = new Planning_model();
 
         helper('form');
     }
@@ -28,6 +32,13 @@ class Home extends BaseController
     {
         $data['title'] = "Helpdesk";
 
+        // Récupère les données du planning
+        $planning_data = $this->planning_model->getPlanningData();
+
+        // Ajoute le planning à la variable $data
+        $data['planning_data'] = $planning_data;
+
+        // Affiche la page du planning
         $this->display_view('Helpdesk\helpdesk_message', $data);
     }
 
