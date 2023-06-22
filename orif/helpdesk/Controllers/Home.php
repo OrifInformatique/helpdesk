@@ -141,4 +141,14 @@ class Home extends BaseController
             $this->display_view('Helpdesk\presence', $data);
         }
     }
+
+    function ajouter_technicien()
+    {
+
+    }
+    
+    function modification_planning()
+    {
+        
+    }
 }

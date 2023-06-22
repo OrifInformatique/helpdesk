@@ -34,22 +34,9 @@ class Presence_model extends \CodeIgniter\Model
     public function getPresenceId($user_id)
     {
         // Requête SQL pour reprendre depuis la base de donnée la clé primaire des présences de l'utilisateur
-        $query = $this->db->table('presence')
-            ->select('id')
-            ->where('fk_user_id', $user_id)
-            ->get();
+        $presence_data = $this->where('fk_user_id', $user_id)->first();
 
-        // S'il y a des données 
-        if (!empty($query->getRow())) {
-
-            // Retourne les données
-            $result = $query->getRow();
-
-            // Retourne l'id
-            return $result->id;
-        }
-
-        return null;
+        return $presence_data;
     }
 
     public function getPresencesUser($user_id)
