@@ -133,9 +133,15 @@ class Home extends BaseController
                 'fk_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
                 'fk_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
             ];
-
+            
             // Effectue l'insertion ou la modification dans la base de données
             $this->presence_model->save($data);
+
+            // Sélectionne les présences de l'utilisateur
+            $presences_data = $this->presence_model->getPresencesUser($user_id);
+
+            // Ajouter les présences à la variable $data
+            $data = $presences_data;
 
             // Affiche la page du planning
             $this->display_view('Helpdesk\presence', $data);
@@ -144,11 +150,19 @@ class Home extends BaseController
 
     function ajouter_technicien()
     {
-
+        
+                
+        $this->display_view('Helpdesk\ajouter_technicien');
     }
     
     function modification_planning()
     {
-        
+        // Récupère les données du planning
+        $planning_data = $this->planning_model->getPlanningData();
+
+        // Ajoute le planning à la variable $data
+        $data['planning_data'] = $planning_data;
+                
+        $this->display_view('Helpdesk\modification_planning', $data);
     }
 }

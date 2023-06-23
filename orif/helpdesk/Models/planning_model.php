@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Model User_model this represents the user table
+ * welcome_message view
  *
- * @author      Orif (ViDi,HeMa)
+ * @author      Orif (BlAl)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  */

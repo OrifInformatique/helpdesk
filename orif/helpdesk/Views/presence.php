@@ -114,6 +114,15 @@
 		transition: 0.25s ease;
 		box-shadow: inset 0 0 0 0.125em #004683;
 	}
+    .btn-blue {
+        background-color: #b4c6e7;
+    }
+
+    .btn-blue:hover {
+        color: #fff;
+        background-color: #b4c6e7;
+        border-color: #b4c6e7
+    }
 </style>
 
 <!-- Affiche le titre si existant -->
@@ -124,7 +133,7 @@
 	<a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
 
 	<form method="POST" action="<?= base_url('helpdesk/home/savePresence') ?>">
-		<input class="btn btn-info" type="submit" value="Enregistrer">
+		<input class="btn btn-blue" type="submit" value="Enregistrer">
 		
 		<!-- message pour les présences non mise-->
 		<?php if (isset($error_message)){
