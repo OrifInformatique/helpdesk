@@ -73,7 +73,7 @@
 
     <form>
 
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home') ?>">Enregistrer</a>
+        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modification_planning') ?>">Enregistrer</a>
 
         <div class="d-flex justify-content-center">
             <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">1 - Technicien d'astreinte</div> <!-- c5deb5 -->
@@ -141,69 +141,254 @@
                         <tr>
                             <th><?php echo $technicien['fk_username']; ?></th>
 
+                            <!-- Lundi -->
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_lundi_m1']; ?>">
+                                <select name="planning_lundi_m1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_lundi_m1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_lundi_m2']; ?>">
+                                <select name="planning_lundi_m2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_lundi_m2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_lundi_a1']; ?>">
+                                <select name="planning_lundi_a1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_lundi_a1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_lundi_a2']; ?>">
+                                <select name="planning_lundi_a2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_lundi_a2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
 
+                            <!-- Mardi -->
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mardi_m1']; ?>">
+                                <select name="planning_mardi_m1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mardi_m1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mardi_m2']; ?>">
+                                <select name="planning_mardi_m2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mardi_m2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mardi_a1']; ?>">
+                                <select name="planning_mardi_a1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mardi_a1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mardi_a2']; ?>">
+                                <select name="planning_mardi_a2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mardi_a2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
 
+                            <!-- Mercredi -->
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mercredi_m1']; ?>">
+                                <select name="planning_mercredi_m1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mercredi_m1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mercredi_m2']; ?>">
+                                <select name="planning_mercredi_m2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mercredi_m2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mercredi_a1']; ?>">
+                                <select name="planning_mercredi_a1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mercredi_a1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_mercredi_a2']; ?>">
+                                <select name="planning_mercredi_a2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_mercredi_a2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
 
+                            <!-- jeudi -->
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_jeudi_m1']; ?>">
+                                <select name="planning_jeudi_m1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_jeudi_m1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_jeudi_m2']; ?>">
+                                <select name="planning_jeudi_m2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_jeudi_m2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_jeudi_a1']; ?>">
+                                <select name="planning_jeudi_a1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_jeudi_a1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_jeudi_a2']; ?>">
+                                <select name="planning_jeudi_a2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_jeudi_a2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
 
+                            <!-- Vendredi -->
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_vendredi_m1']; ?>">
+                                <select name="planning_vendredi_m1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_vendredi_m1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_vendredi_m2']; ?>">
+                                <select name="planning_vendredi_m2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_vendredi_m2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_vendredi_a1']; ?>">
+                                <select name="planning_vendredi_a1">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_vendredi_a1'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
                             <td>
-                                <input type="text" value="<?php echo $technicien['planning_vendredi_a2']; ?>">
+                                <select name="planning_vendredi_a2">
+                                    <?php
+                                    $choices = array('', 1, 2, 3); 
+
+                                    foreach ($choices as $choice) {
+                                        $selected = ($technicien['planning_vendredi_a2'] == $choice) ? 'selected' : '';
+                                        echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                    }
+                                    ?>
+                                </select>
                             </td>
 
                         </tr>

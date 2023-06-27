@@ -38,4 +38,10 @@ class Planning_model extends \CodeIgniter\Model
 
         return $planning_data;
     }
+    
+    public function updatePlanningData($newData)
+    {
+        // Met à jour tous les enregistrements dans la base de données
+        $this->update(null, $newData);
+    }
 }

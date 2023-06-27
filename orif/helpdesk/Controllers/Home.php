@@ -62,12 +62,10 @@ class Home extends BaseController
 
             // Affiche la page du formulaire des presences
             $this->display_view('Helpdesk\presence', $data);
-
-        } 
+        }
 
         // Sinon, redirige vers la page de connexion
-        else 
-        {
+        else {
             return redirect()->to('user/auth/login');
         }
     }
@@ -133,7 +131,7 @@ class Home extends BaseController
                 'fk_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
                 'fk_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
             ];
-            
+
             // Effectue l'insertion ou la modification dans la base de données
             $this->presence_model->save($data);
 
@@ -150,19 +148,71 @@ class Home extends BaseController
 
     function ajouter_technicien()
     {
-        
-                
-        $this->display_view('Helpdesk\ajouter_technicien');
+        // Si l'utilisateur est connecté
+        if (isset($_SESSION['user_id'])) {
+
+            $this->display_view('Helpdesk\ajouter_technicien');
+        }
+
+        // Sinon, redirige vers la page de connexion
+        else {
+            return redirect()->to('user/auth/login');
+        }
     }
-    
+
     function modification_planning()
     {
-        // Récupère les données du planning
-        $planning_data = $this->planning_model->getPlanningData();
+        // Si l'utilisateur est connecté
+        if (isset($_SESSION['user_id'])) {
 
-        // Ajoute le planning à la variable $data
-        $data['planning_data'] = $planning_data;
-                
-        $this->display_view('Helpdesk\modification_planning', $data);
+            // Récupère les données du planning
+            $planning_data = $this->planning_model->getPlanningData();
+
+            // Vérifie si des données ont été soumises via le formulaire
+            if ($_POST) {
+
+                // Récupère les données soumises
+                $newData = [
+                    'planning_lundi_m1' => $_POST['planning_lundi_m1'],
+                    'planning_lundi_m2' => $_POST['planning_lundi_m2'],
+                    'planning_lundi_a1' => $_POST['planning_lundi_a1'],
+                    'planning_lundi_a2' => $_POST['planning_lundi_a2'],
+
+                    'planning_mardi_m1' => $_POST['planning_mardi_m1'],
+                    'planning_mardi_m2' => $_POST['planning_mardi_m2'],
+                    'planning_mardi_a1' => $_POST['planning_mardi_a1'],
+                    'planning_mardi_a2' => $_POST['planning_mardi_a2'],
+
+                    'planning_mercredi_m1' => $_POST['planning_mercredi_m1'],
+                    'planning_mercredi_m2' => $_POST['planning_mercredi_m2'],
+                    'planning_mercredi_a1' => $_POST['planning_mercredi_a1'],
+                    'planning_mercredi_a2' => $_POST['planning_mercredi_a2'],
+
+                    'planning_jeudi_m1' => $_POST['planning_jeudi_m1'],
+                    'planning_jeudi_m2' => $_POST['planning_jeudi_m2'],
+                    'planning_jeudi_a1' => $_POST['planning_jeudi_a1'],
+                    'planning_jeudi_a2' => $_POST['planning_jeudi_a2'],
+
+                    'planning_vendredi_m1' => $_POST['planning_vendredi_m1'],
+                    'planning_vendredi_m2' => $_POST['planning_vendredi_m2'],
+                    'planning_vendredi_a1' => $_POST['planning_vendredi_a1'],
+                    'planning_vendredi_a2' => $_POST['planning_vendredi_a2']
+                ];
+
+
+                // Met à jour les enregistrements dans la base de données
+                $this->planning_model->updatePlanningData($newData);
+            }
+
+            // Ajoute le planning à la variable $data
+            $data['planning_data'] = $planning_data;
+
+            $this->display_view('Helpdesk\modification_planning', $data);
+        }
+
+        // Sinon, redirige vers la page de connexion
+        else {
+            return redirect()->to('user/auth/login');
+        }
     }
 }
