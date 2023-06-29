@@ -14,13 +14,13 @@
 # ENVIRONMENT
 #--------------------------------------------------------------------
 
-# CI_ENVIRONMENT = production
+CI_ENVIRONMENT = development
 
 #--------------------------------------------------------------------
 # APP
 #--------------------------------------------------------------------
 
-app.baseURL = 'http://localhost/helpdesk/public/'
+# app.baseURL = 'http://localhost/'
 # app.forceGlobalSecureRequests = false
 
 # app.sessionDriver = 'CodeIgniter\Session\Handlers\FileHandler'
@@ -37,12 +37,12 @@ app.baseURL = 'http://localhost/helpdesk/public/'
 # DATABASE
 #--------------------------------------------------------------------
 
-database.default.hostname = localhost
-database.default.database = helpdesk
-database.default.username = root
-database.default.password =
-database.default.DBDriver = MySQLi
-database.default.DBPrefix =
+# database.default.hostname = 
+# database.default.database = 
+# database.default.username = 
+# database.default.password =
+# database.default.DBDriver = 
+# database.default.DBPrefix =
 
 # database.tests.hostname = localhost
 # database.tests.database = ci4

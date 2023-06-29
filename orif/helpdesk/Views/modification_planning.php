@@ -71,9 +71,9 @@
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
 
-    <form>
+    <form method="POST" action="<?= base_url('helpdesk/home/modification_planning') ?>">
 
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modification_planning') ?>">Enregistrer</a>
+		<input class="btn btn-blue mb-3" type="submit" value="Enregistrer">
 
         <div class="d-flex justify-content-center">
             <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">1 - Technicien d'astreinte</div> <!-- c5deb5 -->
