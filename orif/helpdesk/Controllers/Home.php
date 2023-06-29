@@ -39,7 +39,7 @@ class Home extends BaseController
         $data['planning_data'] = $planning_data;
 
         // Affiche la page du planning
-        $this->display_view('Helpdesk\helpdesk_message', $data);
+        $this->display_view('Helpdesk\planning', $data);
     }
 
     public function presence()
