@@ -71,7 +71,7 @@
 
 <div class="container-fluid">
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>">Presence personnel</a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>">Vos présences</a>
 
     <div>
         <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouter_technicien') ?>">Ajouter des techniciens</a>
@@ -112,30 +112,17 @@
             <tr>
                 <th>Technicien</th>
 
-                <th>8:00 10:00</th>
-                <th>10:00 12:00</th>
-                <th>12:45 15:00</th>
-                <th>15:00 16:57</th>
+                <?php 
+                // Boucle répétant 5x les horaires
+                for($i = 0; $i < 5; $i++): ?>
+                        
+                    <th>8:00 10:00</th>
+                    <th>10:00 12:00</th>
+                    <th>12:45 15:00</th>
+                    <th>15:00 16:57</th>
 
-                <th>8:00 10:00</th>
-                <th>10:00 12:00</th>
-                <th>12:45 15:00</th>
-                <th>15:00 16:57</th>
-
-                <th>8:00 10:00</th>
-                <th>10:00 12:00</th>
-                <th>12:45 15:00</th>
-                <th>15:00 16:57</th>
-
-                <th>8:00 10:00</th>
-                <th>10:00 12:00</th>
-                <th>12:45 15:00</th>
-                <th>15:00 16:57</th>
-
-                <th>8:00 10:00</th>
-                <th>10:00 12:00</th>
-                <th>12:45 15:00</th>
-                <th>15:00 16:57</th>
+                <?php endfor; ?>
+                    
             </tr>
         </thead>
         <tbody>

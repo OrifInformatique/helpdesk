@@ -48,6 +48,7 @@ class Presence_model extends \CodeIgniter\Model
 
     public function getPresencesUser($user_id)
     {
+        // TODO : Refaire la requête ci-dessous pour l'optimiser
         // Requête SQL pour reprendre depuis la base de donnée les présences de l'utilisateur
         $query = $this->db->table('tbl_presences')
             ->select('*')
@@ -60,7 +61,7 @@ class Presence_model extends \CodeIgniter\Model
             // Retourne les données
             $result = $query->getRow();
 
-            // Tableau des présences pour envoyer sur la page du formulaire
+            // Tableau des présences à envoyer sur la page du formulaire
             $presences_data = [
                 'lundi_debut_matin' => $result->presences_lundi_m1,
                 'lundi_fin_matin' => $result->presences_lundi_m2,
