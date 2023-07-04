@@ -123,6 +123,26 @@
         background-color: #b4c6e7;
         border-color: #b4c6e7
     }
+
+	/* Message de succès */
+	.success {
+		position: absolute;
+		top: 18%;
+		background-color: greenyellow;
+		border-radius: 5px;
+		padding: 7px 15px;
+		font-size: 1.25em;
+
+		animation: fadeOut 4s forwards;
+	}
+
+	/* Animation de disparition */
+	@keyframes fadeOut 
+	{
+		0% { opacity: 1; }
+		80% { opacity: 1; }
+		100% { opacity: 0; display: none; }
+	}
 </style>
 
 <!-- Affiche le titre si existant -->
@@ -137,8 +157,14 @@
 		
 		<!-- Message de succès, si existant -->
 		<?php if (isset($success)): ?>
-			<p> <?$success?> </p>
+			<div class="d-flex justify-content-center">
+				<?php echo ('<p class="success">'.$success.'</p>'); ?>
+			</div>
 		<?php endif; ?>
+
+		<div class="d-flex justify-content-center">
+			<p> Les champs vides seront automatiquement remplis par "Absent". </p>
+		</div>
 
 		<!-- TODO : Optimiser cette page en utilisant des boucles -->
 

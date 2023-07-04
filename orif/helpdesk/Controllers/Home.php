@@ -49,7 +49,9 @@ class Home extends BaseController
         if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) 
         {
             // Redirige vers la page de connexion
-            return redirect()->to('user/auth/login');
+            // Utilisation de fonctions PHP natives car redirect() ou display_view() ne fonctionnent pas
+            header("Location: " . site_url('user/auth/login'));
+            exit();
         }
 
         // Sinon, exécute la suite du code normalement
@@ -57,34 +59,30 @@ class Home extends BaseController
 
     public function presence()
     {
-        // Si l'utilisateur est connecté
-        if (isset($_SESSION['user_id'])) 
-        {
-            // Titre de la page
-            $data['title'] = "Présences de l'apprenti";
+        // Vérifie si l'utilisateur est connecté
+        $this->isUserLogged();
 
-            // Récupére les présences déjà enregistrées
-            $user_id = $_SESSION['user_id'];
+        // Titre de la page
+        $data['title'] = "Présences de l'apprenti";
 
-            // Récupère les présences de l'utilisateur
-            $presences_data = $this->presence_model->getPresencesUser($user_id);
+        // Récupére l'ID de l'utilisateur
+        $user_id = $_SESSION['user_id'];
 
-            // Ajouter les présences à la variable $data
-            $data = $presences_data;
+        // Récupère les présences de l'utilisateur
+        $presences_data = $this->presence_model->getPresencesUser($user_id);
 
-            // Affiche la page du formulaire des presences
-            $this->display_view('Helpdesk\presence', $data);
-        }
+        // Ajouter les présences à la variable $data
+        $data = $presences_data;
 
-        // Sinon, redirige vers la page de connexion
-        else {
-            return redirect()->to('user/auth/login');
-        }
+        // Affiche la page du formulaire des presences
+        $this->display_view('Helpdesk\presence', $data);
+
     }
 
     function savePresence()
     {
-        // TODO : vérifier si l'utilisateur est connecté
+        // Vérifie si l'utilisateur est connecté
+        $this->isUserLogged();
 
         // Récupére l'ID de l'utilisateur depuis la session
         $user_id = $_SESSION['user_id'];
@@ -113,10 +111,10 @@ class Home extends BaseController
             }
         }
 
-        // Prépare les données de présence à enregistrer
+        // Prépare les présences à enregistrer
         $data = [
 
-            'id' => $id_presence,
+            'id_presence' => $id_presence,
 
             'fk_user_id' => $user_id,
 
@@ -144,32 +142,9 @@ class Home extends BaseController
             'presences_vendredi_m2' => $_POST['vendredi_fin_matin'],
             'presences_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
             'presences_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
-            ];
+        ];
 
-            // Effectue l'insertion ou la modification dans la base de données
-            $this->presence_model->save($data);
-
-            // Sélectionne les présences de l'utilisateur
-            $presences_data = $this->presence_model->getPresencesUser($user_id);
-
-            // Ajouter les présences à la variable $data
-            $data = $presences_data;
-
-            // Affiche la page du planning
-            $this->display_view('Helpdesk\presence', $data);
-
-        // Détermine quelle action est effectuée (ajout ou modif), pour afficher un message à l'utilisateur
-        if (isset($data['id']) && !empty($data['id']))
-        {
-            $data['success'] = "Présences modifiées avec succès.";
-        }
-
-        else
-        {
-            $data['success'] = "Présences insérées avec succès.";
-        }
-
-        // Effectue l'insertion ou la modification dans la base de données
+        // Effectue l'insertion ou la modification des présences dans la base de données
         $this->presence_model->save($data);
 
         // Sélectionne les présences de l'utilisateur
@@ -178,77 +153,68 @@ class Home extends BaseController
         // Ajouter les présences à la variable $data
         $data = $presences_data;
 
-        // Affiche la page du planning
-        $this->display_view('helpdesk\home\presence', $data);
+        // Afficher un message de succès à l'utilisateur
+        $data['success'] = "Présences modifiées avec succès";
+
+        // Réffiche la page des présences
+        $this->display_view('Helpdesk\presence', $data);
     }
 
     function ajouter_technicien()
     {
-        // Si l'utilisateur est connecté
-        if (isset($_SESSION['user_id'])) {
+        // Vérifie si l'utilisateur est connecté
+        $this->isUserLogged();
 
-            $this->display_view('Helpdesk\ajouter_technicien');
-        }
-
-        // Sinon, redirige vers la page de connexion
-        else {
-            return redirect()->to('user/auth/login');
-        }
+        $this->display_view('Helpdesk\ajouter_technicien');
     }
 
     function modification_planning()
     {
-        // Si l'utilisateur est connecté
-        if (isset($_SESSION['user_id'])) {
+        // Vérifie si l'utilisateur est connecté
+        $this->isUserLogged();
 
-            // Récupère les données du planning
-            $planning_data = $this->planning_model->getPlanningData();
+        // Récupère les données du planning
+        $planning_data = $this->planning_model->getPlanningData();
 
-            // Vérifie si des données ont été soumises via le formulaire
-            if ($_POST) {
+        // Vérifie si des données ont été soumises via le formulaire
+        if ($_POST) {
 
-                // Récupère les données soumises
-                $newData = [
-                    'planning_lundi_m1' => $_POST['planning_lundi_m1'],
-                    'planning_lundi_m2' => $_POST['planning_lundi_m2'],
-                    'planning_lundi_a1' => $_POST['planning_lundi_a1'],
-                    'planning_lundi_a2' => $_POST['planning_lundi_a2'],
+            // Récupère les données soumises
+            $newData = [
+                'planning_lundi_m1' => $_POST['planning_lundi_m1'],
+                'planning_lundi_m2' => $_POST['planning_lundi_m2'],
+                'planning_lundi_a1' => $_POST['planning_lundi_a1'],
+                'planning_lundi_a2' => $_POST['planning_lundi_a2'],
 
-                    'planning_mardi_m1' => $_POST['planning_mardi_m1'],
-                    'planning_mardi_m2' => $_POST['planning_mardi_m2'],
-                    'planning_mardi_a1' => $_POST['planning_mardi_a1'],
-                    'planning_mardi_a2' => $_POST['planning_mardi_a2'],
+                'planning_mardi_m1' => $_POST['planning_mardi_m1'],
+                'planning_mardi_m2' => $_POST['planning_mardi_m2'],
+                'planning_mardi_a1' => $_POST['planning_mardi_a1'],
+                'planning_mardi_a2' => $_POST['planning_mardi_a2'],
 
-                    'planning_mercredi_m1' => $_POST['planning_mercredi_m1'],
-                    'planning_mercredi_m2' => $_POST['planning_mercredi_m2'],
-                    'planning_mercredi_a1' => $_POST['planning_mercredi_a1'],
-                    'planning_mercredi_a2' => $_POST['planning_mercredi_a2'],
+                'planning_mercredi_m1' => $_POST['planning_mercredi_m1'],
+                'planning_mercredi_m2' => $_POST['planning_mercredi_m2'],
+                'planning_mercredi_a1' => $_POST['planning_mercredi_a1'],
+                'planning_mercredi_a2' => $_POST['planning_mercredi_a2'],
 
-                    'planning_jeudi_m1' => $_POST['planning_jeudi_m1'],
-                    'planning_jeudi_m2' => $_POST['planning_jeudi_m2'],
-                    'planning_jeudi_a1' => $_POST['planning_jeudi_a1'],
-                    'planning_jeudi_a2' => $_POST['planning_jeudi_a2'],
+                'planning_jeudi_m1' => $_POST['planning_jeudi_m1'],
+                'planning_jeudi_m2' => $_POST['planning_jeudi_m2'],
+                'planning_jeudi_a1' => $_POST['planning_jeudi_a1'],
+                'planning_jeudi_a2' => $_POST['planning_jeudi_a2'],
 
-                    'planning_vendredi_m1' => $_POST['planning_vendredi_m1'],
-                    'planning_vendredi_m2' => $_POST['planning_vendredi_m2'],
-                    'planning_vendredi_a1' => $_POST['planning_vendredi_a1'],
-                    'planning_vendredi_a2' => $_POST['planning_vendredi_a2']
-                ];
+                'planning_vendredi_m1' => $_POST['planning_vendredi_m1'],
+                'planning_vendredi_m2' => $_POST['planning_vendredi_m2'],
+                'planning_vendredi_a1' => $_POST['planning_vendredi_a1'],
+                'planning_vendredi_a2' => $_POST['planning_vendredi_a2']
+            ];
 
 
-                // Met à jour les enregistrements dans la base de données
-                $this->planning_model->updatePlanningData($newData);
-            }
-
-            // Ajoute le planning à la variable $data
-            $data['planning_data'] = $planning_data;
-
-            $this->display_view('Helpdesk\modification_planning', $data);
+            // Met à jour les enregistrements dans la base de données
+            $this->planning_model->updatePlanningData($newData);
         }
 
-        // Sinon, redirige vers la page de connexion
-        else {
-            return redirect()->to('user/auth/login');
-        }
+        // Ajoute le planning à la variable $data
+        $data['planning_data'] = $planning_data;
+
+        $this->display_view('Helpdesk\modification_planning', $data);
     }
 }
