@@ -142,7 +142,7 @@
             <?php if (isset($planning_data)) : ?>
                 <?php foreach ($planning_data as $technicien) : ?>
                     <tr>
-                        <th><?php echo $technicien['fk_username']; ?></th>
+                        <th><?php echo $technicien['fk_user_id']; ?></th>
 
                         <td class="<?php echo $technicien['planning_lundi_m1'] == 0 ? '' : ($technicien['planning_lundi_m1'] == 1 ? 'bg-green' : ($technicien['planning_lundi_m1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
                             <?php echo $technicien['planning_lundi_m1']; ?>

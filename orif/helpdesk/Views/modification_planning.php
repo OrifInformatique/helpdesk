@@ -139,7 +139,7 @@
                 <?php if (isset($planning_data)) : ?>
                     <?php foreach ($planning_data as $technicien) : ?>
                         <tr>
-                            <th><?php echo $technicien['fk_username']; ?></th>
+                            <th><?php echo $technicien['fk_user_id']; ?></th>
 
                             <!-- Lundi -->
                             <td>

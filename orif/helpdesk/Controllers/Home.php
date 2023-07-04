@@ -85,7 +85,6 @@ class Home extends BaseController
                 // Ajoute l'entrée et sa valeur dans le tableau $incomplete_form_data
                 $incomplete_form_data[$key] = $value;
             }
-
             // Réaffiche le formulaire avec les données des champs déjà renseignés
             $this->display_view('Helpdesk\presence', $incomplete_form_data);
         }
@@ -99,37 +98,37 @@ class Home extends BaseController
             // Récupére l'ID de la présence depuis la table "presence"
             $id_presence = $this->presence_model->getPresenceId($user_id);
 
-            // Prépare les données à enregistrer
+            // Prépare les présences à enregistrer
             $data = [
 
-                'id' => $id_presence,
+                'id_presence' => $id_presence,
 
                 'fk_user_id' => $user_id,
 
-                'fk_lundi_m1' => $_POST['lundi_debut_matin'],
-                'fk_lundi_m2' => $_POST['lundi_fin_matin'],
-                'fk_lundi_a1' => $_POST['lundi_debut_apres_midi'],
-                'fk_lundi_a2' => $_POST['lundi_fin_apres_midi'],
+                'presences_lundi_m1' => $_POST['lundi_debut_matin'],
+                'presences_lundi_m2' => $_POST['lundi_fin_matin'],
+                'presences_lundi_a1' => $_POST['lundi_debut_apres_midi'],
+                'presences_lundi_a2' => $_POST['lundi_fin_apres_midi'],
 
-                'fk_mardi_m1' => $_POST['mardi_debut_matin'],
-                'fk_mardi_m2' => $_POST['mardi_fin_matin'],
-                'fk_mardi_a1' => $_POST['mardi_debut_apres_midi'],
-                'fk_mardi_a2' => $_POST['mardi_fin_apres_midi'],
+                'presences_mardi_m1' => $_POST['mardi_debut_matin'],
+                'presences_mardi_m2' => $_POST['mardi_fin_matin'],
+                'presences_mardi_a1' => $_POST['mardi_debut_apres_midi'],
+                'presences_mardi_a2' => $_POST['mardi_fin_apres_midi'],
 
-                'fk_mercredI_m1' => $_POST['mercredi_debut_matin'],
-                'fk_mercredI_m2' => $_POST['mercredi_fin_matin'],
-                'fk_mercredI_a1' => $_POST['mercredi_debut_apres_midi'],
-                'fk_mercredI_a2' => $_POST['mercredi_fin_apres_midi'],
+                'presences_mercredi_m1' => $_POST['mercredi_debut_matin'],
+                'presences_mercredi_m2' => $_POST['mercredi_fin_matin'],
+                'presences_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
+                'presences_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
 
-                'fk_jeudi_m1' => $_POST['jeudi_debut_matin'],
-                'fk_jeudi_m2' => $_POST['jeudi_fin_matin'],
-                'fk_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
-                'fk_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
+                'presences_jeudi_m1' => $_POST['jeudi_debut_matin'],
+                'presences_jeudi_m2' => $_POST['jeudi_fin_matin'],
+                'presences_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
+                'presences_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
 
-                'fk_vendredi_m1' => $_POST['vendredi_debut_matin'],
-                'fk_vendredi_m2' => $_POST['vendredi_fin_matin'],
-                'fk_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
-                'fk_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
+                'presences_vendredi_m1' => $_POST['vendredi_debut_matin'],
+                'presences_vendredi_m2' => $_POST['vendredi_fin_matin'],
+                'presences_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
+                'presences_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
             ];
 
             // Effectue l'insertion ou la modification dans la base de données
