@@ -95,222 +95,43 @@
             </span>
         </div>
 
-
         <table class="table-responsive position-relative">
             <thead>
                 <tr>
-
                     <th></th>
                     <th colspan="4">Lundi <?php echo date('d', strtotime('monday this week')); ?></th>
                     <th colspan="4">Mardi <?php echo date('d', strtotime('tuesday this week')); ?></th>
                     <th colspan="4">Mercredi <?php echo date('d', strtotime('wednesday this week')); ?></th>
                     <th colspan="4">Jeudi <?php echo date('d', strtotime('thursday this week')); ?></th>
                     <th colspan="4">Vendredi <?php echo date('d', strtotime('friday this week')); ?></th>
-
                 </tr>
                 <tr>
                     <th>Technicien</th>
-
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
-
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
-
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
-
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
-
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
+                    <?php 
+                    // Boucle répétant 5x les horaires
+                    for($i = 0; $i < 5; $i++): ?>
+                        <th>8:00 10:00</th>
+                        <th>10:00 12:00</th>
+                        <th>12:45 15:00</th>
+                        <th>15:00 16:57</th>
+                    <?php endfor; ?>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <th>personne</th>
-
-                    <!-- Lundi -->
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-
-                    <!-- mardi -->
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-
-                    <!-- mercredi -->
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-
-                    <!-- jeudi -->
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-
-                    <!-- vendredi -->
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-                    <td>
-                        <select>
-                            <option></option>
-                            <option>1</option>
-                            <option>2</option>
-                            <option>3</option>
-                        </select>
-                    </td>
-
+                    <th>Individu</th>
+                    <?php 
+                    // Boucle répétant 20x les cellules
+                    for($i = 0; $i < 20; $i++): ?>   
+                        <td>
+                            <select>
+                                <option></option>
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                            </select>
+                        </td>
+                    <?php endfor; ?>
                 </tr>
             </tbody>
         </table>

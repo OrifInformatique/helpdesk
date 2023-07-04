@@ -42,14 +42,26 @@ class Home extends BaseController
         $this->display_view('Helpdesk\planning', $data);
     }
 
+    // Vérifie si l'utilisateur est connecté
+    public function isUserLogged()
+    {
+        // Si l'ID de l'utilisateur n'existe pas ou est vide
+        if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) 
+        {
+            // Redirige vers la page de connexion
+            return redirect()->to('user/auth/login');
+        }
+
+        // Sinon, exécute la suite du code normalement
+    }
+
     public function presence()
     {
         // Si l'utilisateur est connecté
-        if (isset($_SESSION['user_id'])) {
-
-            $data = [
-                'title' => "Présences de l'apprenti"
-            ];
+        if (isset($_SESSION['user_id'])) 
+        {
+            // Titre de la page
+            $data['title'] = "Présences de l'apprenti";
 
             // Récupére les présences déjà enregistrées
             $user_id = $_SESSION['user_id'];
@@ -72,63 +84,66 @@ class Home extends BaseController
 
     function savePresence()
     {
-        // Si au moins un champ est vide, réaffiche le formulaire en stockant les données déjà insérées
-        if (count($_POST) != 20) {
+        // TODO : vérifier si l'utilisateur est connecté
 
-            // Initialisation de variables
-            $incomplete_form_data = [
-                'error_message' => 'Toutes les présences doivent être renseignées.'
-            ];
+        // Récupére l'ID de l'utilisateur depuis la session
+        $user_id = $_SESSION['user_id'];
 
-            // Boucle parcourant chaque entrée du formulaire
-            foreach ($_POST as $key => $value) {
-                // Ajoute l'entrée et sa valeur dans le tableau $incomplete_form_data
-                $incomplete_form_data[$key] = $value;
+        // Récupére l'ID de la présence depuis la table "presence"
+        $id_presence = $this->presence_model->getPresenceId($user_id);
+
+        // Tableau des champs du formulaire
+        $form_fields_data = [
+            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
+            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
+            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
+            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
+            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
+        ];
+
+        // TODO : Prendre la valeur de l'état Absent depuis la BD
+        // Ajoute des valeurs par défaut si un champ n'est pas renseigné
+        foreach ($form_fields_data as $field)
+        {
+            // Si le champ est vide ou indéfini
+            if (!isset($_POST[$field]) || empty($_POST[$field]))
+            {
+                // Définit la valeur à "Absent"
+                $_POST[$field] = 3;
             }
-            // Réaffiche le formulaire avec les données des champs déjà renseignés
-            $this->display_view('Helpdesk\presence', $incomplete_form_data);
         }
 
-        // Si tous les champs du formulaire sont remplis
-        else {
+        // Prépare les données de présence à enregistrer
+        $data = [
 
-            // Récupére l'ID de l'utilisateur depuis la session
-            $user_id = $_SESSION['user_id'];
+            'id' => $id_presence,
 
-            // Récupére l'ID de la présence depuis la table "presence"
-            $id_presence = $this->presence_model->getPresenceId($user_id);
+            'fk_user_id' => $user_id,
 
-            // Prépare les présences à enregistrer
-            $data = [
+            'presences_lundi_m1' => $_POST['lundi_debut_matin'],
+            'presences_lundi_m2' => $_POST['lundi_fin_matin'],
+            'presences_lundi_a1' => $_POST['lundi_debut_apres_midi'],
+            'presences_lundi_a2' => $_POST['lundi_fin_apres_midi'],
 
-                'id_presence' => $id_presence,
+            'presences_mardi_m1' => $_POST['mardi_debut_matin'],
+            'presences_mardi_m2' => $_POST['mardi_fin_matin'],
+            'presences_mardi_a1' => $_POST['mardi_debut_apres_midi'],
+            'presences_mardi_a2' => $_POST['mardi_fin_apres_midi'],
 
-                'fk_user_id' => $user_id,
+            'presences_mercredi_m1' => $_POST['mercredi_debut_matin'],
+            'presences_mercredi_m2' => $_POST['mercredi_fin_matin'],
+            'presences_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
+            'presences_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
 
-                'presences_lundi_m1' => $_POST['lundi_debut_matin'],
-                'presences_lundi_m2' => $_POST['lundi_fin_matin'],
-                'presences_lundi_a1' => $_POST['lundi_debut_apres_midi'],
-                'presences_lundi_a2' => $_POST['lundi_fin_apres_midi'],
+            'presences_jeudi_m1' => $_POST['jeudi_debut_matin'],
+            'presences_jeudi_m2' => $_POST['jeudi_fin_matin'],
+            'presences_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
+            'presences_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
 
-                'presences_mardi_m1' => $_POST['mardi_debut_matin'],
-                'presences_mardi_m2' => $_POST['mardi_fin_matin'],
-                'presences_mardi_a1' => $_POST['mardi_debut_apres_midi'],
-                'presences_mardi_a2' => $_POST['mardi_fin_apres_midi'],
-
-                'presences_mercredi_m1' => $_POST['mercredi_debut_matin'],
-                'presences_mercredi_m2' => $_POST['mercredi_fin_matin'],
-                'presences_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
-                'presences_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
-
-                'presences_jeudi_m1' => $_POST['jeudi_debut_matin'],
-                'presences_jeudi_m2' => $_POST['jeudi_fin_matin'],
-                'presences_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
-                'presences_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
-
-                'presences_vendredi_m1' => $_POST['vendredi_debut_matin'],
-                'presences_vendredi_m2' => $_POST['vendredi_fin_matin'],
-                'presences_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
-                'presences_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
+            'presences_vendredi_m1' => $_POST['vendredi_debut_matin'],
+            'presences_vendredi_m2' => $_POST['vendredi_fin_matin'],
+            'presences_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
+            'presences_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
             ];
 
             // Effectue l'insertion ou la modification dans la base de données
@@ -142,7 +157,29 @@ class Home extends BaseController
 
             // Affiche la page du planning
             $this->display_view('Helpdesk\presence', $data);
+
+        // Détermine quelle action est effectuée (ajout ou modif), pour afficher un message à l'utilisateur
+        if (isset($data['id']) && !empty($data['id']))
+        {
+            $data['success'] = "Présences modifiées avec succès.";
         }
+
+        else
+        {
+            $data['success'] = "Présences insérées avec succès.";
+        }
+
+        // Effectue l'insertion ou la modification dans la base de données
+        $this->presence_model->save($data);
+
+        // Sélectionne les présences de l'utilisateur
+        $presences_data = $this->presence_model->getPresencesUser($user_id);
+
+        // Ajouter les présences à la variable $data
+        $data = $presences_data;
+
+        // Affiche la page du planning
+        $this->display_view('helpdesk\home\presence', $data);
     }
 
     function ajouter_technicien()

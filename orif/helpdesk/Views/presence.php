@@ -135,10 +135,12 @@
 	<form method="POST" action="<?= base_url('helpdesk/home/savePresence') ?>">
 		<input class="btn btn-blue" type="submit" value="Enregistrer">
 		
-		<!-- message pour les présences non mise-->
-		<?php if (isset($error_message)){
-			echo ('<p>'.$error_message.'</p>'
-			);} ?>
+		<!-- Message de succès, si existant -->
+		<?php if (isset($success)): ?>
+			<p> <?$success?> </p>
+		<?php endif; ?>
+
+		<!-- TODO : Optimiser cette page en utilisant des boucles -->
 
 		<!-- lundi -->
 		<div class="d-flex justify-content-center">

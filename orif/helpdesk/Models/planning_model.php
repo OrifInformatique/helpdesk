@@ -40,9 +40,12 @@ class Planning_model extends \CodeIgniter\Model
 
     public function getPlanningData()
     {
-        // Requête SQL pour reprendre depuis la base de donnée la clé primaire des présences de l'utilisateur
+        // Récolte tous les données sur le planning
         $planning_data = $this->findAll();
+    
+        // TODO : récoleter le nom de l'utilisateur pour l'afficher dans la vue
 
+        // Retourne le tableau
         return $planning_data;
     }
     

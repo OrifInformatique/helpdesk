@@ -929,9 +929,19 @@ abstract class BaseConnection implements ConnectionInterface
      *
      * Used by the Debug Toolbar's timeline.
      */
+
+     /* AJOUTE PAR DERVEY D.
+     ** Fonction modifiée pour que le projet fonctionne dans certains environnements.
+     **
+     ** Gère le cas où "$this->connectDuration" n'est pas un nombre (soluce par ChatGPT).
+     */
     public function getConnectDuration(int $decimals = 6): string
     {
-        return number_format($this->connectDuration, $decimals);
+        if (is_numeric($this->connectDuration)) {
+            return number_format($this->connectDuration, $decimals);
+        } else {
+            return '';
+        }
     }
 
     /**
