@@ -1,7 +1,7 @@
 <?php
 
 /**
- * welcome_message view
+ * planning view
  *
  * @author      Orif (BlAl)
  * @link        https://github.com/OrifInformatique
@@ -67,6 +67,27 @@
         background-color: #b4c6e7;
         border-color: #b4c6e7
     }
+
+    /* Message de succès */
+	.success {
+		position: absolute;
+		top: 18%;
+		background-color: greenyellow;
+		border-radius: 5px;
+		padding: 7px 15px;
+		font-size: 1.25em;
+
+		animation: fadeOut 4s forwards;
+	}
+
+	/* Animation de disparition */
+	@keyframes fadeOut 
+	{
+		0% { opacity: 1; }
+		80% { opacity: 1; }
+		100% { opacity: 0; display: none; }
+	}
+
 </style>
 
 <div class="container-fluid">
@@ -74,9 +95,16 @@
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>">Vos présences</a>
 
     <div>
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouter_technicien') ?>">Ajouter des techniciens</a>
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modification_planning') ?>">Modifier le planning</a>
+        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>">Ajouter un technicien</a>
+        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modificationPlanning') ?>">Modifier le planning</a>
     </div>
+
+    <!-- Message de succès, si existant -->
+    <?php if (isset($success)): ?>
+        <div class="d-flex justify-content-center">
+            <?php echo ('<p class="success">'.$success.'</p>'); ?>
+        </div>
+    <?php endif; ?>
 
     <div class="d-flex justify-content-center">
         <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">1 - Technicien d'astreinte</div> <!-- c5deb5 -->
@@ -127,79 +155,27 @@
         </thead>
         <tbody>
             <?php if (isset($planning_data)) : ?>
-                <?php foreach ($planning_data as $technicien) : ?>
+                <?php foreach ($planning_data as $user) : ?>
                     <tr>
-                        <th><?php echo $technicien['fk_user_id']; ?></th>
+                        <th>
+                            <?php echo $user['nom_user_data'].'<br>'.$user['prenom_user_data']; ?>
+                        </th>
 
-                        <td class="<?php echo $technicien['planning_lundi_m1'] == 0 ? '' : ($technicien['planning_lundi_m1'] == 1 ? 'bg-green' : ($technicien['planning_lundi_m1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_lundi_m1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_lundi_m2'] == 0 ? '' : ($technicien['planning_lundi_m2'] == 1 ? 'bg-green' : ($technicien['planning_lundi_m2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_lundi_m2']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_lundi_a1'] == 0 ? '' : ($technicien['planning_lundi_a1'] == 1 ? 'bg-green' : ($technicien['planning_lundi_a1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_lundi_a1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_lundi_a2'] == 0 ? '' : ($technicien['planning_lundi_a2'] == 1 ? 'bg-green' : ($technicien['planning_lundi_a2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_lundi_a2']; ?>
-                        </td>
+                        <?php foreach ($periodes as $periode): ?>
+                            <td class="<?php echo $user[$periode] == 0 ? '' : ($user[$periode] == 1 ? 'bg-green' : ($user[$periode] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
+                                <?php echo $user[$periode]; ?>
+                            </td>
 
-                        <td class="<?php echo $technicien['planning_mardi_m1'] == 0 ? '' : ($technicien['planning_mardi_m1'] == 1 ? 'bg-green' : ($technicien['planning_mardi_m1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mardi_m1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_mardi_m2'] == 0 ? '' : ($technicien['planning_mardi_m2'] == 1 ? 'bg-green' : ($technicien['planning_mardi_m2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mardi_m2']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_mardi_a1'] == 0 ? '' : ($technicien['planning_mardi_a1'] == 1 ? 'bg-green' : ($technicien['planning_mardi_a1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mardi_a1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_mardi_a2'] == 0 ? '' : ($technicien['planning_mardi_a2'] == 1 ? 'bg-green' : ($technicien['planning_mardi_a2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mardi_a2']; ?>
-                        </td>
+                        <?php endforeach; ?>
 
-                        <td class="<?php echo $technicien['planning_mercredi_m1'] == 0 ? '' : ($technicien['planning_mercredi_m1'] == 1 ? 'bg-green' : ($technicien['planning_mercredi_m1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mercredi_m1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_mercredi_m2'] == 0 ? '' : ($technicien['planning_mercredi_m2'] == 1 ? 'bg-green' : ($technicien['planning_mercredi_m2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mercredi_m2']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_mercredi_a1'] == 0 ? '' : ($technicien['planning_mercredi_a1'] == 1 ? 'bg-green' : ($technicien['planning_mercredi_a1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mercredi_a1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_mercredi_a2'] == 0 ? '' : ($technicien['planning_mercredi_a2'] == 1 ? 'bg-green' : ($technicien['planning_mercredi_a2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_mercredi_a2']; ?>
-                        </td>
-
-                        <td class="<?php echo $technicien['planning_jeudi_m1'] == 0 ? '' : ($technicien['planning_jeudi_m1'] == 1 ? 'bg-green' : ($technicien['planning_jeudi_m1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_jeudi_m1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_jeudi_m2'] == 0 ? '' : ($technicien['planning_jeudi_m2'] == 1 ? 'bg-green' : ($technicien['planning_jeudi_m2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_jeudi_m2']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_jeudi_a1'] == 0 ? '' : ($technicien['planning_jeudi_a1'] == 1 ? 'bg-green' : ($technicien['planning_jeudi_a1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_jeudi_a1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_jeudi_a2'] == 0 ? '' : ($technicien['planning_jeudi_a2'] == 1 ? 'bg-green' : ($technicien['planning_jeudi_a2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_jeudi_a2']; ?>
-                        </td>
-
-                        <td class="<?php echo $technicien['planning_vendredi_m1'] == 0 ? '' : ($technicien['planning_vendredi_m1'] == 1 ? 'bg-green' : ($technicien['planning_vendredi_m1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_vendredi_m1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_vendredi_m2'] == 0 ? '' : ($technicien['planning_vendredi_m2'] == 1 ? 'bg-green' : ($technicien['planning_vendredi_m2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_vendredi_m2']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_vendredi_a1'] == 0 ? '' : ($technicien['planning_vendredi_a1'] == 1 ? 'bg-green' : ($technicien['planning_vendredi_a1'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_vendredi_a1']; ?>
-                        </td>
-                        <td class="<?php echo $technicien['planning_vendredi_a2'] == 0 ? '' : ($technicien['planning_vendredi_a2'] == 1 ? 'bg-green' : ($technicien['planning_vendredi_a2'] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                            <?php echo $technicien['planning_vendredi_a2']; ?>
-                        </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else : ?>
                 <tr>
-                    <td colspan="21"> Aucun technicien n'est assigné au planning.</td>
+                    <td colspan="21">
+                        Aucun technicien n'est assigné au planning.<br>
+                        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>">Ajouter un technicien</a>
+                    </td>
                 </tr>
             <?php endif; ?>
         </tbody>

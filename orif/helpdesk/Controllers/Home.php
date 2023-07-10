@@ -8,15 +8,15 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Helpdesk\Models\Presence_model;
 use Helpdesk\Models\Planning_model;
+use Helpdesk\Models\User_model;
 
 class Home extends BaseController
 {
 
     protected $session;
-
     protected $presence_model;
-
     protected $planning_model;
+    protected $user_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -24,6 +24,7 @@ class Home extends BaseController
         $this->session = \Config\Services::session();
         $this->presence_model = new Presence_model();
         $this->planning_model = new Planning_model();
+        $this->user_model = new User_model();
 
         helper('form');
     }
@@ -32,11 +33,21 @@ class Home extends BaseController
     {
         $data['title'] = "Helpdesk";
 
-        // Récupère les données du planning
-        $planning_data = $this->planning_model->getPlanningData();
+        // Récupère les données des utilisateurs ayant un planning attribué
+        $planning_data = $this->planning_model->getPlanningDataByUser();
 
         // Ajoute le planning à la variable $data
         $data['planning_data'] = $planning_data;
+
+        // Tableau pour les présences
+        $data['periodes'] = 
+        [
+            'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
+            'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
+            'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
+            'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
+            'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
+        ];
 
         // Affiche la page du planning
         $this->display_view('Helpdesk\planning', $data);
@@ -50,13 +61,14 @@ class Home extends BaseController
         {
             // Redirige vers la page de connexion
             // Utilisation de fonctions PHP natives car redirect() ou display_view() ne fonctionnent pas
-            header("Location: " . site_url('user/auth/login'));
+            header("Location: " . base_url('user/auth/login'));
             exit();
         }
 
         // Sinon, exécute la suite du code normalement
     }
 
+    // Affiche la page presence
     public function presence()
     {
         // Vérifie si l'utilisateur est connecté
@@ -79,6 +91,7 @@ class Home extends BaseController
 
     }
 
+    // Sauvegarde les données envoyées par le formulaire de la page presence
     function savePresence()
     {
         // Vérifie si l'utilisateur est connecté
@@ -160,15 +173,151 @@ class Home extends BaseController
         $this->display_view('Helpdesk\presence', $data);
     }
 
-    function ajouter_technicien()
+    // Affiche la page ajouter_technicien | Sauvegarde les données du formulaire de la page ajout_technicien
+    function ajouterTechnicien()
     {
         // Vérifie si l'utilisateur est connecté
         $this->isUserLogged();
 
-        $this->display_view('Helpdesk\ajouter_technicien');
+        // Si l'on clique sur le bouton "Ajouter un technicien" deupis le planning
+        if (empty($_POST))
+        {
+            // Titre de la page
+            $data['title'] = "Ajouter un technicien";
+
+            // Récolte tous les utilisateurs de la base de données
+            $data['users'] = $this->user_model->getUsersData();
+
+            // Tableau pour identifier les présences dans la page suivante
+            $data['presences'] = 
+            [
+                'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
+                'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
+                'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
+                'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
+                'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
+            ];
+
+            // Affiche la page d'ajout de technicien
+            return $this->display_view('Helpdesk\ajouter_technicien', $data);
+        }
+
+        // Récupère l'ID de l'utilisateur rensigné dans le champ "technicien"
+        $user_id = $_POST['technicien'];
+        
+        // Vérifie si l'utilisateur possède déjà un planning
+        $data['error'] = $this->planning_model->checkUserOwnsPlanning($user_id);
+        
+        // Si $data['error'] n'est pas vide, cela veut dire que l'utilisateur possède déjà un planning
+        if (!empty($data['error']))
+        {
+            // Réaffiche la page d'ajout de technicien, avec le message d'erreur
+            return $this->display_view('Helpdesk\ajouter_technicien', $data);
+        }
+
+        // Tableau des champs du formulaire
+        $form_fields_data = [
+            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
+            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
+            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
+            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
+            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
+        ];
+
+        // Variable pour calculer le nombre de champs vides
+        $emptyFields = 0;
+
+        // Ajoute des valeurs par défaut si un champ n'est pas renseigné
+        foreach ($form_fields_data as $field)
+        {
+            // Si le champ est vide ou indéfini
+            if (!isset($_POST[$field]) || empty($_POST[$field]))
+            {
+                // Définit la valeur à NULL
+                $_POST[$field] = NULL;
+
+                // Incréemente la variable
+                $emptyFields++;
+            }
+        }
+
+        // Si il y a 20 champs vides, signifie que tous les champs sont vides. N'autoirise pas l'insertion d'un technicien sans présences
+        if ($emptyFields === 20)
+        {
+            // Message d'erreur
+            $data['error'] = 'Le technicien doit être assigné au minimum à un rôle pendant une période';
+
+            // Réaffiche la page d'ajout de technicien, avec le message d'erreur
+            return $this->display_view('Helpdesk\ajouter_technicien', $data);     
+        }
+
+        // Prépare le planning à enregistrer
+        $data = 
+        [
+            'fk_user_id' => $user_id,
+
+            'planning_lundi_m1' => $_POST['lundi_debut_matin'],
+            'planning_lundi_m2' => $_POST['lundi_fin_matin'],
+            'planning_lundi_a1' => $_POST['lundi_debut_apres_midi'],
+            'planning_lundi_a2' => $_POST['lundi_fin_apres_midi'],
+
+            'planning_mardi_m1' => $_POST['mardi_debut_matin'],
+            'planning_mardi_m2' => $_POST['mardi_fin_matin'],
+            'planning_mardi_a1' => $_POST['mardi_debut_apres_midi'],
+            'planning_mardi_a2' => $_POST['mardi_fin_apres_midi'],
+
+            'planning_mercredi_m1' => $_POST['mercredi_debut_matin'],
+            'planning_mercredi_m2' => $_POST['mercredi_fin_matin'],
+            'planning_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
+            'planning_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
+
+            'planning_jeudi_m1' => $_POST['jeudi_debut_matin'],
+            'planning_jeudi_m2' => $_POST['jeudi_fin_matin'],
+            'planning_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
+            'planning_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
+
+            'planning_vendredi_m1' => $_POST['vendredi_debut_matin'],
+            'planning_vendredi_m2' => $_POST['vendredi_fin_matin'],
+            'planning_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
+            'planning_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
+        ];
+
+        // Insère les données dans la table "tbl_planning"
+        $this->planning_model->insert($data);
+
+        // Afficher un message de succès à l'utilisateur
+        $data['success'] = "Technicien ajouté au planning avec succès";
+
+        /*
+        ** Prise d'infos de la fonction index()
+        ** (Répétition pour ajouter le message de succès à $data)
+        */
+        
+        // Titre de la page
+        $data['title'] = "Helpdesk";
+
+        // Récupère les données des utilisateurs ayant un planning attribué
+        $planning_data = $this->planning_model->getPlanningDataByUser();
+
+        // Ajoute le planning à la variable $data
+        $data['planning_data'] = $planning_data;
+
+        // Tableau pour les présences
+        $data['periodes'] = 
+        [
+            'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
+            'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
+            'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
+            'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
+            'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
+        ];
+
+        // Affiche la page du planning
+        $this->display_view('Helpdesk\planning', $data);
     }
 
-    function modification_planning()
+    // Affiche la page modification_planning | Sauvegarde les données du formulaire de la page modification_planning
+    function modificationPlanning()
     {
         // Vérifie si l'utilisateur est connecté
         $this->isUserLogged();

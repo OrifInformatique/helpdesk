@@ -38,15 +38,42 @@ class Planning_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
+    // Récupère toutes les données du planning
     public function getPlanningData()
     {
-        // Récolte tous les données sur le planning
+        // Récolte toutes les données sur le planning
         $planning_data = $this->findAll();
-    
-        // TODO : récoleter le nom de l'utilisateur pour l'afficher dans la vue
 
         // Retourne le tableau
         return $planning_data;
+    }
+
+    // Récupère tous les utilisateur qui ont un planning
+    public function getPlanningDataByUser()
+    {
+        // Jointure avec la table "tbl_user_data", pour récupérer les données du planning et de l'utilisateur
+        $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id');
+        $result = $this->findAll();
+        
+        return $result;
+    }
+
+    // Vérifie si un utilisateur possède un planning
+    public function checkUserOwnsPlanning($user_id)
+    {
+        // Récolte l'ID de l'utilisateur via le planning de l'utilisateur, si existants
+        $planning_data = $this->where('fk_user_id', $user_id)->findAll();
+        
+        // Si le résultat retourne qqch, signifie que l'utilisateur possède déjà un planning. Empêche de créer un doublon
+        if (!empty($planning_data))
+        {
+            // Message d'erreur
+            $data['error'] = 'Le technicien renseigné possède déjà un planning';
+
+            return $data['error'];
+        }
+
+        // Sinon, exécute la suite du code normalement
     }
     
     public function updatePlanningData($newData)

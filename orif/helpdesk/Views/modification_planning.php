@@ -2,7 +2,7 @@
 
 
 /**
- * welcome_message view
+ * modification_planning view
  *
  * @author      Orif (BlAl)
  * @link        https://github.com/OrifInformatique
@@ -68,6 +68,9 @@
 </style>
 
 <div class="container-fluid">
+
+    <!-- Affiche le titre si existant -->
+    <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
 
