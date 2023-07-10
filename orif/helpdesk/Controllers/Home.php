@@ -179,25 +179,25 @@ class Home extends BaseController
         // Vérifie si l'utilisateur est connecté
         $this->isUserLogged();
 
+        // Titre de la page
+        $data['title'] = "Ajouter un technicien";
+
+        // Récolte tous les utilisateurs de la base de données
+        $data['users'] = $this->user_model->getUsersData();
+
+        // Tableau pour identifier les présences dans la page suivante
+        $data['presences'] = 
+        [
+            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
+            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
+            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
+            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
+            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
+        ];
+
         // Si l'on clique sur le bouton "Ajouter un technicien" deupis le planning
         if (empty($_POST))
         {
-            // Titre de la page
-            $data['title'] = "Ajouter un technicien";
-
-            // Récolte tous les utilisateurs de la base de données
-            $data['users'] = $this->user_model->getUsersData();
-
-            // Tableau pour identifier les présences dans la page suivante
-            $data['presences'] = 
-            [
-                'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
-                'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
-                'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
-                'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
-                'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
-            ];
-
             // Affiche la page d'ajout de technicien
             return $this->display_view('Helpdesk\ajouter_technicien', $data);
         }
