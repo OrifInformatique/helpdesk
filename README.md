@@ -24,10 +24,8 @@ Le site helpdesk est développé en utilisant :
 1. Téléchargez et installez VSC (Visual Studio Code).
 2. Connectez-vous à GitHub via VSC.
 3. Téléchargez les extensions pour GitHub.
-
     - [Remote Repositories](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-repositories)
     - [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
-
     - [PHP Extension Pack](https://marketplace.visualstudio.com/items?itemName=xdebug.php-pack)
     - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 
