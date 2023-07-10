@@ -17,7 +17,8 @@ class Presence_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_presences';
     protected $primaryKey = 'id_presence';
-    protected $allowedFields = [
+    protected $allowedFields = 
+    [
         'fk_user_id',
         'presences_lundi_m1', 'presences_lundi_m2', 'presences_lundi_a1', 'presences_lundi_a2',
         'presences_mardi_m1', 'presences_mardi_m2', 'presences_mardi_a1', 'presences_mardi_a2',
@@ -62,7 +63,8 @@ class Presence_model extends \CodeIgniter\Model
             $result = $query->getRow();
 
             // Tableau des présences à envoyer sur la page du formulaire
-            $presences_data = [
+            $presences_data = 
+            [
                 'lundi_debut_matin' => $result->presences_lundi_m1,
                 'lundi_fin_matin' => $result->presences_lundi_m2,
                 'lundi_debut_apres_midi' => $result->presences_lundi_a1,

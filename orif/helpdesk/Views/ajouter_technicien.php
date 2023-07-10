@@ -2,7 +2,7 @@
 
 
 /**
- * welcome_message view
+ * ajouter_technicien view
  *
  * @author      Orif (BlAl)
  * @link        https://github.com/OrifInformatique
@@ -66,15 +66,45 @@
         background-color: #b4c6e7;
         border-color: #b4c6e7
     }
+
+    .error {
+		position: absolute;
+		top: 18%;
+		background-color: red;
+        color: #fff;
+		border-radius: 5px;
+		padding: 7px 15px;
+		font-size: 1.25em;
+
+		animation: fadeOut 4s forwards;
+	}
+
+	/* Animation de disparition */
+	@keyframes fadeOut 
+	{
+		0% { opacity: 1; }
+		80% { opacity: 1; }
+		100% { opacity: 0; display: none; }
+	}
 </style>
 
 <div class="container-fluid">
 
+    <!-- Affiche le titre si existant -->
+    <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
+
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
 
-    <form>
+    <form action="<?= base_url('helpdesk/home/ajouterTechnicien') ?>" method="post">
 
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home') ?>">Enregistrer</a>
+        <input class="btn btn-blue mb-3" type="submit" value="Enregistrer"/>
+
+        <!-- Message d'erreur, si existant -->
+		<?php if (isset($error)): ?>
+			<div class="d-flex justify-content-center">
+				<?php echo ('<p class="error">'.$error.'</p>'); ?>
+			</div>
+		<?php endif; ?>
 
         <div class="d-flex justify-content-center">
             <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">1 - Technicien d'astreinte</div> <!-- c5deb5 -->
@@ -95,10 +125,22 @@
             </span>
         </div>
 
+        <div class="">
+            <p> Technicien à ajouter au planning </p>
+            <select name="technicien" required>
+                <option disabled selected></option>
+                <?php 
+                foreach($users as $user)
+                {
+                    echo('<option value="'.$user['id'].'">'.$user['nom_user_data'].' '.$user['prenom_user_data'].'</option>');
+                } 
+                ?>
+            </select>
+        </div>
+
         <table class="table-responsive position-relative">
             <thead>
                 <tr>
-                    <th></th>
                     <th colspan="4">Lundi <?php echo date('d', strtotime('monday this week')); ?></th>
                     <th colspan="4">Mardi <?php echo date('d', strtotime('tuesday this week')); ?></th>
                     <th colspan="4">Mercredi <?php echo date('d', strtotime('wednesday this week')); ?></th>
@@ -106,7 +148,6 @@
                     <th colspan="4">Vendredi <?php echo date('d', strtotime('friday this week')); ?></th>
                 </tr>
                 <tr>
-                    <th>Technicien</th>
                     <?php 
                     // Boucle répétant 5x les horaires
                     for($i = 0; $i < 5; $i++): ?>
@@ -119,16 +160,15 @@
             </thead>
             <tbody>
                 <tr>
-                    <th>Individu</th>
                     <?php 
-                    // Boucle répétant 20x les cellules
+                    // Boucle répétant 20x les choix des rôles des rôles
                     for($i = 0; $i < 20; $i++): ?>   
                         <td>
-                            <select>
-                                <option></option>
-                                <option>1</option>
-                                <option>2</option>
-                                <option>3</option>
+                            <select name="<?php echo($presences[$i]);?>">
+                                <option selected></option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
                             </select>
                         </td>
                     <?php endfor; ?>

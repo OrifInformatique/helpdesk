@@ -2,7 +2,7 @@
 
 
 /**
- * welcome_message view
+ * presence view
  *
  * @author      Orif (BlAl)
  * @link        https://github.com/OrifInformatique
