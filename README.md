@@ -62,6 +62,8 @@ _Les projets et fichiers web se situent sous `laragon\www`._
 2. Placez-le à la racine du projet.
 3. Connectez-vous à la base de données partagée. Les informations figurent sur Teams.
 
+_Si vous travaillez avec une base de données locale, il vous faudra importer la base de données partagée dessus. Des versions existent sur Teams._
+
 # Vous êtes parés !
 Le projet figure sous `orif\helpdesk`.
 
