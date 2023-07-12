@@ -13,7 +13,7 @@ Le site helpdesk est développé en utilisant :
 
 - [Visual Studio Code](https://code.visualstudio.com/), éditeur de texte, avec les extensions GitHub et PHP.
 - [Laragon](https://laragon.org/), serveur Apache et MySQL (PHPMyAdmin, PHP 7.4.X).
-- [GitHub Desktop](https://desktop.github.com/), pour synchroniser les données [Facultatif].
+- [GitHub Desktop](https://desktop.github.com/), pour synchroniser les données. Facultatif
 
 # Reproduction de l'environnement
 
