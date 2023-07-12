@@ -70,13 +70,15 @@
 <div class="container-fluid">
 
     <!-- Affiche le titre si existant -->
-    <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
+    <?php if (isset($title)) {
+        echo ('<h2>' . $title . '</h2>');
+    } ?>
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
 
     <form method="POST" action="<?= base_url('helpdesk/home/modification_planning') ?>">
 
-		<input class="btn btn-blue mb-3" type="submit" value="Enregistrer">
+        <input class="btn btn-blue mb-3" type="submit" value="Enregistrer">
 
         <div class="d-flex justify-content-center">
             <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">1 - Technicien d'astreinte</div> <!-- c5deb5 -->
@@ -112,30 +114,17 @@
                 <tr>
                     <th>Technicien</th>
 
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
+                    <?php
+                    // Boucle répétant 5x les horaires
+                    for ($i = 0; $i < 5; $i++) : ?>
 
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
+                        <th>8:00 10:00</th>
+                        <th>10:00 12:00</th>
+                        <th>12:45 15:00</th>
+                        <th>15:00 16:57</th>
 
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
+                    <?php endfor; ?>
 
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
-
-                    <th>8:00 10:00</th>
-                    <th>10:00 12:00</th>
-                    <th>12:45 15:00</th>
-                    <th>15:00 16:57</th>
                 </tr>
             </thead>
             <tbody>
@@ -148,7 +137,7 @@
                             <td>
                                 <select name="planning_lundi_m1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_lundi_m1'] == $choice) ? 'selected' : '';
@@ -160,7 +149,7 @@
                             <td>
                                 <select name="planning_lundi_m2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_lundi_m2'] == $choice) ? 'selected' : '';
@@ -172,7 +161,7 @@
                             <td>
                                 <select name="planning_lundi_a1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_lundi_a1'] == $choice) ? 'selected' : '';
@@ -184,7 +173,7 @@
                             <td>
                                 <select name="planning_lundi_a2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_lundi_a2'] == $choice) ? 'selected' : '';
@@ -198,7 +187,7 @@
                             <td>
                                 <select name="planning_mardi_m1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mardi_m1'] == $choice) ? 'selected' : '';
@@ -210,7 +199,7 @@
                             <td>
                                 <select name="planning_mardi_m2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mardi_m2'] == $choice) ? 'selected' : '';
@@ -222,7 +211,7 @@
                             <td>
                                 <select name="planning_mardi_a1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mardi_a1'] == $choice) ? 'selected' : '';
@@ -234,7 +223,7 @@
                             <td>
                                 <select name="planning_mardi_a2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mardi_a2'] == $choice) ? 'selected' : '';
@@ -248,7 +237,7 @@
                             <td>
                                 <select name="planning_mercredi_m1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mercredi_m1'] == $choice) ? 'selected' : '';
@@ -260,7 +249,7 @@
                             <td>
                                 <select name="planning_mercredi_m2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mercredi_m2'] == $choice) ? 'selected' : '';
@@ -272,7 +261,7 @@
                             <td>
                                 <select name="planning_mercredi_a1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mercredi_a1'] == $choice) ? 'selected' : '';
@@ -284,7 +273,7 @@
                             <td>
                                 <select name="planning_mercredi_a2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_mercredi_a2'] == $choice) ? 'selected' : '';
@@ -298,7 +287,7 @@
                             <td>
                                 <select name="planning_jeudi_m1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_jeudi_m1'] == $choice) ? 'selected' : '';
@@ -310,7 +299,7 @@
                             <td>
                                 <select name="planning_jeudi_m2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_jeudi_m2'] == $choice) ? 'selected' : '';
@@ -322,7 +311,7 @@
                             <td>
                                 <select name="planning_jeudi_a1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_jeudi_a1'] == $choice) ? 'selected' : '';
@@ -334,7 +323,7 @@
                             <td>
                                 <select name="planning_jeudi_a2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_jeudi_a2'] == $choice) ? 'selected' : '';
@@ -348,7 +337,7 @@
                             <td>
                                 <select name="planning_vendredi_m1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_vendredi_m1'] == $choice) ? 'selected' : '';
@@ -360,7 +349,7 @@
                             <td>
                                 <select name="planning_vendredi_m2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_vendredi_m2'] == $choice) ? 'selected' : '';
@@ -372,7 +361,7 @@
                             <td>
                                 <select name="planning_vendredi_a1">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_vendredi_a1'] == $choice) ? 'selected' : '';
@@ -384,7 +373,7 @@
                             <td>
                                 <select name="planning_vendredi_a2">
                                     <?php
-                                    $choices = array('', 1, 2, 3); 
+                                    $choices = array('', 1, 2, 3);
 
                                     foreach ($choices as $choice) {
                                         $selected = ($technicien['planning_vendredi_a2'] == $choice) ? 'selected' : '';
