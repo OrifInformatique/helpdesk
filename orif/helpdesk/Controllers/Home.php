@@ -8,7 +8,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 use Helpdesk\Models\Presence_model;
 use Helpdesk\Models\Planning_model;
-use Helpdesk\Models\User_model;
+use Helpdesk\Models\User_Data_model;
 
 class Home extends BaseController
 {
@@ -16,7 +16,7 @@ class Home extends BaseController
     protected $session;
     protected $presence_model;
     protected $planning_model;
-    protected $user_model;
+    protected $user_data_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -24,7 +24,7 @@ class Home extends BaseController
         $this->session = \Config\Services::session();
         $this->presence_model = new Presence_model();
         $this->planning_model = new Planning_model();
-        $this->user_model = new User_model();
+        $this->user_data_model = new User_Data_model();
 
         helper('form');
     }
@@ -183,7 +183,7 @@ class Home extends BaseController
         $data['title'] = "Ajouter un technicien";
 
         // Récolte tous les utilisateurs de la base de données
-        $data['users'] = $this->user_model->getUsersData();
+        $data['users'] = $this->user_data_model->getUsersData();
 
         // Tableau pour identifier les présences dans la page suivante
         $data['presences'] = 

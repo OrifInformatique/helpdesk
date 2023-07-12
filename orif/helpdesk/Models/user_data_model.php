@@ -13,11 +13,11 @@ namespace Helpdesk\Models;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Validation\ValidationInterface;
 
-class User_model extends \CodeIgniter\Model
+class User_Data_model extends \CodeIgniter\Model
 {
-    protected $table = 'user';
-    protected $primaryKey = 'id';
-    protected $allowedFields = ['fk_user_type','username','password','email','date_creation'];
+    protected $table = 'tbl_user_data';
+    protected $primaryKey = 'id_user_data';
+    protected $allowedFields = ['fk_user_id','nom_user_data','prenom_user_data','initiales_user_data','photo_user_data'];
     protected $validationRules;
     protected $validationMessages;
 
@@ -34,7 +34,7 @@ class User_model extends \CodeIgniter\Model
     public function getUsersData()
     {
         // Jointure avec la table "tbl_user_data", pour récupérer toutes les données de l'utilisateurs
-        $this->join('tbl_user_data', 'user.id = tbl_user_data.fk_user_id');
+        $this->join('user', 'user.id = tbl_user_data.fk_user_id');
         $result = $this->findAll();
         
         return $result;
