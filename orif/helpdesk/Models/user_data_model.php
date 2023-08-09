@@ -1,9 +1,9 @@
 <?php
 
 /**
- * welcome_message view
+ * Model for tbl_users_data table
  *
- * @author      Orif (BlAl)
+ * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  */
@@ -31,9 +31,15 @@ class User_Data_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
+    /*
+    ** getUsersData function
+    **
+    ** Get all data about all users
+    **
+    */
     public function getUsersData()
     {
-        // Jointure avec la table "tbl_user_data", pour récupérer toutes les données de l'utilisateurs
+        // Join with "tbl_user_data" table, to retrieve all user data
         $this->join('user', 'user.id = tbl_user_data.fk_user_id');
         $result = $this->findAll();
         

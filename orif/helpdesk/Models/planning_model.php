@@ -1,9 +1,9 @@
 <?php
 
 /**
- * welcome_message view
+ * Model for tbl_planning table
  *
- * @author      Orif (BlAl)
+ * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  */
@@ -38,47 +38,71 @@ class Planning_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
-    // Récupère toutes les données du planning
+    
+    /*
+    ** getPlanningData function
+    **
+    ** Get all planning data
+    **
+    */
     public function getPlanningData()
     {
-        // Récolte toutes les données sur le planning
+        // Retrieve all planning data
         $planning_data = $this->findAll();
 
-        // Retourne le tableau
         return $planning_data;
     }
 
-    // Récupère tous les utilisateur qui ont un planning
+
+    /*
+    ** getPlanningDataByUser function
+    **
+    ** Get all users having a planning
+    **
+    */
     public function getPlanningDataByUser()
     {
-        // Jointure avec la table "tbl_user_data", pour récupérer les données du planning et de l'utilisateur
+        // Join with "tbl_user_data" table to retrieve both planning and user data
         $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id');
         $result = $this->findAll();
         
         return $result;
     }
 
-    // Vérifie si un utilisateur possède un planning
+
+    /*
+    ** checkUserOwnsPlanning function
+    **
+    ** Check if a user owns a planning
+    **
+    */ 
     public function checkUserOwnsPlanning($user_id)
     {
-        // Récolte l'ID de l'utilisateur via le planning de l'utilisateur, si existants
+        // Retrieve user's ID from the user's planning data, if it exists
         $planning_data = $this->where('fk_user_id', $user_id)->findAll();
         
-        // Si le résultat retourne qqch, signifie que l'utilisateur possède déjà un planning. Empêche de créer un doublon
+        // If there is a result, it means the user already has a planning. Prevent duplicate creation
         if (!empty($planning_data))
         {
-            // Message d'erreur
+            // Error message
             $data['error'] = lang('Helpdesk.err_technician_already_has_schedule');
 
             return $data['error'];
         }
 
-        // Sinon, exécute la suite du code normalement
+        // Otherwise, proceed with the rest of the code
     }
     
+
+    /*
+    ** updatePlanningData function
+    **
+    ** Update all planning records in the database
+    **
+    */
     public function updatePlanningData($updated_planning_data)
     {
-        // Met à jour tous les enregistrements dans la base de données
+        // 
         $this->update(null, $updated_planning_data);
     }
 }

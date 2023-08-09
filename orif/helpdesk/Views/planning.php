@@ -3,11 +3,10 @@
 /**
  * planning view
  *
- * @author      Orif (BlAl)
+ * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  */
-
 
 ?>
 

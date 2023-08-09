@@ -2,7 +2,7 @@
 /**
  * French translations for planning page
  * 
- * @author      Orif
+ * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (http://www.orif.ch)
  */

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * Main controller
+ *
+ * @author      Orif (DeDy)
+ * @link        https://github.com/OrifInformatique
+ * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ */
+
 namespace Helpdesk\Controllers;
 
 use App\Controllers\BaseController;
@@ -29,17 +37,24 @@ class Home extends BaseController
         helper('form');
     }
 
+
+    /*
+    ** index function
+    **
+    ** Default function, displays the planning page
+    **
+    */
     public function index()
     {
+        // Page title
         $data['title'] = lang('Helpdesk.ttl_helpdesk');
 
-        // Récupère les données des utilisateurs ayant un planning attribué
+        // Retrieves users having a planning
         $planning_data = $this->planning_model->getPlanningDataByUser();
 
-        // Ajoute le planning à la variable $data
         $data['planning_data'] = $planning_data;
 
-        // Tableau pour les présences
+        // Presences table
         $data['periodes'] = 
         [
             'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
@@ -49,32 +64,38 @@ class Home extends BaseController
             'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
         ];
 
-        // Affiche la page du planning
+        // Displays schedule page
         $this->display_view('Helpdesk\planning', $data);
     }
 
-    // Vérifie si l'utilisateur est connecté
+
+    /*
+    ** isUserLogged function
+    **
+    ** Checks whether the user is logged in
+    **
+    */
     public function isUserLogged()
     {
-        // Si l'ID de l'utilisateur n'existe pas ou est vide
+        // If the user ID isn't set or is empty
         if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) 
         {
-            // Redirige vers la page de connexion
-            // Utilisation de fonctions PHP natives car redirect() ou display_view() ne fonctionnent pas
+            // Rediriect to the login page
+            // Here, native header() function is used because CI functions redirect() and display_view() don't work
             header("Location: " . base_url('user/auth/login'));
             exit();
         }
 
-        // Sinon, exécute la suite du code normalement
+        // Otherwise, proceed with the rest of the code
     }
 
+
     /*
-    ** Presence function
+    ** presence function
     **
     ** Displays the presence page
     **
     */
-    
     public function presence()
     {
         // Checks whether the user is logged
@@ -109,19 +130,25 @@ class Home extends BaseController
 
     }
 
-    // Sauvegarde les données envoyées par le formulaire de la page presence
+
+    /*
+    ** savePresence function
+    **
+    ** Save the presences entered on presences page 
+    **
+    */
     function savePresence()
     {
-        // Vérifie si l'utilisateur est connecté
+        // Checks whether user is logged in
         $this->isUserLogged();
 
-        // Récupére l'ID de l'utilisateur depuis la session
+        // Retrieve user ID form session
         $user_id = $_SESSION['user_id'];
 
-        // Récupére l'ID de la présence depuis la table "presence"
+        // Retrieve presence ID from database
         $id_presence = $this->presence_model->getPresenceId($user_id);
 
-        // Tableau des champs du formulaire
+        // Form fields table
         $form_fields_data = [
             'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
             'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
@@ -130,19 +157,19 @@ class Home extends BaseController
             'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
         ];
 
-        // TODO : Prendre la valeur de l'état Absent depuis la BD
-        // Ajoute des valeurs par défaut si un champ n'est pas renseigné
+        // TODO : Take Absent state value from database
+        // Add default value if the field is empty
         foreach ($form_fields_data as $field)
         {
-            // Si le champ est vide ou indéfini
+            // If the field is empty or doesn't exist
             if (!isset($_POST[$field]) || empty($_POST[$field]))
             {
-                // Définit la valeur à "Absent"
+                // Value is defined to "Absent"
                 $_POST[$field] = 3;
             }
         }
 
-        // Prépare les présences à enregistrer
+        // Prepare presences to record
         $data = [
 
             'id_presence' => $id_presence,
@@ -175,35 +202,40 @@ class Home extends BaseController
             'presences_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
         ];
 
-        // Effectue l'insertion ou la modification des présences dans la base de données
+        // Do the inset/update on the database
         $this->presence_model->save($data);
 
-        // Sélectionne les présences de l'utilisateur
+        // Select user presences
         $presences_data = $this->presence_model->getPresencesUser($user_id);
 
-        // Ajouter les présences à la variable $data
         $data = $presences_data;
 
-        // Afficher un message de succès à l'utilisateur
+        // Success message
         $data['success'] = lang('Helpdesk.scs_presences_updated');
 
-        // Réffiche la page des présences
+        // Displays presences page
         $this->display_view('Helpdesk\presence', $data);
     }
 
-    // Affiche la page ajouter_technicien | Sauvegarde les données du formulaire de la page ajout_technicien
+    /*
+    ** ajouterTechnicien function
+    **
+    ** Displays the ajouter_technicien page
+    ** Save form inputs from ajouter_technicien
+    **
+    */
     function ajouterTechnicien()
     {
-        // Vérifie si l'utilisateur est connecté
+        // Checks whether user is logged in
         $this->isUserLogged();
 
-        // Titre de la page
+        // Page title
         $data['title'] = lang('Helpdesk.ttl_add_technician');
 
-        // Récolte tous les utilisateurs de la base de données
+        // Retrieve all users data from database
         $data['users'] = $this->user_data_model->getUsersData();
 
-        // Tableau pour identifier les présences dans la page suivante
+        // Table to identify presences on next page
         $data['presences'] = 
         [
             'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
@@ -213,27 +245,27 @@ class Home extends BaseController
             'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
         ];
 
-        // Si l'on clique sur le bouton "Ajouter un technicien" deupis le planning
+        // If the "add technician" button from planning page is pressed
         if (empty($_POST))
         {
-            // Affiche la page d'ajout de technicien
+            // Displays ajouter_technicien page
             return $this->display_view('Helpdesk\ajouter_technicien', $data);
         }
 
-        // Récupère l'ID de l'utilisateur rensigné dans le champ "technicien"
+        // Retrieve user ID from the "technicien" field
         $user_id = $_POST['technicien'];
         
-        // Vérifie si l'utilisateur possède déjà un planning
+        // Checks whether the user already has a schedule
         $data['error'] = $this->planning_model->checkUserOwnsPlanning($user_id);
         
-        // Si $data['error'] n'est pas vide, cela veut dire que l'utilisateur possède déjà un planning
+        // If $data['error'] isn't empty, the user already has a schedule
         if (!empty($data['error']))
         {
-            // Réaffiche la page d'ajout de technicien, avec le message d'erreur
+            // Displays the same page, with an error message
             return $this->display_view('Helpdesk\ajouter_technicien', $data);
         }
 
-        // Tableau des champs du formulaire
+        // Form fields table
         $form_fields_data = [
             'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
             'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
@@ -242,34 +274,34 @@ class Home extends BaseController
             'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
         ];
 
-        // Variable pour calculer le nombre de champs vides
+        // Variable for empty fields count
         $emptyFields = 0;
 
-        // Ajoute des valeurs par défaut si un champ n'est pas renseigné
+        // Add default values il field is empty
         foreach ($form_fields_data as $field)
         {
-            // Si le champ est vide ou indéfini
+            // If the field is empty or is not set
             if (!isset($_POST[$field]) || empty($_POST[$field]))
             {
-                // Définit la valeur à NULL
+                // Value is defined to NULL
                 $_POST[$field] = NULL;
 
-                // Incréemente la variable
+                // Increment empty fields count by 1
                 $emptyFields++;
             }
         }
 
-        // Si il y a 20 champs vides, signifie que tous les champs sont vides. N'autoirise pas l'insertion d'un technicien sans présences
+        // If 20 fields are empty, means all fields are empty. Cannot add a technician without role
         if ($emptyFields === 20)
         {
-            // Message d'erreur
+            // Error message
             $data['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
 
-            // Réaffiche la page d'ajout de technicien, avec le message d'erreur
+            // Displays the same page, with an error message
             return $this->display_view('Helpdesk\ajouter_technicien', $data);     
         }
 
-        // Prépare le planning à enregistrer
+        // Prepare planning to record
         $data = 
         [
             'fk_user_id' => $user_id,
@@ -300,27 +332,26 @@ class Home extends BaseController
             'planning_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
         ];
 
-        // Insère les données dans la table "tbl_planning"
+        // Insert data into "tbl_planning" table
         $this->planning_model->insert($data);
 
-        // Afficher un message de succès à l'utilisateur
+        // Success message
         $data['success'] = lang('Helpdesk.scs_technician_added_to_schedule');
 
         /*
-        ** Prise d'infos de la fonction index()
-        ** (Répétition pour ajouter le message de succès à $data)
+        ** index() function copy
+        ** (Repetion is needed)
         */
         
-        // Titre de la page
+        // Page title
         $data['title'] = lang('Helpdesk.ttl_helpdesk');
 
-        // Récupère les données des utilisateurs ayant un planning attribué
+        // Retrieves users having a schedule
         $planning_data = $this->planning_model->getPlanningDataByUser();
 
-        // Ajoute le planning à la variable $data
         $data['planning_data'] = $planning_data;
 
-        // Tableau pour les présences
+        // Presences table
         $data['periodes'] = 
         [
             'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
@@ -330,22 +361,28 @@ class Home extends BaseController
             'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
         ];
 
-        // Affiche la page du planning
+        // Displays schedule page
         $this->display_view('Helpdesk\planning', $data);
     }
 
-    // Affiche la page modification_planning | Sauvegarde les données du formulaire de la page modification_planning
+    
+    /*
+    ** modificationPlanning function
+    **
+    ** Displays the modification_planning page
+    ** Saves form data from the modification_planning page
+    **
+    */
     function modificationPlanning()
     {
-        // Vérifie si l'utilisateur est connecté
+        // Checks whether user is logged in
         $this->isUserLogged();
         
-        if ($_POST)  
+        if ($_POST)
         {
-            // Récupère les données soumises
-            $updated_planning_data = [
 
-                'id_planning' => $_POST['id_planning'],
+            $updated_planning_data = 
+            [
 
                 'planning_lundi_m1' => $_POST['planning_lundi_m1'],
                 'planning_lundi_m2' => $_POST['planning_lundi_m2'],
@@ -380,7 +417,6 @@ class Home extends BaseController
         // Récupère les données du planning
         $planning_data = $this->planning_model->getPlanningData();
 
-        // Ajoute le planning à la variable $data
         $data['planning_data'] = $planning_data;
 
         $form_fields_data = 
@@ -392,7 +428,6 @@ class Home extends BaseController
             'planning_vendredi_m1','planning_vendredi_m2','planning_vendredi_a1','planning_vendredi_a2',
         ];
 
-        // Ajoute le planning à la variable $data
         $data['form_fields_data'] = $form_fields_data;
 
         $this->display_view('Helpdesk\modification_planning', $data);

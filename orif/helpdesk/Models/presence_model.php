@@ -1,9 +1,9 @@
 <?php
 
 /**
- * welcome_message view
+ * Model for tbl_presences table
  *
- * @author      Orif (BlAl)
+ * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  */
@@ -39,30 +39,40 @@ class Presence_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
+
+    /*
+    ** getPresenceId function
+    **
+    ** Get the primary key of the user presences
+    **
+    */
     public function getPresenceId($user_id)
     {
-        // Requête SQL pour reprendre depuis la base de donnée la clé primaire des présences de l'utilisateur
-        $presence_data = $this->where('fk_user_id', $user_id)->first();
+        // Retrieve the primary key of the user presences
+        $presence_data = $this->select('id_planning')->where('fk_user_id', $user_id)->first();
 
         return $presence_data;
     }
 
+
+    /*
+    ** getPresencesUser function
+    **
+    ** Get user presences
+    **
+    */
     public function getPresencesUser($user_id)
     {
-        // TODO : Refaire la requête ci-dessous pour l'optimiser
-        // Requête SQL pour reprendre depuis la base de donnée les présences de l'utilisateur
-        $query = $this->db->table('tbl_presences')
-            ->select('*')
-            ->where('fk_user_id', $user_id)
-            ->get();
+        // Retrieve user presences
+        $query = $this->where('fk_user_id', $user_id)->get();
 
-        // S'il y a des données 
+        // If data exists
         if (!empty($query->getRow())) {
 
-            // Retourne les données
+            // Get data
             $result = $query->getRow();
 
-            // Tableau des présences à envoyer sur la page du formulaire
+            // Presences table
             $presences_data = 
             [
                 'lundi_debut_matin' => $result->presences_lundi_m1,
@@ -94,7 +104,7 @@ class Presence_model extends \CodeIgniter\Model
             return $presences_data;
         }
 
-        // Sinon, renvoie null
+        // Otherwise, return null
         return null;
     }
 }
