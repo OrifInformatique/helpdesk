@@ -11,7 +11,6 @@
 
 ?>
 
-
 <style>
     table {
         border-collapse: collapse;
@@ -92,11 +91,11 @@
 
 <div class="container-fluid">
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>">Vos présences</a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
 
     <div>
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>">Ajouter un technicien</a>
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modificationPlanning') ?>">Modifier le planning</a>
+        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
+        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modificationPlanning') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>
     </div>
 
     <!-- Message de succès, si existant -->
@@ -107,18 +106,18 @@
     <?php endif; ?>
 
     <div class="d-flex justify-content-center">
-        <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">1 - Technicien d'astreinte</div> <!-- c5deb5 -->
-        <div class="bg-yellow border-xs-1 p-2 rounded rounded-3 mx-4">2 - Technicien de backup</div> <!-- e5f874 -->
-        <div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-4">3 - Technicien de réserve</div> <!-- ffd965 -->
+        <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_1')?></div> <!-- c5deb5 -->
+        <div class="bg-yellow border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_2')?></div> <!-- e5f874 -->
+        <div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_3')?></div> <!-- ffd965 -->
     </div>
 
     <div class="week">
-        Planning de la semaine du
+        <?php echo lang('Helpdesk.planning_of_week')?>
         <span class="start-date">
             <!-- Affiche le lundi de la semaine en cours -->
             <?php echo date('d/m/Y', strtotime('monday this week')); ?>
         </span>
-        au
+        <?php echo lang('Helpdesk.to')?>
         <span class="end-date">
             <!-- Affiche le vendredi de la semaine en cours -->
             <?php echo date('d/m/Y', strtotime('friday this week')); ?>
@@ -130,15 +129,15 @@
         <thead>
             <tr>
                 <th></th>
-                <th colspan="4">Lundi <?php echo date('d', strtotime('monday this week')); ?></th>
-                <th colspan="4">Mardi <?php echo date('d', strtotime('tuesday this week')); ?></th>
-                <th colspan="4">Mercredi <?php echo date('d', strtotime('wednesday this week')); ?></th>
-                <th colspan="4">Jeudi <?php echo date('d', strtotime('thursday this week')); ?></th>
-                <th colspan="4">Vendredi <?php echo date('d', strtotime('friday this week')); ?></th>
+                <th colspan="4"><?php echo lang('Helpdesk.monday')?> <?php echo date('d', strtotime('monday this week')); ?></th>
+                <th colspan="4"><?php echo lang('Helpdesk.tuesday')?> <?php echo date('d', strtotime('tuesday this week')); ?></th>
+                <th colspan="4"><?php echo lang('Helpdesk.wednesday')?> <?php echo date('d', strtotime('wednesday this week')); ?></th>
+                <th colspan="4"><?php echo lang('Helpdesk.thursday')?> <?php echo date('d', strtotime('thursday this week')); ?></th>
+                <th colspan="4"><?php echo lang('Helpdesk.friday')?> <?php echo date('d', strtotime('friday this week')); ?></th>
 
             </tr>
             <tr>
-                <th>Technicien</th>
+                <th><?php echo lang('Helpdesk.technician')?></th>
 
                 <?php 
                 // Boucle répétant 5x les horaires
@@ -173,8 +172,8 @@
             <?php else : ?>
                 <tr>
                     <td colspan="21">
-                        Aucun technicien n'est assigné au planning.<br>
-                        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>">Ajouter un technicien</a>
+                        <?php echo lang('Helpdesk.no_technician_assigned')?><br>
+                        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
                     </td>
                 </tr>
             <?php endif; ?>

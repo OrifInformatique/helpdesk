@@ -31,7 +31,7 @@ class Home extends BaseController
 
     public function index()
     {
-        $data['title'] = "Helpdesk";
+        $data['title'] = lang('Helpdesk.ttl_helpdesk');
 
         // Récupère les données des utilisateurs ayant un planning attribué
         $planning_data = $this->planning_model->getPlanningDataByUser();
@@ -68,25 +68,43 @@ class Home extends BaseController
         // Sinon, exécute la suite du code normalement
     }
 
-    // Affiche la page presence
+    /*
+    ** Presence function
+    **
+    ** Displays the presence page
+    **
+    */
+    
     public function presence()
     {
-        // Vérifie si l'utilisateur est connecté
+        // Checks whether the user is logged
         $this->isUserLogged();
 
-        // Titre de la page
-        $data['title'] = "Présences de l'apprenti";
+        // Page title
+        $data['title'] = lang('Helpdesk.ttl_apprentice_presences');
 
-        // Récupére l'ID de l'utilisateur
+        // Retrieves user ID
         $user_id = $_SESSION['user_id'];
 
-        // Récupère les présences de l'utilisateur
+        // Retrieves user presences
         $presences_data = $this->presence_model->getPresencesUser($user_id);
 
-        // Ajouter les présences à la variable $data
+        // Add presences to $data
         $data = $presences_data;
 
-        // Affiche la page du formulaire des presences
+        // Form fields table
+        $form_fields_data = [
+            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
+            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
+            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
+            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
+            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
+        ];
+
+        // Add form fields to $data
+        $data = $form_fields_data;
+
+        // Displays presences form page
         $this->display_view('Helpdesk\presence', $data);
 
     }
@@ -167,7 +185,7 @@ class Home extends BaseController
         $data = $presences_data;
 
         // Afficher un message de succès à l'utilisateur
-        $data['success'] = "Présences modifiées avec succès";
+        $data['success'] = lang('Helpdesk.scs_presences_updated');
 
         // Réffiche la page des présences
         $this->display_view('Helpdesk\presence', $data);
@@ -180,7 +198,7 @@ class Home extends BaseController
         $this->isUserLogged();
 
         // Titre de la page
-        $data['title'] = "Ajouter un technicien";
+        $data['title'] = lang('Helpdesk.ttl_add_technician');
 
         // Récolte tous les utilisateurs de la base de données
         $data['users'] = $this->user_data_model->getUsersData();
@@ -245,7 +263,7 @@ class Home extends BaseController
         if ($emptyFields === 20)
         {
             // Message d'erreur
-            $data['error'] = 'Le technicien doit être assigné au minimum à un rôle pendant une période';
+            $data['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
 
             // Réaffiche la page d'ajout de technicien, avec le message d'erreur
             return $this->display_view('Helpdesk\ajouter_technicien', $data);     
@@ -286,7 +304,7 @@ class Home extends BaseController
         $this->planning_model->insert($data);
 
         // Afficher un message de succès à l'utilisateur
-        $data['success'] = "Technicien ajouté au planning avec succès";
+        $data['success'] = lang('Helpdesk.scs_technician_added_to_schedule');
 
         /*
         ** Prise d'infos de la fonction index()
@@ -294,7 +312,7 @@ class Home extends BaseController
         */
         
         // Titre de la page
-        $data['title'] = "Helpdesk";
+        $data['title'] = lang('Helpdesk.ttl_helpdesk');
 
         // Récupère les données des utilisateurs ayant un planning attribué
         $planning_data = $this->planning_model->getPlanningDataByUser();
@@ -321,15 +339,14 @@ class Home extends BaseController
     {
         // Vérifie si l'utilisateur est connecté
         $this->isUserLogged();
-
-        // Récupère les données du planning
-        $planning_data = $this->planning_model->getPlanningData();
-
-        // Vérifie si des données ont été soumises via le formulaire
-        if ($_POST) {
-
+        
+        if ($_POST)  
+        {
             // Récupère les données soumises
-            $newData = [
+            $updated_planning_data = [
+
+                'id_planning' => $_POST['id_planning'],
+
                 'planning_lundi_m1' => $_POST['planning_lundi_m1'],
                 'planning_lundi_m2' => $_POST['planning_lundi_m2'],
                 'planning_lundi_a1' => $_POST['planning_lundi_a1'],
@@ -356,13 +373,27 @@ class Home extends BaseController
                 'planning_vendredi_a2' => $_POST['planning_vendredi_a2']
             ];
 
-
             // Met à jour les enregistrements dans la base de données
-            $this->planning_model->updatePlanningData($newData);
-        }
+            $this->planning_model->updatePlanningData($updated_planning_data);
+        }        
+
+        // Récupère les données du planning
+        $planning_data = $this->planning_model->getPlanningData();
 
         // Ajoute le planning à la variable $data
         $data['planning_data'] = $planning_data;
+
+        $form_fields_data = 
+        [
+            'planning_lundi_m1','planning_lundi_m2','planning_lundi_a1','planning_lundi_a2',
+            'planning_mardi_m1','planning_mardi_m2','planning_mardi_a1','planning_mardi_a2',
+            'planning_mercredi_m1','planning_mercredi_m2','planning_mercredi_a1','planning_mercredi_a2',
+            'planning_jeudi_m1','planning_jeudi_m2','planning_jeudi_a1','planning_jeudi_a2',
+            'planning_vendredi_m1','planning_vendredi_m2','planning_vendredi_a1','planning_vendredi_a2',
+        ];
+
+        // Ajoute le planning à la variable $data
+        $data['form_fields_data'] = $form_fields_data;
 
         $this->display_view('Helpdesk\modification_planning', $data);
     }

@@ -93,11 +93,11 @@
     <!-- Affiche le titre si existant -->
     <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>">Retour</a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
 
     <form action="<?= base_url('helpdesk/home/ajouterTechnicien') ?>" method="post">
 
-        <input class="btn btn-blue mb-3" type="submit" value="Enregistrer"/>
+        <input class="btn btn-blue mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>"/>
 
         <!-- Message d'erreur, si existant -->
 		<?php if (isset($error)): ?>
@@ -107,18 +107,18 @@
 		<?php endif; ?>
 
         <div class="d-flex justify-content-center">
-            <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">1 - Technicien d'astreinte</div> <!-- c5deb5 -->
-            <div class="bg-yellow border-xs-1 p-2 rounded rounded-3 mx-4">2 - Technicien de backup</div> <!-- e5f874 -->
-            <div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-4">3 - Technicien de réserve</div> <!-- ffd965 -->
+            <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_1')?></div> <!-- c5deb5 -->
+            <div class="bg-yellow border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_2')?></div> <!-- e5f874 -->
+            <div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_3')?></div> <!-- ffd965 -->
         </div>
 
         <div class="week">
-            Planning de la semaine du
+            <?php echo lang('Helpdesk.planning_of_week')?>
             <span class="start-date">
                 <!-- Affiche le lundi de la semaine en cours -->
                 <?php echo date('d/m/Y', strtotime('monday this week')); ?>
             </span>
-            au
+            <?php echo lang('Helpdesk.to')?>
             <span class="end-date">
                 <!-- Affiche le vendredi de la semaine en cours -->
                 <?php echo date('d/m/Y', strtotime('friday this week')); ?>
@@ -126,7 +126,7 @@
         </div>
 
         <div class="">
-            <p> Technicien à ajouter au planning </p>
+            <p> <?php echo lang('Helpdesk.added_technician')?> </p>
             <select name="technicien" required>
                 <option disabled selected></option>
                 <?php 
@@ -141,15 +141,15 @@
         <table class="table-responsive position-relative">
             <thead>
                 <tr>
-                    <th colspan="4">Lundi <?php echo date('d', strtotime('monday this week')); ?></th>
-                    <th colspan="4">Mardi <?php echo date('d', strtotime('tuesday this week')); ?></th>
-                    <th colspan="4">Mercredi <?php echo date('d', strtotime('wednesday this week')); ?></th>
-                    <th colspan="4">Jeudi <?php echo date('d', strtotime('thursday this week')); ?></th>
-                    <th colspan="4">Vendredi <?php echo date('d', strtotime('friday this week')); ?></th>
+                    <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
+                    <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
+                    <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
+                    <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
+                    <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
                 </tr>
                 <tr>
                     <?php 
-                    // Boucle répétant 5x les horaires
+                    // Repeats timetables 5 times
                     for($i = 0; $i < 5; $i++): ?>
                         <th>8:00 10:00</th>
                         <th>10:00 12:00</th>
@@ -161,7 +161,7 @@
             <tbody>
                 <tr>
                     <?php 
-                    // Boucle répétant 20x les choix des rôles des rôles
+                    // Repeats choices options 20 times
                     for($i = 0; $i < 20; $i++): ?>   
                         <td>
                             <select name="<?php echo($presences[$i]);?>">

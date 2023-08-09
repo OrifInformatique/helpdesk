@@ -68,7 +68,7 @@ class Planning_model extends \CodeIgniter\Model
         if (!empty($planning_data))
         {
             // Message d'erreur
-            $data['error'] = 'Le technicien renseigné possède déjà un planning';
+            $data['error'] = lang('Helpdesk.err_technician_already_has_schedule');
 
             return $data['error'];
         }
@@ -76,9 +76,9 @@ class Planning_model extends \CodeIgniter\Model
         // Sinon, exécute la suite du code normalement
     }
     
-    public function updatePlanningData($newData)
+    public function updatePlanningData($updated_planning_data)
     {
         // Met à jour tous les enregistrements dans la base de données
-        $this->update(null, $newData);
+        $this->update(null, $updated_planning_data);
     }
 }
