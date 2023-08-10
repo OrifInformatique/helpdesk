@@ -17,6 +17,7 @@ use Psr\Log\LoggerInterface;
 use Helpdesk\Models\Presence_model;
 use Helpdesk\Models\Planning_model;
 use Helpdesk\Models\User_Data_model;
+use Helpdesk\Models\Vacances_model;
 
 class Home extends BaseController
 {
@@ -25,6 +26,7 @@ class Home extends BaseController
     protected $presence_model;
     protected $planning_model;
     protected $user_data_model;
+    protected $vacances_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -33,6 +35,7 @@ class Home extends BaseController
         $this->presence_model = new Presence_model();
         $this->planning_model = new Planning_model();
         $this->user_data_model = new User_Data_model();
+        $this->vacances_model = new Vacances_model();
 
         helper('form');
     }
@@ -102,7 +105,7 @@ class Home extends BaseController
         $this->isUserLogged();
 
         // Page title
-        $data['title'] = lang('Helpdesk.ttl_apprentice_presences');
+        $data['title'] = lang('Helpdesk.ttl_presences');
 
         // Retrieves user ID
         $user_id = $_SESSION['user_id'];
@@ -112,18 +115,6 @@ class Home extends BaseController
 
         // Add presences to $data
         $data = $presences_data;
-
-        // Form fields table
-        $form_fields_data = [
-            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
-            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
-            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
-            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
-            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
-        ];
-
-        // Add form fields to $data
-        $data = $form_fields_data;
 
         // Displays presences form page
         $this->display_view('Helpdesk\presence', $data);
@@ -452,5 +443,86 @@ class Home extends BaseController
 
         // Display modification_planning view
         $this->display_view('Helpdesk\modification_planning', $data);
+    }
+
+
+    /*
+    ** holiday function
+    **
+    ** Displays the holiday list page
+    **
+    */
+    function holiday()
+    {
+        // Checks whether user is logged in
+        $this->isUserLogged();
+
+        // Page title
+        $data['title'] = lang('Helpdesk.ttl_holiday');
+
+        // Retrieve all holiday data
+        $vacances_data = $this->vacances_model->getHolidays();
+
+        $data['vacances_data'] = $vacances_data;
+
+        // Displays holiday list view
+        $this->display_view('Helpdesk\holiday', $data);
+    }
+
+
+    /*
+    ** addHoliday function
+    **
+    ** Display the add_holiday page
+    ** Saves form data from add_holiday page
+    **
+    */
+    function addHoliday()
+    {
+        // Checks whether user is logged in
+        $this->isUserLogged();
+
+        if($_POST)
+        {
+            // Prepare data to record
+            $data =
+            [
+                'nom_vacances' => $_POST['holiday_name'],
+                'date_debut_vacances' => $_POST['start_date'],
+                'date_fin_vacances' => $_POST['end_date'],
+            ];
+
+            // Inserting data
+            $this->vacances_model->insert($data);
+
+            // Success message
+            $data['success'] = lang('Helpdesk.scs_holiday_added');
+
+            /*
+            ** holiday() function copy
+            ** (Repetion is needed)
+            */
+
+            // Page title
+            $data['title'] = lang('Helpdesk.ttl_holiday');
+
+            // Retrieve all holiday data
+            $vacances_data = $this->vacances_model->getHolidays();
+
+            $data['vacances_data'] = $vacances_data;
+
+            // Displays the holidays list view, with a success message
+            $this->display_view('Helpdesk\holiday', $data);
+        }
+
+        else
+        {
+            // Page title
+            $data['title'] = lang('Helpdesk.ttl_add_holiday');
+
+            // Displays the add_holiday view
+            $this->display_view('Helpdesk\add_holiday', $data);
+        }
+
     }
 }

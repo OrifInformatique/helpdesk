@@ -91,12 +91,11 @@
 <div class="container-fluid">
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holiday') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a><br>
 
-    <div>
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
-        <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modificationPlanning') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>
-    </div>
-
+    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/ajouterTechnicien') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
+    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modificationPlanning') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>
+    
     <!-- Success message, if exists -->
     <?php if (isset($success)): ?>
         <div class="d-flex justify-content-center">

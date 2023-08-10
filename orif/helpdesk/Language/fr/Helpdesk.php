@@ -13,9 +13,11 @@ return[
     ** PAGE TITLES
     */
 
-    'ttl_apprentice_presences'  => 'Présences de l\'apprenti',
-    'ttl_add_technician'        => 'Ajouter un technicien',
-    'ttl_helpdesk'              => 'Helpdesk',
+    'ttl_presences'         => 'Présences de l\'apprenti',
+    'ttl_add_technician'    => 'Ajouter un technicien',
+    'ttl_helpdesk'          => 'Helpdesk',
+    'ttl_holiday'           => 'Vacances et périodes fériées',
+    'ttl_add_holiday'       => 'Ajouter une préiode fériée',
 
     /*
     ** ERROR MESSAGES
@@ -32,6 +34,7 @@ return[
     'scs_presences_updated'             => 'Présences modifiées avec succès',
     'scs_technician_added_to_schedule'  => 'Technicien ajouté au planning avec succès',
     'scs_planning_updated'              => 'Planning de la semaine modifié avec succès',
+    'scs_holiday_added'                 => 'La période de vacances à été ajoutée avec succès',
 
     
     /*
@@ -41,6 +44,8 @@ return[
     'btn_presences'         => 'Vos présences',
     'btn_add_technician'    => 'Ajouter un technicien',
     'btn_edit_planning'     => 'Modifier le planning',
+    'btn_holiday'           => 'Liste des vacances',
+    'btn_add_holiday'       => 'Ajouter des vacances',
     'btn_back'              => 'Retour',
     'btn_save'              => 'Enregistrer',
 
@@ -83,9 +88,12 @@ return[
     'technician'                => 'Technicien',
     'no_technician_assigned'    => 'Aucun technicien n\'est assigné au planning.',
 
-
     'empty_fields_info'         => 'Les champs vides seront automatiquement remplis par "Absent".',
 
+    'added_technician'          => 'Technicien à ajouter au planning :',
 
-    'added_technician'          => 'Technicien à ajouter au planning',
+    'holiday_name'              => 'Nom des vacances',
+    'start_date'                => 'Date de début',
+    'end_date'                  => 'Date de fin',
+    'no_holidays'               => 'Aucune période fériée n\'existe.',
 ];
