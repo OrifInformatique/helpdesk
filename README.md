@@ -1,29 +1,28 @@
 # Site Helpdesk
 
-## C'est quoi ?
+## What is it?
 
-Le site helpdesk est un projet de la section infromatique de Pomy, visant à automatiser le processus d'assignation des rôles et d'affichage des techniciens d'astreinte. Toutes les modifications seront facilement réalisables grâce à une interface web.
+The helpdesk site is a project by Pomy's IT department, aimed at automating the process of assigning roles and displaying on-call technicians. All modifications can be made easily via a web interface.
 
-## Outils et logiciels
+## Tools and software
 
-Le site helpdesk est développé en utilisant :
+The helpdesk site is developed using :
 
-- [CodeIgniter](https://codeigniter.com/), framework PHP utilisant l'architechture MVC.
-- [Bootstrap](https://getbootstrap.com/), librairie CSS.
+- [CodeIgniter](https://codeigniter.com/), a PHP framework using MVC architecture.
+- [Bootstrap](https://getbootstrap.com/), CSS library.
+- [Visual Studio Code](https://code.visualstudio.com/), text editor, with GitHub and PHP extensions.
+- [Laragon](https://laragon.org/), Apache and MySQL server (PHPMyAdmin, PHP 7.4.X).
+- [GitHub Desktop](https://desktop.github.com/), for data synchronization. Optional
 
-- [Visual Studio Code](https://code.visualstudio.com/), éditeur de texte, avec les extensions GitHub et PHP.
-- [Laragon](https://laragon.org/), serveur Apache et MySQL (PHPMyAdmin, PHP 7.4.X).
-- [GitHub Desktop](https://desktop.github.com/), pour synchroniser les données. Facultatif
+# Reproduction of the environment
 
-# Reproduction de l'environnement
-
-## Installation des logiciels
+## Software installation
 
 ### Visual Studio Code
 
-1. Téléchargez et installez VSC (Visual Studio Code).
-2. Connectez-vous à GitHub via VSC.
-3. Téléchargez les extensions pour GitHub.
+1. Download and install VSC (Visual Studio Code).
+2. Connect to GitHub via VSC.
+3. Download extensions for GitHub.
     - [Remote Repositories](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-repositories)
     - [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
     - [PHP Extension Pack](https://marketplace.visualstudio.com/items?itemName=xdebug.php-pack)
@@ -31,40 +30,40 @@ Le site helpdesk est développé en utilisant :
 
 ### GitHub Desktop
 
-1. Téléchargez et installez GitHub Desktop.
-2. Connectez-vous à GitHub via GitHub Desktop.
+1. Download and install GitHub Desktop.
+2. Connect to GitHub via GitHub Desktop.
 
 ### Laragon
 
-1. Téléchargez et installez Laragon.
-2. Démarrez les serveurs Apache et MySQL.
+1. Download and install Laragon.
+2. Start the Apache and MySQL servers.
 
-_Les projets et fichiers web se situent sous `laragon\www`._
+_Projects and web files are located under `laragon\www`._
 
-## Clonage du projet
+## Cloning the project
 
-### Avec GitHub
+### With GitHub
 
-1. Dans GitHub Desktop, `File` > `Clone Repository`
-   Raccourci : `Ctrl` + `Shift` + `O`
-2. Choisissez l'option URL.
-3. Coller le lien menant au repostiory GitHub souhaité.
-4. En dessous, renseigner la destination, dans le dossier `laragon\www\<dossier>`.
+1. In GitHub Desktop, `File` > `Clone Repository`.
+   Shortcut: `Ctrl` + `Shift` + `O`.
+2. Choose the URL option.
+3. Paste the link leading to the desired GitHub repostiory.
+4. Below, enter the destination, in the folder `laragon\www\<your_folder>`.
 
-### Sans GitHub
+### Without GitHub
 
-1. Dans VSC, ouvrir un répertoire distant.
-2. Ouvrir le répertoire souhaité.
+1. In VSC, open a remote directory via the `Explorer` tab.
+2. Open the Helpdesk directory.
 
 ## Configuration
 
-1. Télécharger le fichier `.env` depuis le canal Teams du site Helpdesk.
-2. Placez-le à la racine du projet.
-3. Connectez-vous à la base de données partagée. Les informations figurent sur Teams.
+1. Download the `.env` file from the Teams channel of the Helpdesk site.
+2. Place it at the root of the project.
+3. Connect to the shared database. Information on Teams.
 
-_Si vous travaillez avec une base de données locale, il vous faudra importer la base de données partagée dessus. Des versions existent sur Teams._
+If you're working with a local database, you'll need to import the shared database into it. Versions are available on Teams.
 
-# Vous êtes parés !
-Le projet figure sous `orif\helpdesk`.
+# You're all set!
+The project is listed under `orif\helpdesk`.
 
-Rendez-vous sur le site : http://localhost/helpdesk/public.
+Go to the local website : http://localhost/helpdesk/public.
