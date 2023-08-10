@@ -65,14 +65,62 @@
         background-color: #b4c6e7;
         border-color: #b4c6e7
     }
+    
+    /* Success message */
+	.success {
+		position: absolute;
+		top: 18%;
+		background-color: greenyellow;
+		border-radius: 5px;
+		padding: 7px 15px;
+		font-size: 1.25em;
+
+		animation: fadeOut 4s forwards;
+	}
+
+    /* Error message */
+    .error {
+		position: absolute;
+		top: 18%;
+		background-color: red;
+        color: #fff;
+		border-radius: 5px;
+		padding: 7px 15px;
+		font-size: 1.25em;
+
+		animation: fadeOut 4s forwards;
+	}
+
+	/* Fade animation */
+	@keyframes fadeOut 
+	{
+		0% { opacity: 1; }
+		80% { opacity: 1; }
+		100% { opacity: 0; display: none; }
+	}
+
 </style>
 
 <div class="container-fluid">
 
-    <!-- Affiche le titre si existant -->
+    <!-- Title, if exists -->
     <?php if (isset($title)) {
         echo ('<h2>' . $title . '</h2>');
     } ?>
+
+    <!-- Success message, if exists -->
+    <?php if (isset($success)): ?>
+        <div class="d-flex justify-content-center">
+            <?php echo ('<p class="success">'.$success.'</p>'); ?>
+        </div>
+    <?php endif; ?>
+
+    <!-- Error message, if exists -->
+    <?php if (isset($error)): ?>
+        <div class="d-flex justify-content-center">
+            <?php echo ('<p class="error">'.$error.'</p>'); ?>
+        </div>
+    <?php endif; ?>
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
 
@@ -89,12 +137,12 @@
         <div class="week">
             <?php echo lang('Helpdesk.planning_of_week')?>
             <span class="start-date">
-                <!-- Affiche le lundi de la semaine en cours -->
+                <!-- Displays the current week monday -->
                 <?php echo date('d/m/Y', strtotime('monday this week')); ?>
             </span>
             <?php echo lang('Helpdesk.to')?>
             <span class="end-date">
-                <!-- Affiche le vendredi de la semaine en cours -->
+                <!-- Displays tue current week friday -->
                 <?php echo date('d/m/Y', strtotime('friday this week')); ?>
             </span>
         </div>
@@ -115,7 +163,7 @@
                     <th>Technicien</th>
 
                     <?php
-                    // Boucle répétant 5x les horaires
+                    // Repeat timetables 5 times
                     for ($i = 0; $i < 5; $i++) : ?>
 
                         <th>8:00 10:00</th>
@@ -132,12 +180,12 @@
                 <?php if (isset($planning_data)) : ?>
                     <?php foreach ($planning_data as $planning) : ?>      
                         <tr>
-                            <th><?php echo $planning['fk_user_id']; ?></th>
-                            <input type="hidden" name="id_planning" value="<?php echo $planning['id_planning']; ?>">
-                            <input type="hidden" name="fk_user_id" value="<?php echo $planning['fk_user_id']; ?>">
+                            <th><?php echo $planning['nom_user_data'].'<br>'.$planning['prenom_user_data']; ?></th>
+                            <input type="hidden" name="planning[<?php echo $planning['id_planning']; ?>][id_planning]" value="<?php echo $planning['id_planning']; ?>">
+                            <input type="hidden" name="planning[<?php echo $planning['id_planning']; ?>][fk_user_id]" value="<?php echo $planning['fk_user_id']; ?>">
                             <?php foreach ($form_fields_data as $field) : ?>
                                 <td>
-                                    <select name="<?php echo $field?>">
+                                    <select name="planning[<?php echo $planning['id_planning']; ?>][<?php echo $field; ?>]">
                                         <?php
                                         $choices = array('', 1, 2, 3);
 

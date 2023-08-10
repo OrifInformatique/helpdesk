@@ -67,6 +67,7 @@
         border-color: #b4c6e7
     }
 
+    /* Error message */
     .error {
 		position: absolute;
 		top: 18%;
@@ -79,7 +80,7 @@
 		animation: fadeOut 4s forwards;
 	}
 
-	/* Animation de disparition */
+	/* Fade animation */
 	@keyframes fadeOut 
 	{
 		0% { opacity: 1; }
@@ -90,7 +91,7 @@
 
 <div class="container-fluid">
 
-    <!-- Affiche le titre si existant -->
+    <!-- Ttile, if exists -->
     <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
@@ -99,7 +100,7 @@
 
         <input class="btn btn-blue mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>"/>
 
-        <!-- Message d'erreur, si existant -->
+        <!-- Error message, if exists -->
 		<?php if (isset($error)): ?>
 			<div class="d-flex justify-content-center">
 				<?php echo ('<p class="error">'.$error.'</p>'); ?>
@@ -115,12 +116,12 @@
         <div class="week">
             <?php echo lang('Helpdesk.planning_of_week')?>
             <span class="start-date">
-                <!-- Affiche le lundi de la semaine en cours -->
+                <!-- Displays the current week monday -->
                 <?php echo date('d/m/Y', strtotime('monday this week')); ?>
             </span>
             <?php echo lang('Helpdesk.to')?>
             <span class="end-date">
-                <!-- Affiche le vendredi de la semaine en cours -->
+                <!-- Displays the current week friday -->
                 <?php echo date('d/m/Y', strtotime('friday this week')); ?>
             </span>
         </div>

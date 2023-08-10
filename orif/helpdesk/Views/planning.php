@@ -66,7 +66,7 @@
         border-color: #b4c6e7
     }
 
-    /* Message de succès */
+    /* Success message */
 	.success {
 		position: absolute;
 		top: 18%;
@@ -78,7 +78,7 @@
 		animation: fadeOut 4s forwards;
 	}
 
-	/* Animation de disparition */
+	/* Fade animation */
 	@keyframes fadeOut 
 	{
 		0% { opacity: 1; }
@@ -97,7 +97,7 @@
         <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/modificationPlanning') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>
     </div>
 
-    <!-- Message de succès, si existant -->
+    <!-- Success message, if exists -->
     <?php if (isset($success)): ?>
         <div class="d-flex justify-content-center">
             <?php echo ('<p class="success">'.$success.'</p>'); ?>
@@ -113,12 +113,12 @@
     <div class="week">
         <?php echo lang('Helpdesk.planning_of_week')?>
         <span class="start-date">
-            <!-- Affiche le lundi de la semaine en cours -->
+            <!-- Displays the current week monday -->
             <?php echo date('d/m/Y', strtotime('monday this week')); ?>
         </span>
         <?php echo lang('Helpdesk.to')?>
         <span class="end-date">
-            <!-- Affiche le vendredi de la semaine en cours -->
+            <!-- Displays the current week friday -->
             <?php echo date('d/m/Y', strtotime('friday this week')); ?>
         </span>
     </div>
@@ -139,7 +139,7 @@
                 <th><?php echo lang('Helpdesk.technician')?></th>
 
                 <?php 
-                // Boucle répétant 5x les horaires
+                // Repeats timetables 5 times
                 for($i = 0; $i < 5; $i++): ?>
                         
                     <th>8:00 10:00</th>

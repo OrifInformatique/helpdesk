@@ -124,7 +124,7 @@
         border-color: #b4c6e7
     }
 
-	/* Message de succès */
+	/* Success message */
 	.success {
 		position: absolute;
 		top: 18%;
@@ -136,7 +136,7 @@
 		animation: fadeOut 4s forwards;
 	}
 
-	/* Animation de disparition */
+	/* Fade animation */
 	@keyframes fadeOut 
 	{
 		0% { opacity: 1; }
@@ -145,7 +145,7 @@
 	}
 </style>
 
-<!-- Affiche le titre si existant -->
+<!-- Title, if exists -->
 <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
 <div class="container-fluid">
@@ -166,9 +166,9 @@
 			<p> <?php echo lang('Helpdesk.empty_fields_info')?> </p>
 		</div>
 
-		<!-- TODO : Optimiser cette page en utilisant des boucles -->
+		<!-- TODO : Optimise this page using loops -->
 
-		<!-- lundi -->
+		<!-- Monday -->
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
 				<table>
@@ -185,7 +185,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<!-- lundi 8:00 10:00 -->
+							<!-- Monday 8:00 10:00 -->
 							<td>
 								<div class="container">
 									<label>
@@ -208,7 +208,7 @@
 									</label>
 								</div>
 							</td>
-							<!-- lundi 10:00 12:00 -->
+							<!-- Monday 10:00 12:00 -->
 							<td>
 								<div class="container">
 									<label>
@@ -231,7 +231,7 @@
 									</label>
 								</div>
 							</td>
-							<!-- lundi 12:45 15:00 -->
+							<!-- Monday 12:45 15:00 -->
 							<td>
 								<div class="container">
 									<label>
@@ -254,7 +254,7 @@
 									</label>
 								</div>
 							</td>
-							<!-- lundi 15:00 16:57 -->
+							<!-- Monday 15:00 16:57 -->
 							<td>
 								<div class="container">
 									<label>
@@ -282,7 +282,7 @@
 				</table>
 			</div>
 		</div>
-		<!-- mardi -->
+		<!-- Tuesday -->
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
 				<table>
@@ -299,7 +299,7 @@
 					</thead>
 					<tbody>
 						<tr>
-							<!-- mardi 8:00 10:00 -->
+							<!-- Tuesday 8:00 10:00 -->
 							<td>
 								<div class="container">
 									<label>
@@ -322,7 +322,7 @@
 									</label>
 								</div>
 							</td>
-							<!-- mardi 10:00 12:00 -->
+							<!-- Tuesday 10:00 12:00 -->
 							<td>
 								<div class="container">
 									<label>
@@ -345,7 +345,7 @@
 									</label>
 								</div>
 							</td>
-							<!-- mardi 12:45 15:00 -->
+							<!-- Tuesday 12:45 15:00 -->
 							<td>
 								<div class="container">
 									<label>
@@ -368,7 +368,7 @@
 									</label>
 								</div>
 							</td>
-							<!-- mardi 15:00 16:57 -->
+							<!-- Tuesday 15:00 16:57 -->
 							<td>
 								<div class="container">
 									<label>
@@ -396,7 +396,7 @@
 				</table>
 			</div>
 		</div>
-		<!-- mercredi -->
+		<!-- Wednesday -->
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
 				<table>
@@ -412,7 +412,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- mercredi 8:00 10:00 -->
+						<!-- Wednesday 8:00 10:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -435,7 +435,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- mercredi 10:00 12:00 -->
+						<!-- Wednesday 10:00 12:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -458,7 +458,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- mercredi 12:45 15:00 -->
+						<!-- Wednesday 12:45 15:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -481,7 +481,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- mercredi 15:00 16:57 -->
+						<!-- Wednesday 15:00 16:57 -->
 						<td>
 							<div class="container">
 								<label>
@@ -508,13 +508,13 @@
 				</table>
 			</div>
 		</div>
-		<!-- jeudi -->
+		<!-- Thrusday -->
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
 				<table>
 					<thead>
 						<tr>
-							<th colspan="4"><?php echo lang('Helpdesk.tuesday')?></th>
+							<th colspan="4"><?php echo lang('Helpdesk.thursday')?></th>
 						</tr>
 						<tr>
 							<th>8:00 - 10:00</th>
@@ -524,7 +524,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- jeudi 8:00 10:00 -->
+						<!-- Thrusday 8:00 10:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -547,7 +547,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- jeudi 10:00 12:00 -->
+						<!-- Thrusday 10:00 12:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -570,7 +570,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- jeudi 12:45 15:00 -->
+						<!-- Thrusday 12:45 15:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -593,7 +593,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- jeudi 15:00 16:57 -->
+						<!-- Thrusday 15:00 16:57 -->
 						<td>
 							<div class="container">
 								<label>
@@ -620,7 +620,7 @@
 				</table>
 			</div>
 		</div>
-		<!-- vendredi -->
+		<!-- Friday -->
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
 				<table>
@@ -636,7 +636,7 @@
 						</tr>
 					</thead>
 					<tbody>
-						<!-- vendredi 8:00 10:00 -->
+						<!-- Friday 8:00 10:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -659,7 +659,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- vendredi 10:00 12:00 -->
+						<!-- Friday 10:00 12:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -682,7 +682,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- vendredi 12:45 15:00 -->
+						<!-- Friday 12:45 15:00 -->
 						<td>
 							<div class="container">
 								<label>
@@ -705,7 +705,7 @@
 								</label>
 							</div>
 						</td>
-						<!-- vendredi 15:00 16:57 -->
+						<!-- Friday 15:00 16:57 -->
 						<td>
 							<div class="container">
 								<label>

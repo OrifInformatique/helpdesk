@@ -378,47 +378,7 @@ class Home extends BaseController
         // Checks whether user is logged in
         $this->isUserLogged();
         
-        if ($_POST)
-        {
-
-            $updated_planning_data = 
-            [
-
-                'planning_lundi_m1' => $_POST['planning_lundi_m1'],
-                'planning_lundi_m2' => $_POST['planning_lundi_m2'],
-                'planning_lundi_a1' => $_POST['planning_lundi_a1'],
-                'planning_lundi_a2' => $_POST['planning_lundi_a2'],
-
-                'planning_mardi_m1' => $_POST['planning_mardi_m1'],
-                'planning_mardi_m2' => $_POST['planning_mardi_m2'],
-                'planning_mardi_a1' => $_POST['planning_mardi_a1'],
-                'planning_mardi_a2' => $_POST['planning_mardi_a2'],
-
-                'planning_mercredi_m1' => $_POST['planning_mercredi_m1'],
-                'planning_mercredi_m2' => $_POST['planning_mercredi_m2'],
-                'planning_mercredi_a1' => $_POST['planning_mercredi_a1'],
-                'planning_mercredi_a2' => $_POST['planning_mercredi_a2'],
-
-                'planning_jeudi_m1' => $_POST['planning_jeudi_m1'],
-                'planning_jeudi_m2' => $_POST['planning_jeudi_m2'],
-                'planning_jeudi_a1' => $_POST['planning_jeudi_a1'],
-                'planning_jeudi_a2' => $_POST['planning_jeudi_a2'],
-
-                'planning_vendredi_m1' => $_POST['planning_vendredi_m1'],
-                'planning_vendredi_m2' => $_POST['planning_vendredi_m2'],
-                'planning_vendredi_a1' => $_POST['planning_vendredi_a1'],
-                'planning_vendredi_a2' => $_POST['planning_vendredi_a2']
-            ];
-
-            // Met à jour les enregistrements dans la base de données
-            $this->planning_model->updatePlanningData($updated_planning_data);
-        }        
-
-        // Récupère les données du planning
-        $planning_data = $this->planning_model->getPlanningData();
-
-        $data['planning_data'] = $planning_data;
-
+        // Form fields table
         $form_fields_data = 
         [
             'planning_lundi_m1','planning_lundi_m2','planning_lundi_a1','planning_lundi_a2',
@@ -428,8 +388,69 @@ class Home extends BaseController
             'planning_vendredi_m1','planning_vendredi_m2','planning_vendredi_a1','planning_vendredi_a2',
         ];
 
+        if ($_POST)
+        {
+            // Get form data
+            $planning_data = $_POST['planning'];
+
+            // Browse data for each technician
+            foreach ($planning_data as $id_planning => $technician_planning) 
+            {
+                // Empty fields count
+                $emptyFieldsCount = 0;
+
+                // Add the retrieved value to the array that will be used to update the data. Here, we begin with primary an foreign keys
+                $data_to_update = array(
+                    'id_planning' => $technician_planning['id_planning'],
+                    'fk_user_id' => $technician_planning['fk_user_id']
+                );
+                
+                // Browse the form fields for each technician
+                foreach ($form_fields_data as $field) 
+                {
+                    $field_value = $technician_planning[$field];
+                    
+
+                    // Defines value to NULL to insert empty values
+                    if(empty($field_value))
+                    {
+                        $field_value = NULL;
+
+                        $emptyFieldsCount++;
+                    }
+
+                    // Add the retrieved value to the array that will be used to update the data. Here, roles at each period will be recorded
+                    $data_to_update[$field] = $field_value;
+                }
+
+                // If all fields are empty, prevent having a technician without any role at any period
+                if($emptyFieldsCount === 20)
+                {
+                    // Error message
+                    $data['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
+
+                    break;
+                }
+
+                else
+                {
+                    // Update planning for the user
+                    $this->planning_model->updateUsersPlanning($id_planning, $data_to_update);
+                    
+                    // Success message
+                    $data['success'] = lang('Helpdesk.scs_planning_updated');
+                }
+            }
+        }
+
+        // Retrieve planning data
+        $planning_data = $this->planning_model->getPlanningDataByUser();
+
+        $data['planning_data'] = $planning_data;
+
         $data['form_fields_data'] = $form_fields_data;
 
+        // Display modification_planning view
         $this->display_view('Helpdesk\modification_planning', $data);
     }
 }

@@ -49,7 +49,7 @@ class Presence_model extends \CodeIgniter\Model
     public function getPresenceId($user_id)
     {
         // Retrieve the primary key of the user presences
-        $presence_data = $this->select('id_planning')->where('fk_user_id', $user_id)->first();
+        $presence_data = $this->where('fk_user_id', $user_id)->first();
 
         return $presence_data;
     }
