@@ -35,13 +35,28 @@ class Vacances_model extends \CodeIgniter\Model
     /*
     ** getHolidays function
     **
-    ** Get all planning data
+    ** Get all holidays data
     **
     */
     public function getHolidays()
     {
-        // Retrieve all vacances data, ordered by date
+        // Retrieve all holidays data, ordered by date
         $vacances_data = $this->orderBy('date_debut_vacances', 'ASC')->findAll();
+
+        return $vacances_data;
+    }
+
+
+    /*
+    ** getHolidays function
+    **
+    ** Get a specific holiday entry
+    **
+    */
+    public function getHoliday($id_holiday)
+    {
+        // Retrieve holiday entry
+        $vacances_data = $this->where('id_vacances', $id_holiday)->first();
 
         return $vacances_data;
     }

@@ -13,11 +13,13 @@ return[
     ** PAGE TITLES
     */
 
-    'ttl_presences'         => 'Présences de l\'apprenti',
-    'ttl_add_technician'    => 'Ajouter un technicien',
-    'ttl_helpdesk'          => 'Helpdesk',
-    'ttl_holiday'           => 'Vacances et périodes fériées',
-    'ttl_add_holiday'       => 'Ajouter une préiode fériée',
+    'ttl_presences'             => 'Présences de l\'apprenti',
+    'ttl_add_technician'        => 'Ajouter un technicien',
+    'ttl_helpdesk'              => 'Helpdesk',
+    'ttl_holiday'               => 'Vacances et périodes fériées',
+    'ttl_add_holiday'           => 'Ajouter une préiode fériée',
+    'ttl_update_holiday'        => 'Modifier une période fériée',
+    'ttl_delete_confirmation'   => 'Confirmation de supression',
 
     /*
     ** ERROR MESSAGES
@@ -25,6 +27,7 @@ return[
 
     'err_technician_already_has_schedule'           => 'Le technicien renseigné possède déjà un planning',
     'err_technician_must_be_assigned_to_schedule'   => 'Chaque technicien doit être assigné au minimum à un rôle pendant une période',
+    'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes',
 
 
     /*
@@ -34,7 +37,8 @@ return[
     'scs_presences_updated'             => 'Présences modifiées avec succès',
     'scs_technician_added_to_schedule'  => 'Technicien ajouté au planning avec succès',
     'scs_planning_updated'              => 'Planning de la semaine modifié avec succès',
-    'scs_holiday_added'                 => 'La période de vacances à été ajoutée avec succès',
+    'scs_holiday_updated'               => 'La période de vacances à été modifiée avec succès',
+    'scs_holiday_deleted'               => 'La période de vacances a été supprimée avec succès',
 
     
     /*
@@ -48,6 +52,8 @@ return[
     'btn_add_holiday'       => 'Ajouter des vacances',
     'btn_back'              => 'Retour',
     'btn_save'              => 'Enregistrer',
+    'btn_delete'            => 'Supprimer',
+    'btn_cancel'            => 'Annuler',
 
 
     /*
@@ -96,4 +102,5 @@ return[
     'start_date'                => 'Date de début',
     'end_date'                  => 'Date de fin',
     'no_holidays'               => 'Aucune période fériée n\'existe.',
+    'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?'
 ];

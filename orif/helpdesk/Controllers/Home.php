@@ -13,6 +13,7 @@ namespace Helpdesk\Controllers;
 use App\Controllers\BaseController;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
+use DateTime;
 use Psr\Log\LoggerInterface;
 use Helpdesk\Models\Presence_model;
 use Helpdesk\Models\Planning_model;
@@ -454,9 +455,6 @@ class Home extends BaseController
     */
     function holiday()
     {
-        // Checks whether user is logged in
-        $this->isUserLogged();
-
         // Page title
         $data['title'] = lang('Helpdesk.ttl_holiday');
 
@@ -477,26 +475,162 @@ class Home extends BaseController
     ** Saves form data from add_holiday page
     **
     */
-    function addHoliday()
+    function saveHoliday($id_holiday = 0)
     {
         // Checks whether user is logged in
         $this->isUserLogged();
 
+        // If data is sent
         if($_POST)
-        {
-            // Prepare data to record
-            $data =
-            [
-                'nom_vacances' => $_POST['holiday_name'],
-                'date_debut_vacances' => $_POST['start_date'],
-                'date_fin_vacances' => $_POST['end_date'],
-            ];
+        {  
+            // Convert String to DateTime for comparison
+            $start_date = new DateTime(($_POST['start_date']));
+            $end_date = new DateTime(($_POST['end_date']));
+            
+            // Checks if end date is before start date
+            if($end_date < $start_date)
+            {
+                // Error message
+                $data['error'] = lang('Helpdesk.err_dates_are_incoherent');
 
-            // Inserting data
-            $this->vacances_model->insert($data);
+                // If we edit an existing entry
+                if(isset($id_holiday) && $id_holiday != 0)
+                {
+                    $form_data =
+                    [
+                        'id_vacances' => $_POST['id_holiday'],
+                        'nom_vacances' => $_POST['holiday_name'],
+                        'date_debut_vacances' => $_POST['start_date'],
+                        'date_fin_vacances' => $_POST['end_date'],
+                    ];
+
+                    $data['holiday'] = $form_data;   
+                    
+                    // Page title
+                    $data['title'] = lang('Helpdesk.ttl_update_holiday');
+                }
+
+                // Otherwise, we create a vacation period
+                else
+                {
+                    // Page title
+                    $data['title'] = lang('Helpdesk.ttl_add_holiday');     
+                    
+                    // If a error is created, keep form fields data
+                    if(isset($data['error']))
+                    {
+                        $form_data =
+                        [
+                            'nom_vacances' => $_POST['holiday_name'],
+                            'date_debut_vacances' => $_POST['start_date'],
+                            'date_fin_vacances' => $_POST['end_date'],
+                        ];
+
+                        $data['holiday'] = $form_data;                
+                    }
+                }
+
+                // Displays the add_holiday view
+                $this->display_view('Helpdesk\add_holiday', $data);
+            }
+
+            // Otherwiese, no error is created, entry creation
+            else
+            {
+                // Prepare data to record
+                $data =
+                [
+                    'id_vacances' => $_POST['id_holiday'],
+                    'nom_vacances' => $_POST['holiday_name'],
+                    'date_debut_vacances' => $_POST['start_date'],
+                    'date_fin_vacances' => $_POST['end_date'],
+                ];
+
+                // Inserting data
+                $this->vacances_model->save($data);
+
+                // Success message
+                $data['success'] = lang('Helpdesk.scs_holiday_updated');
+
+                /*
+                ** holiday() function copy
+                ** (Repetion is needed)
+                */
+
+                // Page title
+                $data['title'] = lang('Helpdesk.ttl_holiday');
+
+                // Retrieve all holiday data
+                $vacances_data = $this->vacances_model->getHolidays();
+
+                $data['vacances_data'] = $vacances_data;
+
+                // Displays the holidays list view, with a success message
+                $this->display_view('Helpdesk\holiday', $data);                
+            }
+        }
+
+        // Otherwise, the add_holiday page is displayed
+        else
+        {
+            // If we edit an existing entry
+            if(isset($id_holiday) && $id_holiday != 0)
+            {
+                // Retrieve the holiday data
+                $holiday_data = $this->vacances_model->getHoliday($id_holiday);
+
+                $data['holiday'] = $holiday_data;
+                
+                // Page title
+                $data['title'] = lang('Helpdesk.ttl_update_holiday');
+            }
+
+            // Otherwise, we create a vacation period
+            else
+            {
+                // Page title
+                $data['title'] = lang('Helpdesk.ttl_add_holiday');     
+                
+                // If a error is created, keep form fields data
+                if(isset($data['error']))
+                {
+                    $form_data =
+                    [
+                        'nom_vacances' => $_POST['holiday_name'],
+                        'date_debut_vacances' => $_POST['start_date'],
+                        'date_fin_vacances' => $_POST['end_date'],
+                    ];
+
+                    $data['holiday'] = $form_data;                
+                }
+            }
+
+            // Displays the add_holiday view
+            $this->display_view('Helpdesk\add_holiday', $data);
+        }
+    }
+
+
+    /*
+    ** deleteHoliday function
+    **
+    ** Displays the delete confirm page
+    ** Deletes the vacation entry
+    **
+    */
+    function deleteHoliday($id_holiday)
+    {
+        // Checks whether user is logged in
+        $this->isUserLogged();
+
+        // If the users confirms the deletion
+        if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
+        {
+            // Delete the entry
+            $this->vacances_model->delete($id_holiday);
 
             // Success message
-            $data['success'] = lang('Helpdesk.scs_holiday_added');
+            $data['success'] = lang('Helpdesk.scs_holiday_deleted');
 
             /*
             ** holiday() function copy
@@ -517,12 +651,14 @@ class Home extends BaseController
 
         else
         {
+            $data['id_holiday'] = $id_holiday;
+
             // Page title
-            $data['title'] = lang('Helpdesk.ttl_add_holiday');
+            $data['title'] = lang('Helpdesk.ttl_delete_confirmation');
 
-            // Displays the add_holiday view
-            $this->display_view('Helpdesk\add_holiday', $data);
+            // Displays the delete confirmation page
+            $this->display_view('Helpdesk\delete_holiday', $data);
+
         }
-
     }
 }

@@ -102,7 +102,7 @@
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>"><?php echo lang('Helpdesk.btn_back')?></a><br>
 
-    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/addHoliday') ?>"><?php echo lang('Helpdesk.btn_add_holiday')?></a>
+    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/saveHoliday') ?>"><?php echo lang('Helpdesk.btn_add_holiday')?></a>
 
     <div class="d-flex justify-content-center">
         <table class="table-responsive position-relative">
@@ -118,7 +118,7 @@
                     <?php foreach ($vacances_data as $holiday) : ?>
                         <tr>
                             <td>
-                                <?php echo $holiday['nom_vacances']; ?>
+                                <a href="<?php echo base_url('helpdesk/home/saveHoliday/'.$holiday['id_vacances']);?>"><?php echo $holiday['nom_vacances']; ?></a>
                             </td>
                             <td>
                                 <?php echo $holiday['date_debut_vacances']; ?>
