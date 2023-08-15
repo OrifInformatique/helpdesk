@@ -19,6 +19,8 @@ use Helpdesk\Models\Presence_model;
 use Helpdesk\Models\Planning_model;
 use Helpdesk\Models\User_Data_model;
 use Helpdesk\Models\Vacances_model;
+use Helpdesk\Models\Lw_planning_model;
+use Helpdesk\Models\Nw_planning_model;
 
 class Home extends BaseController
 {
@@ -26,6 +28,8 @@ class Home extends BaseController
     protected $session;
     protected $presence_model;
     protected $planning_model;
+    protected $lw_planning_model;
+    protected $nw_planning_model;
     protected $user_data_model;
     protected $vacances_model;
 
@@ -35,6 +39,8 @@ class Home extends BaseController
         $this->session = \Config\Services::session();
         $this->presence_model = new Presence_model();
         $this->planning_model = new Planning_model();
+        $this->lw_planning_model = new Lw_planning_model();
+        $this->nw_planning_model = new Nw_planning_model();
         $this->user_data_model = new User_Data_model();
         $this->vacances_model = new Vacances_model();
 
@@ -46,12 +52,13 @@ class Home extends BaseController
     ** index function
     **
     ** Default function, displays the planning page
+    ** Duplicate from planning() function
     **
     */
     public function index()
     {
         // Page title
-        $data['title'] = lang('Helpdesk.ttl_helpdesk');
+        $data['title'] = lang('Helpdesk.ttl_planning');
 
         // Retrieves users having a planning
         $planning_data = $this->planning_model->getPlanningDataByUser();
@@ -68,7 +75,7 @@ class Home extends BaseController
             'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
         ];
 
-        // Displays schedule page
+        // Displays current week planning page
         $this->display_view('Helpdesk\planning', $data);
     }
 
@@ -91,6 +98,119 @@ class Home extends BaseController
         }
 
         // Otherwise, proceed with the rest of the code
+    }
+
+
+    /*
+    ** planning function
+    **
+    ** Displays the current week planning page
+    **
+    */
+    public function planning()
+    {
+        // Page title
+        $data['title'] = lang('Helpdesk.ttl_planning');
+
+        // Retrieves users having a planning
+        $planning_data = $this->planning_model->getPlanningDataByUser();
+
+        $data['planning_data'] = $planning_data;
+
+        // Presences table
+        $data['periodes'] = 
+        [
+            'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
+            'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
+            'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
+            'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
+            'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
+        ];
+
+        // Displays current week planning page
+        $this->display_view('Helpdesk\planning', $data);
+    }
+
+
+    /*
+    ** lw_planning function
+    **
+    ** Displays the last week planning page
+    **
+    */
+    public function lw_planning()
+    {
+        // Checks whether the user is logged
+        $this->isUserLogged();
+
+        // Page title
+        $data['title'] = lang('Helpdesk.ttl_lw_planning');
+
+        // Retrieves users having a planning, from last week
+        $lw_planning_data = $this->lw_planning_model->getPlanningDataByUser();
+
+        $data['lw_planning_data'] = $lw_planning_data;
+
+        // Presences table
+        $data['lw_periodes'] = 
+        [
+            'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
+            'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
+            'lw_planning_wed_m1', 'lw_planning_wed_m2', 'lw_planning_wed_a1', 'lw_planning_wed_a2',
+            'lw_planning_thr_m1', 'lw_planning_thr_m2', 'lw_planning_thr_a1', 'lw_planning_thr_a2',
+            'lw_planning_fri_m1', 'lw_planning_fri_m2', 'lw_planning_fri_a1', 'lw_planning_fri_a2',
+        ];
+
+        // Displays last week planning page
+        $this->display_view('Helpdesk\lw_planning', $data);
+    }
+
+
+    /*
+    ** nw_planning function
+    **
+    ** Displays the next week planning page
+    **
+    */
+    public function nw_planning()
+    {
+        // Checks whether the user is logged
+        $this->isUserLogged();
+
+        // Page title
+        $data['title'] = lang('Helpdesk.ttl_nw_planning');
+
+        // Retrieves users having a planning, from last week
+        $nw_planning_data = $this->nw_planning_model->getPlanningDataByUser();
+
+        $data['nw_planning_data'] = $nw_planning_data;
+
+        // Presences table
+        $data['nw_periodes'] = 
+        [
+            'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
+            'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
+            'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
+            'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
+            'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
+        ];
+
+        
+        // Reference for next week table
+        $next_monday = strtotime('next monday');
+        
+        // Weekdays table for dates
+        $data['next_week'] =
+        [
+            'monday' => $next_monday,
+            'tuesday' => strtotime('+1 day', $next_monday),
+            'wednesday' => strtotime('+2 days', $next_monday),
+            'thursday' => strtotime('+3 days', $next_monday),
+            'friday' => strtotime('+4 days', $next_monday),
+        ];
+
+        // Displays next week planning page
+        $this->display_view('Helpdesk\nw_planning', $data);
     }
 
 
@@ -210,16 +330,43 @@ class Home extends BaseController
     }
 
     /*
-    ** ajouterTechnicien function
+    ** addTechnician function
     **
-    ** Displays the ajouter_technicien page
-    ** Save form inputs from ajouter_technicien
+    ** Displays the add_technician page
+    ** Save form inputs from add_technician
     **
     */
-    function ajouterTechnicien()
+    function addTechnician($planning_type)
     {
         // Checks whether user is logged in
         $this->isUserLogged();
+
+        // If there is no planning type, create an error and redirects to home page
+        if(!isset($planning_type))
+        {
+            $planning_type = NULL;
+
+            // Error message
+            $data['error'] = lang('Helpdesk.err_unfound_planning_type');
+
+            // Displays the planning page
+            return $this->display_view('Helpdesk\home\planning', $data);
+        }
+
+        $data['planning_type'] = $planning_type;
+
+        // Reference for next week table
+        $next_monday = strtotime('next monday');
+        
+        // Weekdays table for dates
+        $data['next_week'] =
+        [
+            'monday' => $next_monday,
+            'tuesday' => strtotime('+1 day', $next_monday),
+            'wednesday' => strtotime('+2 days', $next_monday),
+            'thursday' => strtotime('+3 days', $next_monday),
+            'friday' => strtotime('+4 days', $next_monday),
+        ];
 
         // Page title
         $data['title'] = lang('Helpdesk.ttl_add_technician');
@@ -240,21 +387,32 @@ class Home extends BaseController
         // If the "add technician" button from planning page is pressed
         if (empty($_POST))
         {
-            // Displays ajouter_technicien page
-            return $this->display_view('Helpdesk\ajouter_technicien', $data);
+            // Displays add_technician page
+            return $this->display_view('Helpdesk\add_technician', $data);
         }
 
         // Retrieve user ID from the "technicien" field
         $user_id = $_POST['technicien'];
         
-        // Checks whether the user already has a schedule
-        $data['error'] = $this->planning_model->checkUserOwnsPlanning($user_id);
-        
+        // Finds which planning is used | 0 is current week, 1 is next week
+        switch($planning_type)
+        {
+            case 0:
+                // Checks whether the user already has a schedule
+                $data['error'] = $this->planning_model->checkUserOwnsPlanning($user_id);
+                break;
+
+            case 1:
+                // Checks whether the user already has a schedule
+                $data['error'] = $this->nw_planning_model->checkUserOwnsPlanning($user_id);
+                break;
+        }
+
         // If $data['error'] isn't empty, the user already has a schedule
         if (!empty($data['error']))
         {
             // Displays the same page, with an error message
-            return $this->display_view('Helpdesk\ajouter_technicien', $data);
+            return $this->display_view('Helpdesk\add_technician', $data);
         }
 
         // Form fields table
@@ -269,7 +427,7 @@ class Home extends BaseController
         // Variable for empty fields count
         $emptyFields = 0;
 
-        // Add default values il field is empty
+        // Add default values if field is empty
         foreach ($form_fields_data as $field)
         {
             // If the field is empty or is not set
@@ -283,107 +441,214 @@ class Home extends BaseController
             }
         }
 
-        // If 20 fields are empty, means all fields are empty. Cannot add a technician without role
+        // If 20 fields are empty, means all fields are empty. Cannot add a technician without any role
         if ($emptyFields === 20)
         {
             // Error message
             $data['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
 
             // Displays the same page, with an error message
-            return $this->display_view('Helpdesk\ajouter_technicien', $data);     
+            return $this->display_view('Helpdesk\add_technician', $data);     
         }
-
-        // Prepare planning to record
-        $data = 
-        [
-            'fk_user_id' => $user_id,
-
-            'planning_lundi_m1' => $_POST['lundi_debut_matin'],
-            'planning_lundi_m2' => $_POST['lundi_fin_matin'],
-            'planning_lundi_a1' => $_POST['lundi_debut_apres_midi'],
-            'planning_lundi_a2' => $_POST['lundi_fin_apres_midi'],
-
-            'planning_mardi_m1' => $_POST['mardi_debut_matin'],
-            'planning_mardi_m2' => $_POST['mardi_fin_matin'],
-            'planning_mardi_a1' => $_POST['mardi_debut_apres_midi'],
-            'planning_mardi_a2' => $_POST['mardi_fin_apres_midi'],
-
-            'planning_mercredi_m1' => $_POST['mercredi_debut_matin'],
-            'planning_mercredi_m2' => $_POST['mercredi_fin_matin'],
-            'planning_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
-            'planning_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
-
-            'planning_jeudi_m1' => $_POST['jeudi_debut_matin'],
-            'planning_jeudi_m2' => $_POST['jeudi_fin_matin'],
-            'planning_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
-            'planning_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
-
-            'planning_vendredi_m1' => $_POST['vendredi_debut_matin'],
-            'planning_vendredi_m2' => $_POST['vendredi_fin_matin'],
-            'planning_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
-            'planning_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
-        ];
-
-        // Insert data into "tbl_planning" table
-        $this->planning_model->insert($data);
 
         // Success message
         $data['success'] = lang('Helpdesk.scs_technician_added_to_schedule');
 
-        /*
-        ** index() function copy
-        ** (Repetion is needed)
-        */
-        
-        // Page title
-        $data['title'] = lang('Helpdesk.ttl_helpdesk');
+        // Finds which planning is updated | 0 is current week, 1 is next week
+        switch($planning_type)
+        {
+            case 0:
+                // Prepare update of current week
+                $data = 
+                [
+                    'fk_user_id' => $user_id,
 
-        // Retrieves users having a schedule
-        $planning_data = $this->planning_model->getPlanningDataByUser();
+                    'planning_lundi_m1' => $_POST['lundi_debut_matin'],
+                    'planning_lundi_m2' => $_POST['lundi_fin_matin'],
+                    'planning_lundi_a1' => $_POST['lundi_debut_apres_midi'],
+                    'planning_lundi_a2' => $_POST['lundi_fin_apres_midi'],
 
-        $data['planning_data'] = $planning_data;
+                    'planning_mardi_m1' => $_POST['mardi_debut_matin'],
+                    'planning_mardi_m2' => $_POST['mardi_fin_matin'],
+                    'planning_mardi_a1' => $_POST['mardi_debut_apres_midi'],
+                    'planning_mardi_a2' => $_POST['mardi_fin_apres_midi'],
 
-        // Presences table
-        $data['periodes'] = 
-        [
-            'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
-            'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
-            'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
-            'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
-            'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
-        ];
+                    'planning_mercredi_m1' => $_POST['mercredi_debut_matin'],
+                    'planning_mercredi_m2' => $_POST['mercredi_fin_matin'],
+                    'planning_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
+                    'planning_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
 
-        // Displays schedule page
-        $this->display_view('Helpdesk\planning', $data);
+                    'planning_jeudi_m1' => $_POST['jeudi_debut_matin'],
+                    'planning_jeudi_m2' => $_POST['jeudi_fin_matin'],
+                    'planning_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
+                    'planning_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
+
+                    'planning_vendredi_m1' => $_POST['vendredi_debut_matin'],
+                    'planning_vendredi_m2' => $_POST['vendredi_fin_matin'],
+                    'planning_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
+                    'planning_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
+                ];
+
+                // Insert data into "tbl_planning" table
+                $this->planning_model->insert($data);
+
+                // Page title
+                $data['title'] = lang('Helpdesk.ttl_planning');
+                    
+                // Retrieves users having a schedule
+                $planning_data = $this->planning_model->getPlanningDataByUser();
+
+                $data['planning_data'] = $planning_data;
+
+                // Presences table
+                $data['periodes'] = 
+                [
+                    'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
+                    'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
+                    'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
+                    'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
+                    'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
+                ];
+
+                // Displays schedule page
+                $this->display_view('Helpdesk\planning', $data);
+                
+                break;
+
+            case 1:
+                // Prepare update of next week
+                $data = 
+                [
+                    'fk_user_id' => $user_id,
+
+                    'nw_planning_mon_m1' => $_POST['lundi_debut_matin'],
+                    'nw_planning_mon_m2' => $_POST['lundi_fin_matin'],
+                    'nw_planning_mon_a1' => $_POST['lundi_debut_apres_midi'],
+                    'nw_planning_mon_a2' => $_POST['lundi_fin_apres_midi'],
+
+                    'nw_planning_tue_m1' => $_POST['mardi_debut_matin'],
+                    'nw_planning_tue_m2' => $_POST['mardi_fin_matin'],
+                    'nw_planning_tue_a1' => $_POST['mardi_debut_apres_midi'],
+                    'nw_planning_tue_a2' => $_POST['mardi_fin_apres_midi'],
+
+                    'nw_planning_wed_m1' => $_POST['mercredi_debut_matin'],
+                    'nw_planning_wed_m2' => $_POST['mercredi_fin_matin'],
+                    'nw_planning_wed_a1' => $_POST['mercredi_debut_apres_midi'],
+                    'nw_planning_wed_a2' => $_POST['mercredi_fin_apres_midi'],
+
+                    'nw_planning_thr_m1' => $_POST['jeudi_debut_matin'],
+                    'nw_planning_thr_m2' => $_POST['jeudi_fin_matin'],
+                    'nw_planning_thr_a1' => $_POST['jeudi_debut_apres_midi'],
+                    'nw_planning_thr_a2' => $_POST['jeudi_fin_apres_midi'],
+
+                    'nw_planning_fri_m1' => $_POST['vendredi_debut_matin'],
+                    'nw_planning_fri_m2' => $_POST['vendredi_fin_matin'],
+                    'nw_planning_fri_a1' => $_POST['vendredi_debut_apres_midi'],
+                    'nw_planning_fri_a2' => $_POST['vendredi_fin_apres_midi']
+                ];
+
+                // Insert data into "tbl_nw_planning" table
+                $this->nw_planning_model->insert($data);
+
+                // Page title
+                $data['title'] = lang('Helpdesk.ttl_nw_planning');
+
+                // Retrieves users having a schedule
+                $nw_planning_data = $this->nw_planning_model->getPlanningDataByUser();
+
+                $data['nw_planning_data'] = $nw_planning_data;
+
+                // Presences table
+                $data['nw_periodes'] = 
+                [
+                    'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
+                    'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
+                    'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
+                    'nw_planning_thr_m1', 'nw_planning_thr_m2', 'nw_planning_thr_a1', 'nw_planning_thr_a2',
+                    'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
+                ];
+
+                // Displays schedule page
+                $this->display_view('Helpdesk\nw_planning', $data);
+
+                break;
+        }
     }
 
     
     /*
-    ** modificationPlanning function
+    ** updatePlanning function
     **
-    ** Displays the modification_planning page
-    ** Saves form data from the modification_planning page
+    ** Displays the update_planning page
+    ** Saves form data from the update_planning page
     **
     */
-    function modificationPlanning()
+    function updatePlanning($planning_type)
     {
         // Checks whether user is logged in
         $this->isUserLogged();
         
-        // Form fields table
-        $form_fields_data = 
-        [
-            'planning_lundi_m1','planning_lundi_m2','planning_lundi_a1','planning_lundi_a2',
-            'planning_mardi_m1','planning_mardi_m2','planning_mardi_a1','planning_mardi_a2',
-            'planning_mercredi_m1','planning_mercredi_m2','planning_mercredi_a1','planning_mercredi_a2',
-            'planning_jeudi_m1','planning_jeudi_m2','planning_jeudi_a1','planning_jeudi_a2',
-            'planning_vendredi_m1','planning_vendredi_m2','planning_vendredi_a1','planning_vendredi_a2',
-        ];
+        // If there is no planning type, create an error and redirects to home page
+        if(!isset($planning_type))
+        {
+            $planning_type = NULL;
+
+            // Error message
+            $data['error'] = lang('Helpdesk.err_unfound_planning_type');
+
+            // Displays the planning page
+            return $this->display_view('Helpdesk\home\planning', $data);
+        }
+
+        $data['planning_type'] = $planning_type;
+
+        $form_fields_data = [];
+
+        // Finds which planning is used for fields names | 0 is current week, 1 is next week
+        switch($planning_type)
+        {
+            case 0:
+                // Form fields table
+                $form_fields_data = 
+                [
+                    'planning_lundi_m1','planning_lundi_m2','planning_lundi_a1','planning_lundi_a2',
+                    'planning_mardi_m1','planning_mardi_m2','planning_mardi_a1','planning_mardi_a2',
+                    'planning_mercredi_m1','planning_mercredi_m2','planning_mercredi_a1','planning_mercredi_a2',
+                    'planning_jeudi_m1','planning_jeudi_m2','planning_jeudi_a1','planning_jeudi_a2',
+                    'planning_vendredi_m1','planning_vendredi_m2','planning_vendredi_a1','planning_vendredi_a2',
+                ];
+
+                break;
+
+            case 1:
+                // Form fields table
+                $form_fields_data = 
+                [
+                    'nw_planning_mon_m1','nw_planning_mon_m2','nw_planning_mon_a1','nw_planning_mon_a2',
+                    'nw_planning_tue_m1','nw_planning_tue_m2','nw_planning_tue_a1','nw_planning_tue_a2',
+                    'nw_planning_wed_m1','nw_planning_wed_m2','nw_planning_wed_a1','nw_planning_wed_a2',
+                    'nw_planning_thu_m1','nw_planning_thu_m2','nw_planning_thu_a1','nw_planning_thu_a2',
+                    'nw_planning_fri_m1','nw_planning_fri_m2','nw_planning_fri_a1','nw_planning_fri_a2',
+                ];
+                
+                break;
+        }
 
         if ($_POST)
         {
-            // Get form data
-            $planning_data = $_POST['planning'];
+            // Finds which planning is updated | 0 is current week, 1 is next week
+            switch($planning_type)
+            {
+                case 0:
+                    // Get form data
+                    $planning_data = $_POST['planning'];
+                    break;
+        
+                case 1:
+                    // Get from data
+                    $planning_data = $_POST['nw_planning'];
+                    break;
+            }
 
             // Browse data for each technician
             foreach ($planning_data as $id_planning => $technician_planning) 
@@ -391,11 +656,25 @@ class Home extends BaseController
                 // Empty fields count
                 $emptyFieldsCount = 0;
 
-                // Add the retrieved value to the array that will be used to update the data. Here, we begin with primary an foreign keys
-                $data_to_update = array(
-                    'id_planning' => $technician_planning['id_planning'],
-                    'fk_user_id' => $technician_planning['fk_user_id']
-                );
+                // Finds which planning is updated | 0 is current week, 1 is next week
+                switch($planning_type)
+                {
+                    case 0:
+                        // Add the retrieved value to the array that will be used to update the data. Here, we begin with primary an foreign keys
+                        $data_to_update = array(
+                            'id_planning' => $technician_planning['id_planning'],
+                            'fk_user_id' => $technician_planning['fk_user_id']
+                        );
+                        break;
+            
+                    case 1:
+                        // Add the retrieved value to the array that will be used to update the data. Here, we begin with primary an foreign keys
+                        $data_to_update = array(
+                            'id_nwplanning' => $technician_planning['id_nw_planning'],
+                            'fk_user_id' => $technician_planning['fk_user_id']
+                        );
+                        break;
+                }
                 
                 // Browse the form fields for each technician
                 foreach ($form_fields_data as $field) 
@@ -426,8 +705,18 @@ class Home extends BaseController
 
                 else
                 {
-                    // Update planning for the user
-                    $this->planning_model->updateUsersPlanning($id_planning, $data_to_update);
+                    switch($planning_type)
+                    {
+                        case 0:
+                            // Update planning for the user
+                            $this->planning_model->updateUsersPlanning($id_planning, $data_to_update);
+                            break;
+                
+                        case 1:
+                            // Update planning for the user
+                            $this->nw_planning_model->updateUsersPlanning($id_planning, $data_to_update);
+                            break;
+                    }
                     
                     // Success message
                     $data['success'] = lang('Helpdesk.scs_planning_updated');
@@ -435,15 +724,49 @@ class Home extends BaseController
             }
         }
 
-        // Retrieve planning data
-        $planning_data = $this->planning_model->getPlanningDataByUser();
+        // Determines from which planning data are retrieved | 0 is current week, 1 is next week
+        switch($planning_type)
+        {
+            case 0:
+                // Retrieve planning data
+                $planning_data = $this->planning_model->getPlanningDataByUser();
 
-        $data['planning_data'] = $planning_data;
+                $data['planning_data'] = $planning_data;
+                        
+                // Page title
+                $data['title'] = lang('Helpdesk.ttl_update_planning');
+
+                break;
+
+            case 1:
+                // Retrieve planning data
+                $nw_planning_data = $this->nw_planning_model->getPlanningDataByUser();
+
+                $data['nw_planning_data'] = $nw_planning_data;      
+
+                // Reference for next week table
+                $next_monday = strtotime('next monday');
+                
+                // Weekdays table for dates
+                $data['next_week'] =
+                [
+                    'monday' => $next_monday,
+                    'tuesday' => strtotime('+1 day', $next_monday),
+                    'wednesday' => strtotime('+2 days', $next_monday),
+                    'thursday' => strtotime('+3 days', $next_monday),
+                    'friday' => strtotime('+4 days', $next_monday),
+                ];
+
+                // Page title
+                $data['title'] = lang('Helpdesk.ttl_update_nw_planning');
+
+                break;
+        }
 
         $data['form_fields_data'] = $form_fields_data;
 
-        // Display modification_planning view
-        $this->display_view('Helpdesk\modification_planning', $data);
+        // Display update_planning view
+        $this->display_view('Helpdesk\update_planning', $data);
     }
 
 
@@ -469,7 +792,7 @@ class Home extends BaseController
 
 
     /*
-    ** addHoliday function
+    ** saveHoliday function
     **
     ** Display the add_holiday page
     ** Saves form data from add_holiday page
@@ -649,6 +972,7 @@ class Home extends BaseController
             $this->display_view('Helpdesk\holiday', $data);
         }
 
+        // When the user clicks the delete button
         else
         {
             $data['id_holiday'] = $id_holiday;

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * modification_planning view
+ * update_planning view
  *
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -122,9 +122,18 @@
         </div>
     <?php endif; ?>
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
+    <?php switch($planning_type)
+    {
+        case 0:
+            echo('<a class="btn btn-primary mb-3" href="'.base_url('helpdesk/home').'">'.lang('Helpdesk.btn_back').'</a>');
+            break;
 
-    <form method="POST" action="<?= base_url('helpdesk/home/modificationPlanning') ?>">
+        case 1:
+            echo('<a class="btn btn-primary mb-3" href="'.base_url('helpdesk/home/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
+            break;
+    } ?>
+    
+    <form method="POST" action="<?= base_url('helpdesk/home/updatePlanning/'.$planning_type) ?>">
 
         <input class="btn btn-blue mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">
 
@@ -137,48 +146,74 @@
         <div class="week">
             <?php echo lang('Helpdesk.planning_of_week')?>
             <span class="start-date">
-                <!-- Displays the current week monday -->
-                <?php echo date('d/m/Y', strtotime('monday this week')); ?>
+                <?php switch($planning_type)
+                    {
+                        case 0:
+                            echo date('d/m/Y', strtotime('monday this week')); 
+                            break;
+
+                        case 1:
+                            echo date('d/m/Y', strtotime('next monday'));
+                            break;
+                    }
+                ?>
             </span>
             <?php echo lang('Helpdesk.to')?>
             <span class="end-date">
-                <!-- Displays tue current week friday -->
-                <?php echo date('d/m/Y', strtotime('friday this week')); ?>
+                <?php switch($planning_type)
+                    {
+                        case 0:
+                            echo date('d/m/Y', strtotime('friday this week'));
+                            break;
+
+                        case 1:
+                            echo date('d/m/Y', $next_week['friday']);
+                            break;
+                    }
+                ?>
             </span>
         </div>
 
 
         <table class="table-responsive position-relative">
-            <thead>
+        <thead>
+                <?php switch($planning_type)
+                {
+                    case 0: ?>
+                        <tr>
+                            <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
+                        </tr>
+                    <?php break;?>
+                    <?php case 1: ?>
+                        <tr>
+                            <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', $next_week['monday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', $next_week['tuesday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
+                        </tr>
+                    <?php break;?>
+                <?php } ?>
                 <tr>
-                    <th></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
-                </tr>
-
-                <tr>
-                    <th>Technicien</th>
-
-                    <?php
-                    // Repeat timetables 5 times
-                    for ($i = 0; $i < 5; $i++) : ?>
-
+                    <th><?php echo lang('Helpdesk.technician') ?></th>
+                    <?php 
+                    // Repeats timetables 5 times
+                    for($i = 0; $i < 5; $i++): ?>
                         <th>8:00 10:00</th>
                         <th>10:00 12:00</th>
                         <th>12:45 15:00</th>
                         <th>15:00 16:57</th>
-
                     <?php endfor; ?>
-
                 </tr>
             </thead>
 
             <tbody>
-                <?php if (isset($planning_data)) : ?>
-                    <?php foreach ($planning_data as $planning) : ?>      
+                <?php if(isset($planning_data)) : ?>
+                    <?php foreach($planning_data as $planning) : ?>      
                         <tr>
                             <th><?php echo $planning['nom_user_data'].'<br>'.$planning['prenom_user_data']; ?></th>
                             <input type="hidden" name="planning[<?php echo $planning['id_planning']; ?>][id_planning]" value="<?php echo $planning['id_planning']; ?>">
@@ -200,8 +235,32 @@
                             <?php endforeach; ?>
                         </tr>
                     <?php endforeach; ?>
-                <?php else : ?>
-                    <tr>
+
+                <?php elseif(isset($nw_planning_data)): ?>
+                    <?php foreach($nw_planning_data as $nw_planning) : ?>      
+                        <tr>
+                            <th><?php echo $nw_planning['nom_user_data'].'<br>'.$nw_planning['prenom_user_data']; ?></th>
+                            <input type="hidden" name="nw_planning[<?php echo $nw_planning['id_nw_planning']; ?>][id_nw_planning]" value="<?php echo $nw_planning['id_nw_planning']; ?>">
+                            <input type="hidden" name="nw_planning[<?php echo $nw_planning['id_nw_planning']; ?>][fk_user_id]" value="<?php echo $nw_planning['fk_user_id']; ?>">
+                            <?php foreach ($form_fields_data as $field) : ?>
+                                <td>
+                                    <select name="nw_planning[<?php echo $nw_planning['id_nw_planning']; ?>][<?php echo $field; ?>]">
+                                        <?php
+                                        $choices = array('', 1, 2, 3);
+
+                                        foreach ($choices as $choice) 
+                                        {
+                                            $selected = ($nw_planning[$field] == $choice) ? 'selected' : '';
+                                            echo '<option value="' . $choice . '" ' . $selected . '>' . $choice . '</option>';
+                                        }
+                                        ?>
+                                    </select>
+                                </td>
+                            <?php endforeach; ?>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr colspan="21">
                         <td><?php echo lang('Helpdesk.no_technician_assigned')?></td>
                     </tr>
                 <?php endif; ?>

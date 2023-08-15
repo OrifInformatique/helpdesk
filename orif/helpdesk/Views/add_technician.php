@@ -1,7 +1,7 @@
 <?php
 
 /**
- * ajouter_technicien view
+ * add_technician view
  *
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -91,12 +91,21 @@
 
 <div class="container-fluid">
 
-    <!-- Ttile, if exists -->
+    <!-- Title, if exists -->
     <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
+    <?php switch($planning_type)
+    {
+        case 0:
+            echo('<a class="btn btn-primary mb-3" href="'.base_url('helpdesk/home').'">'.lang('Helpdesk.btn_back').'</a>');
+            break;
 
-    <form action="<?= base_url('helpdesk/home/ajouterTechnicien') ?>" method="post">
+        case 1:
+            echo('<a class="btn btn-primary mb-3" href="'.base_url('helpdesk/home/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
+            break;
+    } ?>
+
+    <form action="<?= base_url('helpdesk/home/addTechnician/'.$planning_type) ?>" method="post">
 
         <input class="btn btn-blue mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>"/>
 
@@ -116,13 +125,31 @@
         <div class="week">
             <?php echo lang('Helpdesk.planning_of_week')?>
             <span class="start-date">
-                <!-- Displays the current week monday -->
-                <?php echo date('d/m/Y', strtotime('monday this week')); ?>
+                <?php switch($planning_type)
+                    {
+                        case 0:
+                            echo date('d/m/Y', strtotime('monday this week')); 
+                            break;
+
+                        case 1:
+                            echo date('d/m/Y', strtotime('next monday'));
+                            break;
+                    }
+                ?>
             </span>
             <?php echo lang('Helpdesk.to')?>
             <span class="end-date">
-                <!-- Displays the current week friday -->
-                <?php echo date('d/m/Y', strtotime('friday this week')); ?>
+                <?php switch($planning_type)
+                    {
+                        case 0:
+                            echo date('d/m/Y', $next_week['monday']);
+                            break;
+
+                        case 1:
+                            echo date('d/m/Y', $next_week['friday']);
+                            break;
+                    }
+                ?>
             </span>
         </div>
 
@@ -141,13 +168,27 @@
 
         <table class="table-responsive position-relative">
             <thead>
-                <tr>
-                    <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
-                </tr>
+                <?php switch($planning_type)
+                {
+                    case 0: ?>
+                        <tr>
+                            <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
+                        </tr>
+                    <?php break;?>
+                    <?php case 1: ?>
+                        <tr>
+                            <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', $next_week['monday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', $next_week['tuesday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
+                            <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
+                        </tr>
+                    <?php break;?>
+                <?php } ?>
                 <tr>
                     <?php 
                     // Repeats timetables 5 times

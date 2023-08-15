@@ -15,11 +15,16 @@ return[
 
     'ttl_presences'             => 'Présences de l\'apprenti',
     'ttl_add_technician'        => 'Ajouter un technicien',
-    'ttl_helpdesk'              => 'Helpdesk',
+    'ttl_planning'              => 'Planning de la semaine',
+    'ttl_lw_planning'           => 'Planning de la semaine dernière',
+    'ttl_nw_planning'           => 'Planning de la semaine prochaine',
+    'ttl_update_planning'       => 'Modifier le planning',
+    'ttl_update_nw_planning'    => 'Modifier le planning de la semaine prochaine',
     'ttl_holiday'               => 'Vacances et périodes fériées',
     'ttl_add_holiday'           => 'Ajouter une préiode fériée',
     'ttl_update_holiday'        => 'Modifier une période fériée',
-    'ttl_delete_confirmation'   => 'Confirmation de supression',
+    'ttl_delete_confirmation'   => 'Confirmation de suppression',
+
 
     /*
     ** ERROR MESSAGES
@@ -28,6 +33,7 @@ return[
     'err_technician_already_has_schedule'           => 'Le technicien renseigné possède déjà un planning',
     'err_technician_must_be_assigned_to_schedule'   => 'Chaque technicien doit être assigné au minimum à un rôle pendant une période',
     'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes',
+    'err_unfound_planning_type'                     => 'Erreur de planning, veuillez réessayer',
 
 
     /*
@@ -54,6 +60,8 @@ return[
     'btn_save'              => 'Enregistrer',
     'btn_delete'            => 'Supprimer',
     'btn_cancel'            => 'Annuler',
+    'btn_last_week'         => '◄◄ Semaine dernière',
+    'btn_next_week'         => 'Semaine suivante ►►',
 
 
     /*
