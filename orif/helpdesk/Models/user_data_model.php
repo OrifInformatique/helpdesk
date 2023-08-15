@@ -17,7 +17,7 @@ class User_Data_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_user_data';
     protected $primaryKey = 'id_user_data';
-    protected $allowedFields = ['fk_user_id','nom_user_data','prenom_user_data','initiales_user_data','photo_user_data'];
+    protected $allowedFields = ['fk_user_id','last_name_user_data','first_name_user_data','initials_user_data','photo_user_data'];
     protected $validationRules;
     protected $validationMessages;
 

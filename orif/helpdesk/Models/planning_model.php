@@ -17,13 +17,14 @@ class Planning_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_planning';
     protected $primaryKey = 'id_planning';
-    protected $allowedFields = [
+    protected $allowedFields = 
+    [
         'fk_user_id',
-        'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
-        'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
-        'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
-        'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
-        'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2'
+        'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
+        'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
+        'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
+        'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
+        'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2'
     ];
     protected $validationRules;
     protected $validationMessages;

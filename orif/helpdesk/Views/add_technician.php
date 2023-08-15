@@ -155,12 +155,12 @@
 
         <div class="">
             <p> <?php echo lang('Helpdesk.added_technician')?> </p>
-            <select name="technicien" required>
+            <select name="technician" required>
                 <option disabled selected></option>
                 <?php 
                 foreach($users as $user)
                 {
-                    echo('<option value="'.$user['id'].'">'.$user['nom_user_data'].' '.$user['prenom_user_data'].'</option>');
+                    echo('<option value="'.$user['id'].'">'.$user['last_name_user_data'].' '.$user['first_name_user_data'].'</option>');
                 } 
                 ?>
             </select>
@@ -206,7 +206,7 @@
                     // Repeats choices options 20 times
                     for($i = 0; $i < 20; $i++): ?>   
                         <td>
-                            <select name="<?php echo($presences[$i]);?>">
+                            <select name="<?php echo($periods[$i]);?>">
                                 <option selected></option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>

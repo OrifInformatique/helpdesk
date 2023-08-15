@@ -10,15 +10,15 @@ class InsertRolesDatas extends \CodeIgniter\Database\Seeder
         [
             [
                 'id_role' => 1,
-                'intitule_role' => 'Technicien d\'astreinte',
+                'title_role' => 'Technicien d\'astreinte',
             ],
             [
                 'id_role' => 2,
-                'intitule_role' => 'Technicien de backup',
+                'title_role' => 'Technicien de backup',
             ],
             [
                 'id_role' => 3,
-                'intitule_role' => 'Technicien de réserve',
+                'title_role' => 'Technicien de réserve',
             ],            
         ];
 

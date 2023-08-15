@@ -13,11 +13,11 @@ namespace Helpdesk\Models;
 use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Validation\ValidationInterface;
 
-class Vacances_model extends \CodeIgniter\Model
+class Holidays_model extends \CodeIgniter\Model
 {
-    protected $table = 'tbl_vacances';
-    protected $primaryKey = 'id_vacances';
-    protected $allowedFields = ['nom_vacances','date_debut_vacances','date_fin_vacances'];
+    protected $table = 'tbl_holidays';
+    protected $primaryKey = 'id_holiday';
+    protected $allowedFields = ['name_holiday','start_date_holiday','end_date_holiday'];
     protected $validationRules;
     protected $validationMessages;
 
@@ -41,9 +41,9 @@ class Vacances_model extends \CodeIgniter\Model
     public function getHolidays()
     {
         // Retrieve all holidays data, ordered by date
-        $vacances_data = $this->orderBy('date_debut_vacances', 'ASC')->findAll();
+        $holidays_data = $this->orderBy('start_date_holiday', 'ASC')->findAll();
 
-        return $vacances_data;
+        return $holidays_data;
     }
 
 
@@ -56,8 +56,8 @@ class Vacances_model extends \CodeIgniter\Model
     public function getHoliday($id_holiday)
     {
         // Retrieve holiday entry
-        $vacances_data = $this->where('id_vacances', $id_holiday)->first();
+        $holiday_data = $this->where('id_holiday', $id_holiday)->first();
 
-        return $vacances_data;
+        return $holiday_data;
     }
 }

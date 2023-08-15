@@ -25,7 +25,7 @@
 
 		<input class="btn btn-danger mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_delete')?>">
 
-        <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holiday') ?>"><?php echo lang('Helpdesk.btn_cancel')?></a>
+        <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_cancel')?></a>
 
     </form>
 </div>

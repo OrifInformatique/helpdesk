@@ -114,17 +114,17 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (isset($vacances_data)) : ?>
-                    <?php foreach ($vacances_data as $holiday) : ?>
+                <?php if (isset($holidays_data)) : ?>
+                    <?php foreach ($holidays_data as $holiday) : ?>
                         <tr>
                             <td>
-                                <a href="<?php echo base_url('helpdesk/home/saveHoliday/'.$holiday['id_vacances']);?>"><?php echo $holiday['nom_vacances']; ?></a>
+                                <a href="<?php echo base_url('helpdesk/home/saveHoliday/'.$holiday['id_holiday']);?>"><?php echo $holiday['name_holiday']; ?></a>
                             </td>
                             <td>
-                                <?php echo $holiday['date_debut_vacances']; ?>
+                                <?php echo $holiday['start_date_holiday']; ?>
                             </td>
                             <td>
-                                <?php echo $holiday['date_fin_vacances']; ?>
+                                <?php echo $holiday['end_date_holiday']; ?>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -132,7 +132,7 @@
                     <tr>
                         <td colspan="3">
                             <?php echo lang('Helpdesk.no_holidays')?><br>
-                            <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/addHoliday') ?>"><?php echo lang('Helpdesk.btn_add_holiday')?></a>
+                            <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/saveHoliday') ?>"><?php echo lang('Helpdesk.btn_add_holiday')?></a>
                         </td>
                     </tr>
                 <?php endif; ?>

@@ -72,7 +72,7 @@
     <!-- Title, if exists -->
     <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presence') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presences') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holiday') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a>
 
     <div class="d-flex justify-content-center">
@@ -131,9 +131,9 @@
                             <?php echo $user['nom_user_data'].'<br>'.$user['prenom_user_data']; ?>
                         </th>
 
-                        <?php foreach ($lw_periodes as $periode): ?>
-                            <td class="<?php echo $user[$periode] == 0 ? '' : ($user[$periode] == 1 ? 'bg-green' : ($user[$periode] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
-                                <?php echo $user[$periode]; ?>
+                        <?php foreach ($lw_periods as $period): ?>
+                            <td class="<?php echo $user[$period] == 0 ? '' : ($user[$period] == 1 ? 'bg-green' : ($user[$period] == 2 ? 'bg-yellow' : 'bg-orange')); ?>">
+                                <?php echo $user[$period]; ?>
                             </td>
 
                         <?php endforeach; ?>

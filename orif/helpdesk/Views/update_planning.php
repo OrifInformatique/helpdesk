@@ -215,7 +215,7 @@
                 <?php if(isset($planning_data)) : ?>
                     <?php foreach($planning_data as $planning) : ?>      
                         <tr>
-                            <th><?php echo $planning['nom_user_data'].'<br>'.$planning['prenom_user_data']; ?></th>
+                            <th><?php echo $planning['last_name_user_data'].'<br>'.$planning['first_name_user_data']; ?></th>
                             <input type="hidden" name="planning[<?php echo $planning['id_planning']; ?>][id_planning]" value="<?php echo $planning['id_planning']; ?>">
                             <input type="hidden" name="planning[<?php echo $planning['id_planning']; ?>][fk_user_id]" value="<?php echo $planning['fk_user_id']; ?>">
                             <?php foreach ($form_fields_data as $field) : ?>
@@ -239,7 +239,7 @@
                 <?php elseif(isset($nw_planning_data)): ?>
                     <?php foreach($nw_planning_data as $nw_planning) : ?>      
                         <tr>
-                            <th><?php echo $nw_planning['nom_user_data'].'<br>'.$nw_planning['prenom_user_data']; ?></th>
+                            <th><?php echo $nw_planning['last_name_user_data'].'<br>'.$nw_planning['first_name_user_data']; ?></th>
                             <input type="hidden" name="nw_planning[<?php echo $nw_planning['id_nw_planning']; ?>][id_nw_planning]" value="<?php echo $nw_planning['id_nw_planning']; ?>">
                             <input type="hidden" name="nw_planning[<?php echo $nw_planning['id_nw_planning']; ?>][fk_user_id]" value="<?php echo $nw_planning['fk_user_id']; ?>">
                             <?php foreach ($form_fields_data as $field) : ?>

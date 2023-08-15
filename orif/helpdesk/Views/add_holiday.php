@@ -101,10 +101,10 @@
 
 <div class="container-fluid">
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holiday') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
 
-    <?php if(isset($holiday['id_vacances'])): ?>
-        <form method="POST" action="<?= base_url('helpdesk/home/saveHoliday/'.$holiday['id_vacances']) ?>">
+    <?php if(isset($holiday['id_holiday'])): ?>
+        <form method="POST" action="<?= base_url('helpdesk/home/saveHoliday/'.$holiday['id_holiday']) ?>">
     <?php else: ?>
         <form method="POST" action="<?= base_url('helpdesk/home/saveHoliday') ?>">
     <?php endif; ?>
@@ -115,24 +115,24 @@
             <fieldset>
                 <label for="holiday_name"><?php echo lang('Helpdesk.holiday_name')?></label>
                 <input type="text" name="holiday_name" required
-                value="<?php if(isset($holiday['nom_vacances'])){echo $holiday['nom_vacances'];}?>">
+                value="<?php if(isset($holiday['name_holiday'])){echo $holiday['name_holiday'];}?>">
             </fieldset>
             <fieldset>
                 <label for="start_date"><?php echo lang('Helpdesk.start_date')?></label>
                 <input type="datetime-local" name="start_date" required
-                value="<?php if(isset($holiday['date_debut_vacances'])){echo $holiday['date_debut_vacances'];}?>">
+                value="<?php if(isset($holiday['start_date_holiday'])){echo $holiday['start_date_holiday'];}?>">
             </fieldset>
             <fieldset>
                 <label for="end_date"><?php echo lang('Helpdesk.end_date')?></label>
                 <input type="datetime-local" name="end_date" required
-                value="<?php if(isset($holiday['date_fin_vacances'])){echo $holiday['date_fin_vacances'];}?>">
+                value="<?php if(isset($holiday['end_date_holiday'])){echo $holiday['end_date_holiday'];}?>">
             </fieldset>
         </div>
 
-        <?php if(isset($holiday['id_vacances'])): ?>
-            <input type="hidden" name="id_holiday" value="<?php echo $holiday['id_vacances']; ?>">
+        <?php if(isset($holiday['id_holiday'])): ?>
+            <input type="hidden" name="id_holiday" value="<?php echo $holiday['id_holiday']; ?>">
 
-            <a class="btn btn-danger mb-3" href="<?= base_url('helpdesk/home/deleteHoliday/'.$holiday['id_vacances']) ?>"><?php echo lang('Helpdesk.btn_delete')?></a>
+            <a class="btn btn-danger mb-3" href="<?= base_url('helpdesk/home/deleteHoliday/'.$holiday['id_holiday']) ?>"><?php echo lang('Helpdesk.btn_delete')?></a>
         <?php else: ?>
             <input type="hidden" name="id_holiday" value="0">
         <?php endif; ?>

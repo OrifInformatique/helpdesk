@@ -16,7 +16,7 @@ class AddRoles extends Migration
                 'auto_increment' => true,
             ],
             
-            'intitule_role' => [
+            'title_role' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
                 'null'       => true,

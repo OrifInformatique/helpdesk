@@ -15,10 +15,10 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use DateTime;
 use Psr\Log\LoggerInterface;
-use Helpdesk\Models\Presence_model;
+use Helpdesk\Models\Presences_model;
 use Helpdesk\Models\Planning_model;
 use Helpdesk\Models\User_Data_model;
-use Helpdesk\Models\Vacances_model;
+use Helpdesk\Models\Holidays_model;
 use Helpdesk\Models\Lw_planning_model;
 use Helpdesk\Models\Nw_planning_model;
 
@@ -26,23 +26,23 @@ class Home extends BaseController
 {
 
     protected $session;
-    protected $presence_model;
+    protected $presences_model;
     protected $planning_model;
     protected $lw_planning_model;
     protected $nw_planning_model;
     protected $user_data_model;
-    protected $vacances_model;
+    protected $holidays_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
         $this->session = \Config\Services::session();
-        $this->presence_model = new Presence_model();
+        $this->presences_model = new Presences_model();
         $this->planning_model = new Planning_model();
         $this->lw_planning_model = new Lw_planning_model();
         $this->nw_planning_model = new Nw_planning_model();
         $this->user_data_model = new User_Data_model();
-        $this->vacances_model = new Vacances_model();
+        $this->holidays_model = new Holidays_model();
 
         helper('form');
     }
@@ -66,13 +66,13 @@ class Home extends BaseController
         $data['planning_data'] = $planning_data;
 
         // Presences table
-        $data['periodes'] = 
+        $data['periods'] = 
         [
-            'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
-            'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
-            'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
-            'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
-            'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
+            'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
+            'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
+            'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
+            'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
+            'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
         ];
 
         // Displays current week planning page
@@ -118,13 +118,13 @@ class Home extends BaseController
         $data['planning_data'] = $planning_data;
 
         // Presences table
-        $data['periodes'] = 
+        $data['periods'] = 
         [
-            'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
-            'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
-            'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
-            'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
-            'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
+            'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
+            'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
+            'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
+            'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
+            'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
         ];
 
         // Displays current week planning page
@@ -152,7 +152,7 @@ class Home extends BaseController
         $data['lw_planning_data'] = $lw_planning_data;
 
         // Presences table
-        $data['lw_periodes'] = 
+        $data['lw_periods'] = 
         [
             'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
             'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
@@ -186,7 +186,7 @@ class Home extends BaseController
         $data['nw_planning_data'] = $nw_planning_data;
 
         // Presences table
-        $data['nw_periodes'] = 
+        $data['nw_periods'] = 
         [
             'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
             'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
@@ -220,7 +220,7 @@ class Home extends BaseController
     ** Displays the presence page
     **
     */
-    public function presence()
+    public function presences()
     {
         // Checks whether the user is logged
         $this->isUserLogged();
@@ -232,13 +232,13 @@ class Home extends BaseController
         $user_id = $_SESSION['user_id'];
 
         // Retrieves user presences
-        $presences_data = $this->presence_model->getPresencesUser($user_id);
+        $presences_data = $this->presences_model->getPresencesUser($user_id);
 
         // Add presences to $data
         $data = $presences_data;
 
         // Displays presences form page
-        $this->display_view('Helpdesk\presence', $data);
+        $this->display_view('Helpdesk\presences', $data);
 
     }
 
@@ -258,7 +258,7 @@ class Home extends BaseController
         $user_id = $_SESSION['user_id'];
 
         // Retrieve presence ID from database
-        $id_presence = $this->presence_model->getPresenceId($user_id);
+        $id_presence = $this->presences_model->getPresenceId($user_id);
 
         // Form fields table
         $form_fields_data = [
@@ -288,37 +288,37 @@ class Home extends BaseController
 
             'fk_user_id' => $user_id,
 
-            'presences_lundi_m1' => $_POST['lundi_debut_matin'],
-            'presences_lundi_m2' => $_POST['lundi_fin_matin'],
-            'presences_lundi_a1' => $_POST['lundi_debut_apres_midi'],
-            'presences_lundi_a2' => $_POST['lundi_fin_apres_midi'],
+            'presence_mon_m1' => $_POST['lundi_debut_matin'],
+            'presence_mon_m2' => $_POST['lundi_fin_matin'],
+            'presence_mon_a1' => $_POST['lundi_debut_apres_midi'],
+            'presence_mon_a2' => $_POST['lundi_fin_apres_midi'],
 
-            'presences_mardi_m1' => $_POST['mardi_debut_matin'],
-            'presences_mardi_m2' => $_POST['mardi_fin_matin'],
-            'presences_mardi_a1' => $_POST['mardi_debut_apres_midi'],
-            'presences_mardi_a2' => $_POST['mardi_fin_apres_midi'],
+            'presence_tue_m1' => $_POST['mardi_debut_matin'],
+            'presence_tue_m2' => $_POST['mardi_fin_matin'],
+            'presence_tue_a1' => $_POST['mardi_debut_apres_midi'],
+            'presence_tue_a2' => $_POST['mardi_fin_apres_midi'],
 
-            'presences_mercredi_m1' => $_POST['mercredi_debut_matin'],
-            'presences_mercredi_m2' => $_POST['mercredi_fin_matin'],
-            'presences_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
-            'presences_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
+            'presence_wed_m1' => $_POST['mercredi_debut_matin'],
+            'presence_wed_m2' => $_POST['mercredi_fin_matin'],
+            'presence_wed_a1' => $_POST['mercredi_debut_apres_midi'],
+            'presence_wed_a2' => $_POST['mercredi_fin_apres_midi'],
 
-            'presences_jeudi_m1' => $_POST['jeudi_debut_matin'],
-            'presences_jeudi_m2' => $_POST['jeudi_fin_matin'],
-            'presences_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
-            'presences_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
+            'presence_thu_m1' => $_POST['jeudi_debut_matin'],
+            'presence_thu_m2' => $_POST['jeudi_fin_matin'],
+            'presence_thu_a1' => $_POST['jeudi_debut_apres_midi'],
+            'presence_thu_a2' => $_POST['jeudi_fin_apres_midi'],
 
-            'presences_vendredi_m1' => $_POST['vendredi_debut_matin'],
-            'presences_vendredi_m2' => $_POST['vendredi_fin_matin'],
-            'presences_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
-            'presences_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
+            'presence_fri_m1' => $_POST['vendredi_debut_matin'],
+            'presence_fri_m2' => $_POST['vendredi_fin_matin'],
+            'presence_fri_a1' => $_POST['vendredi_debut_apres_midi'],
+            'presence_fri_a2' => $_POST['vendredi_fin_apres_midi']
         ];
 
         // Do the inset/update on the database
-        $this->presence_model->save($data);
+        $this->presences_model->save($data);
 
         // Select user presences
-        $presences_data = $this->presence_model->getPresencesUser($user_id);
+        $presences_data = $this->presences_model->getPresencesUser($user_id);
 
         $data = $presences_data;
 
@@ -326,7 +326,7 @@ class Home extends BaseController
         $data['success'] = lang('Helpdesk.scs_presences_updated');
 
         // Displays presences page
-        $this->display_view('Helpdesk\presence', $data);
+        $this->display_view('Helpdesk\presences', $data);
     }
 
     /*
@@ -375,13 +375,13 @@ class Home extends BaseController
         $data['users'] = $this->user_data_model->getUsersData();
 
         // Table to identify presences on next page
-        $data['presences'] = 
+        $data['periods'] = 
         [
-            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
-            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
-            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
-            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
-            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
+            'planning_mon_m1','planning_mon_m2','planning_mon_a1','planning_mon_a2',
+            'planning_tue_m1','planning_tue_m2','planning_tue_a1','planning_tue_a2',
+            'planning_wed_m1','planning_wed_m2','planning_wed_a1','planning_wed_a2',
+            'planning_thu_m1','planning_thu_m2','planning_thu_a1','planning_thu_a2',
+            'planning_fri_m1','planning_fri_m2','planning_fri_a1','planning_fri_a2',
         ];
 
         // If the "add technician" button from planning page is pressed
@@ -392,7 +392,7 @@ class Home extends BaseController
         }
 
         // Retrieve user ID from the "technicien" field
-        $user_id = $_POST['technicien'];
+        $user_id = $_POST['technician'];
         
         // Finds which planning is used | 0 is current week, 1 is next week
         switch($planning_type)
@@ -416,13 +416,7 @@ class Home extends BaseController
         }
 
         // Form fields table
-        $form_fields_data = [
-            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
-            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
-            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
-            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
-            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
-        ];
+        $form_fields_data = $data['periods'];
 
         // Variable for empty fields count
         $emptyFields = 0;
@@ -458,35 +452,35 @@ class Home extends BaseController
         switch($planning_type)
         {
             case 0:
-                // Prepare update of current week
+                // Prepare technician insert
                 $data = 
                 [
                     'fk_user_id' => $user_id,
 
-                    'planning_lundi_m1' => $_POST['lundi_debut_matin'],
-                    'planning_lundi_m2' => $_POST['lundi_fin_matin'],
-                    'planning_lundi_a1' => $_POST['lundi_debut_apres_midi'],
-                    'planning_lundi_a2' => $_POST['lundi_fin_apres_midi'],
+                    'planning_mon_m1' => $_POST['planning_mon_m1'],
+                    'planning_mon_m2' => $_POST['planning_mon_m2'],
+                    'planning_mon_a1' => $_POST['planning_mon_a1'],
+                    'planning_mon_a2' => $_POST['planning_mon_a2'],
 
-                    'planning_mardi_m1' => $_POST['mardi_debut_matin'],
-                    'planning_mardi_m2' => $_POST['mardi_fin_matin'],
-                    'planning_mardi_a1' => $_POST['mardi_debut_apres_midi'],
-                    'planning_mardi_a2' => $_POST['mardi_fin_apres_midi'],
+                    'planning_tue_m1' => $_POST['planning_tue_m1'],
+                    'planning_tue_m2' => $_POST['planning_tue_m2'],
+                    'planning_tue_a1' => $_POST['planning_tue_a1'],
+                    'planning_tue_a2' => $_POST['planning_tue_a2'],
 
-                    'planning_mercredi_m1' => $_POST['mercredi_debut_matin'],
-                    'planning_mercredi_m2' => $_POST['mercredi_fin_matin'],
-                    'planning_mercredi_a1' => $_POST['mercredi_debut_apres_midi'],
-                    'planning_mercredi_a2' => $_POST['mercredi_fin_apres_midi'],
+                    'planning_wed_m1' => $_POST['planning_wed_m1'],
+                    'planning_wed_m2' => $_POST['planning_wed_m2'],
+                    'planning_wed_a1' => $_POST['planning_wed_a1'],
+                    'planning_wed_a2' => $_POST['planning_wed_a2'],
 
-                    'planning_jeudi_m1' => $_POST['jeudi_debut_matin'],
-                    'planning_jeudi_m2' => $_POST['jeudi_fin_matin'],
-                    'planning_jeudi_a1' => $_POST['jeudi_debut_apres_midi'],
-                    'planning_jeudi_a2' => $_POST['jeudi_fin_apres_midi'],
+                    'planning_thu_m1' => $_POST['planning_thu_m1'],
+                    'planning_thu_m2' => $_POST['planning_thu_m2'],
+                    'planning_thu_a1' => $_POST['planning_thu_a1'],
+                    'planning_thu_a2' => $_POST['planning_thu_a2'],
 
-                    'planning_vendredi_m1' => $_POST['vendredi_debut_matin'],
-                    'planning_vendredi_m2' => $_POST['vendredi_fin_matin'],
-                    'planning_vendredi_a1' => $_POST['vendredi_debut_apres_midi'],
-                    'planning_vendredi_a2' => $_POST['vendredi_fin_apres_midi']
+                    'planning_fri_m1' => $_POST['planning_fri_m1'],
+                    'planning_fri_m2' => $_POST['planning_fri_m2'],
+                    'planning_fri_a1' => $_POST['planning_fri_a1'],
+                    'planning_fri_a2' => $_POST['planning_fri_a2'],
                 ];
 
                 // Insert data into "tbl_planning" table
@@ -501,13 +495,13 @@ class Home extends BaseController
                 $data['planning_data'] = $planning_data;
 
                 // Presences table
-                $data['periodes'] = 
+                $data['periods'] = 
                 [
-                    'planning_lundi_m1', 'planning_lundi_m2', 'planning_lundi_a1', 'planning_lundi_a2',
-                    'planning_mardi_m1', 'planning_mardi_m2', 'planning_mardi_a1', 'planning_mardi_a2',
-                    'planning_mercredi_m1', 'planning_mercredi_m2', 'planning_mercredi_a1', 'planning_mercredi_a2',
-                    'planning_jeudi_m1', 'planning_jeudi_m2', 'planning_jeudi_a1', 'planning_jeudi_a2',
-                    'planning_vendredi_m1', 'planning_vendredi_m2', 'planning_vendredi_a1', 'planning_vendredi_a2',
+                    'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
+                    'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
+                    'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
+                    'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
+                    'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
                 ];
 
                 // Displays schedule page
@@ -516,35 +510,35 @@ class Home extends BaseController
                 break;
 
             case 1:
-                // Prepare update of next week
+                // Prepare technician insert
                 $data = 
                 [
                     'fk_user_id' => $user_id,
 
-                    'nw_planning_mon_m1' => $_POST['lundi_debut_matin'],
-                    'nw_planning_mon_m2' => $_POST['lundi_fin_matin'],
-                    'nw_planning_mon_a1' => $_POST['lundi_debut_apres_midi'],
-                    'nw_planning_mon_a2' => $_POST['lundi_fin_apres_midi'],
+                    'nw_planning_mon_m1' => $_POST['planning_mon_m1'],
+                    'nw_planning_mon_m2' => $_POST['planning_mon_m2'],
+                    'nw_planning_mon_a1' => $_POST['planning_mon_a1'],
+                    'nw_planning_mon_a2' => $_POST['planning_mon_a2'],
 
-                    'nw_planning_tue_m1' => $_POST['mardi_debut_matin'],
-                    'nw_planning_tue_m2' => $_POST['mardi_fin_matin'],
-                    'nw_planning_tue_a1' => $_POST['mardi_debut_apres_midi'],
-                    'nw_planning_tue_a2' => $_POST['mardi_fin_apres_midi'],
+                    'nw_planning_tue_m1' => $_POST['planning_tue_m1'],
+                    'nw_planning_tue_m2' => $_POST['planning_tue_m2'],
+                    'nw_planning_tue_a1' => $_POST['planning_tue_a1'],
+                    'nw_planning_tue_a2' => $_POST['planning_tue_a2'],
 
-                    'nw_planning_wed_m1' => $_POST['mercredi_debut_matin'],
-                    'nw_planning_wed_m2' => $_POST['mercredi_fin_matin'],
-                    'nw_planning_wed_a1' => $_POST['mercredi_debut_apres_midi'],
-                    'nw_planning_wed_a2' => $_POST['mercredi_fin_apres_midi'],
+                    'nw_planning_wed_m1' => $_POST['planning_wed_m1'],
+                    'nw_planning_wed_m2' => $_POST['planning_wed_m2'],
+                    'nw_planning_wed_a1' => $_POST['planning_wed_a1'],
+                    'nw_planning_wed_a2' => $_POST['planning_wed_a2'],
 
-                    'nw_planning_thr_m1' => $_POST['jeudi_debut_matin'],
-                    'nw_planning_thr_m2' => $_POST['jeudi_fin_matin'],
-                    'nw_planning_thr_a1' => $_POST['jeudi_debut_apres_midi'],
-                    'nw_planning_thr_a2' => $_POST['jeudi_fin_apres_midi'],
+                    'nw_planning_thu_m1' => $_POST['planning_thu_m1'],
+                    'nw_planning_thu_m2' => $_POST['planning_thu_m2'],
+                    'nw_planning_thu_a1' => $_POST['planning_thu_a1'],
+                    'nw_planning_thu_a2' => $_POST['planning_thu_a2'],
 
-                    'nw_planning_fri_m1' => $_POST['vendredi_debut_matin'],
-                    'nw_planning_fri_m2' => $_POST['vendredi_fin_matin'],
-                    'nw_planning_fri_a1' => $_POST['vendredi_debut_apres_midi'],
-                    'nw_planning_fri_a2' => $_POST['vendredi_fin_apres_midi']
+                    'nw_planning_fri_m1' => $_POST['planning_fri_m1'],
+                    'nw_planning_fri_m2' => $_POST['planning_fri_m2'],
+                    'nw_planning_fri_a1' => $_POST['planning_fri_a1'],
+                    'nw_planning_fri_a2' => $_POST['planning_fri_a2'],
                 ];
 
                 // Insert data into "tbl_nw_planning" table
@@ -559,13 +553,23 @@ class Home extends BaseController
                 $data['nw_planning_data'] = $nw_planning_data;
 
                 // Presences table
-                $data['nw_periodes'] = 
+                $data['nw_periods'] = 
                 [
                     'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
                     'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
                     'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
-                    'nw_planning_thr_m1', 'nw_planning_thr_m2', 'nw_planning_thr_a1', 'nw_planning_thr_a2',
+                    'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
                     'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
+                ];
+
+                // Weekdays table for dates
+                $data['next_week'] =
+                [
+                    'monday' => $next_monday,
+                    'tuesday' => strtotime('+1 day', $next_monday),
+                    'wednesday' => strtotime('+2 days', $next_monday),
+                    'thursday' => strtotime('+3 days', $next_monday),
+                    'friday' => strtotime('+4 days', $next_monday),
                 ];
 
                 // Displays schedule page
@@ -611,11 +615,11 @@ class Home extends BaseController
                 // Form fields table
                 $form_fields_data = 
                 [
-                    'planning_lundi_m1','planning_lundi_m2','planning_lundi_a1','planning_lundi_a2',
-                    'planning_mardi_m1','planning_mardi_m2','planning_mardi_a1','planning_mardi_a2',
-                    'planning_mercredi_m1','planning_mercredi_m2','planning_mercredi_a1','planning_mercredi_a2',
-                    'planning_jeudi_m1','planning_jeudi_m2','planning_jeudi_a1','planning_jeudi_a2',
-                    'planning_vendredi_m1','planning_vendredi_m2','planning_vendredi_a1','planning_vendredi_a2',
+                    'planning_mon_m1','planning_mon_m2','planning_mon_a1','planning_mon_a2',
+                    'planning_tue_m1','planning_tue_m2','planning_tue_a1','planning_tue_a2',
+                    'planning_wed_m1','planning_wed_m2','planning_wed_a1','planning_wed_a2',
+                    'planning_thu_m1','planning_thu_m2','planning_thu_a1','planning_thu_a2',
+                    'planning_fri_m1','planning_fri_m2','planning_fri_a1','planning_fri_a2',
                 ];
 
                 break;
@@ -776,18 +780,18 @@ class Home extends BaseController
     ** Displays the holiday list page
     **
     */
-    function holiday()
+    function holidays()
     {
         // Page title
         $data['title'] = lang('Helpdesk.ttl_holiday');
 
         // Retrieve all holiday data
-        $vacances_data = $this->vacances_model->getHolidays();
+        $holidays_data = $this->holidays_model->getHolidays();
 
-        $data['vacances_data'] = $vacances_data;
+        $data['holidays_data'] = $holidays_data;
 
         // Displays holiday list view
-        $this->display_view('Helpdesk\holiday', $data);
+        $this->display_view('Helpdesk\holidays', $data);
     }
 
 
@@ -821,10 +825,10 @@ class Home extends BaseController
                 {
                     $form_data =
                     [
-                        'id_vacances' => $_POST['id_holiday'],
-                        'nom_vacances' => $_POST['holiday_name'],
-                        'date_debut_vacances' => $_POST['start_date'],
-                        'date_fin_vacances' => $_POST['end_date'],
+                        'id_holiday' => $_POST['id_holiday'],
+                        'name_holiday' => $_POST['holiday_name'],
+                        'start_date_holiday' => $_POST['start_date'],
+                        'end_date_holiday' => $_POST['end_date'],
                     ];
 
                     $data['holiday'] = $form_data;   
@@ -844,9 +848,9 @@ class Home extends BaseController
                     {
                         $form_data =
                         [
-                            'nom_vacances' => $_POST['holiday_name'],
-                            'date_debut_vacances' => $_POST['start_date'],
-                            'date_fin_vacances' => $_POST['end_date'],
+                            'name_holiday' => $_POST['holiday_name'],
+                            'start_date_holiday' => $_POST['start_date'],
+                            'end_date_holiday' => $_POST['end_date'],
                         ];
 
                         $data['holiday'] = $form_data;                
@@ -857,20 +861,20 @@ class Home extends BaseController
                 $this->display_view('Helpdesk\add_holiday', $data);
             }
 
-            // Otherwiese, no error is created, entry creation
+            // Otherwise, no error is created, entry creation
             else
             {
                 // Prepare data to record
                 $data =
                 [
-                    'id_vacances' => $_POST['id_holiday'],
-                    'nom_vacances' => $_POST['holiday_name'],
-                    'date_debut_vacances' => $_POST['start_date'],
-                    'date_fin_vacances' => $_POST['end_date'],
+                    'id_holiday' => $_POST['id_holiday'],
+                    'name_holiday' => $_POST['holiday_name'],
+                    'start_date_holiday' => $_POST['start_date'],
+                    'end_date_holiday' => $_POST['end_date'],
                 ];
 
                 // Inserting data
-                $this->vacances_model->save($data);
+                $this->holidays_model->save($data);
 
                 // Success message
                 $data['success'] = lang('Helpdesk.scs_holiday_updated');
@@ -884,12 +888,12 @@ class Home extends BaseController
                 $data['title'] = lang('Helpdesk.ttl_holiday');
 
                 // Retrieve all holiday data
-                $vacances_data = $this->vacances_model->getHolidays();
+                $holidays_data = $this->holidays_model->getHolidays();
 
-                $data['vacances_data'] = $vacances_data;
+                $data['holidays_data'] = $holidays_data;
 
                 // Displays the holidays list view, with a success message
-                $this->display_view('Helpdesk\holiday', $data);                
+                $this->display_view('Helpdesk\holidays', $data);                
             }
         }
 
@@ -900,7 +904,7 @@ class Home extends BaseController
             if(isset($id_holiday) && $id_holiday != 0)
             {
                 // Retrieve the holiday data
-                $holiday_data = $this->vacances_model->getHoliday($id_holiday);
+                $holiday_data = $this->holidays_model->getHoliday($id_holiday);
 
                 $data['holiday'] = $holiday_data;
                 
@@ -919,9 +923,9 @@ class Home extends BaseController
                 {
                     $form_data =
                     [
-                        'nom_vacances' => $_POST['holiday_name'],
-                        'date_debut_vacances' => $_POST['start_date'],
-                        'date_fin_vacances' => $_POST['end_date'],
+                        'name_holiday' => $_POST['holiday_name'],
+                        'start_date_holiday' => $_POST['start_date'],
+                        'end_date_holiday' => $_POST['end_date'],
                     ];
 
                     $data['holiday'] = $form_data;                
@@ -950,7 +954,7 @@ class Home extends BaseController
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
         {
             // Delete the entry
-            $this->vacances_model->delete($id_holiday);
+            $this->holidays_model->delete($id_holiday);
 
             // Success message
             $data['success'] = lang('Helpdesk.scs_holiday_deleted');
@@ -964,12 +968,12 @@ class Home extends BaseController
             $data['title'] = lang('Helpdesk.ttl_holiday');
 
             // Retrieve all holiday data
-            $vacances_data = $this->vacances_model->getHolidays();
+            $holidays_data = $this->holidays_model->getHolidays();
 
-            $data['vacances_data'] = $vacances_data;
+            $data['holidays_data'] = $holidays_data;
 
             // Displays the holidays list view, with a success message
-            $this->display_view('Helpdesk\holiday', $data);
+            $this->display_view('Helpdesk\holidays', $data);
         }
 
         // When the user clicks the delete button

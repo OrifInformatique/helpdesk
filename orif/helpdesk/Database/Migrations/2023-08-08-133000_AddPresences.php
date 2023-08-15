@@ -9,11 +9,11 @@ class AddPresences extends Migration
     public function up()
     {
         $fields = [
-            'presences_lundi_m1', 'presences_lundi_m2', 'presences_lundi_a1', 'presences_lundi_a2',
-            'presences_mardi_m1', 'presences_mardi_m2', 'presences_mardi_a1', 'presences_mardi_a2',
-            'presences_mercredi_m1', 'presences_mercredi_m2', 'presences_mercredi_a1', 'presences_mercredi_a2',
-            'presences_jeudi_m1', 'presences_jeudi_m2', 'presences_jeudi_a1', 'presences_jeudi_a2',
-            'presences_vendredi_m1', 'presences_vendredi_m2', 'presences_vendredi_a1', 'presences_vendredi_a2'
+            'presence_mon_m1', 'presence_mon_m2', 'presence_mon_a1', 'presence_mon_a2',
+            'presence_tue_m1', 'presence_tue_m2', 'presence_tue_a1', 'presence_tue_a2',
+            'presence_wed_m1', 'presence_wed_m2', 'presence_wed_a1', 'presence_wed_a2',
+            'presence_thu_m1', 'presence_thu_m2', 'presence_thu_a1', 'presence_thu_a2',
+            'presence_fri_m1', 'presence_fri_m2', 'presence_fri_a1', 'presence_fri_a2'
         ];
 
         $this->forge->addField([

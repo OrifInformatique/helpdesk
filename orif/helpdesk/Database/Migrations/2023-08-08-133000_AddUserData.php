@@ -23,19 +23,19 @@ class AddUserData extends Migration
                 'null'           => true,
             ],
 
-            'nom_user_data' => [
+            'last_name_user_data' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
                 'null'           => true,
             ],
 
-            'prenom_user_data' => [
+            'first_name_user_data' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
                 'null'           => true,
             ],
 
-            'initiales_user_data' => [
+            'initials_user_data' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 16,
                 'null'           => true,
@@ -47,7 +47,7 @@ class AddUserData extends Migration
             ],
         ]);
 
-        $this->forge->addKey('id_etat', true);
+        $this->forge->addKey('id_user_data', true);
 
         $this->forge->addForeignKey('fk_user_id', 'user', 'id');
 

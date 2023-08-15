@@ -17,7 +17,8 @@ class Lw_planning_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_lw_planning';
     protected $primaryKey = 'id_lw_planning';
-    protected $allowedFields = [
+    protected $allowedFields = 
+    [
         'fk_user_id',
         'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
         'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',

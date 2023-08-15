@@ -4,42 +4,42 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddVacances extends Migration
+class AddHolidays extends Migration
 {
     public function up()
     {
         $this->forge->addField([
-            'id_vacances' => [
+            'id_holiday' => [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
 
-            'titre_vacances' => [
+            'name_holiday' => [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
                 'null'           => true,
             ],
 
-            'date_debut_vacances' => [
+            'start_date_holiday' => [
                 'type'           => 'DATETIME',
                 'null'           => true,
             ],
 
-            'date_fin_vacances' => [
+            'end_date_holiday' => [
                 'type'           => 'DATETIME',
                 'null'           => true,
             ],
         ]);
 
-        $this->forge->addKey('id_vacances', true);
+        $this->forge->addKey('id_holiday', true);
 
-        $this->forge->createTable('tbl_vacances');
+        $this->forge->createTable('tbl_holidays');
     }
 
     public function down()
     {
-        $this->forge->dropTable('tbl_vacances');
+        $this->forge->dropTable('tbl_holidays');
     }
 }

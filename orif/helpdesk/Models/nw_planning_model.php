@@ -17,7 +17,8 @@ class Nw_planning_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_nw_planning';
     protected $primaryKey = 'id_nw_planning';
-    protected $allowedFields = [
+    protected $allowedFields = 
+    [
         'fk_user_id',
         'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
         'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
