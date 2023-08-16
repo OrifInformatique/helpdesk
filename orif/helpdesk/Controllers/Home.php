@@ -140,9 +140,6 @@ class Home extends BaseController
     */
     public function lw_planning()
     {
-        // Checks whether the user is logged
-        $this->isUserLogged();
-
         // Page title
         $data['title'] = lang('Helpdesk.ttl_lw_planning');
 
@@ -174,9 +171,6 @@ class Home extends BaseController
     */
     public function nw_planning()
     {
-        // Checks whether the user is logged
-        $this->isUserLogged();
-
         // Page title
         $data['title'] = lang('Helpdesk.ttl_nw_planning');
 
@@ -225,9 +219,6 @@ class Home extends BaseController
         // Checks whether the user is logged
         $this->isUserLogged();
 
-        // Page title
-        $data['title'] = lang('Helpdesk.ttl_presences');
-
         // Retrieves user ID
         $user_id = $_SESSION['user_id'];
 
@@ -235,7 +226,19 @@ class Home extends BaseController
         $presences_data = $this->presences_model->getPresencesUser($user_id);
 
         // Add presences to $data
-        $data = $presences_data;
+        $data['presences'] = $presences_data;
+
+        $data['weekdays'] =
+        [
+            'monday'    => ['presence_mon_m1','presence_mon_m2','presence_mon_a1','presence_mon_a2'],
+            'tuesday'   => ['presence_tue_m1','presence_tue_m2','presence_tue_a1','presence_tue_a2'],
+            'wednesday' => ['presence_wed_m1','presence_wed_m2','presence_wed_a1','presence_wed_a2'],
+            'thursday'  => ['presence_thu_m1','presence_thu_m2','presence_thu_a1','presence_thu_a2'],
+            'friday'    => ['presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2'],
+        ];
+
+        // Page title
+        $data['title'] = lang('Helpdesk.ttl_presences');
 
         // Displays presences form page
         $this->display_view('Helpdesk\presences', $data);
@@ -261,17 +264,21 @@ class Home extends BaseController
         $id_presence = $this->presences_model->getPresenceId($user_id);
 
         // Form fields table
-        $form_fields_data = [
-            'lundi_debut_matin','lundi_fin_matin','lundi_debut_apres_midi','lundi_fin_apres_midi',
-            'mardi_debut_matin','mardi_fin_matin','mardi_debut_apres_midi','mardi_fin_apres_midi',
-            'mercredi_debut_matin','mercredi_fin_matin','mercredi_debut_apres_midi','mercredi_fin_apres_midi',
-            'jeudi_debut_matin','jeudi_fin_matin','jeudi_debut_apres_midi','jeudi_fin_apres_midi',
-            'vendredi_debut_matin','vendredi_fin_matin','vendredi_debut_apres_midi','vendredi_fin_apres_midi',
+        $form_fields = 
+        [
+            'presence_mon_m1','presence_mon_m2','presence_mon_a1','presence_mon_a2',
+            'presence_tue_m1','presence_tue_m2','presence_tue_a1','presence_tue_a2',
+            'presence_wed_m1','presence_wed_m2','presence_wed_a1','presence_wed_a2',
+            'presence_thu_m1','presence_thu_m2','presence_thu_a1','presence_thu_a2',
+            'presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2',
         ];
 
+        //
         // TODO : Take Absent state value from database
+        //
+
         // Add default value if the field is empty
-        foreach ($form_fields_data as $field)
+        foreach ($form_fields as $field)
         {
             // If the field is empty or doesn't exist
             if (!isset($_POST[$field]) || empty($_POST[$field]))
@@ -288,30 +295,30 @@ class Home extends BaseController
 
             'fk_user_id' => $user_id,
 
-            'presence_mon_m1' => $_POST['lundi_debut_matin'],
-            'presence_mon_m2' => $_POST['lundi_fin_matin'],
-            'presence_mon_a1' => $_POST['lundi_debut_apres_midi'],
-            'presence_mon_a2' => $_POST['lundi_fin_apres_midi'],
+            'presence_mon_m1' => $_POST['presence_mon_m1'],
+            'presence_mon_m2' => $_POST['presence_mon_m2'],
+            'presence_mon_a1' => $_POST['presence_mon_a1'],
+            'presence_mon_a2' => $_POST['presence_mon_a2'],
 
-            'presence_tue_m1' => $_POST['mardi_debut_matin'],
-            'presence_tue_m2' => $_POST['mardi_fin_matin'],
-            'presence_tue_a1' => $_POST['mardi_debut_apres_midi'],
-            'presence_tue_a2' => $_POST['mardi_fin_apres_midi'],
+            'presence_tue_m1' => $_POST['presence_tue_m1'],
+            'presence_tue_m2' => $_POST['presence_tue_m2'],
+            'presence_tue_a1' => $_POST['presence_tue_a1'],
+            'presence_tue_a2' => $_POST['presence_tue_a2'],
 
-            'presence_wed_m1' => $_POST['mercredi_debut_matin'],
-            'presence_wed_m2' => $_POST['mercredi_fin_matin'],
-            'presence_wed_a1' => $_POST['mercredi_debut_apres_midi'],
-            'presence_wed_a2' => $_POST['mercredi_fin_apres_midi'],
+            'presence_wed_m1' => $_POST['presence_wed_m1'],
+            'presence_wed_m2' => $_POST['presence_wed_m2'],
+            'presence_wed_a1' => $_POST['presence_wed_a1'],
+            'presence_wed_a2' => $_POST['presence_wed_a2'],
 
-            'presence_thu_m1' => $_POST['jeudi_debut_matin'],
-            'presence_thu_m2' => $_POST['jeudi_fin_matin'],
-            'presence_thu_a1' => $_POST['jeudi_debut_apres_midi'],
-            'presence_thu_a2' => $_POST['jeudi_fin_apres_midi'],
+            'presence_thu_m1' => $_POST['presence_thu_m1'],
+            'presence_thu_m2' => $_POST['presence_thu_m2'],
+            'presence_thu_a1' => $_POST['presence_thu_a1'],
+            'presence_thu_a2' => $_POST['presence_thu_a2'],
 
-            'presence_fri_m1' => $_POST['vendredi_debut_matin'],
-            'presence_fri_m2' => $_POST['vendredi_fin_matin'],
-            'presence_fri_a1' => $_POST['vendredi_debut_apres_midi'],
-            'presence_fri_a2' => $_POST['vendredi_fin_apres_midi']
+            'presence_fri_m1' => $_POST['presence_fri_m1'],
+            'presence_fri_m2' => $_POST['presence_fri_m2'],
+            'presence_fri_a1' => $_POST['presence_fri_a1'],
+            'presence_fri_a2' => $_POST['presence_fri_a2']
         ];
 
         // Do the inset/update on the database
@@ -320,10 +327,22 @@ class Home extends BaseController
         // Select user presences
         $presences_data = $this->presences_model->getPresencesUser($user_id);
 
-        $data = $presences_data;
+        $data['presences'] = $presences_data;
 
         // Success message
         $data['success'] = lang('Helpdesk.scs_presences_updated');
+
+        $data['weekdays'] =
+        [
+            'monday'    => ['presence_mon_m1','presence_mon_m2','presence_mon_a1','presence_mon_a2'],
+            'tuesday'   => ['presence_tue_m1','presence_tue_m2','presence_tue_a1','presence_tue_a2'],
+            'wednesday' => ['presence_wed_m1','presence_wed_m2','presence_wed_a1','presence_wed_a2'],
+            'thursday'  => ['presence_thu_m1','presence_thu_m2','presence_thu_a1','presence_thu_a2'],
+            'friday'    => ['presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2'],
+        ];
+
+        // Page title
+        $data['title'] = lang('Helpdesk.ttl_presences');
 
         // Displays presences page
         $this->display_view('Helpdesk\presences', $data);

@@ -94,7 +94,7 @@
     <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presences') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holiday') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a><br>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a><br>
 
     <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/addTechnician/1') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
     <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/updatePlanning/1') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>

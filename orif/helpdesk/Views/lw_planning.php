@@ -73,7 +73,7 @@
     <?php if(isset($title)){ echo ('<h2>'.$title.'</h2>');} ?>
 
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presences') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holiday') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a>
 
     <div class="d-flex justify-content-center">
         <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_1')?></div> <!-- c5deb5 -->

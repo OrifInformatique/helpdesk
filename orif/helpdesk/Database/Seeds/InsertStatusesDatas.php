@@ -10,15 +10,15 @@ class InsertStatusesDatas extends \CodeIgniter\Database\Seeder
         [
             [
                 'id_status' => 1,
-                'intitule_status' => 'Présent',
+                'title_status' => 'Présent',
             ],
             [
                 'id_status' => 2,
-                'intitule_status' => 'Absent en partie',
+                'title_status' => 'Absent en partie',
             ],
             [
                 'id_status' => 3,
-                'intitule_status' => 'Absent',
+                'title_status' => 'Absent',
             ],            
         ];
 
