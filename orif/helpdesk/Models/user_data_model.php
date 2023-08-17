@@ -40,9 +40,22 @@ class User_Data_model extends \CodeIgniter\Model
     public function getUsersData()
     {
         // Join with "tbl_user_data" table, to retrieve all user data
-        $this->join('user', 'user.id = tbl_user_data.fk_user_id');
-        $result = $this->findAll();
+        $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->findAll();
         
-        return $result;
+        return $users_data;
+    }
+
+    /*
+    ** getUserData function
+    **
+    ** Get data from specified user
+    **
+    */
+    public function getUserData($user_id)
+    {
+        // Join with "tbl_user_data" table, to retrieve all user data
+        $user_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->findAll();
+        
+        return $user_data;
     }
 }

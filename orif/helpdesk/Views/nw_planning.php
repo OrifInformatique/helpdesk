@@ -136,7 +136,6 @@
                 <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
                 <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
                 <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
-
             </tr>
             <tr>
                 <th><?php echo lang('Helpdesk.technician')?></th>
@@ -159,7 +158,9 @@
                 <?php foreach ($nw_planning_data as $user) : ?>
                     <tr>
                         <th>
-                            <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
+                            <a href="<?= base_url('helpdesk/home/technicianMenu/'.$user['fk_user_id'].'/1') ?>">
+                                <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
+                            </a>
                         </th>
 
                         <?php foreach ($nw_periods as $period): ?>

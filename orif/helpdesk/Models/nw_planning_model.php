@@ -46,7 +46,7 @@ class Nw_planning_model extends \CodeIgniter\Model
     ** Get all planning data
     **
     */
-    public function getPlanningData()
+    public function getNwPlanningData()
     {
         // Retrieve all planning data
         $nw_planning_data = $this->findAll();
@@ -61,10 +61,10 @@ class Nw_planning_model extends \CodeIgniter\Model
     ** Get all users having a planning
     **
     */
-    public function getPlanningDataByUser()
+    public function getNwPlanningDataByUser()
     {
         // Join with "tbl_user_data" table to retrieve both planning and user data
-        $nw_planning_data_by_user = $this->join('tbl_user_data','tbl_nw_planning.fk_user_id = tbl_user_data.fk_user_id')->findAll();
+        $nw_planning_data_by_user = $this->join('tbl_user_data','tbl_nw_planning.fk_user_id = tbl_user_data.fk_user_id')->orderBy('last_name_user_data', 'ASC')->findAll();
         
         return $nw_planning_data_by_user;
     }
@@ -76,7 +76,7 @@ class Nw_planning_model extends \CodeIgniter\Model
     ** Check if a user owns a planning
     **
     */ 
-    public function checkUserOwnsPlanning($user_id)
+    public function checkUserOwnsNwPlanning($user_id)
     {
         // Retrieve user's ID from the user's planning data, if it exists
         $nw_planning_data = $this->where('fk_user_id', $user_id)->findAll();
@@ -95,13 +95,15 @@ class Nw_planning_model extends \CodeIgniter\Model
 
 
     /*
-    ** updatePlanningData function
+    ** getPlanningId function
     **
-    ** Update user planning records in the database
+    ** Get the planning ID of a specific user
     **
     */
-    public function updateUsersPlanning($id_planning, $data_to_update)
-    {      
-        $this->update($id_planning, $data_to_update);
+    public function getNwPlanning($user_id)
+    {
+        $nw_planning_data = $this->where('fk_user_id', $user_id)->first();
+
+        return $nw_planning_data;
     }
 }

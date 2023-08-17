@@ -153,7 +153,7 @@
 
 <div class="container-fluid">
 
-	<a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
+	<a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/planning') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
 
 	<form method="POST" action="<?= base_url('helpdesk/home/savePresence') ?>">
 		<input class="btn btn-blue" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">

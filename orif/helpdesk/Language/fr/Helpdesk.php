@@ -15,6 +15,7 @@ return[
 
     'ttl_presences'             => 'Présences de l\'apprenti',
     'ttl_add_technician'        => 'Ajouter un technicien',
+    'ttl_technician_menu'       => 'Menu du technicien',
     'ttl_planning'              => 'Planning de la semaine',
     'ttl_lw_planning'           => 'Planning de la semaine dernière',
     'ttl_nw_planning'           => 'Planning de la semaine prochaine',
@@ -42,8 +43,9 @@ return[
 
     'scs_presences_updated'             => 'Présences modifiées avec succès',
     'scs_technician_added_to_schedule'  => 'Technicien ajouté au planning avec succès',
+    'scs_technician_deleted'            => 'Le technicien a été supprimé du planning avec succès',
     'scs_planning_updated'              => 'Planning de la semaine modifié avec succès',
-    'scs_holiday_updated'               => 'La période de vacances à été modifiée avec succès',
+    'scs_holiday_updated'               => 'La période de vacances a été modifiée avec succès',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée avec succès',
 
     
@@ -62,6 +64,8 @@ return[
     'btn_cancel'            => 'Annuler',
     'btn_last_week'         => '◄◄ Semaine dernière',
     'btn_next_week'         => 'Semaine suivante ►►',
+
+    'btn_delete_from_planning' => 'Supprimer du planning',
 
 
     /*
@@ -110,5 +114,8 @@ return[
     'start_date'                => 'Date de début',
     'end_date'                  => 'Date de fin',
     'no_holidays'               => 'Aucune période fériée n\'existe.',
-    'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?'
+
+    'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?',
+
+    'technician_menu'           => 'Que souhaiter-vous faire avec le technicien ',
 ];

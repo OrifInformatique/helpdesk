@@ -64,7 +64,7 @@ class Planning_model extends \CodeIgniter\Model
     public function getPlanningDataByUser()
     {
         // Join with "tbl_user_data" table to retrieve both planning and user data
-        $planning_data_by_user = $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id')->findAll();
+        $planning_data_by_user = $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id')->orderBy('last_name_user_data', 'ASC')->findAll();
         
         return $planning_data_by_user;
     }
@@ -92,16 +92,18 @@ class Planning_model extends \CodeIgniter\Model
 
         // Otherwise, proceed with the rest of the code
     }
-    
+
 
     /*
-    ** updatePlanningData function
+    ** getPlanningId function
     **
-    ** Update user planning records in the database
+    ** Get the planning ID of a specific user
     **
     */
-    public function updateUsersPlanning($id_planning, $data_to_update)
-    {      
-        $this->update($id_planning, $data_to_update);
+    public function getPlanning($user_id)
+    {
+        $planning_data = $this->where('fk_user_id', $user_id)->first();
+
+        return $planning_data;
     }
 }

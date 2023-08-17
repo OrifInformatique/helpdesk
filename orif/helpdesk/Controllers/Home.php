@@ -102,6 +102,29 @@ class Home extends BaseController
 
 
     /*
+    ** isSetPlanningType function
+    **
+    ** Checks whether a planning type exists
+    **
+    */
+    public function isSetPlanningType($planning_type)
+    {
+        // If there is no planning type, create an error and redirects to home page
+        if(!isset($planning_type))
+        {
+            $planning_type = NULL;
+
+            // Error message
+            $data['error'] = lang('Helpdesk.err_unfound_planning_type');
+
+            // Displays the planning page
+            return $this->display_view('Helpdesk\home\planning', $data);
+        }
+
+        // Otherwise, proceed with the rest of the code
+    }
+
+    /*
     ** planning function
     **
     ** Displays the current week planning page
@@ -175,7 +198,7 @@ class Home extends BaseController
         $data['title'] = lang('Helpdesk.ttl_nw_planning');
 
         // Retrieves users having a planning, from last week
-        $nw_planning_data = $this->nw_planning_model->getPlanningDataByUser();
+        $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
 
         $data['nw_planning_data'] = $nw_planning_data;
 
@@ -423,7 +446,7 @@ class Home extends BaseController
 
             case 1:
                 // Checks whether the user already has a schedule
-                $data['error'] = $this->nw_planning_model->checkUserOwnsPlanning($user_id);
+                $data['error'] = $this->nw_planning_model->checkUserOwnsNwPlanning($user_id);
                 break;
         }
 
@@ -567,7 +590,7 @@ class Home extends BaseController
                 $data['title'] = lang('Helpdesk.ttl_nw_planning');
 
                 // Retrieves users having a schedule
-                $nw_planning_data = $this->nw_planning_model->getPlanningDataByUser();
+                $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
 
                 $data['nw_planning_data'] = $nw_planning_data;
 
@@ -612,16 +635,7 @@ class Home extends BaseController
         $this->isUserLogged();
         
         // If there is no planning type, create an error and redirects to home page
-        if(!isset($planning_type))
-        {
-            $planning_type = NULL;
-
-            // Error message
-            $data['error'] = lang('Helpdesk.err_unfound_planning_type');
-
-            // Displays the planning page
-            return $this->display_view('Helpdesk\home\planning', $data);
-        }
+        $this->isSetPlanningType($planning_type);
 
         $data['planning_type'] = $planning_type;
 
@@ -732,12 +746,12 @@ class Home extends BaseController
                     {
                         case 0:
                             // Update planning for the user
-                            $this->planning_model->updateUsersPlanning($id_planning, $data_to_update);
+                            $this->planning_model->update($id_planning, $data_to_update);
                             break;
                 
                         case 1:
                             // Update planning for the user
-                            $this->nw_planning_model->updateUsersPlanning($id_planning, $data_to_update);
+                            $this->nw_planning_model->update($id_planning, $data_to_update);
                             break;
                     }
                     
@@ -763,7 +777,7 @@ class Home extends BaseController
 
             case 1:
                 // Retrieve planning data
-                $nw_planning_data = $this->nw_planning_model->getPlanningDataByUser();
+                $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
 
                 $data['nw_planning_data'] = $nw_planning_data;      
 
@@ -793,6 +807,156 @@ class Home extends BaseController
     }
 
 
+    /*
+    ** technicianMenu function
+    **
+    ** Displays the menu of a technician
+    **
+    */
+    public function technicianMenu($user_id, $planning_type)
+    {
+        // Checks whether user is logged in
+        $this->isUserLogged();
+
+        // If there is no planning type, create an error and redirects to home page
+        $this->isSetPlanningType($planning_type);
+
+        $data['planning_type'] = $planning_type;
+
+        $data['user'] = $this->user_data_model->getUserData($user_id);
+
+        $data['title'] = lang('Helpdesk.ttl_technician_menu');
+
+        $this->display_view('Helpdesk\technician_menu', $data);
+    }
+
+
+    /*
+    ** deleteTechnician function
+    **
+    ** Displays the delete confirm page
+    ** Delete a technician form a planning
+    **
+    */
+    public function deleteTechnician($user_id, $planning_type)
+    {
+        // Checks whether user is logged in
+        $this->isUserLogged();
+
+        // If there is no planning type, create an error and redirects to home page
+        $this->isSetPlanningType($planning_type);
+
+        // If the users confirms the deletion
+        if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
+        {
+            // Success message
+            $data['success'] = lang('Helpdesk.scs_technician_deleted');
+
+            // Finds on which planning entry is deleted | 0 is current week, 1 is next week
+            switch($planning_type)
+            {
+                case 0:
+                    // Retrieves the planning id to delete the entry
+                    $planning_data = $this->planning_model->getPlanning($user_id);
+
+                    // Delete the entry
+                    $this->planning_model->delete($planning_data['id_planning']);
+
+                    /*
+                    ** planning() function copy
+                    ** (Repetion is needed)
+                    */
+
+                    // Page title
+                    $data['title'] = lang('Helpdesk.ttl_planning');
+
+                    // Retrieves users having a planning
+                    $planning_data = $this->planning_model->getPlanningDataByUser();
+
+                    $data['planning_data'] = $planning_data;
+
+                    // Presences table
+                    $data['periods'] = 
+                    [
+                        'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
+                        'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
+                        'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
+                        'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
+                        'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
+                    ];
+
+                    // Displays current week planning page
+                    $this->display_view('Helpdesk\planning', $data);
+
+                    break;
+                
+                case 1:
+                    // Retrieves the planning id to delete the entry
+                    $id_planning = $this->nw_planning_model->getNwPlanning($user_id);
+
+                    // Delete the entry
+                    $this->nw_planning_model->delete($id_planning);
+                    
+                    /*
+                    ** nw_planning() function copy
+                    ** (Repetion is needed)
+                    */
+
+                    // Page title
+                    $data['title'] = lang('Helpdesk.ttl_nw_planning');
+
+                    // Retrieves users having a planning
+                    $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
+
+                    $data['nw_planning_data'] = $nw_planning_data;
+
+                    // Presences table
+                    $data['nw_periods'] = 
+                    [
+                        'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
+                        'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
+                        'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
+                        'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
+                        'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
+                    ];
+
+                    // Reference for next week table
+                    $next_monday = strtotime('next monday');
+
+                    // Weekdays table for dates
+                    $data['next_week'] =
+                    [
+                        'monday' => $next_monday,
+                        'tuesday' => strtotime('+1 day', $next_monday),
+                        'wednesday' => strtotime('+2 days', $next_monday),
+                        'thursday' => strtotime('+3 days', $next_monday),
+                        'friday' => strtotime('+4 days', $next_monday),
+                    ];
+
+                    // Displays current week planning page
+                    $this->display_view('Helpdesk\nw_planning', $data);
+
+                    break;
+            }
+        }
+
+        // When the user clicks the delete button
+        else
+        {
+            $data['user_id'] = $user_id;
+
+            $data['planning_type'] = $planning_type;
+
+            // Page title
+            $data['title'] = lang('Helpdesk.ttl_delete_confirmation');
+
+            // Displays the delete confirmation page
+            $this->display_view('Helpdesk\delete_technician', $data);
+
+        }        
+    }
+
+    
     /*
     ** holiday function
     **

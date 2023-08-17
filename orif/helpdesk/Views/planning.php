@@ -113,18 +113,20 @@
         </div>
     <?php endif; ?>
 
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presences') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a><br>
-
-    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/addTechnician/0') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
-    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/updatePlanning/0') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>
-    
     <!-- Success message, if exists -->
     <?php if (isset($success)): ?>
         <div class="d-flex justify-content-center">
             <?php echo ('<p class="success">'.$success.'</p>'); ?>
         </div>
     <?php endif; ?>
+    
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presences') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a><br>
+
+    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/addTechnician/0') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
+    <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/updatePlanning/0') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>
+    
+
 
     <div class="d-flex justify-content-center">
         <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_1')?></div> <!-- c5deb5 -->
@@ -180,7 +182,9 @@
                 <?php foreach ($planning_data as $user) : ?>
                     <tr>
                         <th>
-                            <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
+                            <a href="<?= base_url('helpdesk/home/technicianMenu/'.$user['fk_user_id'].'/0') ?>">
+                                <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
+                            </a>
                         </th>
 
                         <?php foreach ($periods as $period): ?>

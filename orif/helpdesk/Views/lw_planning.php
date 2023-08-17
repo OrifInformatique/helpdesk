@@ -128,7 +128,7 @@
                 <?php foreach ($lw_planning_data as $user) : ?>
                     <tr>
                         <th>
-                            <?php echo $user['nom_user_data'].'<br>'.$user['prenom_user_data']; ?>
+                            <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
                         </th>
 
                         <?php foreach ($lw_periods as $period): ?>
