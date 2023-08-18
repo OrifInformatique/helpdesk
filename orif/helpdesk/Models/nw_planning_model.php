@@ -63,9 +63,12 @@ class Nw_planning_model extends \CodeIgniter\Model
     */
     public function getNwPlanningDataByUser()
     {
-        // Join with "tbl_user_data" table to retrieve both planning and user data
-        $nw_planning_data_by_user = $this->join('tbl_user_data','tbl_nw_planning.fk_user_id = tbl_user_data.fk_user_id')->orderBy('last_name_user_data', 'ASC')->findAll();
-        
+        // Join with "tbl_user_data" and "user" tables to retrieve both planning and user data
+        $nw_planning_data_by_user = $this->join('tbl_user_data','tbl_nw_planning.fk_user_id = tbl_user_data.fk_user_id')
+                                         ->join('user','tbl_nw_planning.fk_user_id = user.id')
+                                         ->orderBy('last_name_user_data', 'ASC')
+                                         ->findAll();       
+                                          
         return $nw_planning_data_by_user;
     }
 

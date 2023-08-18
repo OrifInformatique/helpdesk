@@ -65,6 +65,11 @@
         background-color: #b4c6e7;
         border-color: #b4c6e7
     }
+
+    .mentor
+    {
+        box-shadow: 12px 0 #9bc2e6 inset;
+    }
 </style>
 
 <div class="container-fluid">
@@ -127,7 +132,7 @@
             <?php if (isset($lw_planning_data) && !empty($lw_planning_data)) : ?>
                 <?php foreach ($lw_planning_data as $user) : ?>
                     <tr>
-                        <th>
+                        <th <?php if($user['fk_user_type'] == 4){echo 'class="mentor"';}?>>
                             <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
                         </th>
 

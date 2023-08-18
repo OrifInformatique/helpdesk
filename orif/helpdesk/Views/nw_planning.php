@@ -86,6 +86,10 @@
 		100% { opacity: 0; display: none; }
 	}
 
+    .mentor
+    {
+        box-shadow: 12px 0 #9bc2e6 inset;
+    }
 </style>
 
 <div class="container-fluid">
@@ -157,7 +161,7 @@
             <?php if (isset($nw_planning_data) && !empty($nw_planning_data)) : ?>
                 <?php foreach ($nw_planning_data as $user) : ?>
                     <tr>
-                        <th>
+                        <th <?php if($user['fk_user_type'] == 4){echo 'class="mentor"';}?>>
                             <a href="<?= base_url('helpdesk/home/technicianMenu/'.$user['fk_user_id'].'/1') ?>">
                                 <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
                             </a>

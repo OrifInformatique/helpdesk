@@ -63,8 +63,11 @@ class Planning_model extends \CodeIgniter\Model
     */
     public function getPlanningDataByUser()
     {
-        // Join with "tbl_user_data" table to retrieve both planning and user data
-        $planning_data_by_user = $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id')->orderBy('last_name_user_data', 'ASC')->findAll();
+        // Join with "tbl_user_data" and "user" tables to retrieve both planning and user data
+        $planning_data_by_user = $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id')
+                                      ->join('user','tbl_planning.fk_user_id = user.id')
+                                      ->orderBy('last_name_user_data', 'ASC')
+                                      ->findAll();
         
         return $planning_data_by_user;
     }
