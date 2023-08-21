@@ -963,7 +963,7 @@ class Home extends BaseController
     ** Displays the holiday list page
     **
     */
-    function holidays()
+    public function holidays()
     {
         // Page title
         $data['title'] = lang('Helpdesk.ttl_holiday');
@@ -985,7 +985,7 @@ class Home extends BaseController
     ** Saves form data from add_holiday page
     **
     */
-    function saveHoliday($id_holiday = 0)
+    public function saveHoliday($id_holiday = 0)
     {
         // Checks whether user is logged in
         $this->isUserLogged();
@@ -1009,7 +1009,7 @@ class Home extends BaseController
                     $form_data =
                     [
                         'id_holiday' => $_POST['id_holiday'],
-                        'name_holiday' => $_POST['holiday_name'],
+                        'name_holiday' => esc($_POST['holiday_name']),
                         'start_date_holiday' => $_POST['start_date'],
                         'end_date_holiday' => $_POST['end_date'],
                     ];
@@ -1031,7 +1031,7 @@ class Home extends BaseController
                     {
                         $form_data =
                         [
-                            'name_holiday' => $_POST['holiday_name'],
+                            'name_holiday' => esc($_POST['holiday_name']),
                             'start_date_holiday' => $_POST['start_date'],
                             'end_date_holiday' => $_POST['end_date'],
                         ];
@@ -1051,7 +1051,7 @@ class Home extends BaseController
                 $data =
                 [
                     'id_holiday' => $_POST['id_holiday'],
-                    'name_holiday' => $_POST['holiday_name'],
+                    'name_holiday' => esc($_POST['holiday_name']),
                     'start_date_holiday' => $_POST['start_date'],
                     'end_date_holiday' => $_POST['end_date'],
                 ];
@@ -1128,7 +1128,7 @@ class Home extends BaseController
     ** Deletes the vacation entry
     **
     */
-    function deleteHoliday($id_holiday)
+    public function deleteHoliday($id_holiday)
     {
         // Checks whether user is logged in
         $this->isUserLogged();
@@ -1171,5 +1171,22 @@ class Home extends BaseController
             $this->display_view('Helpdesk\delete_holiday', $data);
 
         }
+    }
+
+
+    /*
+    ** terminalDisplay function
+    **
+    ** Displays the assigned technicians of a certain period on a page
+    ** The page is displayed live on a terminal (a screen)
+    **
+    */
+    public function terminalDisplay()
+    {
+        // Retrieves the moment of the day
+
+        // Retrieves the technicians that are assigned to this period
+
+        // Displays the page of the terminal
     }
 }

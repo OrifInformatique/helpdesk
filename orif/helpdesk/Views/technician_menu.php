@@ -33,8 +33,5 @@
                 <?php break;
             } ?>
             <br>
-            <a class="btn btn-danger mb-3" href="<?= base_url('helpdesk/home/deleteTechnician/'.$user['id'].'/'.$planning_type) ?>">
-                <?php echo lang('Helpdesk.btn_delete_from_planning')?>
-            </a>
         </div>
     <?php endforeach; ?>

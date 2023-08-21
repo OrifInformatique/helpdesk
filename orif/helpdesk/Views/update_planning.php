@@ -181,20 +181,24 @@
                 {
                     case 0: ?>
                         <tr>
+                            <th></th>
                             <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
+                            <th></th>
                         </tr>
                     <?php break;?>
                     <?php case 1: ?>
                         <tr>
+                            <th></th>
                             <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', $next_week['monday']); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', $next_week['tuesday']); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
                             <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
+                            <th></th>
                         </tr>
                     <?php break;?>
                 <?php } ?>
@@ -208,6 +212,7 @@
                         <th>12:45 15:00</th>
                         <th>15:00 16:57</th>
                     <?php endfor; ?>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -233,6 +238,9 @@
                                     </select>
                                 </td>
                             <?php endforeach; ?>
+                            <td>
+                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$planning['fk_user_id'].'/0')?>">X</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
 
@@ -257,6 +265,9 @@
                                     </select>
                                 </td>
                             <?php endforeach; ?>
+                            <td>
+                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$nw_planning['fk_user_id'].'/1')?>">X</a>
+                            </td>
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

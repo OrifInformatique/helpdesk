@@ -117,5 +117,5 @@ return[
 
     'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?',
 
-    'technician_menu'           => 'Que souhaiter-vous faire avec le technicien ',
+    'technician_menu'           => 'Que souhaitez-vous faire avec le technicien ',
 ];
