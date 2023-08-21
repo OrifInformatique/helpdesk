@@ -1183,10 +1183,55 @@ class Home extends BaseController
     */
     public function terminalDisplay()
     {
-        // Retrieves the moment of the day
+        $data = [];
 
-        // Retrieves the technicians that are assigned to this period
+        // Retrieves actual time
+        $time = 
+        [
+            'day'       => substr(strtolower(date('l', time())), 0, 3), // Keeps only the 3 first chars of weekday
+            'period'    => '', // Will be set later
+            'hh:mm'     => strtotime(date('H:i', time())), // time, converted to time for comparisons
+        ];
+
+        // Determines on which period we actually are
+        switch (true) {
+            case ($time['hh:mm'] >= strtotime("08:00") && $time['hh:mm'] < strtotime("10:00")):
+                $time['period'] = 'm1';
+                break;
+        
+            case ($time['hh:mm'] >= strtotime("10:00") && $time['hh:mm'] < strtotime("12:00")):
+                $time['period'] = 'm2';
+                break;
+        
+            case ($time['hh:mm'] >= strtotime("12:45") && $time['hh:mm'] < strtotime("15:00")):
+                $time['period'] = 'a1';
+                break;
+        
+            case ($time['hh:mm'] >= strtotime("15:00") && $time['hh:mm'] < strtotime("16:57")):
+                $time['period'] = 'a2';
+                break;
+        
+            default:
+                $time['period'] = NULL;
+                break;
+        }
+
+        // If we are in work timetables
+        if(isset($time['period']))
+        {
+            $sql_name_period = 'planning_'.$time['day'].'_'.$time['period'];
+
+            // Retrieves the technicians that are assigned to this period
+            $technicians_data = $this->planning_model->getTechniciansOnPeriod($sql_name_period);
+
+            $data['technicians'] = $technicians_data;
+            
+            $data['period'] = $sql_name_period;
+        }
+
+        // Otherwise, will display the terminal page with an error
 
         // Displays the page of the terminal
+        $this->display_view('Helpdesk\terminal', $data);
     }
 }

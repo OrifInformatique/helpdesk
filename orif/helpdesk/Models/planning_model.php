@@ -109,4 +109,33 @@ class Planning_model extends \CodeIgniter\Model
 
         return $planning_data;
     }
+
+    /*
+    ** getTechniciansOnPeriod function
+    **
+    ** Get all users which is assigned to a specific period
+    **
+    */
+    public function getTechniciansOnPeriod($period)
+    {
+        $results = $this->join('tbl_user_data', 'tbl_planning.fk_user_id = tbl_user_data.fk_user_id')
+                        ->where($period.' IS NOT NULL')
+                        ->orderBy($period, 'ASC')
+                        ->findAll();
+
+        if(!empty($results))
+        {
+            foreach($results as $row)
+            {
+                $technicians[] = $row;
+            }
+            
+            return $technicians;
+        }
+
+        else
+        {
+            return null;
+        }
+    }
 }

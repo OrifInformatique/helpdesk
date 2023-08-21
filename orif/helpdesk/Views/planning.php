@@ -125,7 +125,8 @@
     <?php endif; ?>
     
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presences') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a><br>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/terminalDisplay') ?>"><?php echo lang('Helpdesk.btn_terminal')?></a><br>
 
     <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/addTechnician/0') ?>"><?php echo lang('Helpdesk.btn_add_technician')?></a>
     <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/updatePlanning/0') ?>"><?php echo lang('Helpdesk.btn_edit_planning')?></a>

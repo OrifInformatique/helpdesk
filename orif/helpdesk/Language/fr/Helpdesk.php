@@ -64,6 +64,7 @@ return[
     'btn_cancel'            => 'Annuler',
     'btn_last_week'         => '◄◄ Semaine dernière',
     'btn_next_week'         => 'Semaine suivante ►►',
+    'btn_terminal'          => 'Aperçu de l\'affichage des techniciens',
 
     'btn_delete_from_planning' => 'Supprimer du planning',
 
@@ -118,4 +119,8 @@ return[
     'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?',
 
     'technician_menu'           => 'Que souhaitez-vous faire avec le technicien ',
+
+    'no_technician_available'   => 'Aucun technicien n\'est disponible pour le moment. Veuillez revenir ultérieurement.',
+
+    'alt_photo_technician'      => 'Photo de face du technicien'
 ];
