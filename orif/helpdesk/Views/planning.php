@@ -37,6 +37,12 @@
         background-color: #f2f2f2;
     }
 
+    tr th:first-child
+    {
+        width: 125px;
+        height: 75px;
+    }
+
     .week {
         background-color: #eee;
         padding: 8px;

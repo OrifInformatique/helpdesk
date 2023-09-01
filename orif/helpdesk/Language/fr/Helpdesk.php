@@ -25,6 +25,7 @@ return[
     'ttl_add_holiday'           => 'Ajouter une préiode fériée',
     'ttl_update_holiday'        => 'Modifier une période fériée',
     'ttl_delete_confirmation'   => 'Confirmation de suppression',
+    'ttl_welcome_to_helpdesk'   => 'Bienvenue au helpdesk de Pomy !',
 
 
     /*
@@ -122,5 +123,10 @@ return[
 
     'no_technician_available'   => 'Aucun technicien n\'est disponible pour le moment. Veuillez revenir ultérieurement.',
 
-    'alt_photo_technician'      => 'Photo de face du technicien'
+    'alt_photo_technician'      => 'Photo de face du technicien',
+
+    'unavailable'               => 'Indisponible',
+
+    'updating_in'               => 'Actualisation dans',
+    'seconds'                   => 'seconde·s',
 ];

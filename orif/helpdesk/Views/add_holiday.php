@@ -109,7 +109,7 @@
         <form method="POST" action="<?= base_url('helpdesk/home/saveHoliday') ?>">
     <?php endif; ?>
 
-		<input class="btn btn-blue" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">
+		<input class="btn btn-success" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">
         
         <div class="d-flex justify-content-center">
             <fieldset>

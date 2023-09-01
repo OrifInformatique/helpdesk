@@ -707,7 +707,7 @@ class Home extends BaseController
                     case 1:
                         // Add the retrieved value to the array that will be used to update the data. Here, we begin with primary an foreign keys
                         $data_to_update = array(
-                            'id_nwplanning' => $technician_planning['id_nw_planning'],
+                            'id_nw_planning' => $technician_planning['id_nw_planning'],
                             'fk_user_id' => $technician_planning['fk_user_id']
                         );
                         break;
@@ -1219,6 +1219,7 @@ class Home extends BaseController
         // If we are in work timetables
         if(isset($time['period']))
         {
+            // Constructs the period name
             $sql_name_period = 'planning_'.$time['day'].'_'.$time['period'];
 
             // Retrieves the technicians that are assigned to this period
@@ -1230,6 +1231,8 @@ class Home extends BaseController
         }
 
         // Otherwise, will display the terminal page with an error
+
+        //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
 
         // Displays the page of the terminal
         $this->display_view('Helpdesk\terminal', $data);

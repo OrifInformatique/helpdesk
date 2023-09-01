@@ -10,6 +10,9 @@
 
 ?>
 
+<div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('helpdesk/home/terminalDisplay')) ?>"></div>
+<script src="<?= base_url('Scripts/terminal.js')?>" defer></script>
+
 <style>
 
     #login-bar, hr, div[class='alert alert-warning text-center'], #toolbarContainer
@@ -26,18 +29,41 @@
         top: 30%;
     }
 
-    @media screen and (max-width: 1440px) and (max-height: 1080px)
+    @media screen and (max-width: 1150px) and (max-height: 1080px)
     {
         .terminal-display
         {
             flex-direction: column;
             align-items: center;
-        }        
-
-        .technician-sheet:first-child
-        {
-            margin: 0 0 80px 80px;
+            height: 100%;
         }
+
+        .unavailable
+        {
+            transform: scale(0.5);
+            transition-duration: 0.5s;
+            filter: grayscale(0%);
+            filter: opacity(40%);
+        }
+
+        .unavailable:hover
+        {
+            transform: scale(0.6);
+            filter: opacity(60%);
+        }
+
+        .unavailable-text
+        {
+            margin-top: 0;
+        }
+    }
+
+    @media screen and (max-height: 900px)
+    {
+        .terminal-display
+        {
+            top: 0;
+        }    
     }
 
     .technician-sheet
@@ -54,17 +80,10 @@
         padding: 5px;
         transition-duration: 0.3s;
     }
-    
-    .technician-sheet:first-child
-    {
-        scale: 1.3;
-        margin-right: 80px;
-    }
 
     .technician-sheet:hover
     {
         transform: scale(1.05);
-        transition-duration: 0.3s;
     }
 
     .role, .identity
@@ -115,7 +134,58 @@
         background-color: red;
         border-radius: 10px;
         padding: 3px 15px;
+        z-index: 5;
     }
+
+    .unavailable
+    {
+        transform: scale(0.5);
+        transform: translateY(150px);
+        transition-duration: 0.5s;
+        filter: grayscale(0%);
+        filter: opacity(40%);
+    }
+
+    .unavailable:hover
+    {
+        transform: scale(0.6);
+        transform: translateY(125px);
+        filter: opacity(60%);
+    }
+
+    .unavailable-text
+    {
+        margin-top: -60px;
+        font-weight: bold;
+        background-color: lightgray;
+        padding: 6px;
+        border-radius: 5px;
+        font-size: 1.1em;
+        filter: opacity(100%);
+        
+    }
+
+    .hidden
+    {
+        display: none;
+        filter: opacity(0%);
+    }
+
+    .auto-refresh-timer
+    {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        position: fixed;
+        bottom: 2%;
+    }
+
+    span
+    {
+        font-weight: bold;
+        font-size: 1.15em;
+    }
+
 </style>
 
 <!-- Title, if exists -->
@@ -123,11 +193,16 @@
     echo ('<h2>' . $title . '</h2>');
 } ?>
 
-<div class="terminal-display container-fluid">
-    <?php if(isset($technicians) && !empty($technicians)): ?>
-        <?php foreach($technicians as $technician): ?>
-            <div class="technician-sheet d-flex justify-content-center">
+<div id="no-technician-available" class="d-flex justify-content-center hidden">
+    <p class="no_technician"> <?= lang('Helpdesk.no_technician_available')?></p>
+</div>
 
+<?php if(isset($technicians) && !empty($technicians)): ?>
+    <div class="terminal-display container-fluid">
+        <?php $i = 1 ?>
+        <?php foreach($technicians as $technician): ?>
+            <div class="technician-sheet technician-<?= $i ?>-card d-flex justify-content-center">
+                <div class="technician-<?= $i ?>-unavailable-text unavailable-text hidden"><?= lang('Helpdesk.unavailable')?></div>
                 <div class="role">
                     <p>
                         <?php switch($technician[$period])
@@ -157,11 +232,11 @@
                 </div>
 
             </div>
+            <?php $i++ ?>
         <?php endforeach; ?>
-    <?php else: ?>
-        <div class="d-flex justify-content-center">
-            <p class="no_technician"> <?= lang('Helpdesk.no_technician_available')?></p>
-        </div>
-    <?php endif; ?>
+    </div>
+<?php endif; ?>
 
+<div class="auto-refresh-timer">
+    <p><?= lang('Helpdesk.updating_in') ?> <span class="timer"></span> <?= lang('Helpdesk.seconds') ?>.</p>
 </div>

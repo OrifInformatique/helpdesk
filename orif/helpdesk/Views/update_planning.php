@@ -37,6 +37,12 @@
         background-color: #f2f2f2;
     }
 
+    tr th:first-child
+    {
+        width: 125px;
+        height: 75px;
+    }
+
     .week {
         background-color: #eee;
         padding: 8px;
@@ -135,7 +141,7 @@
     
     <form method="POST" action="<?= base_url('helpdesk/home/updatePlanning/'.$planning_type) ?>">
 
-        <input class="btn btn-blue mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">
+        <input class="btn btn-success mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">
 
         <div class="d-flex justify-content-center">
             <div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4"><?php echo lang('Helpdesk.role_1')?></div> <!-- c5deb5 -->
@@ -239,10 +245,15 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$planning['fk_user_id'].'/0')?>">X</a>
+                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$planning['fk_user_id'].'/0')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
+                    <tr class="visible">
+                        <td>
+                            <a class="btn btn-success" href="<?= base_url('helpdesk/home/addTechnician/0') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
+                        </td> 
+                    </tr>
 
                 <?php elseif(isset($nw_planning_data)): ?>
                     <?php foreach($nw_planning_data as $nw_planning) : ?>      
@@ -266,10 +277,16 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$nw_planning['fk_user_id'].'/1')?>">X</a>
+                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$nw_planning['fk_user_id'].'/1')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
+
+                    <tr>
+                        <td>
+                            <a class="btn btn-success" href="<?= base_url('helpdesk/home/addTechnician/1') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
+                        </td> 
+                    </tr>
                 <?php else: ?>
                     <tr colspan="21">
                         <td><?php echo lang('Helpdesk.no_technician_assigned')?></td>

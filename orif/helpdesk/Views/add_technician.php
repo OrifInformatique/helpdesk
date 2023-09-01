@@ -107,7 +107,7 @@
 
     <form action="<?= base_url('helpdesk/home/addTechnician/'.$planning_type) ?>" method="post">
 
-        <input class="btn btn-blue mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>"/>
+        <input class="btn btn-success mb-3" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>"/>
 
         <!-- Error message, if exists -->
 		<?php if (isset($error)): ?>
