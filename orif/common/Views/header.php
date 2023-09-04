@@ -46,6 +46,53 @@
 
     <!-- Application styles -->
     <link rel="stylesheet" href="<?= base_url("css/MY_styles.css"); ?>" />
+
+    <link rel="stylesheet" href="<?= base_url("css/general/colors.css") ?>">
+
+    <link rel="stylesheet" href="<?= base_url("css/general/custom_messages.css") ?>">
+
+    <link rel="stylesheet" href="<?= base_url("css/planning/roles.css") ?>">
+
+    <?php
+    // Get the current url
+    $current_url = $_SERVER['REQUEST_URI'];
+
+    // If the url ends with "terminal", adds the terminal stylesheet
+    if(substr($current_url, -8) === "terminal") 
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/terminal/terminal.css").'">';
+    }
+
+    // If the url ends with "planning" or "public", or contains "updatePlanning" or "addTechnician", adds the planning stylesheet
+    else if(substr($current_url, -8) === "planning" ||
+            substr($current_url, -7) === "public/" ||
+            strpos($current_url, 'updatePlanning') !== false ||
+            strpos($current_url, 'addTechnician') !== false)
+    {
+        echo '<link rel="stylesheet" href="' .base_url("css/planning/planning.css").'">';
+    }
+
+    // If the url ends with "presences", adds the presences stylesheet
+    else if(substr($current_url, -9) === "presences")
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/presences/presences.css").'">';
+    }
+
+    // If the url contains "holidays" or "saveHoliday", adds the holidays stylesheet
+    else if(strpos($current_url, 'holidays') !== false ||
+            strpos($current_url, 'saveHoliday') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/holidays/holidays.css").'">';
+    }
+
+    // If the url contains "delete", adds the delete_confirmation stylesheet
+    else if(strpos($current_url, 'delete') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/general/delete_confirmation.css").'">';
+    }
+
+    ?>
+
 </head>
 <body>
     <?php

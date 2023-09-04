@@ -1,0 +1,171 @@
+#login-bar, hr, div[class='alert alert-warning text-center'], #toolbarContainer
+{
+    display: none;
+}
+
+.terminal-display
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    position: absolute;
+    top: 30%;
+}
+
+.technician-sheet
+{
+    align-items: center;
+    position: relative;
+    flex-direction: column;
+    background-color: var(--lighter-gray);
+    min-width: 350px;
+    max-width: fit-content;
+    min-height: 400px;
+    max-height: fit-content;
+    margin: 15px;
+    padding: 5px;
+    transition-duration: 0.3s;
+}
+
+.technician-sheet:hover
+{
+    transform: scale(1.05);
+}
+
+.role, .identity
+{
+    font-size: 1.5em;
+    margin: auto;
+}
+
+.role
+{
+    position: absolute;
+    top: 0;
+
+}
+
+.terminal-display img
+{
+    margin-top: 100px;
+    min-width: 325px;
+    max-width: 325px;
+    min-height: 325px;
+    max-height: 325px;
+}
+
+.bg-green {
+    background-color: var(--role-1);
+}
+
+.bg-yellow {
+    background-color: var(--role-2);
+}
+
+.bg-orange {
+    background-color: var(--role-3);
+}
+ 
+.no-technician
+{
+    position: absolute;
+    top: 50%;
+    text-align: center;
+    font-size: 2em;
+    color: var(--white);
+    font-weight: bold;
+    background-color: var(--red);
+    border-radius: 10px;
+    padding: 3px 15px;
+    z-index: 5;
+    margin: 0 30px;
+}
+
+.unavailable
+{
+    transform: scale(0.5);
+    transform: translateY(150px);
+    transition-duration: 0.5s;
+    filter: grayscale(0%);
+    filter: opacity(40%);
+}
+
+.unavailable:hover
+{
+    transform: scale(0.6);
+    transform: translateY(125px);
+    filter: opacity(60%);
+}
+
+.unavailable-text
+{
+    margin-top: -60px;
+    font-weight: bold;
+    background-color: var(--light-gray);
+    padding: 6px;
+    border-radius: 5px;
+    font-size: 1.1em;
+    filter: opacity(100%);
+    
+}
+
+.hidden
+{
+    display: none;
+    filter: opacity(0%);
+}
+
+.auto-refresh-timer
+{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 2%;
+}
+
+span
+{
+    font-weight: bold;
+    font-size: 1.15em;
+}
+
+@media screen and (max-width: 1150px)
+{
+    .terminal-display
+    {
+        flex-direction: column;
+        align-items: center;
+        top: 5%;
+    }
+
+    .unavailable
+    {
+        transform: translateY(0px);
+        transform: scale(0.8);
+    }
+
+    .unavailable:hover
+    {
+        transform: translateY(0px);
+    }
+
+    .unavailable-text
+    {
+        margin-top: 0;
+        position: fixed;
+        top: 50%;
+        z-index: 1;
+    }
+
+    .auto-refresh-timer
+    {
+        top: 2%;
+    }
+
+    .no-technician
+    {
+        font-size: 1.5em;
+        margin: 0 30px;
+    }
+}

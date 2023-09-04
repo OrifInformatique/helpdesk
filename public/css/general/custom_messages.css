@@ -1,0 +1,32 @@
+    /* Success message */
+	.success {
+		position: absolute;
+		top: 18%;
+		background-color: var(--lime);
+		border-radius: 5px;
+		padding: 7px 15px;
+		font-size: 1.25em;
+
+		animation: fadeOut 4s forwards;
+	}
+
+    /* Error message */
+    .error {
+		position: absolute;
+		top: 18%;
+		background-color: var(--red);
+        color: var(--white);
+		border-radius: 5px;
+		padding: 7px 15px;
+		font-size: 1.25em;
+
+		animation: fadeOut 4s forwards;
+	}
+
+	/* Fade animation */
+	@keyframes fadeOut 
+	{
+		0% { opacity: 1; }
+		80% { opacity: 1; }
+		100% { opacity: 0; display: none; }
+	}

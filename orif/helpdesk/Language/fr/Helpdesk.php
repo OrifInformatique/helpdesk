@@ -110,7 +110,7 @@ return[
 
     'empty_fields_info'         => 'Les champs vides seront automatiquement remplis par "Absent".',
 
-    'added_technician'          => 'Technicien à ajouter au planning :',
+    'added_technician'          => 'Technicien à ajouter au planning',
 
     'holiday_name'              => 'Nom des vacances',
     'start_date'                => 'Date de début',

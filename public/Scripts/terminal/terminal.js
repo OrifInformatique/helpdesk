@@ -132,7 +132,6 @@ function changeAvailability()
     catch
     {
         sessionStorage.setItem("unavailable-3", "true")
-        
         noTechniciansCheck()
     }
 }

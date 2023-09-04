@@ -1,0 +1,45 @@
+:root
+{
+    /* Roles colors */
+    --role-1: #c5deb5;
+    --role-2: #e5f874;
+    --role-3: #ffd965;
+    --mentor: #9bc2e6;
+
+    /* Gray shades for planning */
+    --roles: #eee;
+    --week: #dfdfdf;
+    --even-line: #f2f2f2;
+
+    /* Blue button */
+    --btn-blue: #b4c6e7;
+
+    /* Classic colors */
+    --white: #ffffff;
+    --lighter-gray: #efefef;
+    --light-gray: #dddddd;
+    --gray: #9a9a9a;
+    --black: #000000;
+
+    
+    --red: red;
+    --dark-red: darkred;
+
+    --orange: orange;
+    --dark-orange: darkorange;
+    
+    --blue-orif: #086eb6;
+    --light-blue-orif: #c4e5fd;
+    --dark-blue-orif: #044a7b;
+
+    --lime: greenyellow;
+    --green: green;
+    --dark-green: darkgreen;
+
+
+    /* Delete confirmation colors */
+    
+    --delete-light-red: #fff7f7;
+
+
+}
