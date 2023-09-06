@@ -63,7 +63,14 @@
         </div>
 
 
-        <table class="table-responsive position-relative">
+        <table class="table-responsive<?php
+        if(isset($classes))
+        {
+            foreach($classes as $class)
+            {
+                echo $class;
+            }
+        }?>">
             <thead>
                 <tr>
                     <th></th>

@@ -15,7 +15,7 @@
 
 <div id="no-technician-available" class="d-flex justify-content-center hidden">
     <p class="no-technician"> <?= lang('Helpdesk.no_technician_available')?></p>
-</div>    
+</div>
 
 <!-- Title, if exists -->
 <?php if(isset($title)){
@@ -36,7 +36,7 @@
     </div>
 <?php endif; ?>
 
-<?php if(isset($technicians) && !empty($technicians)): ?>
+<?php if(isset($technicians) && !empty($technicians) && $day_off === false): ?>
     <div class="terminal-display container-fluid">
         <?php $i = 1 ?>
         <?php foreach($technicians as $technician): ?>
@@ -73,6 +73,10 @@
             </div>
             <?php $i++ ?>
         <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <div id="no-technician-available" class="d-flex justify-content-center">
+        <p class="no-technician"> <?= lang('Helpdesk.no_technician_available')?></p>
     </div>
 <?php endif; ?>
 

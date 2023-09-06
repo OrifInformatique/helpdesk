@@ -147,7 +147,8 @@
                         <tr class="visible">
                             <td>
                                 <a class="btn btn-success" href="<?= base_url('helpdesk/home/addTechnician/0') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
-                            </td> 
+                            </td>
+                            <td colspan="21"></td>
                         </tr>
 
                     <?php elseif(isset($nw_planning_data)): ?>
@@ -180,7 +181,8 @@
                         <tr>
                             <td>
                                 <a class="btn btn-success" href="<?= base_url('helpdesk/home/addTechnician/1') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
-                            </td> 
+                            </td>
+                            <td colspan="21"></td>
                         </tr>
                     <?php else: ?>
                         <tr>
@@ -193,14 +195,14 @@
             </table>
             
             <div class="action-menu d-flex justify-content-center">
-                <?php if(!isset($planning_data) || isset($nw_planning_data)): ?>
+                <?php if(isset($planning_data) || isset($nw_planning_data)): ?>
                     <input class="btn btn-success" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">
                 <?php endif; ?>
 
                 <?php switch($planning_type)
                 {
                     case 0:
-                        echo('<a class="btn btn-primary" href="javascript:history.back()">'.lang('Helpdesk.btn_back').'</a>');
+                        echo('<a class="btn btn-primary" href="'.base_url('helpdesk/home/planning').'">'.lang('Helpdesk.btn_back').'</a>');
                         break;
 
                     case 1:

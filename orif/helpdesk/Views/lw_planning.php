@@ -63,7 +63,14 @@
         </div>
 
 
-        <table class="table-responsive">
+        <table class="table-responsive<?php
+        if(isset($classes))
+        {
+            foreach($classes as $class)
+            {
+                echo $class;
+            }
+        }?>">
             <thead>
                 <tr>
                     <th></th>
@@ -95,7 +102,9 @@
                     <?php foreach ($lw_planning_data as $user) : ?>
                         <tr>
                             <th <?php if($user['fk_user_type'] == 4){echo 'class="mentor"';}?>>
-                                <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
+                                <a href="<?= base_url('helpdesk/home/technicianMenu/'.$user['fk_user_id'].'/-1') ?>">
+                                    <?php echo $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
+                                </a>
                             </th>
 
                             <?php foreach ($lw_periods as $period): ?>

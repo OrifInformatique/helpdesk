@@ -80,9 +80,44 @@ tbody tr:nth-child(even) {
 
 tr th:first-child
 {
-    width: 125px;
     height: 75px;
+    min-width: 115px;
 }
+
+/*
+ * Periods off classes
+ *
+ */
+.mon-m1-off tbody tr td:nth-child(2),
+.tue-m1-off tbody tr td:nth-child(6),
+.wed-m1-off tbody tr td:nth-child(10),
+.thu-m1-off tbody tr td:nth-child(14),
+.fri-m1-off tbody tr td:nth-child(18),
+
+.mon-m2-off tbody tr td:nth-child(3),
+.tue-m2-off tbody tr td:nth-child(7),
+.wed-m2-off tbody tr td:nth-child(11),
+.thu-m2-off tbody tr td:nth-child(15),
+.fri-m2-off tbody tr td:nth-child(19),
+
+.mon-a1-off tbody tr td:nth-child(4),
+.tue-a1-off tbody tr td:nth-child(8),
+.wed-a1-off tbody tr td:nth-child(12),
+.thu-a1-off tbody tr td:nth-child(16),
+.fri-a1-off tbody tr td:nth-child(20),
+
+.mon-a2-off tbody tr td:nth-child(5),
+.tue-a2-off tbody tr td:nth-child(9),
+.wed-a2-off tbody tr td:nth-child(13),
+.thu-a2-off tbody tr td:nth-child(17),
+.fri-a2-off tbody tr td:nth-child(21) 
+{
+    background-color: var(--light-gray);
+    text-indent: -9999px;
+    line-height: 0;
+}
+
+/* *********************************************************** */
 
 .action-menu
 {

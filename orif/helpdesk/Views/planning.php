@@ -63,12 +63,18 @@
             <a class="btn btn-primary btn-next-week" href="<?= base_url('helpdesk/home/nw_planning') ?>"><?php echo lang('Helpdesk.btn_next_week')?></a>
         </div>
 
-
-        <table class="table-responsive">
+        <table class="table-responsive<?php
+        if(isset($classes))
+        {
+            foreach($classes as $class)
+            {
+                echo $class;
+            }
+        }?>">
             <thead>
                 <tr>
                     <th></th>
-                    <th colspan="4"><?php echo lang('Helpdesk.monday')?> <?php echo date('d', strtotime('monday this week')); ?></th>
+                    <th colspan="4"><?php echo lang('Helpdesk.monday')?> <?php  echo date('d', strtotime('monday this week')); ?></th>
                     <th colspan="4"><?php echo lang('Helpdesk.tuesday')?> <?php echo date('d', strtotime('tuesday this week')); ?></th>
                     <th colspan="4"><?php echo lang('Helpdesk.wednesday')?> <?php echo date('d', strtotime('wednesday this week')); ?></th>
                     <th colspan="4"><?php echo lang('Helpdesk.thursday')?> <?php echo date('d', strtotime('thursday this week')); ?></th>

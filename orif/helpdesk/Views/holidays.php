@@ -31,7 +31,7 @@
         </div>
     <?php endif; ?>
 
-    <a class="btn btn-primary" href="javascript:history.back()"><?php echo lang('Helpdesk.btn_back')?></a><br>
+    <a class="btn btn-primary" href="<?= base_url('helpdesk/home/planning') ?>"><?php echo lang('Helpdesk.btn_back')?></a><br>
 
     <div class="d-flex justify-content-center">
         <table class="table-responsive">
