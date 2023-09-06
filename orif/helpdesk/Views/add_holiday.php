@@ -66,7 +66,7 @@
             <?php else: ?>
                 <input type="hidden" name="id_holiday" value="0">
             <?php endif; ?>
-            <a class="btn btn-primary" href="javascript:history.back()"><?php echo lang('Helpdesk.btn_back')?></a>
+            <a class="btn btn-primary" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
         </div>
     </form>
 </div>

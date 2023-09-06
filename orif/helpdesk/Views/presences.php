@@ -87,7 +87,7 @@
 
 		<div class="action-menu d-flex justify-content-center">
 			<input class="btn btn-success" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>">
-			<a class="btn btn-primary" href="javascript:history.back()"><?php echo lang('Helpdesk.btn_back')?></a>
+			<a class="btn btn-primary" href="<?= base_url('helpdesk/home/planning') ?>"><?php echo lang('Helpdesk.btn_back')?></a>
 		</div>
 		
 	</form>

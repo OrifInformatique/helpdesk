@@ -766,18 +766,279 @@ class Home extends BaseController
 
         $data['planning_type'] = $planning_type;
 
-        // Reference for next week table
-        $next_monday = strtotime('next monday');
+        $periods = [];
+
+        switch($planning_type)
+        {
+            case 0:
+                $periods = 
+                [
+                    'mon-m1' => 
+                    [
+                        'start' => strtotime('monday this week 08:00:00'),
+                        'end'   => strtotime('monday this week 10:00:00'),
+                    ],
         
-        // Weekdays table for dates
-        $data['next_week'] =
-        [
-            'monday' => $next_monday,
-            'tuesday' => strtotime('+1 day', $next_monday),
-            'wednesday' => strtotime('+2 days', $next_monday),
-            'thursday' => strtotime('+3 days', $next_monday),
-            'friday' => strtotime('+4 days', $next_monday),
-        ];
+                    'mon-m2' => 
+                    [
+                        'start' => strtotime('monday this week 10:00:00'),
+                        'end'   => strtotime('monday this week 12:00:00'),
+                    ],
+        
+                    'mon-a1' => 
+                    [
+                        'start' => strtotime('monday this week 12:45:00'),
+                        'end'   => strtotime('monday this week 15:00:00'),
+                    ],
+        
+                    'mon-a2' => 
+                    [
+                        'start' => strtotime('monday this week 15:00:00'),
+                        'end'   => strtotime('monday this week 16:57:00'),
+                    ],
+        
+                    'tue-m1' => 
+                    [
+                        'start' => strtotime('tuesday this week 08:00:00'),
+                        'end'   => strtotime('tuesday this week 10:00:00'),
+                    ],
+        
+                    'tue-m2' => 
+                    [
+                        'start' => strtotime('tuesday this week 10:00:00'),
+                        'end'   => strtotime('tuesday this week 12:00:00'),
+                    ],
+        
+                    'tue-a1' => 
+                    [
+                        'start' => strtotime('tuesday this week 12:45:00'),
+                        'end'   => strtotime('tuesday this week 15:00:00'),
+                    ],
+        
+                    'tue-a2' => 
+                    [
+                        'start' => strtotime('tuesday this week 15:00:00'),
+                        'end'   => strtotime('tuesday this week 16:57:00'),
+                    ],
+        
+                    'wed-m1' => 
+                    [
+                        'start' => strtotime('wednesday this week 08:00:00'),
+                        'end'   => strtotime('wednesday this week 10:00:00'),
+                    ],
+                    'wed-m2' => [
+                        'start' => strtotime('wednesday this week 10:00:00'),
+                        'end'   => strtotime('wednesday this week 12:00:00'),
+                    ],
+        
+                    'wed-a1' => 
+                    [
+                        'start' => strtotime('wednesday this week 12:45:00'),
+                        'end'   => strtotime('wednesday this week 15:00:00'),
+                    ],
+        
+                    'wed-a2' => 
+                    [
+                        'start' => strtotime('wednesday this week 15:00:00'),
+                        'end'   => strtotime('wednesday this week 16:57:00'),
+                    ],
+        
+                    'thu-m1' => 
+                    [
+                        'start' => strtotime('thursday this week 08:00:00'),
+                        'end'   => strtotime('thursday this week 10:00:00'),
+                    ],
+        
+                    'thu-m2' => 
+                    [
+                        'start' => strtotime('thursday this week 10:00:00'),
+                        'end'   => strtotime('thursday this week 12:00:00'),
+                    ],
+        
+                    'thu-a1' => 
+                    [
+                        'start' => strtotime('thursday this week 12:45:00'),
+                        'end'   => strtotime('thursday this week 15:00:00'),
+                    ],
+        
+                    'thu-a2' => 
+                    [
+                        'start' => strtotime('thursday this week 15:00:00'),
+                        'end'   => strtotime('thursday this week 16:57:00'),
+                    ],
+        
+                    'fri-m1' => 
+                    [
+                        'start' => strtotime('friday this week 08:00:00'),
+                        'end'   => strtotime('friday this week 10:00:00'),
+                    ],
+        
+                    'fri-m2' => 
+                    [
+                        'start' => strtotime('friday this week 10:00:00'),
+                        'end'   => strtotime('friday this week 12:00:00'),
+                    ],
+        
+                    'fri-a1' => 
+                    [
+                        'start' => strtotime('friday this week 12:45:00'),
+                        'end'   => strtotime('friday this week 15:00:00'),
+                    ],
+        
+                    'fri-a2' => 
+                    [
+                        'start' => strtotime('friday this week 15:00:00'),
+                        'end'   => strtotime('friday this week 16:57:00'),
+                    ],
+                ];
+                break;
+
+            case 1:
+                // Reference for next week table
+                $next_monday = strtotime('next monday');
+                
+                // Weekdays table for dates
+                $data['next_week'] =
+                [
+                    'monday' => $next_monday,
+                    'tuesday' => strtotime('+1 day', $next_monday),
+                    'wednesday' => strtotime('+2 days', $next_monday),
+                    'thursday' => strtotime('+3 days', $next_monday),
+                    'friday' => strtotime('+4 days', $next_monday),
+                ];
+
+                $next_mon = $data['next_week']['monday'];
+                $next_tue = $data['next_week']['tuesday'];
+                $next_wed = $data['next_week']['wednesday'];
+                $next_thu = $data['next_week']['thursday'];
+                $next_fri = $data['next_week']['friday'];
+        
+                $periods = [
+                    'mon-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 10:00:00'),
+                    ],
+        
+                    'mon-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 12:00:00'),
+                    ],
+        
+                    'mon-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 15:00:00'),
+                    ],
+        
+                    'mon-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 16:57:00'),
+                    ],
+        
+                    'tue-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 10:00:00'),
+                    ],
+        
+                    'tue-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 12:00:00'),
+                    ],
+        
+                    'tue-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 15:00:00'),
+                    ],
+        
+                    'tue-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 16:57:00'),
+                    ],
+        
+                    'wed-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 10:00:00'),
+                    ],
+        
+                    'wed-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 12:00:00'),
+                    ],
+        
+                    'wed-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 15:00:00'),
+                    ],
+        
+                    'wed-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 16:57:00'),
+                    ],
+        
+                    'thu-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 10:00:00'),
+                    ],
+        
+                    'thu-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 12:00:00'),
+                    ],
+        
+                    'thu-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 15:00:00'),
+                    ],
+        
+                    'thu-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 16:57:00'),
+                    ],
+        
+                    'fri-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 10:00:00'),
+                    ],
+        
+                    'fri-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 12:00:00'),
+                    ],
+        
+                    'fri-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 15:00:00'),
+                    ],
+        
+                    'fri-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 16:57:00'),
+                    ],
+        
+                ];
+                break;
+        }
+
+        $data['classes'] = $this->defineDaysOff($periods);
 
         // Page title
         $data['title'] = lang('Helpdesk.ttl_add_technician');
@@ -973,16 +1234,6 @@ class Home extends BaseController
                     'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
                 ];
 
-                // Weekdays table for dates
-                $data['next_week'] =
-                [
-                    'monday' => $next_monday,
-                    'tuesday' => strtotime('+1 day', $next_monday),
-                    'wednesday' => strtotime('+2 days', $next_monday),
-                    'thursday' => strtotime('+3 days', $next_monday),
-                    'friday' => strtotime('+4 days', $next_monday),
-                ];
-
                 // Displays schedule page
                 $this->display_view('Helpdesk\nw_planning', $data);
 
@@ -1142,6 +1393,127 @@ class Home extends BaseController
                 // Page title
                 $data['title'] = lang('Helpdesk.ttl_update_planning');
 
+                $periods = 
+                [
+                    'mon-m1' => 
+                    [
+                        'start' => strtotime('monday this week 08:00:00'),
+                        'end'   => strtotime('monday this week 10:00:00'),
+                    ],
+        
+                    'mon-m2' => 
+                    [
+                        'start' => strtotime('monday this week 10:00:00'),
+                        'end'   => strtotime('monday this week 12:00:00'),
+                    ],
+        
+                    'mon-a1' => 
+                    [
+                        'start' => strtotime('monday this week 12:45:00'),
+                        'end'   => strtotime('monday this week 15:00:00'),
+                    ],
+        
+                    'mon-a2' => 
+                    [
+                        'start' => strtotime('monday this week 15:00:00'),
+                        'end'   => strtotime('monday this week 16:57:00'),
+                    ],
+        
+                    'tue-m1' => 
+                    [
+                        'start' => strtotime('tuesday this week 08:00:00'),
+                        'end'   => strtotime('tuesday this week 10:00:00'),
+                    ],
+        
+                    'tue-m2' => 
+                    [
+                        'start' => strtotime('tuesday this week 10:00:00'),
+                        'end'   => strtotime('tuesday this week 12:00:00'),
+                    ],
+        
+                    'tue-a1' => 
+                    [
+                        'start' => strtotime('tuesday this week 12:45:00'),
+                        'end'   => strtotime('tuesday this week 15:00:00'),
+                    ],
+        
+                    'tue-a2' => 
+                    [
+                        'start' => strtotime('tuesday this week 15:00:00'),
+                        'end'   => strtotime('tuesday this week 16:57:00'),
+                    ],
+        
+                    'wed-m1' => 
+                    [
+                        'start' => strtotime('wednesday this week 08:00:00'),
+                        'end'   => strtotime('wednesday this week 10:00:00'),
+                    ],
+                    'wed-m2' => [
+                        'start' => strtotime('wednesday this week 10:00:00'),
+                        'end'   => strtotime('wednesday this week 12:00:00'),
+                    ],
+        
+                    'wed-a1' => 
+                    [
+                        'start' => strtotime('wednesday this week 12:45:00'),
+                        'end'   => strtotime('wednesday this week 15:00:00'),
+                    ],
+        
+                    'wed-a2' => 
+                    [
+                        'start' => strtotime('wednesday this week 15:00:00'),
+                        'end'   => strtotime('wednesday this week 16:57:00'),
+                    ],
+        
+                    'thu-m1' => 
+                    [
+                        'start' => strtotime('thursday this week 08:00:00'),
+                        'end'   => strtotime('thursday this week 10:00:00'),
+                    ],
+        
+                    'thu-m2' => 
+                    [
+                        'start' => strtotime('thursday this week 10:00:00'),
+                        'end'   => strtotime('thursday this week 12:00:00'),
+                    ],
+        
+                    'thu-a1' => 
+                    [
+                        'start' => strtotime('thursday this week 12:45:00'),
+                        'end'   => strtotime('thursday this week 15:00:00'),
+                    ],
+        
+                    'thu-a2' => 
+                    [
+                        'start' => strtotime('thursday this week 15:00:00'),
+                        'end'   => strtotime('thursday this week 16:57:00'),
+                    ],
+        
+                    'fri-m1' => 
+                    [
+                        'start' => strtotime('friday this week 08:00:00'),
+                        'end'   => strtotime('friday this week 10:00:00'),
+                    ],
+        
+                    'fri-m2' => 
+                    [
+                        'start' => strtotime('friday this week 10:00:00'),
+                        'end'   => strtotime('friday this week 12:00:00'),
+                    ],
+        
+                    'fri-a1' => 
+                    [
+                        'start' => strtotime('friday this week 12:45:00'),
+                        'end'   => strtotime('friday this week 15:00:00'),
+                    ],
+        
+                    'fri-a2' => 
+                    [
+                        'start' => strtotime('friday this week 15:00:00'),
+                        'end'   => strtotime('friday this week 16:57:00'),
+                    ],
+                ];
+
                 break;
 
             case 1:
@@ -1163,6 +1535,135 @@ class Home extends BaseController
                     'friday' => strtotime('+4 days', $next_monday),
                 ];
 
+                $next_mon = $data['next_week']['monday'];
+                $next_tue = $data['next_week']['tuesday'];
+                $next_wed = $data['next_week']['wednesday'];
+                $next_thu = $data['next_week']['thursday'];
+                $next_fri = $data['next_week']['friday'];
+        
+                $periods = [
+                    'mon-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 10:00:00'),
+                    ],
+        
+                    'mon-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 12:00:00'),
+                    ],
+        
+                    'mon-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 15:00:00'),
+                    ],
+        
+                    'mon-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 16:57:00'),
+                    ],
+        
+                    'tue-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 10:00:00'),
+                    ],
+        
+                    'tue-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 12:00:00'),
+                    ],
+        
+                    'tue-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 15:00:00'),
+                    ],
+        
+                    'tue-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 16:57:00'),
+                    ],
+        
+                    'wed-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 10:00:00'),
+                    ],
+        
+                    'wed-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 12:00:00'),
+                    ],
+        
+                    'wed-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 15:00:00'),
+                    ],
+        
+                    'wed-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 16:57:00'),
+                    ],
+        
+                    'thu-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 10:00:00'),
+                    ],
+        
+                    'thu-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 12:00:00'),
+                    ],
+        
+                    'thu-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 15:00:00'),
+                    ],
+        
+                    'thu-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 16:57:00'),
+                    ],
+        
+                    'fri-m1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 08:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 10:00:00'),
+                    ],
+        
+                    'fri-m2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 10:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 12:00:00'),
+                    ],
+        
+                    'fri-a1' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 12:45:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 15:00:00'),
+                    ],
+        
+                    'fri-a2' => 
+                    [
+                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 15:00:00'),
+                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 16:57:00'),
+                    ],
+        
+                ];
+
                 // Page title
                 $data['title'] = lang('Helpdesk.ttl_update_nw_planning');
 
@@ -1170,6 +1671,8 @@ class Home extends BaseController
         }
 
         $data['form_fields_data'] = $form_fields_data;
+        
+        $data['classes'] = $this->defineDaysOff($periods);
 
         // Display update_planning view
         $this->display_view('Helpdesk\update_planning', $data);

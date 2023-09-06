@@ -75,7 +75,14 @@
                 <div></div>
             </div>
 
-            <table class="table-responsive">
+            <table class="table-responsive<?php
+            if(isset($classes))
+            {
+                foreach($classes as $class)
+                {
+                    echo $class;
+                }
+            }?>">
                 <thead>
                     <?php switch($planning_type)
                     {

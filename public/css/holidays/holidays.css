@@ -1,8 +1,3 @@
-/**
- * Holiday page
- *
- */
-
 table {
     border-collapse: collapse;
     max-width: 750px;
@@ -42,52 +37,4 @@ tbody tr:nth-child(even) {
 
 .btn-blue:hover {
     color: var(--white);
-}
-
-
-/**
- * add_holiday page
- *
- */
-
-form
-{
-    background-color: var(--lighter-gray);
-    padding: 25px;
-    border-radius: 8px;
-    width: fit-content;
-    margin: auto;
-}
-
-.d-flex
-{
-    flex-direction: column;
-    align-items: center;
-}
-
-fieldset
-{
-    margin: 10px;
-}
-
-fieldset label
-{
-    width: 175px;
-}
-
-fieldset input
-{
-    width: 160px;
-}
-
-.buttons-area
-{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.buttons-area .btn
-{
-    margin: 10px;
 }

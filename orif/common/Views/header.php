@@ -78,11 +78,17 @@
         echo '<link rel="stylesheet" href="'.base_url("css/presences/presences.css").'">';
     }
 
-    // If the url contains "holidays" or "saveHoliday", adds the holidays stylesheet
+    // If the url contains "holidays", adds the holidays stylesheet
     else if(strpos($current_url, 'holidays') !== false ||
-            strpos($current_url, 'saveHoliday') !== false)
+            strpos($current_url, 'deleteHoliday') !== false)
     {
         echo '<link rel="stylesheet" href="'.base_url("css/holidays/holidays.css").'">';
+    }
+
+    // If the url contains "saveHoliday", adds the holidays stylesheet
+    else if(strpos($current_url, 'saveHoliday') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/holidays/add_holiday.css").'">';
     }
 
     // If the url contains "delete", adds the delete_confirmation stylesheet
