@@ -33,7 +33,7 @@
 
     <a class="btn btn-primary" href="<?= base_url('helpdesk/home/planning') ?>"><?php echo lang('Helpdesk.btn_back')?></a><br>
 
-    <div class="d-flex justify-content-center">
+    <div class="d-flex flex-column align-items-center">
         <table class="table-responsive">
             <thead>
                 <tr>
@@ -43,7 +43,7 @@
                 </tr>
             </thead>
             <tbody>
-                <?php if (isset($holidays_data)) : ?>
+                <?php if(isset($holidays_data) && !empty($holidays_data)) : ?>
                     <?php foreach ($holidays_data as $holiday) : ?>
                         <tr>
                             <td>
@@ -60,8 +60,7 @@
                 <?php else: ?>
                     <tr>
                         <td colspan="3">
-                            <?php echo lang('Helpdesk.no_holidays')?><br>
-                            <a class="btn btn-blue mb-3" href="<?= base_url('helpdesk/home/saveHoliday') ?>"><?php echo lang('Helpdesk.btn_add_holiday')?></a>
+                            <?php echo lang('Helpdesk.no_holidays')?>
                         </td>
                     </tr>
                 <?php endif; ?>

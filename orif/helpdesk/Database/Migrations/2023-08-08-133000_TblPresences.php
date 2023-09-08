@@ -8,6 +8,8 @@ class AddPresences extends Migration
 {
     public function up()
     {
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+
         $fields = [
             'presence_mon_m1', 'presence_mon_m2', 'presence_mon_a1', 'presence_mon_a2',
             'presence_tue_m1', 'presence_tue_m2', 'presence_tue_a1', 'presence_tue_a2',
@@ -49,6 +51,8 @@ class AddPresences extends Migration
         }
 
         $this->forge->createTable('tbl_presences');
+
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
     public function down()

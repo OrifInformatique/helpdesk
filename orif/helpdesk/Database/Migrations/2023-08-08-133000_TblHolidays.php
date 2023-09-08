@@ -8,6 +8,8 @@ class AddHolidays extends Migration
 {
     public function up()
     {
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+
         $this->forge->addField([
             'id_holiday' => [
                 'type'           => 'INT',
@@ -36,6 +38,8 @@ class AddHolidays extends Migration
         $this->forge->addKey('id_holiday', true);
 
         $this->forge->createTable('tbl_holidays');
+
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
     public function down()

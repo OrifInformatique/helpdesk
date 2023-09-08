@@ -8,6 +8,8 @@ class AddLwPlanning extends Migration
 {
     public function up()
     {
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+
         // Fields table for foreach loop
         $fields = [
             'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
@@ -50,6 +52,8 @@ class AddLwPlanning extends Migration
         }
 
         $this->forge->createTable('tbl_lw_planning');
+
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
     public function down()

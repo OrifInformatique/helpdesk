@@ -8,6 +8,8 @@ class AddUserData extends Migration
 {
     public function up()
     {
+        $this->db->query('SET FOREIGN_KEY_CHECKS=0');
+
         $this->forge->addField([
             'id_user_data' => [
                 'type'           => 'INT',
@@ -52,6 +54,8 @@ class AddUserData extends Migration
         $this->forge->addForeignKey('fk_user_id', 'user', 'id');
 
         $this->forge->createTable('tbl_user_data');
+        
+        $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
     public function down()

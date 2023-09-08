@@ -2,7 +2,9 @@
 
 namespace User\Database\Seeds;
 
-class InsertStatusesDatas extends \CodeIgniter\Database\Seeder
+use CodeIgniter\Database\Seeder;
+
+class InsertStatusesDatas extends Seeder
 {
     public function run()
     {

@@ -82,8 +82,12 @@ require_once SYSTEMPATH . 'Config/DotEnv.php';
 $app = Config\Services::codeigniter();
 $app->initialize();
 
-// Grab our Console
-$console = new CodeIgniter\CLI\Console();
+/**
+ * DD : Fix commands (spark)
+ * 
+ * Adedd $app inside the parenthesis
+ */
+$console = new CodeIgniter\CLI\Console($app);
 
 // Show basic information before we do anything else.
 if (is_int($suppress = array_search('--no-header', $_SERVER['argv'], true))) {

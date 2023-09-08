@@ -42,7 +42,6 @@ select[name="technician"]
 }
 
 table {
-    border-collapse: collapse;
     width: fit-content;
 }
 

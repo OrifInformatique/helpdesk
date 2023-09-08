@@ -2,7 +2,9 @@
 
 namespace User\Database\Seeds;
 
-class InsertRolesDatas extends \CodeIgniter\Database\Seeder
+use CodeIgniter\Database\Seeder;
+
+class InsertRolesDatas extends Seeder
 {
     public function run()
     {

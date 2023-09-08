@@ -59,9 +59,14 @@ _Projects and web files are located under `laragon\www`._
 
 1. Download the `.env` file from the Teams channel of the Helpdesk site.
 2. Place it at the root of the project.
-3. Connect to the shared database. Information on Teams.
+3. On a new terminal, on project root, execute `php spark migrate --all` to migrate all tables and default values.
 
-If you're working with a local database, you'll need to import the shared database into it. Versions are available on Teams.
+### For local databases
+1. Copy-paste the `env` file and edit it with correct info according to the Apache server used. Rename the new file `.env`.
+   _Be sure to define a default database value._
+2. On your MySQL server, create a new database (named "helpdesk"). Use utf8_general_ci or utf8mb4_general_ci collation.
+3. On a new terminal, on project root, execute `php spark migrate --all` to migrate all tables and default values.
+
 
 # You're all set!
 The project is listed under `orif\helpdesk`.
