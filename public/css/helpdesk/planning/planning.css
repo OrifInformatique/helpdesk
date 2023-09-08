@@ -23,18 +23,6 @@ nav
     border: 1px solid var(--gray);
 }
 
-.bg-green {
-    background-color: var(--role-1);
-}
-
-.bg-yellow {
-    background-color: var(--role-2);
-}
-
-.bg-orange {
-    background-color: var(--role-3);
-}
-
 .week {
     background-color: var(--week);
     padding: 8px;

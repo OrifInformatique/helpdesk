@@ -113,6 +113,7 @@ class Home extends BaseController
     */
     public function defineDaysOff($periods)
     {
+        // Get holidays data
         $holidays_data = $this->holidays_model->getHolidays();
 
         $classes = [];
@@ -1057,7 +1058,7 @@ class Home extends BaseController
         ];
 
         // If the "add technician" button from planning page is pressed
-        if (empty($_POST))
+        if(empty($_POST))
         {
             // Displays add_technician page
             return $this->display_view('Helpdesk\add_technician', $data);
@@ -1081,7 +1082,7 @@ class Home extends BaseController
         }
 
         // If $data['error'] isn't empty, the user already has a schedule
-        if (!empty($data['error']))
+        if(!empty($data['error']))
         {
             // Displays the same page, with an error message
             return $this->display_view('Helpdesk\add_technician', $data);
@@ -1097,7 +1098,7 @@ class Home extends BaseController
         foreach ($form_fields_data as $field)
         {
             // If the field is empty or is not set
-            if (!isset($_POST[$field]) || empty($_POST[$field]))
+            if(!isset($_POST[$field]) || empty($_POST[$field]))
             {
                 // Value is defined to NULL
                 $_POST[$field] = NULL;
@@ -1338,7 +1339,6 @@ class Home extends BaseController
                 {
                     $field_value = $technician_planning[$field];
                     
-
                     // Defines value to NULL to insert empty values
                     if(empty($field_value))
                     {

@@ -10,6 +10,7 @@
     flex-direction: row;
     position: absolute;
     top: 30%;
+    user-select: none;
 }
 
 .technician-sheet
@@ -18,10 +19,8 @@
     position: relative;
     flex-direction: column;
     background-color: var(--lighter-gray);
-    min-width: 350px;
-    max-width: fit-content;
-    min-height: 400px;
-    max-height: fit-content;
+    width: 360px;
+    height: 550px;
     margin: 15px;
     padding: 5px;
     transition-duration: 0.3s;
@@ -41,34 +40,22 @@
 .role
 {
     position: absolute;
-    top: 0;
-
+    top: 0
 }
 
 .terminal-display img
 {
-    margin-top: 100px;
-    min-width: 325px;
-    max-width: 325px;
-    min-height: 325px;
-    max-height: 325px;
-}
-
-.bg-green {
-    background-color: var(--role-1);
-}
-
-.bg-yellow {
-    background-color: var(--role-2);
-}
-
-.bg-orange {
-    background-color: var(--role-3);
+    margin: 100px 0 40px 0;
+    width: 325px;
+    height: 325px;
+    border: 2px solid var(--gray);
+    border-radius: 50%;
+    pointer-events: none;
 }
  
 .no-technician
 {
-    position: absolute;
+    position: fixed;
     top: 50%;
     text-align: center;
     font-size: 2em;
@@ -97,6 +84,11 @@
     filter: opacity(60%);
 }
 
+.unavailable img
+{
+    margin-top: 123px;
+}
+
 .unavailable-text
 {
     margin-top: -60px;
@@ -106,22 +98,21 @@
     border-radius: 5px;
     font-size: 1.1em;
     filter: opacity(100%);
-    
 }
 
 .hidden
 {
-    display: none;
-    filter: opacity(0%);
+    display: none !important;
 }
 
 .auto-refresh-timer
 {
     width: 100%;
+    height: 0;
     display: flex;
     justify-content: center;
     position: fixed;
-    bottom: 2%;
+    bottom: 5%;
 }
 
 span
@@ -148,6 +139,7 @@ span
     .unavailable:hover
     {
         transform: translateY(0px);
+        transform: scale(0.85);
     }
 
     .unavailable-text
@@ -156,6 +148,7 @@ span
         position: fixed;
         top: 50%;
         z-index: 1;
+        transform: scale(1.5);
     }
 
     .auto-refresh-timer

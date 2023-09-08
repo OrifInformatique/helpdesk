@@ -144,6 +144,7 @@ changeAvailability()
  * 
  * Checks if there is no technician available at all
  * If it is the case, displays an error message
+ * 
  */
 function noTechniciansCheck()
 {
