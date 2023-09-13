@@ -34,6 +34,7 @@
     <nav>
         <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/presences') ?>"><?php echo lang('Helpdesk.btn_presences')?></a>
         <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?php echo lang('Helpdesk.btn_holiday')?></a>
+        <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/generatePlanning') ?>">Generate planning</a>
     </nav>
 
     <div class="planning">

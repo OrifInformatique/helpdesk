@@ -769,6 +769,8 @@ class Home extends BaseController
 
         $periods = [];
 
+        $data['next_week'] = [];
+
         switch($planning_type)
         {
             case 0:
@@ -2041,7 +2043,6 @@ class Home extends BaseController
 
             // Displays the delete confirmation page
             $this->display_view('Helpdesk\delete_holiday', $data);
-
         }
     }
 
@@ -2124,5 +2125,45 @@ class Home extends BaseController
 
         // Displays the page of the terminal
         $this->display_view('Helpdesk\terminal', $data);
+    }
+
+
+    /*
+    ** generatePlanning function
+    **
+    ** Start the planning generation process
+    **
+    */
+    public function generatePlanning()
+    {
+        // Checks whether the user is logged
+        $this->isUserLogged();
+
+        $users = $this->user_data_model->getUsersData();
+
+        $data['users'] = [];
+
+        foreach($users as $user)
+        {
+            $presences_user = $this->presences_model->getPresencesUser($user['fk_user_id']);
+
+            $data['user-'.$user['fk_user_id']] = 
+            [
+                'firstName' => $user['first_name_user_data'],
+                'lastName' => $user['last_name_user_data'],
+                'id' => $user['last_name_user_data'].substr($user['last_name_user_data'], 0, 1),
+                'active' => true, // TODO : RETRIEVE AUTOMATICALLY THIS VALUE, PRESETTED FOR TESTS
+            ];
+
+            foreach($presences_user as $presence_name => $presence)
+            {
+                $data['user-'.$user['fk_user_id']][$presence_name] = $presence;
+            }
+
+            array_push($data['users'], $data['user-'.$user['fk_user_id']]);
+        }
+
+        // Displays the page of planning generation
+        $this->display_view('Helpdesk\generate_planning', $data);        
     }
 }

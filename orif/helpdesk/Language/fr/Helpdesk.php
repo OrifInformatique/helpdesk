@@ -129,4 +129,6 @@ return[
 
     'updating_in'               => 'Actualisation dans',
     'seconds'                   => 'seconde·s',
+
+    'planning_generation'       => 'Génération du planning'
 ];

@@ -97,6 +97,12 @@
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
     }
 
+    // If the url contains "generate", adds the generate_planning stylesheet
+    else if(strpos($current_url, 'generate') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/planning/generate_planning.css").'">';
+    }
+
     ?>
 
 </head>
