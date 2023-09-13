@@ -139,10 +139,16 @@ class Home extends BaseController
     ** Displays the current week planning page
     **
     */
-    public function planning()
+    public function planning($success = NULL)
     {
         // Page title
         $data['title'] = lang('Helpdesk.ttl_planning');
+
+        // If there is a success message, it is stored for being displayed on view
+        if(isset($success) && !empty($success))
+        {
+            $data['success'] = $success;
+        }
 
         // Retrieves users having a planning
         $planning_data = $this->planning_model->getPlanningDataByUser();
@@ -296,7 +302,7 @@ class Home extends BaseController
     public function lw_planning()
     {
         // Page title
-        $data['title'] = lang('Helpdesk.ttl_lw_planning');
+        $data['title'] = lang('Helpdesk.ttl_lw_planning');     
 
         // Retrieves users having a planning, from last week
         $lw_planning_data = $this->lw_planning_model->getPlanningDataByUser();
@@ -447,10 +453,16 @@ class Home extends BaseController
     ** Displays the next week planning page
     **
     */
-    public function nw_planning()
+    public function nw_planning($success = NULL)
     {
         // Page title
         $data['title'] = lang('Helpdesk.ttl_nw_planning');
+
+        // If there is a success message, it is stored for being displayed on view
+        if(isset($success) && !empty($success))
+        {
+            $data['success'] = $success;
+        }
 
         // Retrieves users having a planning, from last week
         $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
@@ -619,12 +631,173 @@ class Home extends BaseController
 
 
     /*
-    ** presence function
+    ** allPresences function
     **
-    ** Displays the presence page
+    ** Displays the all_presences page
     **
     */
-    public function presences()
+    public function allPresences($success = NULL)
+    {
+        // Checks whether the user is logged
+        $this->isUserLogged();
+
+        // If there is a success message, it is stored for being displayed on view
+        if(isset($success) && !empty($success))
+        {
+            $data['success'] = $success;
+        }
+
+        // Get all presences data
+        $data['all_users_presences'] = $this->presences_model->getAllPresences();
+
+        $data['periods'] =
+        [
+            'presence_mon_m1','presence_mon_m2','presence_mon_a1','presence_mon_a2',
+            'presence_tue_m1','presence_tue_m2','presence_tue_a1','presence_tue_a2',
+            'presence_wed_m1','presence_wed_m2','presence_wed_a1','presence_wed_a2',
+            'presence_thu_m1','presence_thu_m2','presence_thu_a1','presence_thu_a2',
+            'presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2',
+        ];
+
+        $periods = 
+        [
+            'mon-m1' => 
+            [
+                'start' => strtotime('monday this week 08:00:00'),
+                'end'   => strtotime('monday this week 10:00:00'),
+            ],
+
+            'mon-m2' => 
+            [
+                'start' => strtotime('monday this week 10:00:00'),
+                'end'   => strtotime('monday this week 12:00:00'),
+            ],
+
+            'mon-a1' => 
+            [
+                'start' => strtotime('monday this week 12:45:00'),
+                'end'   => strtotime('monday this week 15:00:00'),
+            ],
+
+            'mon-a2' => 
+            [
+                'start' => strtotime('monday this week 15:00:00'),
+                'end'   => strtotime('monday this week 16:57:00'),
+            ],
+
+            'tue-m1' => 
+            [
+                'start' => strtotime('tuesday this week 08:00:00'),
+                'end'   => strtotime('tuesday this week 10:00:00'),
+            ],
+
+            'tue-m2' => 
+            [
+                'start' => strtotime('tuesday this week 10:00:00'),
+                'end'   => strtotime('tuesday this week 12:00:00'),
+            ],
+
+            'tue-a1' => 
+            [
+                'start' => strtotime('tuesday this week 12:45:00'),
+                'end'   => strtotime('tuesday this week 15:00:00'),
+            ],
+
+            'tue-a2' => 
+            [
+                'start' => strtotime('tuesday this week 15:00:00'),
+                'end'   => strtotime('tuesday this week 16:57:00'),
+            ],
+
+            'wed-m1' => 
+            [
+                'start' => strtotime('wednesday this week 08:00:00'),
+                'end'   => strtotime('wednesday this week 10:00:00'),
+            ],
+            'wed-m2' => [
+                'start' => strtotime('wednesday this week 10:00:00'),
+                'end'   => strtotime('wednesday this week 12:00:00'),
+            ],
+
+            'wed-a1' => 
+            [
+                'start' => strtotime('wednesday this week 12:45:00'),
+                'end'   => strtotime('wednesday this week 15:00:00'),
+            ],
+
+            'wed-a2' => 
+            [
+                'start' => strtotime('wednesday this week 15:00:00'),
+                'end'   => strtotime('wednesday this week 16:57:00'),
+            ],
+
+            'thu-m1' => 
+            [
+                'start' => strtotime('thursday this week 08:00:00'),
+                'end'   => strtotime('thursday this week 10:00:00'),
+            ],
+
+            'thu-m2' => 
+            [
+                'start' => strtotime('thursday this week 10:00:00'),
+                'end'   => strtotime('thursday this week 12:00:00'),
+            ],
+
+            'thu-a1' => 
+            [
+                'start' => strtotime('thursday this week 12:45:00'),
+                'end'   => strtotime('thursday this week 15:00:00'),
+            ],
+
+            'thu-a2' => 
+            [
+                'start' => strtotime('thursday this week 15:00:00'),
+                'end'   => strtotime('thursday this week 16:57:00'),
+            ],
+
+            'fri-m1' => 
+            [
+                'start' => strtotime('friday this week 08:00:00'),
+                'end'   => strtotime('friday this week 10:00:00'),
+            ],
+
+            'fri-m2' => 
+            [
+                'start' => strtotime('friday this week 10:00:00'),
+                'end'   => strtotime('friday this week 12:00:00'),
+            ],
+
+            'fri-a1' => 
+            [
+                'start' => strtotime('friday this week 12:45:00'),
+                'end'   => strtotime('friday this week 15:00:00'),
+            ],
+
+            'fri-a2' => 
+            [
+                'start' => strtotime('friday this week 15:00:00'),
+                'end'   => strtotime('friday this week 16:57:00'),
+            ],
+        ];
+        
+        $data['classes'] = $this->defineDaysOff($periods);
+
+        // Title
+        $data['title'] = lang('Helpdesk.ttl_all_presences');
+
+        // Displays the all_presences page
+        $this->display_view('Helpdesk\all_presences', $data);
+    }
+
+
+    /*
+    ** yourPresences function
+    **
+    ** Displays the your_presences page
+    ** Saves presences form data
+    **
+    */
+    public function yourPresences()
     {
         // Checks whether the user is logged
         $this->isUserLogged();
@@ -632,7 +805,7 @@ class Home extends BaseController
         // Retrieves user ID
         $user_id = $_SESSION['user_id'];
 
-        if($_POST)
+        if($_SERVER["REQUEST_METHOD"] == "POST")
         {
             // Retrieve presence ID from database
             $id_presence = $this->presences_model->getPresenceId($user_id);
@@ -735,10 +908,48 @@ class Home extends BaseController
         }
 
         // Page title
-        $data['title'] = lang('Helpdesk.ttl_presences');
+        $data['title'] = lang('Helpdesk.ttl_your_presences');
 
         // Displays presences form page
-        $this->display_view('Helpdesk\presences', $data);
+        $this->display_view('Helpdesk\your_presences', $data);
+    }
+
+
+    /*
+    ** deletePresences function
+    **
+    ** Displays the delete confirm page
+    ** Deletes the presence entry
+    **
+    */
+    public function deletePresences($id_presence)
+    {
+        // Checks whether user is logged in
+        $this->isUserLogged();
+
+        // If the users confirms the deletion
+        if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
+        {
+            // Delete the entry
+            $this->presences_model->delete($id_presence);
+
+            // Success message
+            $success = lang('Helpdesk.scs_presences_deleted');
+
+            $this->allPresences($success);
+        }
+
+        // When the user clicks the delete button
+        else
+        {
+            $data['id_presence'] = $id_presence;
+
+            // Page title
+            $data['title'] = lang('Helpdesk.ttl_delete_confirmation');
+
+            // Displays the delete confirmation page
+            $this->display_view('Helpdesk\delete_presences', $data);
+        }
     }
 
     /*
@@ -1121,7 +1332,7 @@ class Home extends BaseController
         }
 
         // Success message
-        $data['success'] = lang('Helpdesk.scs_technician_added_to_schedule');
+        $success = lang('Helpdesk.scs_technician_added_to_schedule');
 
         // Finds which planning is updated | 0 is current week, 1 is next week
         switch($planning_type)
@@ -1161,26 +1372,7 @@ class Home extends BaseController
                 // Insert data into "tbl_planning" table
                 $this->planning_model->insert($data);
 
-                // Page title
-                $data['title'] = lang('Helpdesk.ttl_planning');
-                    
-                // Retrieves users having a schedule
-                $planning_data = $this->planning_model->getPlanningDataByUser();
-
-                $data['planning_data'] = $planning_data;
-
-                // Presences table
-                $data['periods'] = 
-                [
-                    'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
-                    'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
-                    'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
-                    'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
-                    'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
-                ];
-
-                // Displays schedule page
-                $this->display_view('Helpdesk\planning', $data);
+                $this->planning($success);
                 
                 break;
 
@@ -1219,26 +1411,7 @@ class Home extends BaseController
                 // Insert data into "tbl_nw_planning" table
                 $this->nw_planning_model->insert($data);
 
-                // Page title
-                $data['title'] = lang('Helpdesk.ttl_nw_planning');
-
-                // Retrieves users having a schedule
-                $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
-
-                $data['nw_planning_data'] = $nw_planning_data;
-
-                // Presences table
-                $data['nw_periods'] = 
-                [
-                    'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
-                    'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
-                    'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
-                    'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
-                    'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
-                ];
-
-                // Displays schedule page
-                $this->display_view('Helpdesk\nw_planning', $data);
+                $this->nw_planning($success);
 
                 break;
         }
@@ -1724,7 +1897,7 @@ class Home extends BaseController
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
         {
             // Success message
-            $data['success'] = lang('Helpdesk.scs_technician_deleted');
+            $success = lang('Helpdesk.scs_technician_deleted');
 
             // Finds on which planning entry is deleted | 0 is current week, 1 is next week
             switch($planning_type)
@@ -1736,31 +1909,7 @@ class Home extends BaseController
                     // Delete the entry
                     $this->planning_model->delete($planning_data['id_planning']);
 
-                    /*
-                    ** planning() function copy
-                    ** (Repetion is needed)
-                    */
-
-                    // Page title
-                    $data['title'] = lang('Helpdesk.ttl_planning');
-
-                    // Retrieves users having a planning
-                    $planning_data = $this->planning_model->getPlanningDataByUser();
-
-                    $data['planning_data'] = $planning_data;
-
-                    // Presences table
-                    $data['periods'] = 
-                    [
-                        'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
-                        'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
-                        'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
-                        'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
-                        'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
-                    ];
-
-                    // Displays current week planning page
-                    $this->display_view('Helpdesk\planning', $data);
+                    $this->planning($success);
 
                     break;
                 
@@ -1771,44 +1920,7 @@ class Home extends BaseController
                     // Delete the entry
                     $this->nw_planning_model->delete($id_planning);
                     
-                    /*
-                    ** nw_planning() function copy
-                    ** (Repetion is needed)
-                    */
-
-                    // Page title
-                    $data['title'] = lang('Helpdesk.ttl_nw_planning');
-
-                    // Retrieves users having a planning
-                    $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
-
-                    $data['nw_planning_data'] = $nw_planning_data;
-
-                    // Presences table
-                    $data['nw_periods'] = 
-                    [
-                        'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
-                        'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
-                        'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
-                        'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
-                        'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
-                    ];
-
-                    // Reference for next week table
-                    $next_monday = strtotime('next monday');
-
-                    // Weekdays table for dates
-                    $data['next_week'] =
-                    [
-                        'monday' => $next_monday,
-                        'tuesday' => strtotime('+1 day', $next_monday),
-                        'wednesday' => strtotime('+2 days', $next_monday),
-                        'thursday' => strtotime('+3 days', $next_monday),
-                        'friday' => strtotime('+4 days', $next_monday),
-                    ];
-
-                    // Displays current week planning page
-                    $this->display_view('Helpdesk\nw_planning', $data);
+                    $this->nw_planning($success);
 
                     break;
             }
@@ -1837,10 +1949,16 @@ class Home extends BaseController
     ** Displays the holiday list page
     **
     */
-    public function holidays()
+    public function holidays($success = NULL)
     {
         // Page title
         $data['title'] = lang('Helpdesk.ttl_holiday');
+
+        // If there is a success message, it is stored for being displayed on view
+        if(isset($success) && !empty($success))
+        {
+            $data['success'] = $success;
+        }
 
         // Retrieve all holiday data
         $holidays_data = $this->holidays_model->getHolidays();
@@ -1934,23 +2052,9 @@ class Home extends BaseController
                 $this->holidays_model->save($data);
 
                 // Success message
-                $data['success'] = lang('Helpdesk.scs_holiday_updated');
+                $success = lang('Helpdesk.scs_holiday_updated');
 
-                /*
-                ** holiday() function copy
-                ** (Repetion is needed)
-                */
-
-                // Page title
-                $data['title'] = lang('Helpdesk.ttl_holiday');
-
-                // Retrieve all holiday data
-                $holidays_data = $this->holidays_model->getHolidays();
-
-                $data['holidays_data'] = $holidays_data;
-
-                // Displays the holidays list view, with a success message
-                $this->display_view('Helpdesk\holidays', $data);                
+                $this->holidays($success);
             }
         }
 
@@ -2014,23 +2118,9 @@ class Home extends BaseController
             $this->holidays_model->delete($id_holiday);
 
             // Success message
-            $data['success'] = lang('Helpdesk.scs_holiday_deleted');
+            $success = lang('Helpdesk.scs_holiday_deleted');
 
-            /*
-            ** holiday() function copy
-            ** (Repetion is needed)
-            */
-
-            // Page title
-            $data['title'] = lang('Helpdesk.ttl_holiday');
-
-            // Retrieve all holiday data
-            $holidays_data = $this->holidays_model->getHolidays();
-
-            $data['holidays_data'] = $holidays_data;
-
-            // Displays the holidays list view, with a success message
-            $this->display_view('Helpdesk\holidays', $data);
+            $this->holidays($success);
         }
 
         // When the user clicks the delete button

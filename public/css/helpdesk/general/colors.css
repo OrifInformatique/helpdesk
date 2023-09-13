@@ -6,6 +6,10 @@
     --role-3: #ffd965;
     --mentor: #9bc2e6;
 
+    --present: #a9d08e;
+    --partly-absent: #ffd966;
+    --absent: #f25454;
+
     /* Gray shades for planning */
     --roles: #eee;
     --week: #dfdfdf;
@@ -21,6 +25,7 @@
     --gray: #9a9a9a;
     --black: #000000;
 
+    --light-red: #ff0000b9;
     --red: red;
     --dark-red: darkred;
 

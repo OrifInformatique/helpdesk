@@ -25,14 +25,14 @@
 <!-- Success message, if exists -->
 <?php if(isset($success)): ?>
     <div class="d-flex justify-content-center">
-        <?php echo ('<p class="success">'.$success.'</p>'); ?>
+        <?= ('<p class="success">'.$success.'</p>'); ?>
     </div>
 <?php endif; ?>
 
 <!-- Error message, if exists -->
 <?php if(isset($error)): ?>
     <div class="d-flex justify-content-center">
-        <?php echo ('<p class="error">'.$error.'</p>'); ?>
+        <?= ('<p class="error">'.$error.'</p>'); ?>
     </div>
 <?php endif; ?>
 
@@ -50,7 +50,7 @@
                                 echo '<div class="bg-green border-xs-1 p-2 rounded rounded-3 mx-4">'.lang('Helpdesk.role_1').'</div>';
                                 break;
                             case 2:
-                                echo '<div class="bg-yellow border-xs-1 p-2 rounded rounded-3 mx-4">'.lang('Helpdesk.role_2').'</div>';
+                                echo '<div class="bg-light-green border-xs-1 p-2 rounded rounded-3 mx-4">'.lang('Helpdesk.role_2').'</div>';
                                 break;
                             case 3:
                                 echo '<div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-4">'.lang('Helpdesk.role_3').'</div>';

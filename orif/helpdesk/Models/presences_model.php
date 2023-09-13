@@ -43,6 +43,23 @@ class Presences_model extends \CodeIgniter\Model
     /*
     ** getPresenceId function
     **
+    ** Get all presences data form all users
+    **
+    */
+    public function getAllPresences()
+    {
+        // Retrieve all presences data form all users
+        $all_presences_data = $this->join('tbl_user_data', 'tbl_presences.fk_user_id = tbl_user_data.fk_user_id')
+                                    ->orderBy('last_name_user_data', 'ASC')
+                                    ->findAll();
+
+        return $all_presences_data;
+    }
+
+
+    /*
+    ** getPresenceId function
+    **
     ** Get the primary key of the user presences
     **
     */

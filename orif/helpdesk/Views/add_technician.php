@@ -20,14 +20,14 @@
     <!-- Success message, if exists -->
     <?php if(isset($success)): ?>
         <div class="d-flex justify-content-center">
-            <?php echo ('<p class="success">'.$success.'</p>'); ?>
+            <?= ('<p class="success">'.$success.'</p>'); ?>
         </div>
     <?php endif; ?>
 
     <!-- Error message, if exists -->
     <?php if(isset($error)): ?>
         <div class="d-flex justify-content-center">
-            <?php echo ('<p class="error">'.$error.'</p>'); ?>
+            <?= ('<p class="error">'.$error.'</p>'); ?>
         </div>
     <?php endif; ?>
 
@@ -35,15 +35,15 @@
 
         <div class="planning">
             <div class="d-flex justify-content-center roles">
-                <div class="bg-green  border-xs-1 p-2 rounded rounded-3 mx-3"><?php echo lang('Helpdesk.role_1')?></div> <!-- c5deb5 -->
-                <div class="bg-yellow border-xs-1 p-2 rounded rounded-3 mx-3"><?php echo lang('Helpdesk.role_2')?></div> <!-- e5f874 -->
-                <div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-3"><?php echo lang('Helpdesk.role_3')?></div> <!-- ffd965 -->
+                <div class="bg-green  border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_1')?></div> <!-- c5deb5 -->
+                <div class="bg-light-green border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_2')?></div> <!-- e5f874 -->
+                <div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_3')?></div> <!-- ffd965 -->
             </div>
 
             <div class="week">
                 <div></div>
                 <div>
-                    <?php echo lang('Helpdesk.planning_of_week')?>
+                    <?= lang('Helpdesk.planning_of_week')?>
                     <span class="start-date">
                         <?php switch($planning_type)
                             {
@@ -57,7 +57,7 @@
                             }
                         ?>
                     </span>
-                    <?php echo lang('Helpdesk.to')?>
+                    <?= lang('Helpdesk.to')?>
                     <span class="end-date">
                         <?php switch($planning_type)
                             {
@@ -89,21 +89,21 @@
                         case 0: ?>
                             <tr>
                                 <th></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.monday').' '.date('d', strtotime('monday this week')); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.tuesday').' '.date('d', strtotime('tuesday this week')); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.wednesday').' '.date('d', strtotime('wednesday this week')); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
                             </tr>
                         <?php break;?>
                         <?php case 1: ?>
                             <tr>
                                 <th></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.monday').' '.date('d', $next_week['monday']); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.tuesday').' '.date('d', $next_week['tuesday']); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
-                                <th colspan="4"><?php echo lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.monday').' '.date('d', $next_week['monday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.tuesday').' '.date('d', $next_week['tuesday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
                             </tr>
                         <?php break;?>
                     <?php } ?>
@@ -137,7 +137,7 @@
                         // Repeats choices options 20 times
                         for($i = 0; $i < 20; $i++): ?>   
                             <td>
-                                <select name="<?php echo($periods[$i]);?>">
+                                <select name="<?=($periods[$i]);?>">
                                     <option selected></option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -149,7 +149,7 @@
                 </tbody>
             </table>
             <div class="action-menu d-flex justify-content-center">
-                <input class="btn btn-success" type="submit" value="<?php echo lang('Helpdesk.btn_save')?>"/>
+                <input class="btn btn-success" type="submit" value="<?= lang('Helpdesk.btn_save')?>"/>
 
                 <?php switch($planning_type)
                 {

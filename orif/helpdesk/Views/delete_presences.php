@@ -1,7 +1,7 @@
 <?php
 
 /**
- * delete_technician view
+ * delete_presences view
  *
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -31,7 +31,7 @@
 
 <div class="container-fluid">
 
-    <form method="POST" action="<?= base_url('helpdesk/home/deleteTechnician/'.$user_id.'/'.$planning_type) ?>">
+    <form method="POST" action="<?= base_url('helpdesk/home/deletePresences/'.$id_presence) ?>">
 
         <input type="hidden" name="delete_confirmation" value="true">
 

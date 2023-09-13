@@ -13,7 +13,8 @@ return[
     ** PAGE TITLES
     */
 
-    'ttl_presences'             => 'Présences de l\'apprenti',
+    'ttl_all_presences'         => 'Présences des techniciens',
+    'ttl_your_presences'        => 'Vos présences',
     'ttl_add_technician'        => 'Ajouter un technicien',
     'ttl_technician_menu'       => 'Menu du technicien',
     'ttl_planning'              => 'Planning de la semaine',
@@ -43,6 +44,7 @@ return[
     */
 
     'scs_presences_updated'             => 'Présences modifiées avec succès',
+    'scs_presences_deleted'             => 'Présences du technicien supprimées avec succès',
     'scs_technician_added_to_schedule'  => 'Technicien ajouté au planning avec succès',
     'scs_technician_deleted'            => 'Le technicien a été supprimé du planning avec succès',
     'scs_planning_updated'              => 'Planning de la semaine modifié avec succès',
@@ -54,7 +56,8 @@ return[
     ** BUTTONS
     */
 
-    'btn_presences'         => 'Vos présences',
+    'btn_all_presences'     => 'Présences des techniciens',
+    'btn_your_presences'    => 'Modifier mes présences',
     'btn_add_technician'    => 'Ajouter un technicien',
     'btn_edit_planning'     => 'Modifier le planning',
     'btn_holiday'           => 'Liste des vacances',
@@ -107,6 +110,7 @@ return[
     'to'                        => 'au',
     'technician'                => 'Technicien',
     'no_technician_assigned'    => 'Aucun technicien n\'est assigné au planning.',
+    'no_technician_presences'   => 'Aucun technicien n\'a de présences.',
 
     'empty_fields_info'         => 'Les champs vides seront automatiquement remplis par "Absent".',
 

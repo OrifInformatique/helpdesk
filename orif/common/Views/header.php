@@ -72,10 +72,16 @@
         echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/planning/planning.css").'">';
     }
 
-    // If the url ends with "presences", adds the presences stylesheet
-    else if(substr($current_url, -9) === "presences")
+    // If the url ends with "all_presences", adds the presences stylesheet
+    else if(substr($current_url, -12) === "allPresences")
     {
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/presences.css").'">';
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/all_presences.css").'">';
+    }
+
+    // If the url ends with "your_presences", adds the presences stylesheet
+    else if(substr($current_url, -13) === "yourPresences")
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/your_presences.css").'">';
     }
 
     // If the url contains "holidays", adds the holidays stylesheet

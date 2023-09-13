@@ -39,14 +39,14 @@ if(isset($users))
     <!-- Success message, if exists -->
     <?php if(isset($success)): ?>
         <div class="d-flex justify-content-center">
-            <?php echo ('<p class="success">'.$success.'</p>'); ?>
+            <?= ('<p class="success">'.$success.'</p>'); ?>
         </div>
     <?php endif; ?>
 
     <!-- Error message, if exists -->
     <?php if(isset($error)): ?>
         <div class="d-flex justify-content-center">
-            <?php echo ('<p class="error">'.$error.'</p>'); ?>
+            <?= ('<p class="error">'.$error.'</p>'); ?>
         </div>
     <?php endif; ?>
 
