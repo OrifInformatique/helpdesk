@@ -35,8 +35,10 @@ return[
 
     'err_technician_already_has_schedule'           => 'Le technicien renseigné possède déjà un planning',
     'err_technician_must_be_assigned_to_schedule'   => 'Chaque technicien doit être assigné au minimum à un rôle pendant une période',
+    'err_invalid_technician'                        => 'Technicien invalide',
+    'err_invalid_role'                              => 'Rôle assigné invalide',
     'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes',
-    'err_unfound_planning_type'                     => 'Erreur de planning, veuillez réessayer',
+    'err_unfound_planning_type'                     => 'Erreur de planning',
 
 
     /*

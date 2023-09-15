@@ -47,7 +47,7 @@
                     <?php foreach ($holidays_data as $holiday) : ?>
                         <tr>
                             <td>
-                                <a href="<?= base_url('helpdesk/home/saveHoliday/'.$holiday['id_holiday']);?>"><?= $holiday['name_holiday']; ?></a>
+                                <a href="<?= base_url('helpdesk/home/saveHoliday/'.$holiday['id_holiday']);?>"><?= htmlentities($holiday['name_holiday']); ?></a>
                             </td>
                             <td>
                                 <?= $holiday['start_date_holiday']; ?>
