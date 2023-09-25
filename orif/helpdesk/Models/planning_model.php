@@ -40,12 +40,12 @@ class Planning_model extends \CodeIgniter\Model
     }
 
     
-    /*
-    ** getPlanningData function
-    **
-    ** Get all planning data
-    **
-    */
+    /** 
+     * Get all planning data
+     * 
+     * @return array $planning_data
+     * 
+     */
     public function getPlanningData()
     {
         // Retrieve all planning data
@@ -55,12 +55,12 @@ class Planning_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** getPlanningDataByUser function
-    **
-    ** Get all users having a planning
-    **
-    */
+    /**
+     * Get all users having a role in current week planning
+     * 
+     * @return array $planning_data_by_user
+     * 
+     */
     public function getPlanningDataByUser()
     {
         // Join with "tbl_user_data" and "user" tables to retrieve both planning and user data
@@ -73,12 +73,14 @@ class Planning_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** checkUserOwnsPlanning function
-    **
-    ** Check if a user owns a planning
-    **
-    */ 
+    /**
+     * Check if a user has a role in the current week planning (if he has a planning entry)
+     * 
+     * @param int $user_id ID of a specific user
+     * 
+     * @return array $data[error], if user already have a planning entry
+     * 
+     */ 
     public function checkUserOwnsPlanning($user_id)
     {
         // Retrieve user's ID from the user's planning data, if it exists
@@ -97,12 +99,14 @@ class Planning_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** getPlanningId function
-    **
-    ** Get the planning ID of a specific user
-    **
-    */
+    /**
+     * Get the planning ID of a specific user planning entry
+     * 
+     * @param int $user_id ID of a specific user
+     * 
+     * @return array $nw_planning_data
+     * 
+     */
     public function getPlanning($user_id)
     {
         $planning_data = $this->where('fk_user_id', $user_id)->first();
@@ -110,12 +114,15 @@ class Planning_model extends \CodeIgniter\Model
         return $planning_data;
     }
 
-    /*
-    ** getTechniciansOnPeriod function
-    **
-    ** Get all users which is assigned to a specific period
-    **
-    */
+    
+    /**
+     * Get all users assigned to a specific period
+     * 
+     * @param string $period Name of the period
+     * 
+     * @return mixed $technicians or NULL, NULL if no technicians assigned to a period
+     * 
+     */
     public function getTechniciansOnPeriod($period)
     {
         $results = $this->join('tbl_user_data', 'tbl_planning.fk_user_id = tbl_user_data.fk_user_id')

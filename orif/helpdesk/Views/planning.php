@@ -102,7 +102,7 @@
                     <?php foreach ($planning_data as $user) : ?>
                         <tr>
                             <th <?php if($user['fk_user_type'] == 4){echo 'class="mentor"';}?>>
-                                <a href="<?= base_url('helpdesk/home/technicianMenu/'.$user['fk_user_id'].'/0') ?>">
+                                <a href="<?= base_url('helpdesk/home/technicianMenu/'.$user['fk_user_id']) ?>">
                                     <?= $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
                                 </a>
                             </th>

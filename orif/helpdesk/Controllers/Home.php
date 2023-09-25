@@ -65,7 +65,7 @@ class Home extends BaseController
     /**
      * Redirects the user to the login page if he isn't logged in
      * 
-     * @return view 'user\auth\login' if user isn't logged
+     * @return view 'user\auth\login', if user isn't logged
      * 
      */
     public function isUserLogged()
@@ -86,16 +86,16 @@ class Home extends BaseController
     /**
      * Redirects to the home page with an error if the planning type isn't set
      * 
-     * @param int $planning_type | Specifies which planning is being edited
+     * @param int $planning_type Specifies which planning is being edited
      * 
-     * @return view 'Helpdesk\planning' if planning type isn't set
+     * @return view 'Helpdesk\planning', if planning type isn't set
      * 
      */
     public function isSetPlanningType($planning_type)
     {
         if(!isset($planning_type))
         {
-            unset($planning_type);
+            $planning_type = NULL;
 
             // Error message
             $error = lang('Helpdesk.err_unfound_planning_type');
@@ -110,7 +110,7 @@ class Home extends BaseController
     /**
      * Set classes for leaving blank days off in plannings
      *
-     * @param array $periods | Names, start and end datetimes of periods
+     * @param array $periods Names, start and end datetimes of periods
      * 
      * @return array $classes
      * 
@@ -141,7 +141,7 @@ class Home extends BaseController
     /**
      * Prevent code duplication for days off handler
      * 
-     * @param int $planning_type | Specifies which planning is used
+     * @param int $planning_type Specifies which planning is used
      * 
      * @return array $periods
      * 
@@ -150,174 +150,57 @@ class Home extends BaseController
     {
         $periods =[];
 
-        // TODO : Optimize $periods assignments to gain space and lisibility
+        $weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+
         switch($planning_type)
         {
             case -1:
-                $periods = [
-                    'mon-m1' => [
-                        'start' => strtotime('monday last week 08:00:00'),
-                        'end'   => strtotime('monday last week 10:00:00')],
-
-                    'mon-m2' => [
-                        'start' => strtotime('monday last week 10:00:00'),
-                        'end'   => strtotime('monday last week 12:00:00')],
-        
-                    'mon-a1' => [
-                        'start' => strtotime('monday last week 12:45:00'),
-                        'end'   => strtotime('monday last week 15:00:00')],
-        
-                    'mon-a2' => [
-                        'start' => strtotime('monday last week 15:00:00'),
-                        'end'   => strtotime('monday last week 16:57:00')],
-        
-                    'tue-m1' => [
-                        'start' => strtotime('tuesday last week 08:00:00'),
-                        'end'   => strtotime('tuesday last week 10:00:00')],
-        
-                    'tue-m2' => [
-                        'start' => strtotime('tuesday last week 10:00:00'),
-                        'end'   => strtotime('tuesday last week 12:00:00')],
-        
-                    'tue-a1' => [
-                        'start' => strtotime('tuesday last week 12:45:00'),
-                        'end'   => strtotime('tuesday last week 15:00:00')],
-        
-                    'tue-a2' => [
-                        'start' => strtotime('tuesday last week 15:00:00'),
-                        'end'   => strtotime('tuesday last week 16:57:00')],
-        
-                    'wed-m1' => [
-                        'start' => strtotime('wednesday last week 08:00:00'),
-                        'end'   => strtotime('wednesday last week 10:00:00')],
-        
-                    'wed-m2' => [
-                        'start' => strtotime('wednesday last week 10:00:00'),
-                        'end'   => strtotime('wednesday last week 12:00:00')],
-        
-                    'wed-a1' => [
-                        'start' => strtotime('wednesday last week 12:45:00'),
-                        'end'   => strtotime('wednesday last week 15:00:00')],
-        
-                    'wed-a2' => [
-                        'start' => strtotime('wednesday last week 15:00:00'),
-                        'end'   => strtotime('wednesday last week 16:57:00')],
-        
-                    'thu-m1' => [
-                        'start' => strtotime('thursday last week 08:00:00'),
-                        'end'   => strtotime('thursday last week 10:00:00')],
-        
-                    'thu-m2' => [
-                        'start' => strtotime('thursday last week 10:00:00'),
-                        'end'   => strtotime('thursday last week 12:00:00')],
-        
-                    'thu-a1' => [
-                        'start' => strtotime('thursday last week 12:45:00'),
-                        'end'   => strtotime('thursday last week 15:00:00')],
-        
-                    'thu-a2' => [
-                        'start' => strtotime('thursday last week 15:00:00'),
-                        'end'   => strtotime('thursday last week 16:57:00')],
-        
-                    'fri-m1' => [
-                        'start' => strtotime('friday last week 08:00:00'),
-                        'end'   => strtotime('friday last week 10:00:00')],
-        
-                    'fri-m2' => [
-                        'start' => strtotime('friday last week 10:00:00'),
-                        'end'   => strtotime('friday last week 12:00:00')],
-        
-                    'fri-a1' => [
-                        'start' => strtotime('friday last week 12:45:00'),
-                        'end'   => strtotime('friday last week 15:00:00')],
-        
-                    'fri-a2' => [
-                        'start' => strtotime('friday last week 15:00:00'),
-                        'end'   => strtotime('friday last week 16:57:00')],
-                ];
+                foreach($weekdays as $day)
+                {
+                    $periods[] = 
+                    [
+                        substr($day, 3).'m1' => [
+                            'start' => strtotime($day.' last week 08:00:00'),
+                            'end' => strtotime($day.' last week 10:00:00')
+                        ],
+                        substr($day, 3).'m2' => [
+                            'start' => strtotime($day.' last week 10:00:00'),
+                            'end' => strtotime($day.' last week 12:00:00')
+                        ],
+                        substr($day, 3).'a1' => [
+                            'start' => strtotime($day.' last week 12:45:00'),
+                            'end' => strtotime($day.' last week 15:00:00')
+                        ],
+                        substr($day, 3).'a2' => [
+                            'start' => strtotime($day.' last week 15:00:00'),
+                            'end' => strtotime($day.' last week 16:57:00')
+                        ]
+                    ];
+                }
 
             case 0:
-                $periods = [
-                    'mon-m1' => [
-                        'start' => strtotime('monday this week 08:00:00'),
-                        'end'   => strtotime('monday this week 10:00:00')],
-        
-                    'mon-m2' => [
-                        'start' => strtotime('monday this week 10:00:00'),
-                        'end'   => strtotime('monday this week 12:00:00')],
-        
-                    'mon-a1' => [
-                        'start' => strtotime('monday this week 12:45:00'),
-                        'end'   => strtotime('monday this week 15:00:00')],
-        
-                    'mon-a2' => [
-                        'start' => strtotime('monday this week 15:00:00'),
-                        'end'   => strtotime('monday this week 16:57:00')],
-        
-                    'tue-m1' => [
-                        'start' => strtotime('tuesday this week 08:00:00'),
-                        'end'   => strtotime('tuesday this week 10:00:00')],
-        
-                    'tue-m2' => [
-                        'start' => strtotime('tuesday this week 10:00:00'),
-                        'end'   => strtotime('tuesday this week 12:00:00')],
-        
-                    'tue-a1' => [
-                        'start' => strtotime('tuesday this week 12:45:00'),
-                        'end'   => strtotime('tuesday this week 15:00:00')],
-        
-                    'tue-a2' => [
-                        'start' => strtotime('tuesday this week 15:00:00'),
-                        'end'   => strtotime('tuesday this week 16:57:00')],
-        
-                    'wed-m1' => [
-                        'start' => strtotime('wednesday this week 08:00:00'),
-                        'end'   => strtotime('wednesday this week 10:00:00')],
-
-                    'wed-m2' => [
-                        'start' => strtotime('wednesday this week 10:00:00'),
-                        'end'   => strtotime('wednesday this week 12:00:00')],
-        
-                    'wed-a1' => [
-                        'start' => strtotime('wednesday this week 12:45:00'),
-                        'end'   => strtotime('wednesday this week 15:00:00')],
-        
-                    'wed-a2' => [
-                        'start' => strtotime('wednesday this week 15:00:00'),
-                        'end'   => strtotime('wednesday this week 16:57:00')],
-        
-                    'thu-m1' => [
-                        'start' => strtotime('thursday this week 08:00:00'),
-                        'end'   => strtotime('thursday this week 10:00:00')],
-        
-                    'thu-m2' => [
-                        'start' => strtotime('thursday this week 10:00:00'),
-                        'end'   => strtotime('thursday this week 12:00:00')],
-        
-                    'thu-a1' => [
-                        'start' => strtotime('thursday this week 12:45:00'),
-                        'end'   => strtotime('thursday this week 15:00:00')],
-        
-                    'thu-a2' => [
-                        'start' => strtotime('thursday this week 15:00:00'),
-                        'end'   => strtotime('thursday this week 16:57:00')],
-        
-                    'fri-m1' => [
-                        'start' => strtotime('friday this week 08:00:00'),
-                        'end'   => strtotime('friday this week 10:00:00')],
-        
-                    'fri-m2' => [
-                        'start' => strtotime('friday this week 10:00:00'),
-                        'end'   => strtotime('friday this week 12:00:00')],
-        
-                    'fri-a1' => [
-                        'start' => strtotime('friday this week 12:45:00'),
-                        'end'   => strtotime('friday this week 15:00:00')],
-        
-                    'fri-a2' => [
-                        'start' => strtotime('friday this week 15:00:00'),
-                        'end'   => strtotime('friday this week 16:57:00')],
-                ];
+                foreach($weekdays as $day)
+                {
+                    $periods[] = 
+                    [
+                        substr($day, 3).'m1' => [
+                            'start' => strtotime($day.' this week 08:00:00'),
+                            'end' => strtotime($day.' this week 10:00:00')
+                        ],
+                        substr($day, 3).'m2' => [
+                            'start' => strtotime($day.' this week 10:00:00'),
+                            'end' => strtotime($day.' this week 12:00:00')
+                        ],
+                        substr($day, 3).'a1' => [
+                            'start' => strtotime($day.' this week 12:45:00'),
+                            'end' => strtotime($day.' this week 15:00:00')
+                        ],
+                        substr($day, 3).'a2' => [
+                            'start' => strtotime($day.' this week 15:00:00'),
+                            'end' => strtotime($day.' this week 16:57:00')
+                        ]
+                    ];
+                }
 
             case 1:
                 // Reference for next week table
@@ -330,96 +213,31 @@ class Home extends BaseController
                     'tuesday' => strtotime('+1 day', $next_monday),
                     'wednesday' => strtotime('+2 days', $next_monday),
                     'thursday' => strtotime('+3 days', $next_monday),
-                    'friday' => strtotime('+4 days', $next_monday),
+                    'friday' => strtotime('+4 days', $next_monday)
                 ];
 
-                $next_mon = $data['next_week']['monday'];
-                $next_tue = $data['next_week']['tuesday'];
-                $next_wed = $data['next_week']['wednesday'];
-                $next_thu = $data['next_week']['thursday'];
-                $next_fri = $data['next_week']['friday'];
-
-                $periods = [
-                    'mon-m1' => [
-                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 08:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 10:00:00')],
-
-                    'mon-m2' => [
-                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 10:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 12:00:00')],
-
-                    'mon-a1' => [
-                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 12:45:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 15:00:00')],
-
-                    'mon-a2' => [
-                        'start' => strtotime(date('Y-m-d', $next_mon) . ' 15:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_mon) . ' 16:57:00')],
-
-                    'tue-m1' => [
-                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 08:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 10:00:00')],
-
-                    'tue-m2' => [
-                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 10:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 12:00:00')],
-
-                    'tue-a1' => [
-                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 12:45:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 15:00:00')],
-
-                    'tue-a2' => [
-                        'start' => strtotime(date('Y-m-d', $next_tue) . ' 15:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_tue) . ' 16:57:00')],
-
-                    'wed-m1' => [
-                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 08:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 10:00:00')],
-
-                    'wed-m2' => [
-                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 10:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 12:00:00')],
-
-                    'wed-a1' => [
-                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 12:45:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 15:00:00')],
-
-                    'wed-a2' => [
-                        'start' => strtotime(date('Y-m-d', $next_wed) . ' 15:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_wed) . ' 16:57:00')],
-
-                    'thu-m1' => [
-                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 08:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 10:00:00')],
-
-                    'thu-m2' => [
-                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 10:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 12:00:00')],
-
-                    'thu-a1' => [
-                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 12:45:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 15:00:00')],
-
-                    'thu-a2' => [
-                        'start' => strtotime(date('Y-m-d', $next_thu) . ' 15:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_thu) . ' 16:57:00')],
-
-                    'fri-m1' => [
-                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 08:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 10:00:00')],
-
-                    'fri-m2' => [
-                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 10:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 12:00:00')],
-
-                    'fri-a1' => [
-                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 12:45:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 15:00:00')],
-
-                    'fri-a2' => [
-                        'start' => strtotime(date('Y-m-d', $next_fri) . ' 15:00:00'),
-                        'end'   => strtotime(date('Y-m-d', $next_fri) . ' 16:57:00')],
-                ];
+                foreach($data['next_week'] as $day)
+                {
+                    $periods[] = 
+                    [
+                        substr($day, 3).'m1' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        ],
+                        substr($day, 3).'m1' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        ],
+                        substr($day, 3).'m1' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        ],
+                        substr($day, 3).'m1' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        ]
+                    ];
+                }
 
             default:
                 $this->isSetPlanningType(NULL);   
@@ -431,8 +249,8 @@ class Home extends BaseController
     /**
      * Displays the current week planning page
      *
-     * @param string $success | Contains a success message, default value : NULL
-     * @param string $error | Contains an error message, default value : NULL
+     * @param string $success Contains a success message, default value : NULL
+     * @param string $error Contains an error message, default value : NULL
      * 
      * @return view 'Helpdesk\planning'
      * 
@@ -516,7 +334,7 @@ class Home extends BaseController
     /**
      * Displays the next week planning page
      *
-     * @param string $success | Contains a success message, default value : NULL
+     * @param string $success Contains a success message, default value : NULL
      * 
      * @return view 'Helpdesk\nw_planning'
      * 
@@ -559,7 +377,7 @@ class Home extends BaseController
     /**
      * Displays the all_presences page
      *
-     * @param string $success | Contains a success message, default value : NULL
+     * @param string $success Contains a success message, default value : NULL
      * 
      * @return view 'Helpdesk\all_presences'
      * 
@@ -626,7 +444,6 @@ class Home extends BaseController
                 'presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2',
             ];
 
-            // TODO : Take Absent state value from database
             // Add default value if the field is empty
             foreach ($form_fields as $field)
             {
@@ -700,7 +517,7 @@ class Home extends BaseController
      * Displays the delete confirm page |
      * Deletes the presence entry
      *
-     * @param int $id_presnece | id of presence entry
+     * @param int $id_presnece ID of presence entry
      * 
      * @return view 'Helpdesk\all_presneces' if entry is deleted, 'Helpdesk\delete_presences' otherwise
      * 
@@ -738,7 +555,7 @@ class Home extends BaseController
      * Displays the add_technician page |
      * Add a technician into a planning
      *
-     * @param int $planning_type | Specifies which planning is being edited
+     * @param int $planning_type Specifies which planning is being edited
      * 
      * @return 'Helpdesk\planning'
      * 
@@ -944,8 +761,8 @@ class Home extends BaseController
      * Displays the update_planning page |
      * Modifies roles assigned to technicans on periods
      *
-     * @param int $planning_type | Specifies which planning is being edited
-     * @param string $error | Contains an error message, default value : NULL
+     * @param int $planning_type Specifies which planning is being edited
+     * @param string $error Contains an error message, default value : NULL
      * 
      * @return view 'Helpdesk\update_planning'
      * 
@@ -1152,21 +969,14 @@ class Home extends BaseController
     /**
      * [DOES NOT HAVE AN ACTUAL USE FOR NOW] Displays the menu of a technician
      *
-     * @param int $user_id | ID of currently logged user
-     * // TODO : Delete $planning_type parameter
-     * @param int $planning_type | Specifies from which planning the user came from 
+     * @param int $user_id ID of currently logged user
      * 
      * @return view 'Helpdesk\technician_menu'
      * 
      */
-    public function technicianMenu($user_id, $planning_type)
+    public function technicianMenu($user_id)
     {
         $this->isUserLogged();
-
-        $this->isSetPlanningType($planning_type);
-
-        // Create variable for planning_type to use it in view
-        $data['planning_type'] = $planning_type;
 
         // Get user data
         $data['user'] = $this->user_data_model->getUserData($user_id);
@@ -1182,8 +992,8 @@ class Home extends BaseController
      * Displays the delete confirm page |
      * Delete a technician form a planning
      *
-     * @param int $user_id | ID of deleted technician
-     * @param int $planning_type | Specifies which planning is being edited
+     * @param int $user_id ID of deleted technician
+     * @param int $planning_type Specifies which planning is being edited
      * 
      * @return view 'Helpdesk\planning' (or nw_planning, depending of $planning_type) if entry is deleted, 'Helpdesk\delete_technician' otherwise
      * 
@@ -1246,7 +1056,7 @@ class Home extends BaseController
     /**
      * Displays the holiday list page
      *
-     * @param string $success | Contains a success message, default value : NULL
+     * @param string $success Contains a success message, default value : NULL
      * 
      * @return view 'Heldesk\holidays'
      * 
@@ -1274,7 +1084,7 @@ class Home extends BaseController
      * Display the add_holiday page |
      * Adds or modifies a holiday entry
      * 
-     * @param int $id_holiday | Id of the holiday, default value = 0
+     * @param int $id_holiday ID of the holiday, default value = 0
      *
      * @return view 'Helpdesk\add_holidays' until holiday period has been edited. After edit, returns 'Helpdesk\holidays'
      */
@@ -1407,7 +1217,7 @@ class Home extends BaseController
      * Displays the delete confirm page |
      * Deletes the vacation entry
      *
-     * @param int $id_holiday | Id of the holiday
+     * @param int $id_holiday ID of the holiday
      * 
      * @return view 'Helpdesk\holidays' if entry is deleted, 'Helpdesk\delete_holiday' otherwise
      * 

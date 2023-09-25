@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Model for tbl_planning table
+ * Model for tbl_nw_planning table
  *
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -40,12 +40,12 @@ class Nw_planning_model extends \CodeIgniter\Model
     }
 
     
-    /*
-    ** getPlanningData function
-    **
-    ** Get all planning data
-    **
-    */
+    /**
+     * Get all planning data from next week
+     * 
+     * @return array $nw_planning_data
+     * 
+     */
     public function getNwPlanningData()
     {
         // Retrieve all planning data
@@ -55,12 +55,12 @@ class Nw_planning_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** getPlanningDataByUser function
-    **
-    ** Get all users having a planning
-    **
-    */
+    /**
+     * Get all users having a role in next week planning
+     * 
+     * @return array $nw_planning_data_by_user
+     * 
+     */
     public function getNwPlanningDataByUser()
     {
         // Join with "tbl_user_data" and "user" tables to retrieve both planning and user data
@@ -73,12 +73,14 @@ class Nw_planning_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** checkUserOwnsPlanning function
-    **
-    ** Check if a user owns a planning
-    **
-    */ 
+    /**
+     * Check if a user has a role in the next week planning (if he has a nw_planning entry)
+     * 
+     * @param int $user_id ID of a specific user
+     * 
+     * @return array $data[error], if user already have a planning entry
+     * 
+     */ 
     public function checkUserOwnsNwPlanning($user_id)
     {
         // Retrieve user's ID from the user's planning data, if it exists
@@ -97,12 +99,14 @@ class Nw_planning_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** getPlanningId function
-    **
-    ** Get the planning ID of a specific user
-    **
-    */
+    /**
+     * Get the planning ID of a specific user planning entry
+     * 
+     * @param int $user_id ID of a specific user
+     * 
+     * @return array $nw_planning_data
+     * 
+     */
     public function getNwPlanning($user_id)
     {
         $nw_planning_data = $this->where('fk_user_id', $user_id)->first();

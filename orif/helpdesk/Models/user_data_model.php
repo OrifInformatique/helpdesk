@@ -31,12 +31,12 @@ class User_Data_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
-    /*
-    ** getUsersData function
-    **
-    ** Get all data about all users
-    **
-    */
+    /**
+     * Get all data about all users
+     * 
+     * @return array $users_data
+     * 
+     */
     public function getUsersData()
     {
         // Join with "tbl_user_data" table, to retrieve all user data
@@ -45,12 +45,14 @@ class User_Data_model extends \CodeIgniter\Model
         return $users_data;
     }
 
-    /*
-    ** getUserData function
-    **
-    ** Get data from specified user
-    **
-    */
+    /**
+     * Get data from specified user
+     * 
+     * @param int $user_id ID of a specific user
+     * 
+     * @return array $user_data
+     * 
+     */
     public function getUserData($user_id)
     {
         // Join with "tbl_user_data" table, to retrieve all user data

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Model for tbl_planning table
+ * Model for tbl_holidays table
  *
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -32,12 +32,12 @@ class Holidays_model extends \CodeIgniter\Model
     }
 
     
-    /*
-    ** getHolidays function
-    **
-    ** Get all holidays data
-    **
-    */
+    /**
+     * Get all holidays data
+     *
+     * @return array $holidays_data
+     * 
+     */
     public function getHolidays()
     {
         // Retrieve all holidays data, ordered by date
@@ -47,12 +47,14 @@ class Holidays_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** getHolidays function
-    **
-    ** Get a specific holiday entry
-    **
-    */
+    /**
+     * Get a specific holiday entry
+     * 
+     * @param int $id_holiday ID of a specific holiday entry
+     * 
+     * @return array $holiday_data
+     * 
+     */
     public function getHoliday($id_holiday)
     {
         // Retrieve holiday entry
@@ -61,12 +63,12 @@ class Holidays_model extends \CodeIgniter\Model
         return $holiday_data;
     }
 
-    /*
-    ** areWeInHolidays function
-    **
-    ** Get a specific holiday entry
-    **
-    */
+    /**
+     * Checks if we are in a holiday period
+     * 
+     * @return bool $return
+     * 
+     */
     public function areWeInHolidays()
     {
         // Récupérer les données des vacances

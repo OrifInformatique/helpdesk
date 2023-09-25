@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Model for tbl_planning table
+ * Model for tbl_lw_planning table
  *
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -40,12 +40,12 @@ class Lw_planning_model extends \CodeIgniter\Model
     }
 
     
-    /*
-    ** getPlanningData function
-    **
-    ** Get all planning data
-    **
-    */
+    /**
+     * Get all planning data from last week
+     * 
+     * @return array lw_planning_data
+     * 
+     */
     public function getPlanningData()
     {
         // Retrieve all planning data
@@ -55,12 +55,12 @@ class Lw_planning_model extends \CodeIgniter\Model
     }
 
 
-    /*
-    ** getPlanningDataByUser function
-    **
-    ** Get all users having a planning
-    **
-    */
+    /**
+     * Get all users having a role in last week planning
+     *
+     * @return array $lw_planning_data_by_user
+     * 
+     */
     public function getPlanningDataByUser()
     {
         // Join with "tbl_user_data" and "user" tables to retrieve both planning and user data
