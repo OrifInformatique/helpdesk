@@ -52,7 +52,7 @@
                                     break;
 
                                 case 1:
-                                    echo date('d/m/Y', strtotime('next monday'));
+                                    echo date('d/m/Y', $_SESSION['helpdesk']['next_week']['monday']);
                                     break;
                             }
                         ?>
@@ -66,7 +66,7 @@
                                     break;
 
                                 case 1:
-                                    echo date('d/m/Y', $next_week['friday']);
+                                    echo date('d/m/Y', $_SESSION['helpdesk']['next_week']['friday']);
                                     break;
                             }
                         ?>
@@ -101,11 +101,11 @@
                         <?php case 1: ?>
                             <tr>
                                 <th></th>
-                                <th colspan="4"><?= lang('Helpdesk.monday').' '.date('d', $next_week['monday']); ?></th>
-                                <th colspan="4"><?= lang('Helpdesk.tuesday').' '.date('d', $next_week['tuesday']); ?></th>
-                                <th colspan="4"><?= lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
-                                <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
-                                <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.monday').' '.date('d', $_SESSION['helpdesk']['next_week']['monday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.tuesday').' '.date('d', $_SESSION['helpdesk']['next_week']['tuesday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.wednesday').' '.date('d', $_SESSION['helpdesk']['next_week']['wednesday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', $_SESSION['helpdesk']['next_week']['thursday']); ?></th>
+                                <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', $_SESSION['helpdesk']['next_week']['friday']); ?></th>
                                 <th></th>
                             </tr>
                         <?php break;?>

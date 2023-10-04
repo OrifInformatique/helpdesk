@@ -51,12 +51,12 @@
                 <?= lang('Helpdesk.planning_of_week')?>
                 <span class="start-date">
                     <!-- Displays the next monday -->
-                    <?= date('d/m/Y', $next_week['monday']); ?>
+                    <?= date('d/m/Y', $_SESSION['helpdesk']['next_week']['monday']); ?>
                 </span>
                 <?= lang('Helpdesk.to')?>
                 <span class="end-date">
                     <!-- Displays the next friday -->
-                    <?= date('d/m/Y', $next_week['friday']); ?>
+                    <?= date('d/m/Y', $_SESSION['helpdesk']['next_week']['friday']); ?>
                 </span>
             </div>
 
@@ -75,11 +75,11 @@
             <thead>
                 <tr>
                     <th></th>
-                    <th colspan="4"><?= lang('Helpdesk.monday').' '.date('d', $next_week['monday']); ?></th>
-                    <th colspan="4"><?= lang('Helpdesk.tuesday').' '.date('d', $next_week['tuesday']); ?></th>
-                    <th colspan="4"><?= lang('Helpdesk.wednesday').' '.date('d', $next_week['wednesday']); ?></th>
-                    <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', $next_week['thursday']); ?></th>
-                    <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', $next_week['friday']); ?></th>
+                    <th colspan="4"><?= lang('Helpdesk.monday').' '.date('d', $_SESSION['helpdesk']['next_week']['monday']); ?></th>
+                    <th colspan="4"><?= lang('Helpdesk.tuesday').' '.date('d', $_SESSION['helpdesk']['next_week']['tuesday']); ?></th>
+                    <th colspan="4"><?= lang('Helpdesk.wednesday').' '.date('d', $_SESSION['helpdesk']['next_week']['wednesday']); ?></th>
+                    <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', $_SESSION['helpdesk']['next_week']['thursday']); ?></th>
+                    <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', $_SESSION['helpdesk']['next_week']['friday']); ?></th>
                 </tr>
                 <tr>
                     <th><?= lang('Helpdesk.technician')?></th>
@@ -107,7 +107,7 @@
                                 </a>
                             </th>
 
-                            <?php foreach ($nw_periods as $period): ?>
+                            <?php foreach ($_SESSION['helpdesk']['nw_periods'] as $period): ?>
                                 <td class="<?= $user[$period] == 0 ? '' : ($user[$period] == 1 ? 'bg-green' : ($user[$period] == 2 ? 'bg-light-green' : 'bg-orange')); ?>">
                                     <?= $user[$period]; ?>
                                 </td>

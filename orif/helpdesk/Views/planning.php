@@ -107,7 +107,7 @@
                                 </a>
                             </th>
 
-                            <?php foreach ($periods as $period): ?>
+                            <?php foreach ($_SESSION['helpdesk']['cw_periods'] as $period): ?>
                                 <td class="<?= $user[$period] == 0 ? '' : ($user[$period] == 1 ? 'bg-green' : ($user[$period] == 2 ? 'bg-light-green' : 'bg-orange')); ?>">
                                     <?= $user[$period]; ?>
                                 </td>

@@ -56,9 +56,62 @@ class Home extends BaseController
      */
     public function index()
     {
-        // TODO : Set often used variables as session variables to prevent code duplication
-
+        $this->setSessionVariables();
+        
         return $this->planning();
+    }
+    
+    
+    /**
+     * Set often used variables in session for global access
+     * 
+     * @return void
+     * 
+     */
+    public function setSessionVariables()
+    {
+        if(!isset($_SESSION['helpdesk']['next_week']) ||
+            !isset($_SESSION['helpdesk']['cw_periods']) ||
+            !isset($_SESSION['helpdesk']['nw_periods']))
+        {
+            // Reference for next week table
+            $next_monday = strtotime('next monday');
+
+            $_SESSION['helpdesk'] =
+            [
+                // Weekdays table for dates
+                'next_week' =>
+                [
+                    'monday' => $next_monday,
+                    'tuesday' => strtotime('+1 day', $next_monday),
+                    'wednesday' => strtotime('+2 days', $next_monday),
+                    'thursday' => strtotime('+3 days', $next_monday),
+                    'friday' => strtotime('+4 days', $next_monday)
+                ],
+
+                // Current week (cw) planning periods SQL names
+                'cw_periods' => 
+                [
+                    'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
+                    'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
+                    'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
+                    'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
+                    'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
+                ],
+
+                /// Next week (nw) planning periods SQL names
+                'nw_periods' =>
+                [
+                    'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
+                    'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
+                    'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
+                    'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
+                    'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
+                ],
+            ];
+        }
+
+        // Else, don't do anything
     }
 
 
@@ -75,7 +128,7 @@ class Home extends BaseController
         {
             // Rediriect to the login page
             // NB : PHP header() native function is used because CI functions redirect() and display_view() don't work here for some reason
-            return header("Location: " . base_url('user/auth/login'));
+            header("Location: " . base_url('user/auth/login'));
             exit();
         }
 
@@ -95,7 +148,7 @@ class Home extends BaseController
     {
         if(!isset($planning_type))
         {
-            $planning_type = NULL;
+            unset($planning_type);
 
             // Error message
             $error = lang('Helpdesk.err_unfound_planning_type');
@@ -148,7 +201,7 @@ class Home extends BaseController
      */
     public function choosePeriods($planning_type)
     {
-        $periods =[];
+        $periods = [];
 
         $weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 
@@ -157,87 +210,80 @@ class Home extends BaseController
             case -1:
                 foreach($weekdays as $day)
                 {
-                    $periods[] = 
+                    $periods += 
                     [
-                        substr($day, 3).'m1' => [
+                        substr($day, 0, 3).'-m1' => [
                             'start' => strtotime($day.' last week 08:00:00'),
                             'end' => strtotime($day.' last week 10:00:00')
                         ],
-                        substr($day, 3).'m2' => [
+                        substr($day, 0, 3).'-m2' => [
                             'start' => strtotime($day.' last week 10:00:00'),
                             'end' => strtotime($day.' last week 12:00:00')
                         ],
-                        substr($day, 3).'a1' => [
+                        substr($day, 0, 3).'-a1' => [
                             'start' => strtotime($day.' last week 12:45:00'),
                             'end' => strtotime($day.' last week 15:00:00')
                         ],
-                        substr($day, 3).'a2' => [
+                        substr($day, 0, 3).'-a2' => [
                             'start' => strtotime($day.' last week 15:00:00'),
                             'end' => strtotime($day.' last week 16:57:00')
                         ]
                     ];
                 }
 
+                break;
+
             case 0:
                 foreach($weekdays as $day)
                 {
-                    $periods[] = 
+                    $periods += 
                     [
-                        substr($day, 3).'m1' => [
+                        substr($day, 0, 3).'-m1' => [
                             'start' => strtotime($day.' this week 08:00:00'),
                             'end' => strtotime($day.' this week 10:00:00')
                         ],
-                        substr($day, 3).'m2' => [
+                        substr($day, 0, 3).'-m2' => [
                             'start' => strtotime($day.' this week 10:00:00'),
                             'end' => strtotime($day.' this week 12:00:00')
                         ],
-                        substr($day, 3).'a1' => [
+                        substr($day, 0, 3).'-a1' => [
                             'start' => strtotime($day.' this week 12:45:00'),
                             'end' => strtotime($day.' this week 15:00:00')
                         ],
-                        substr($day, 3).'a2' => [
+                        substr($day, 0, 3).'-a2' => [
                             'start' => strtotime($day.' this week 15:00:00'),
                             'end' => strtotime($day.' this week 16:57:00')
                         ]
                     ];
                 }
 
-            case 1:
-                // Reference for next week table
-                $next_monday = strtotime('next monday');
-                
-                // Weekdays table for dates
-                $data['next_week'] =
-                [
-                    'monday' => $next_monday,
-                    'tuesday' => strtotime('+1 day', $next_monday),
-                    'wednesday' => strtotime('+2 days', $next_monday),
-                    'thursday' => strtotime('+3 days', $next_monday),
-                    'friday' => strtotime('+4 days', $next_monday)
-                ];
+                break;
 
-                foreach($data['next_week'] as $day)
+            case 1:
+                foreach($_SESSION['helpdesk']['next_week'] as $day)
                 {
-                    $periods[] = 
+                    $periods += 
                     [
-                        substr($day, 3).'m1' => [
+                        substr($day, 0, 3).'-m1' => [
                             'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
                             'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
                         ],
-                        substr($day, 3).'m1' => [
+                        substr($day, 0, 3).'-m2' => [
                             'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
                             'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
                         ],
-                        substr($day, 3).'m1' => [
+                        substr($day, 0, 3).'-a1' => [
                             'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
                             'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
                         ],
-                        substr($day, 3).'m1' => [
+                        substr($day, 0, 3).'-a2' => [
                             'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
                             'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
                         ]
                     ];
                 }
+
+                break;
 
             default:
                 $this->isSetPlanningType(NULL);   
@@ -245,6 +291,7 @@ class Home extends BaseController
 
         return $periods;
     }
+
 
     /**
      * Displays the current week planning page
@@ -271,16 +318,6 @@ class Home extends BaseController
 
         // Retrieves users having a planning
         $data['planning_data'] = $this->planning_model->getPlanningDataByUser();
-
-        // Presences table
-        $data['periods'] = 
-        [
-            'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
-            'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
-            'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
-            'planning_thu_m1', 'planning_thu_m2', 'planning_thu_a1', 'planning_thu_a2',
-            'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
-        ];
 
         // Get names, stard and end dates for each period of current week
         $periods = $this->choosePeriods(0); // 0 stands for current week
@@ -349,16 +386,6 @@ class Home extends BaseController
 
         // Retrieves users having a planning, from next week
         $data['nw_planning_data'] = $this->nw_planning_model->getNwPlanningDataByUser();
-
-        // Presences table
-        $data['nw_periods'] = 
-        [
-            'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
-            'nw_planning_tue_m1', 'nw_planning_tue_m2', 'nw_planning_tue_a1', 'nw_planning_tue_a2',
-            'nw_planning_wed_m1', 'nw_planning_wed_m2', 'nw_planning_wed_a1', 'nw_planning_wed_a2',
-            'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
-            'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
-        ];
     
         // Get names, stard and end dates for each period of next week
         $periods = $this->choosePeriods(1); // 1 stands for next week
@@ -557,7 +584,7 @@ class Home extends BaseController
      *
      * @param int $planning_type Specifies which planning is being edited
      * 
-     * @return 'Helpdesk\planning'
+     * @return view 'Helpdesk\planning'
      * 
      */
     function addTechnician($planning_type)
@@ -580,16 +607,6 @@ class Home extends BaseController
 
         // Retrieve all users data from database
         $data['users'] = $this->user_data_model->getUsersData();
-
-        // Table to identify presences on next page
-        $data['periods'] = 
-        [
-            'planning_mon_m1','planning_mon_m2','planning_mon_a1','planning_mon_a2',
-            'planning_tue_m1','planning_tue_m2','planning_tue_a1','planning_tue_a2',
-            'planning_wed_m1','planning_wed_m2','planning_wed_a1','planning_wed_a2',
-            'planning_thu_m1','planning_thu_m2','planning_thu_a1','planning_thu_a2',
-            'planning_fri_m1','planning_fri_m2','planning_fri_a1','planning_fri_a2',
-        ];
 
         // If data is sent
         if (!empty($_POST)) 
@@ -782,28 +799,12 @@ class Home extends BaseController
         switch($planning_type)
         {
             case 0:
-                // Form fields table
-                $form_fields_data = 
-                [
-                    'planning_mon_m1','planning_mon_m2','planning_mon_a1','planning_mon_a2',
-                    'planning_tue_m1','planning_tue_m2','planning_tue_a1','planning_tue_a2',
-                    'planning_wed_m1','planning_wed_m2','planning_wed_a1','planning_wed_a2',
-                    'planning_thu_m1','planning_thu_m2','planning_thu_a1','planning_thu_a2',
-                    'planning_fri_m1','planning_fri_m2','planning_fri_a1','planning_fri_a2',
-                ];
+                $form_fields_data = $_SESSION['helpdesk']['cw_periods'];
 
                 break;
 
             case 1:
-                // Form fields table
-                $form_fields_data = 
-                [
-                    'nw_planning_mon_m1','nw_planning_mon_m2','nw_planning_mon_a1','nw_planning_mon_a2',
-                    'nw_planning_tue_m1','nw_planning_tue_m2','nw_planning_tue_a1','nw_planning_tue_a2',
-                    'nw_planning_wed_m1','nw_planning_wed_m2','nw_planning_wed_a1','nw_planning_wed_a2',
-                    'nw_planning_thu_m1','nw_planning_thu_m2','nw_planning_thu_a1','nw_planning_thu_a2',
-                    'nw_planning_fri_m1','nw_planning_fri_m2','nw_planning_fri_a1','nw_planning_fri_a2',
-                ];
+                $form_fields_data = $_SESSION['helpdesk']['nw_periods'];
                 
                 break;
 
@@ -863,12 +864,12 @@ class Home extends BaseController
                     $field_value = $technician_planning[$field];
                     
                     // In any role value is incorrect, returns an error
-                    if(!in_array($field_value, [1, 2, 3]))
+                    if(!in_array($field_value, ["", 1, 2, 3]))
                     {
                         // Error message
                         $error = lang('Helpdesk.err_invalid_role');
 
-                        $_POST = NULL;
+                        unset($_POST);
 
                         $this->updatePlanning($planning_type, $error);
                         exit(); // Neccessary to prevent displaying multiple views
@@ -1092,6 +1093,8 @@ class Home extends BaseController
     {
         $this->isUserLogged();
 
+        $error_dates = false;
+
         // If data is sent
         if($_POST)
         {
@@ -1102,7 +1105,7 @@ class Home extends BaseController
                 $end_date = new DateTime($_POST['end_date']);
             }
 
-            catch(\Exception $e)
+            catch(\Exception)
             {
                 $error_dates = true;
             }
@@ -1254,7 +1257,7 @@ class Home extends BaseController
 
 
     /**
-     * Displays the assigned technicians of a certain period on a page |
+     * Displays the assigned technicians of a certain period on a page
      * 
      * @return view 'Helpdesk\terminal'
      * 

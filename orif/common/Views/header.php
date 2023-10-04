@@ -85,8 +85,7 @@
     }
 
     // If the url contains "holidays", adds the holidays stylesheet
-    else if(strpos($current_url, 'holidays') !== false ||
-            strpos($current_url, 'deleteHoliday') !== false)
+    else if(strpos($current_url, 'holidays') !== false)
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/holidays.css").'">';
     }

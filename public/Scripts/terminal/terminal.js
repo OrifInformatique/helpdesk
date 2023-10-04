@@ -1,6 +1,4 @@
 /**
- * changeAvailability
- * 
  * Let the user know that a technician is available or not
  * by clicking the technician card
  * 
@@ -140,8 +138,6 @@ changeAvailability()
 
 
 /**
- * noTechniciansCheck
- * 
  * Checks if there is no technician available at all
  * If it is the case, displays an error message
  * 
@@ -176,8 +172,6 @@ noTechniciansCheck()
 
 
 /**
- * autoRefresh
- * 
  * Auto-refreshes the page after 60 seconds
  * Displays and updates a timer on the page
  * 
