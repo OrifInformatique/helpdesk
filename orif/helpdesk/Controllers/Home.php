@@ -15,12 +15,12 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use DateTime;
 use Psr\Log\LoggerInterface;
-use Helpdesk\Models\Presences_model;
-use Helpdesk\Models\Planning_model;
-use Helpdesk\Models\User_Data_model;
-use Helpdesk\Models\Holidays_model;
-use Helpdesk\Models\Lw_planning_model;
-use Helpdesk\Models\Nw_planning_model;
+use Helpdesk\Models\presences_model;
+use Helpdesk\Models\planning_model;
+use Helpdesk\Models\user_data_model;
+use Helpdesk\Models\holidays_model;
+use Helpdesk\Models\lw_planning_model;
+use Helpdesk\Models\nw_planning_model;
 
 class Home extends BaseController
 {
@@ -37,12 +37,12 @@ class Home extends BaseController
     {
         parent::initController($request, $response, $logger);
         $this->session = \Config\Services::session();
-        $this->presences_model = new Presences_model();
-        $this->planning_model = new Planning_model();
-        $this->lw_planning_model = new Lw_planning_model();
-        $this->nw_planning_model = new Nw_planning_model();
-        $this->user_data_model = new User_Data_model();
-        $this->holidays_model = new Holidays_model();
+        $this->presences_model = new presences_model();
+        $this->planning_model = new planning_model();
+        $this->lw_planning_model = new lw_planning_model();
+        $this->nw_planning_model = new nw_planning_model();
+        $this->user_data_model = new user_data_model();
+        $this->holidays_model = new holidays_model();
 
         helper('form');
     }

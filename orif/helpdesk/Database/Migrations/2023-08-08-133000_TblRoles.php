@@ -29,6 +29,10 @@ class AddRoles extends Migration
 
         $this->forge->createTable('tbl_roles');
 
+        $seeder=\Config\Database::seeder();
+
+        $seeder->call('\Helpdesk\Database\Seeds\InsertRolesData');
+
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 

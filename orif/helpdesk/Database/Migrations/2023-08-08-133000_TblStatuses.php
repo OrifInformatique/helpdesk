@@ -18,16 +18,20 @@ class AddStatuses extends Migration
                 'auto_increment' => true,
             ],
 
-            'intitule_status' => [
-                'type'           => 'VARCHAR',
-                'constraint'     => 50,
-                'null'       => true,
+            'title_status' => [
+                'type'          => 'VARCHAR',
+                'constraint'    => 50,
+                'null'          => true,
             ],
         ]);
 
         $this->forge->addKey('id_status', true);
 
         $this->forge->createTable('tbl_statuses');
+
+        $seeder=\Config\Database::seeder();
+
+        $seeder->call('\Helpdesk\Database\Seeds\InsertStatusesData');
 
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }

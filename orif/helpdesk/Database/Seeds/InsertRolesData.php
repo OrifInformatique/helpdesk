@@ -1,10 +1,10 @@
 <?php
 
-namespace User\Database\Seeds;
+namespace Helpdesk\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class InsertRolesDatas extends Seeder
+class InsertRolesData extends Seeder
 {
     public function run()
     {
