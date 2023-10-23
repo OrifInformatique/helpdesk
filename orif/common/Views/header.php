@@ -61,6 +61,7 @@
     if(substr($current_url, -8) === "terminal") 
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/terminal/terminal.css").'">';
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';
     }
 
     // If the url ends with "planning" or "public", or contains "updatePlanning" or "addTechnician", adds the planning stylesheet

@@ -2,6 +2,8 @@
  * Let the user know that a technician is available or not
  * by clicking the technician card
  * 
+ * @return void
+ * 
  */
 function changeAvailability()
 {   
@@ -138,8 +140,10 @@ changeAvailability()
 
 
 /**
- * Checks if there is no technician available at all
- * If it is the case, displays an error message
+ * Checks if there is no technician available at all.
+ * If it is the case, displays an error message.
+ * 
+ * @return void
  * 
  */
 function noTechniciansCheck()
@@ -171,12 +175,6 @@ noTechniciansCheck()
 
 
 
-/**
- * Auto-refreshes the page after 60 seconds
- * Displays and updates a timer on the page
- * 
- */
-
 // Set timer value (in seconds)
 let timer = 60
 
@@ -186,12 +184,18 @@ let timerText = document.querySelector(".timer")
 // Get the link to redirect
 let reloadPage = document.getElementById('reload-page-data').dataset.reloadPage;
 
+/**
+ * Auto-refreshes the page after 60 seconds.
+ * Displays and updates a timer on the page.
+ * 
+ * @return void
+ * 
+ */
 function autoRefresh()
 {
-    // Displays the text on the page
+    // Displays the timer on the page
     timerText.innerHTML = timer
 
-    // Reduces the timer by 1
     timer--
 
     // If time's up, refesh the page and resets the timer
@@ -203,5 +207,5 @@ function autoRefresh()
 }
 autoRefresh()
 
-// Repeats the function exery second
+// Repeats the function every second
 let interval = setInterval(autoRefresh, 1000)

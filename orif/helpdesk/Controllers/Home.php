@@ -634,8 +634,21 @@ class Home extends BaseController
                 // If $data['error'] is empty, means that the user don't have a schedule
                 if (empty($data['error'])) 
                 {
-                    // Form fields table
-                    $form_fields_data = $data['periods'];
+                    $form_fields_data = [];
+
+                    switch ($planning_type)
+                    {
+                        case 0:
+                            $form_fields_data = $_SESSION['helpdesk']['cw_periods'];
+                            break;
+
+                        case 1:
+                            $form_fields_data = $_SESSION['helpdesk']['nw_periods'];
+                            break;
+                        
+                        default:
+                            $this->isSetPlanningType(NULL);
+                    }
 
                     // Variable for empty fields count
                     $emptyFields = 0;
@@ -1263,9 +1276,7 @@ class Home extends BaseController
      * 
      */
     public function terminal()
-    {
-        $this->isUserLogged();
-        
+    {        
         $data = [];
 
         $isDayOff = $this->holidays_model->areWeInHolidays();
@@ -1285,7 +1296,7 @@ class Home extends BaseController
             [
                 'day'       => substr(strtolower(date('l', time())), 0, 3), // Keeps only the 3 first chars of weekday
                 'period'    => '', // Will be set later
-                'hh:mm'     => strtotime(date('H:i', time())), // time, converted to time for comparisons
+                'hh:mm'     => strtotime(date('H:i', time())), // time, converted to date, then in time for comparisons
             ];
 
             // Determines on which period we actually are
@@ -1318,15 +1329,11 @@ class Home extends BaseController
                 $sql_name_period = 'planning_'.$time['day'].'_'.$time['period'];
 
                 // Retrieves the technicians that are assigned to this period
-                $technicians_data = $this->planning_model->getTechniciansOnPeriod($sql_name_period);
-
-                $data['technicians'] = $technicians_data;
+                $data['technicians'] = $this->planning_model->getTechniciansOnPeriod($sql_name_period);
                 
                 $data['period'] = $sql_name_period;
             }
         }
-
-        // Otherwise, will display the terminal page with an error
 
         //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
 

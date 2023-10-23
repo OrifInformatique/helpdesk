@@ -41,7 +41,7 @@
         <?php $i = 1 ?>
         <?php foreach($technicians as $technician): ?>
             <div class="technician-sheet technician-<?= $i ?>-card d-flex justify-content-center">
-                <div class="technician-<?= $i ?>-unavailable-text unavailable-text hidden"><?= lang('Helpdesk.unavailable')?></div>
+                <p class="technician-<?= $i ?>-unavailable-text unavailable-text hidden"><?= lang('Helpdesk.unavailable')?></p>
                 <div class="role">
                     <p>
                         <?php switch($technician[$period])
@@ -60,7 +60,7 @@
                     </p>
                 </div>
 
-                <div class="technician-picture">
+                <div>
                     <img src="<?= $technician['photo_user_data'] ?>" alt="<?= lang('Helpdesk.alt_photo_technician') ?>">
                 </div>
 

@@ -6,10 +6,11 @@
 .terminal-display
 {
     display: flex;
+    height: 98%;
     justify-content: center;
+    align-items: center;
     flex-direction: row;
     position: absolute;
-    top: 30%;
     user-select: none;
 }
 
@@ -19,16 +20,15 @@
     position: relative;
     flex-direction: column;
     background-color: var(--lighter-gray);
-    width: 360px;
-    height: 550px;
+    width: 350px;
+    height: 530px;
     margin: 15px;
-    padding: 5px;
-    transition-duration: 0.3s;
+    transition-duration: 0.5s;
 }
 
 .technician-sheet:hover
 {
-    transform: scale(1.05);
+    /* transform: scale(1.05); */
 }
 
 .role, .identity
@@ -46,8 +46,8 @@
 .terminal-display img
 {
     margin: 100px 0 40px 0;
-    width: 325px;
-    height: 325px;
+    width: 305px;
+    height: 305px;
     border: 2px solid var(--gray);
     border-radius: 50%;
     pointer-events: none;
@@ -56,7 +56,7 @@
 .no-technician
 {
     position: fixed;
-    top: 50%;
+    top: 49%;
     text-align: center;
     font-size: 2em;
     color: var(--white);
@@ -64,40 +64,39 @@
     background-color: var(--red);
     border-radius: 10px;
     padding: 3px 15px;
-    z-index: 5;
+    z-index: 2;
     margin: 0 30px;
 }
 
 .unavailable
 {
-    transform: scale(0.5);
-    transform: translateY(150px);
+    transform: scale(0.8);
     transition-duration: 0.5s;
-    filter: grayscale(0%);
-    filter: opacity(40%);
+    filter: opacity(30%);
+}
+
+.unavailable *
+{
+    filter: grayscale(100%);
+    transition-duration: 0.8s;
 }
 
 .unavailable:hover
 {
-    transform: scale(0.6);
-    transform: translateY(125px);
-    filter: opacity(60%);
-}
-
-.unavailable img
-{
-    margin-top: 123px;
+    /* transform: translateY(0px);
+    transform: scale(0.85);
+    filter: opacity(60%); */
 }
 
 .unavailable-text
 {
-    margin-top: -60px;
     font-weight: bold;
     background-color: var(--light-gray);
-    padding: 6px;
+    padding: 10px;
     border-radius: 5px;
-    font-size: 1.1em;
-    filter: opacity(100%);
+    font-size: 2em;
+    position: absolute;
+    z-index: 1;
 }
 
 .hidden
@@ -112,7 +111,8 @@
     display: flex;
     justify-content: center;
     position: fixed;
-    bottom: 5%;
+    bottom: 7%;
+    user-select: none;
 }
 
 span
@@ -121,39 +121,44 @@ span
     font-size: 1.15em;
 }
 
+/**
+ * Disables the cursor on terminal screen
+ *
+ */
+@media screen and (width: 1280px) and (height: 720px)
+{
+    *
+    {
+        cursor: none;
+    }
+}
+
+/**
+ * Adjusts UI on mobile devices
+ *
+ */
 @media screen and (max-width: 1150px)
 {
     .terminal-display
     {
+        height: fit-content;
         flex-direction: column;
         align-items: center;
         top: 5%;
     }
 
-    .unavailable
-    {
-        transform: translateY(0px);
-        transform: scale(0.8);
-    }
-
-    .unavailable:hover
-    {
-        transform: translateY(0px);
-        transform: scale(0.85);
-    }
-
-    .unavailable-text
-    {
-        margin-top: 0;
-        position: fixed;
-        top: 50%;
-        z-index: 1;
-        transform: scale(1.5);
-    }
-
     .auto-refresh-timer
     {
+        height: fit-content;
         top: 2%;
+        z-index: 2;
+    }
+
+    .auto-refresh-timer p
+    {
+        background-color: var(--light-gray);
+        border-radius: 8px;
+        padding: 8px;
     }
 
     .no-technician

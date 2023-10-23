@@ -127,7 +127,7 @@ return[
 
     'technician_menu'           => 'Que souhaitez-vous faire avec le technicien ',
 
-    'no_technician_available'   => 'Aucun technicien n\'est disponible pour le moment. Veuillez revenir ultérieurement.',
+    'no_technician_available'   => 'Aucun technicien n\'est disponible.',
 
     'alt_photo_technician'      => 'Photo de face du technicien',
 
