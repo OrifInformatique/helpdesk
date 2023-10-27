@@ -46,6 +46,27 @@ class Terminal_model extends \CodeIgniter\Model
         return $terminal_data;
     }
 
+
+    /**
+     * Updates an availability
+     * 
+     * @param int $id Role updated
+     * @param bool $value Determines whether the technician is available or not
+     * 
+     * @return void
+     * 
+     */
+    public function updateAvailability($id, $value)
+    {
+        $data =
+        [
+            'tech_available_terminal' => $value
+        ];
+
+        $this->update($id, $data);
+    }
+
+
     /**
      * Resets availabilities with default values
      * 
@@ -54,11 +75,11 @@ class Terminal_model extends \CodeIgniter\Model
      */
     public function resetAvailabilities()
     {
-        $technicians_availability = 
+        $data = 
         [
             'tech_available_terminal' => "true"
         ];
 
-        $this->update([1,2,3], $technicians_availability);
+        $this->update([1,2,3], $data);
     }
 }

@@ -58,7 +58,8 @@
     $current_url = $_SERVER['REQUEST_URI'];
 
     // If the url ends with "terminal", adds the terminal stylesheet
-    if(substr($current_url, -8) === "terminal") 
+    if(substr($current_url, -8) === "terminal" ||
+        strpos($current_url, "updateTechnicianAvailability"))
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/terminal/terminal.css").'">';
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';

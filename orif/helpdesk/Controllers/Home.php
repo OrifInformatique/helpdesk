@@ -1276,15 +1276,12 @@ class Home extends BaseController
      * Displays the assigned technicians of a certain period on a page
      * 
      * @param string $error Contains an error message, default value : NULL
-     * @param string $data Contains data, default value : NULL
      * 
      * @return view 'Helpdesk\terminal'
      * 
      */
-    public function terminal($error = NULL, $data = NULL)
+    public function terminal($error = NULL)
     {        
-        $data = [];
-
         $isDayOff = $this->holidays_model->areWeInHolidays();
 
         // If there is a error message, it is stored for being displayed on view
@@ -1377,34 +1374,35 @@ class Home extends BaseController
      */
     public function updateTechnicianAvailability($technician_type)
     {
+        $error = NULL;
+
         if(isset($technician_type) && !empty($technician_type))
         {
             $technicians_availability = $this->terminal_model->getTerminalData();
 
-            if(!$technicians_availability)
-            {
-                $this->terminal_model->ResetAvailabilities();
-            }
-
             switch($technician_type)
             {
                 case 1:
-                    $index = 1;
+                    $index = 0;
                     break;
                     
                 case 2:
-                    $index = 2;
+                    $index = 1;
                     break;
                         
                 case 3:
-                    $index = 3;
+                    $index = 2;
                     break;
     
                 default:
                     $error = lang('Helpdesk.err_unvalid_technician_selected');
             }
     
-            $technicians_availability[$index] = !$technicians_availability[$index];
+            !$technicians_availability[$index]['tech_available_terminal'] ? $value = true : $value = false;
+
+            $role = $index+1;
+            
+            $this->terminal_model->updateAvailability($role, $value);
         }
 
         else
@@ -1412,10 +1410,8 @@ class Home extends BaseController
             $error = lang('Helpdesk.err_no_technician_selected');
         }
 
-        $data['technicians_availability'] = $technicians_availability;
-
         // Refreshes the terminal
-        $this->terminal($error, $data);
+        $this->terminal($error);
     }
 
 

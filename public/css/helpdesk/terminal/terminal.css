@@ -24,7 +24,6 @@
     width: 350px;
     height: 530px;
     margin: 15px;
-    /* transition-duration: 0.5s; */
     text-decoration: none;
     color: var(--black);
 }
@@ -74,15 +73,13 @@
 
 .unavailable
 {
-    transform: scale(0.8);
-    /* transition-duration: 0.5s; */
+    transform: scale(0.9);
     filter: opacity(30%);
 }
 
 .unavailable *
 {
     filter: grayscale(100%);
-    /* transition-duration: 0.8s; */
 }
 
 .unavailable-text
@@ -151,17 +148,6 @@ span
         scale: 1.6;
         margin: 0 130px;
     }
-
-    /* .technician-sheet:hover
-    {
-        transform: scale(1.05);
-    }     */
-
-    /* .unavailable:hover
-    {
-        transform: scale(0.85);
-        filter: opacity(60%);
-    } */
 
     .no-technician
     {
