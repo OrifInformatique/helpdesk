@@ -14,6 +14,7 @@
     user-select: none;
 }
 
+
 .technician-sheet
 {
     align-items: center;
@@ -23,7 +24,15 @@
     width: 350px;
     height: 530px;
     margin: 15px;
-    transition-duration: 0.5s;
+    /* transition-duration: 0.5s; */
+    text-decoration: none;
+    color: var(--black);
+}
+
+.technician-sheet:hover
+{
+    text-decoration: none;
+    color: var(--black);
 }
 
 .role, .identity
@@ -66,14 +75,14 @@
 .unavailable
 {
     transform: scale(0.8);
-    transition-duration: 0.5s;
+    /* transition-duration: 0.5s; */
     filter: opacity(30%);
 }
 
 .unavailable *
 {
     filter: grayscale(100%);
-    transition-duration: 0.8s;
+    /* transition-duration: 0.8s; */
 }
 
 .unavailable-text
@@ -143,16 +152,16 @@ span
         margin: 0 130px;
     }
 
-    .technician-sheet:hover
+    /* .technician-sheet:hover
     {
         transform: scale(1.05);
-    }    
+    }     */
 
-    .unavailable:hover
+    /* .unavailable:hover
     {
         transform: scale(0.85);
         filter: opacity(60%);
-    }
+    } */
 
     .no-technician
     {

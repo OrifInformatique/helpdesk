@@ -40,7 +40,7 @@
     <div class="terminal-display container-fluid">
         <?php $i = 1 ?>
         <?php foreach($technicians as $technician): ?>
-            <div class="technician-sheet technician-<?= $i ?>-card d-flex justify-content-center">
+            <a class="technician-sheet technician-<?= $i ?>-card d-flex justify-content-center" href="<?= base_url('helpdesk/home/updateTechnicianAvailability/'.$i) ?>">
                 <p class="technician-<?= $i ?>-unavailable-text unavailable-text hidden"><?= lang('Helpdesk.unavailable')?></p>
                 <div class="role">
                     <p>
@@ -70,7 +70,7 @@
                     </p>
                 </div>
 
-            </div>
+            </a>
             <?php $i++ ?>
         <?php endforeach; ?>
     </div>

@@ -39,6 +39,8 @@ return[
     'err_invalid_role'                              => 'Rôle assigné invalide',
     'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes',
     'err_unfound_planning_type'                     => 'Erreur de planning',
+    'err_no_technician_selected'                    => 'Aucun technicien n\'a été sélectionné',
+    'err_unvalid_technician_selected'               => 'Technicien sélectionné invalide',
 
 
     /*

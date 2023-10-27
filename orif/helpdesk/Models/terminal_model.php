@@ -1,0 +1,64 @@
+<?php
+
+/**
+ * Model for tbl_terminal table
+ *
+ * @author      Orif (DeDy)
+ * @link        https://github.com/OrifInformatique
+ * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ */
+
+namespace Helpdesk\Models;
+
+use CodeIgniter\Database\ConnectionInterface;
+use CodeIgniter\Validation\ValidationInterface;
+
+class Terminal_model extends \CodeIgniter\Model
+{
+    protected $table = 'tbl_terminal';
+    protected $primaryKey = 'id_terminal';
+    protected $allowedFields = ['tech_available_terminal'];
+    protected $validationRules;
+    protected $validationMessages;
+
+
+    public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
+    {
+        $this->validationRules = [];
+
+        $this->validationMessages = [];
+
+        parent::__construct($db, $validation);
+    }
+
+    
+    /**
+     * Get all technicans availabilities
+     * 
+     * @return array terminal_data
+     * 
+     */
+    public function getTerminalData()
+    {
+        // Retrieve all planning data
+        $terminal_data = $this->findAll();
+        
+        return $terminal_data;
+    }
+
+    /**
+     * Resets availabilities with default values
+     * 
+     * @return void
+     * 
+     */
+    public function resetAvailabilities()
+    {
+        $technicians_availability = 
+        [
+            'tech_available_terminal' => "true"
+        ];
+
+        $this->update([1,2,3], $technicians_availability);
+    }
+}

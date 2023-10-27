@@ -76,18 +76,15 @@ class Holidays_model extends \CodeIgniter\Model
 
         $current_time = time();
 
-        $return = false;
-
         foreach ($holidays_data as $holiday) 
         {
             // If we are in a day off, return true
             if ($current_time >= strtotime($holiday['start_date_holiday']) && $current_time <= strtotime($holiday['end_date_holiday']))
             {
-                $return = true;
-                break;
+                return true;
             }
         }
 
-        return $return;
+        return false;
     }
 }

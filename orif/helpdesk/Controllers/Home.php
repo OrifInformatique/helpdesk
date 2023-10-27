@@ -21,6 +21,7 @@ use Helpdesk\Models\user_data_model;
 use Helpdesk\Models\holidays_model;
 use Helpdesk\Models\lw_planning_model;
 use Helpdesk\Models\nw_planning_model;
+use Helpdesk\Models\terminal_model;
 
 class Home extends BaseController
 {
@@ -32,6 +33,7 @@ class Home extends BaseController
     protected $nw_planning_model;
     protected $user_data_model;
     protected $holidays_model;
+    protected $terminal_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -43,6 +45,7 @@ class Home extends BaseController
         $this->nw_planning_model = new nw_planning_model();
         $this->user_data_model = new user_data_model();
         $this->holidays_model = new holidays_model();
+        $this->terminal_model = new terminal_model();
 
         helper('form');
     }
@@ -1272,14 +1275,23 @@ class Home extends BaseController
     /**
      * Displays the assigned technicians of a certain period on a page
      * 
+     * @param string $error Contains an error message, default value : NULL
+     * @param string $data Contains data, default value : NULL
+     * 
      * @return view 'Helpdesk\terminal'
      * 
      */
-    public function terminal()
+    public function terminal($error = NULL, $data = NULL)
     {        
         $data = [];
 
         $isDayOff = $this->holidays_model->areWeInHolidays();
+
+        // If there is a error message, it is stored for being displayed on view
+        if(isset($error) && !empty($error))
+        {
+            $data['error'] = $error;
+        }
 
         // Checks whether we are in a holiday period or not | true => in day off ; false = not in day off
         if($isDayOff)
@@ -1333,12 +1345,77 @@ class Home extends BaseController
                 
                 $data['period'] = $sql_name_period;
             }
+
+            /* *************************************************************************************************** */
+
+            // Resets the availabilities on the beginning of new periods
+            if($time['hh:mm'] == strtotime("08:00") ||
+                $time['hh:mm'] == strtotime("10:00") ||
+                $time['hh:mm'] == strtotime("12:45") ||
+                $time['hh:mm'] == strtotime("15:00"))
+            {
+                $this->terminal_model->ResetAvailabilities();
+            }
+
+            $data['technicians_availability'] = $this->terminal_model->getTerminalData();
         }
 
         //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
 
         // Displays the page of the terminal
         $this->display_view('Helpdesk\terminal', $data);
+    }
+
+
+    /**
+     * Changes technician availability on terminal
+     * 
+     * @param int $technician_type Technician updated
+     * 
+     * @return void
+     * 
+     */
+    public function updateTechnicianAvailability($technician_type)
+    {
+        if(isset($technician_type) && !empty($technician_type))
+        {
+            $technicians_availability = $this->terminal_model->getTerminalData();
+
+            if(!$technicians_availability)
+            {
+                $this->terminal_model->ResetAvailabilities();
+            }
+
+            switch($technician_type)
+            {
+                case 1:
+                    $index = 1;
+                    break;
+                    
+                case 2:
+                    $index = 2;
+                    break;
+                        
+                case 3:
+                    $index = 3;
+                    break;
+    
+                default:
+                    $error = lang('Helpdesk.err_unvalid_technician_selected');
+            }
+    
+            $technicians_availability[$index] = !$technicians_availability[$index];
+        }
+
+        else
+        {
+            $error = lang('Helpdesk.err_no_technician_selected');
+        }
+
+        $data['technicians_availability'] = $technicians_availability;
+
+        // Refreshes the terminal
+        $this->terminal($error, $data);
     }
 
 
