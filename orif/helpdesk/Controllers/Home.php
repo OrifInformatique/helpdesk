@@ -11,6 +11,7 @@
 namespace Helpdesk\Controllers;
 
 use App\Controllers\BaseController;
+use CodeIgniter\Database\Exceptions;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use DateTime;
@@ -1281,7 +1282,7 @@ class Home extends BaseController
      * 
      */
     public function terminal($error = NULL)
-    {        
+    {
         $isDayOff = $this->holidays_model->areWeInHolidays();
 
         // If there is a error message, it is stored for being displayed on view
@@ -1328,7 +1329,6 @@ class Home extends BaseController
             
                 default:
                     $time['period'] = NULL;
-                    break;
             }
 
             // If we are in work timetables
@@ -1339,22 +1339,38 @@ class Home extends BaseController
 
                 // Retrieves the technicians that are assigned to this period
                 $data['technicians'] = $this->planning_model->getTechniciansOnPeriod($sql_name_period);
-                
+
                 $data['period'] = $sql_name_period;
+                
+                /* *************************************************************************************************** */
+                
+                // Resets the availabilities on the beginning of new periods
+                if ($time['hh:mm'] == strtotime("08:00") ||
+                    $time['hh:mm'] == strtotime("10:00") ||
+                    $time['hh:mm'] == strtotime("12:45") ||
+                    $time['hh:mm'] == strtotime("15:00"))
+                {
+                    $this->terminal_model->ResetAvailabilities();
+                }
+
+                $roles_assigned = [];
+
+                foreach($data['technicians'] as $technician)
+                {
+                    array_push($roles_assigned, $technician[$sql_name_period]);
+                }
+                
+                for($role = 1; $role <= 3; $role++)
+                {
+                    if(!in_array($role, $roles_assigned))
+                    {
+                        $this->terminal_model->updateAvailability($role, false);
+                    }
+                }
+                
+                $data['technicians_availability'] = $this->terminal_model->getTerminalData();
             }
-
-            /* *************************************************************************************************** */
-
-            // Resets the availabilities on the beginning of new periods
-            if($time['hh:mm'] == strtotime("08:00") ||
-                $time['hh:mm'] == strtotime("10:00") ||
-                $time['hh:mm'] == strtotime("12:45") ||
-                $time['hh:mm'] == strtotime("15:00"))
-            {
-                $this->terminal_model->ResetAvailabilities();
-            }
-
-            $data['technicians_availability'] = $this->terminal_model->getTerminalData();
+            
         }
 
         //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
@@ -1367,7 +1383,7 @@ class Home extends BaseController
     /**
      * Changes technician availability on terminal
      * 
-     * @param int $technician_type Technician updated
+     * @param int $technician_type Role of the technician updated
      * 
      * @return void
      * 
@@ -1397,12 +1413,10 @@ class Home extends BaseController
                 default:
                     $error = lang('Helpdesk.err_unvalid_technician_selected');
             }
-    
-            !$technicians_availability[$index]['tech_available_terminal'] ? $value = true : $value = false;
 
             $role = $index+1;
-            
-            $this->terminal_model->updateAvailability($role, $value);
+
+            $this->terminal_model->updateAvailability($role, !$technicians_availability[$index]['tech_available_terminal']);
         }
 
         else

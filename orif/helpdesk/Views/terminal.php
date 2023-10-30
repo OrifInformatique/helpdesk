@@ -14,12 +14,13 @@
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
 
 <div id="no-technician-available" class="d-flex justify-content-center 
-<?php if($technicians_availability[0]['tech_available_terminal'] == true || 
-        $technicians_availability[1]['tech_available_terminal'] == true || 
-        $technicians_availability[2]['tech_available_terminal'] == true)
-        {
-            echo "hidden";
-        };
+<?php 
+    if($technicians_availability[0]['tech_available_terminal'] == true || 
+    $technicians_availability[1]['tech_available_terminal'] == true || 
+    $technicians_availability[2]['tech_available_terminal'] == true)
+    {
+        echo "hidden";
+    };
 ?>">
     <p class="no-technician"> <?= lang('Helpdesk.no_technician_available')?></p>
 </div>
@@ -45,10 +46,9 @@
 
 <?php if(isset($technicians) && !empty($technicians) && $day_off === false): ?>
     <div class="terminal-display container-fluid">
-        <?php $i = 1 ?>
         <?php foreach($technicians as $technician): ?>
-            <a class="technician-sheet technician-<?= $i ?>-card d-flex justify-content-center <?= $technicians_availability[$i -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?>" href="<?= base_url('helpdesk/home/updateTechnicianAvailability/'.$i) ?>">
-                <p class="technician-<?= $i ?>-unavailable-text unavailable-text <?= $technicians_availability[$i -1]['tech_available_terminal'] == true ? 'hidden' : ''; ?>"><?= lang('Helpdesk.unavailable')?></p>
+            <a class="technician-sheet d-flex justify-content-center <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?>" href="<?= base_url('helpdesk/home/updateTechnicianAvailability/'.$technician[$period]) ?>">
+                <p class="technician-<?= $technician[$period] ?>-unavailable-text unavailable-text <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? 'hidden' : ''; ?>"><?= lang('Helpdesk.unavailable')?></p>
                 <div class="role">
                     <p>
                         <?php switch($technician[$period])
@@ -76,9 +76,7 @@
                         <?= $technician['last_name_user_data'].' '.$technician['first_name_user_data'] ?>
                     </p>
                 </div>
-
             </a>
-            <?php $i++ ?>
         <?php endforeach; ?>
     </div>
 <?php else: ?>
