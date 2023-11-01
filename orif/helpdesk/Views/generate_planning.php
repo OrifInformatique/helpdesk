@@ -2,17 +2,13 @@
 
 /**
  * holiday view
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
-?>
-
-<script src="<?= base_url('Scripts/planningGeneration/text_animation.js')?>" defer></script>
-
-<?php
 if(isset($users))
 {
     foreach($users as $user => $fields)
@@ -23,27 +19,24 @@ if(isset($users))
         {
             echo '<div data-'.$field.'="'.$value.'"></div>';
         }
-        
+
         echo '</div>';
     }
 }
+
 ?>
 
+<script src="<?= base_url('Scripts/planningGeneration/text_animation.js')?>" defer></script>
+
 <div class="container-fluid">
+    <?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
 
-    <!-- Title, if exists -->
-    <?php if(isset($title)){
-        echo ('<h2>' . $title . '</h2>');
-    } ?>
-
-    <!-- Success message, if exists -->
     <?php if(isset($success)): ?>
         <div class="d-flex justify-content-center">
             <?= ('<p class="success">'.$success.'</p>'); ?>
         </div>
     <?php endif; ?>
 
-    <!-- Error message, if exists -->
     <?php if(isset($error)): ?>
         <div class="d-flex justify-content-center">
             <?= ('<p class="error">'.$error.'</p>'); ?>

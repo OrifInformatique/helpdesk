@@ -2,29 +2,24 @@
 
 /**
  * your_presences view
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 ?>
 
 <div class="container-fluid">
+	<?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
 
-	<!-- Title, if exists -->
-	<?php if(isset($title)){
-		echo ('<h2>' . $title . '</h2>');
-	} ?>
-
-	<!-- Success message, if exists -->
 	<?php if(isset($success)): ?>
 		<div class="d-flex justify-content-center">
 			<?= ('<p class="success">'.$success.'</p>'); ?>
 		</div>
 	<?php endif; ?>
 
-	<!-- Error message, if exists -->
 	<?php if(isset($error)): ?>
 		<div class="d-flex justify-content-center">
 			<?= ('<p class="error">'.$error.'</p>'); ?>
@@ -33,12 +28,11 @@
 
 	<?php if(!isset($presences)): ?>
 		<div class="info-text d-flex justify-content-center">
-			<?= lang('Helpdesk.empty_fields_info')?>
+			<?= lang('Helpdesk.info_presences_fields_empty')?>
 		</div>
 	<?php endif; ?>
-	
-	<form method="POST" action="<?= base_url('helpdesk/home/yourPresences') ?>">
 
+	<form method="POST" action="<?= base_url('helpdesk/home/yourPresences') ?>">
 		<?php foreach($weekdays as $day => $periods): ?>
 			<div class="d-flex justify-content-center">
 				<div class="table-responsive">
@@ -60,21 +54,18 @@
 									<td>
 										<div class="container">
 											<label>
-												<input class="input" type="radio" name=<?= $period ?> value="1" 
-												<?php if ((isset($presences[$period])) && $presences[$period] == 1){echo "checked";} ?> 
-												>
+												<input class="input" type="radio" name=<?= $period ?> value="1"
+												<?php if ((isset($presences[$period])) && $presences[$period] == 1){echo "checked";} ?>>
 												<span class="button present"><?= lang('Helpdesk.present')?></span>
 											</label>
 											<label>
 												<input class="input" type="radio" name=<?= $period ?> value="2"
-												<?php if ((isset($presences[$period])) && $presences[$period] == 2){echo "checked";} ?>
-												>
+												<?php if ((isset($presences[$period])) && $presences[$period] == 2){echo "checked";} ?>>
 												<span class="button partly-absent"><?= lang('Helpdesk.partly_absent')?></span>
 											</label>
 											<label>
 												<input class="input" type="radio" name=<?= $period ?> value="3"
-												<?php if ((isset($presences[$period])) && $presences[$period] == 3){echo "checked";} ?>
-												>
+												<?php if ((isset($presences[$period])) && $presences[$period] == 3){echo "checked";} ?>>
 												<span class="button absent"><?= lang('Helpdesk.absent')?></span>
 											</label>
 										</div>
@@ -91,6 +82,5 @@
 			<input class="btn btn-success" type="submit" value="<?= lang('Helpdesk.btn_save')?>">
 			<a class="btn btn-primary" href="<?= base_url('helpdesk/home/allPresences') ?>"><?= lang('Helpdesk.btn_back')?></a>
 		</div>
-		
 	</form>
 </div>

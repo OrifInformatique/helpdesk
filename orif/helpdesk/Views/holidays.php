@@ -2,29 +2,24 @@
 
 /**
  * holiday view
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 ?>
 
 <div class="container-fluid">
+    <?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
 
-    <!-- Title, if exists -->
-    <?php if(isset($title)){
-        echo ('<h2>' . $title . '</h2>');
-    } ?>
-
-    <!-- Success message, if exists -->
     <?php if(isset($success)): ?>
         <div class="d-flex justify-content-center">
             <?= ('<p class="success">'.$success.'</p>'); ?>
         </div>
     <?php endif; ?>
 
-    <!-- Error message, if exists -->
     <?php if(isset($error)): ?>
         <div class="d-flex justify-content-center">
             <?= ('<p class="error">'.$error.'</p>'); ?>
@@ -60,7 +55,7 @@
                 <?php else: ?>
                     <tr>
                         <td colspan="3">
-                            <?= lang('Helpdesk.no_holidays')?>
+                            <?= lang('Helpdesk.err_no_holidays')?>
                         </td>
                     </tr>
                 <?php endif; ?>

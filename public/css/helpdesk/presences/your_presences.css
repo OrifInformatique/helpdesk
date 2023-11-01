@@ -1,4 +1,5 @@
-table {
+table
+{
     width: 870px;
     margin: auto;
 }
@@ -16,7 +17,8 @@ thead tr:nth-child(1) th {
     font-weight: bold;
 }
 
-label {
+label
+{
     display: flex;
     cursor: pointer;
     font-weight: 500;
@@ -25,39 +27,47 @@ label {
     margin-bottom: 0.375em;
 }
 
-label input {
+label input
+{
     position: absolute;
     left: -9999px;
 }
 
-label input:checked+span.present {
+label input:checked+span.present
+{
     background-color: var(--green);
     color: var(--white);
 }
 
-label input:checked+span.present:before {
+label input:checked+span.present:before
+{
     box-shadow: inset 0 0 0 0.4375em var(--dark-green);
 }
 
-label input:checked+span.partly-absent {
+label input:checked+span.partly-absent
+{
     background-color: var(--orange);
     color: var(--white);
 }
 
-label input:checked+span.partly-absent:before {
+label input:checked+span.partly-absent:before
+{
     box-shadow: inset 0 0 0 0.4375em var(--dark-orange);
 }
 
-label input:checked+span.absent {
+label input:checked+span.absent
+{
     background-color: var(--red);
     color: var(--white);
 }
 
-label input:checked+span.absent:before {
+label input:checked+span.absent:before
+{
     box-shadow: inset 0 0 0 0.4375em var(--dark-red);
 }
 
-label span {
+label span
+{
     display: flex;
     align-items: center;
     padding: 0.375em 0.75em 0.375em 0.375em;
@@ -66,11 +76,13 @@ label span {
     color: var(--blue-orif);
 }
 
-label span:hover {
+label span:hover
+{
     background-color: var(--light-blue-orif);
 }
 
-label span:before {
+label span:before
+{
     display: flex;
     flex-shrink: 0;
     content: "";
@@ -114,10 +126,6 @@ label span:before {
     margin: 0 8px;
 }
 
-/*
- * Responsive for small screens
- *
- */
 @media screen and (max-width: 550px) 
 {
     /*

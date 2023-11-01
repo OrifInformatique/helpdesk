@@ -128,7 +128,7 @@ span
 }
 
 /**
- * Applies special behaviors on biiger screens
+ * Applies special behaviors on bigger screens
  *
  */
 @media screen and (min-width: 1850px) and (min-height: 1025px)
@@ -155,10 +155,6 @@ span
     }
 }
 
-/**
- * Adjusts UI on mobile devices
- *
- */
 @media screen and (max-width: 1150px)
 {
     .terminal-display

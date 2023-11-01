@@ -2,37 +2,31 @@
 
 /**
  * update_planning view
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 ?>
 
 <div class="container-fluid">
+    <?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
 
-    <!-- Title, if exists -->
-    <?php if(isset($title)){
-        echo ('<h2>' . $title . '</h2>');
-    } ?>
-
-    <!-- Success message, if exists -->
     <?php if(isset($success)): ?>
         <div class="d-flex justify-content-center">
             <?= ('<p class="success">'.$success.'</p>'); ?>
         </div>
     <?php endif; ?>
 
-    <!-- Error message, if exists -->
     <?php if(isset($error)): ?>
         <div class="d-flex justify-content-center">
             <?= ('<p class="error">'.$error.'</p>'); ?>
         </div>
     <?php endif; ?>
-    
-    <form method="POST" action="<?= base_url('helpdesk/home/updatePlanning/'.$planning_type) ?>">
 
+    <form method="POST" action="<?= base_url('helpdesk/home/updatePlanning/'.$planning_type) ?>">
         <div class="planning">
             <div class="d-flex justify-content-center roles">
                 <div class="bg-green  border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_1')?></div>
@@ -75,15 +69,15 @@
                 <div></div>
             </div>
 
-
-            <table class="table-responsive<?php
-            if(isset($classes))
+            <table class="table-responsive
+            <?php if(isset($classes))
             {
                 foreach($classes as $class)
                 {
                     echo $class;
                 }
-            }?>">
+            }?>
+            ">
             <thead>
                     <?php switch($planning_type)
                     {
@@ -112,9 +106,7 @@
                     <?php } ?>
                     <tr>
                         <th><?= lang('Helpdesk.technician') ?></th>
-                        <?php 
-                        // Repeats timetables 5 times
-                        for($i = 0; $i < 5; $i++): ?>
+                        <?php for($i = 0; $i < 5; $i++): ?>
                             <th>8:00 10:00</th>
                             <th>10:00 12:00</th>
                             <th>12:45 15:00</th>
@@ -123,23 +115,21 @@
                         <th></th>
                     </tr>
                 </thead>
-
                 <tbody>
                     <?php if(isset($planning_data)) : ?>
-                        <?php foreach($planning_data as $planning) : ?>      
+                        <?php foreach($planning_data as $planning) : ?>
                             <tr>
                                 <th>
                                     <?= $planning['last_name_user_data'].'<br>'.$planning['first_name_user_data']; ?>
                                     <input type="hidden" name="planning[<?= $planning['id_planning']; ?>][id_planning]" value="<?= $planning['id_planning']; ?>">
                                     <input type="hidden" name="planning[<?= $planning['id_planning']; ?>][fk_user_id]" value="<?= $planning['fk_user_id']; ?>">
                                 </th>
-                                
-                                <?php foreach ($form_fields_data as $field) : ?>
+
+                                <?php foreach ($form_fields_data as $field): ?>
                                     <td>
                                         <select name="planning[<?= $planning['id_planning']; ?>][<?= $field; ?>]">
                                             <?php
                                             $choices = array('', 1, 2, 3);
-
                                             foreach ($choices as $choice) 
                                             {
                                                 $selected = ($planning[$field] == $choice) ? 'selected' : '';
@@ -160,9 +150,8 @@
                             </td>
                             <td colspan="21"></td>
                         </tr>
-
                     <?php elseif(isset($nw_planning_data)): ?>
-                        <?php foreach($nw_planning_data as $nw_planning) : ?>      
+                        <?php foreach($nw_planning_data as $nw_planning) : ?>
                             <tr>
                                 <th>
                                     <?= $nw_planning['last_name_user_data'].'<br>'.$nw_planning['first_name_user_data']; ?>
@@ -189,7 +178,6 @@
                                 </td>
                             </tr>
                         <?php endforeach; ?>
-
                         <tr>
                             <td>
                                 <a class="btn btn-success" href="<?= base_url('helpdesk/home/addTechnician/1') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
@@ -205,12 +193,11 @@
                     <?php endif; ?>
                 </tbody>
             </table>
-            
+
             <div class="action-menu d-flex justify-content-center">
                 <?php if(isset($planning_data) || isset($nw_planning_data)): ?>
                     <input class="btn btn-success" type="submit" value="<?= lang('Helpdesk.btn_save')?>">
                 <?php endif; ?>
-
                 <?php switch($planning_type)
                 {
                     case 0:
@@ -220,7 +207,7 @@
                     case 1:
                         echo('<a class="btn btn-primary" href="'.base_url('helpdesk/home/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
                         break;
-                } ?>
+                }?>
             </div>
         </div>
     </form>

@@ -2,10 +2,11 @@
 
 /**
  * Model for tbl_lw_planning table
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 namespace Helpdesk\Models;
@@ -17,7 +18,7 @@ class Lw_planning_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_lw_planning';
     protected $primaryKey = 'id_lw_planning';
-    protected $allowedFields = 
+    protected $allowedFields =
     [
         'fk_user_id',
         'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
@@ -43,12 +44,11 @@ class Lw_planning_model extends \CodeIgniter\Model
     /**
      * Get all planning data from last week
      * 
-     * @return array lw_planning_data
+     * @return array
      * 
      */
     public function getPlanningData()
     {
-        // Retrieve all planning data
         $lw_planning_data = $this->findAll();
 
         return $lw_planning_data;
@@ -57,18 +57,17 @@ class Lw_planning_model extends \CodeIgniter\Model
 
     /**
      * Get all users having a role in last week planning
-     *
-     * @return array $lw_planning_data_by_user
+     * 
+     * @return array
      * 
      */
     public function getPlanningDataByUser()
     {
-        // Join with "tbl_user_data" and "user" tables to retrieve both planning and user data
         $lw_planning_data_by_user = $this->join('tbl_user_data','tbl_lw_planning.fk_user_id = tbl_user_data.fk_user_id')
                                          ->join('user','tbl_lw_planning.fk_user_id = user.id')
                                          ->orderBy('last_name_user_data', 'ASC')
                                          ->findAll();
-        
+
         return $lw_planning_data_by_user;
     }
 }

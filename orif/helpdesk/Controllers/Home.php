@@ -2,16 +2,16 @@
 
 /**
  * Main controller
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 namespace Helpdesk\Controllers;
 
 use App\Controllers\BaseController;
-use CodeIgniter\Database\Exceptions;
 use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use DateTime;
@@ -53,7 +53,7 @@ class Home extends BaseController
 
 
     /**
-     * Default function, displays the planning page
+     * Default function, displays the planning page.
      * 
      * @return view 'Helpdesk\planning'
      * 
@@ -61,13 +61,15 @@ class Home extends BaseController
     public function index()
     {
         $this->setSessionVariables();
-        
+
         return $this->planning();
     }
     
-    
+    /** ********************************************************************************************************************************* */
+
+
     /**
-     * Set often used variables in session for global access
+     * Set often used variables in session for global access.
      * 
      * @return void
      * 
@@ -76,14 +78,13 @@ class Home extends BaseController
     {
         if(!isset($_SESSION['helpdesk']['next_week']) ||
             !isset($_SESSION['helpdesk']['cw_periods']) ||
-            !isset($_SESSION['helpdesk']['nw_periods']))
+            !isset($_SESSION['helpdesk']['nw_periods']) ||
+            !isset($_SESSION['helpdesk']['presence_periods']))
         {
-            // Reference for next week table
             $next_monday = strtotime('next monday');
 
             $_SESSION['helpdesk'] =
             [
-                // Weekdays table for dates
                 'next_week' =>
                 [
                     'monday' => $next_monday,
@@ -93,8 +94,8 @@ class Home extends BaseController
                     'friday' => strtotime('+4 days', $next_monday)
                 ],
 
-                // Current week (cw) planning periods SQL names
-                'cw_periods' => 
+                // SQL names of the current week's planning periods (cw)
+                'cw_periods' =>
                 [
                     'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
                     'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
@@ -103,7 +104,7 @@ class Home extends BaseController
                     'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2',
                 ],
 
-                /// Next week (nw) planning periods SQL names
+                // SQL names of the next week's planning periods (nw)
                 'nw_periods' =>
                 [
                     'nw_planning_mon_m1', 'nw_planning_mon_m2', 'nw_planning_mon_a1', 'nw_planning_mon_a2',
@@ -112,69 +113,68 @@ class Home extends BaseController
                     'nw_planning_thu_m1', 'nw_planning_thu_m2', 'nw_planning_thu_a1', 'nw_planning_thu_a2',
                     'nw_planning_fri_m1', 'nw_planning_fri_m2', 'nw_planning_fri_a1', 'nw_planning_fri_a2',
                 ],
+
+                // SQL names of presences on each period of the week
+                'presences_periods' =>
+                [
+                    'presence_mon_m1','presence_mon_m2','presence_mon_a1','presence_mon_a2',
+                    'presence_tue_m1','presence_tue_m2','presence_tue_a1','presence_tue_a2',
+                    'presence_wed_m1','presence_wed_m2','presence_wed_a1','presence_wed_a2',
+                    'presence_thu_m1','presence_thu_m2','presence_thu_a1','presence_thu_a2',
+                    'presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2',
+                ],
             ];
         }
-
-        // Else, don't do anything
     }
 
 
     /**
-     * Redirects the user to the login page if he isn't logged in
+     * Checks whether the user is logged.
      * 
-     * @return view 'user\auth\login', if user isn't logged
+     * @return view|void 
      * 
      */
     public function isUserLogged()
     {
-        // If the user ID isn't set or is empty
-        if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id'])) 
+        if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']))
         {
             // Rediriect to the login page
             // NB : PHP header() native function is used because CI functions redirect() and display_view() don't work here for some reason
             header("Location: " . base_url('user/auth/login'));
             exit();
         }
-
-        // Otherwise, proceed with the rest of the code
     }
 
 
     /**
-     * Redirects to the home page with an error if the planning type isn't set
+     * Checks if the planning edited is correct.
      * 
      * @param int $planning_type Specifies which planning is being edited
      * 
-     * @return view 'Helpdesk\planning', if planning type isn't set
+     * @return view|void
      * 
      */
     public function isSetPlanningType($planning_type)
     {
-        if(!isset($planning_type))
+        if(!in_array($planning_type, [-1,0,1]))
         {
-            unset($planning_type);
-
-            // Error message
-            $error = lang('Helpdesk.err_unfound_planning_type');
+            $error = lang('Helpdesk.err_unvalid_planning_type');
 
             return exit($this->planning(NULL, $error));
         }
-
-        // Otherwise, proceed with the rest of the code
     }
 
 
     /**
-     * Set classes for leaving blank days off in plannings
-     *
+     * Create CSS classes for leaving blank days off in plannings.
+     * 
      * @param array $periods Names, start and end datetimes of periods
      * 
-     * @return array $classes
+     * @return array
      * 
      */
     public function defineDaysOff($periods)
     {
-        // Get holidays data
         $holidays_data = $this->holidays_model->getHolidays();
 
         $classes = [];
@@ -195,12 +195,13 @@ class Home extends BaseController
         return $classes;
     }
 
+
     /**
-     * Prevent code duplication for days off handler
+     * Get names, stard and end dates for each period of a week.
      * 
-     * @param int $planning_type Specifies which planning is used
+     * @param int $planning_type ID of the edited planning
      * 
-     * @return array $periods
+     * @return array
      * 
      */
     public function choosePeriods($planning_type)
@@ -214,7 +215,7 @@ class Home extends BaseController
             case -1:
                 foreach($weekdays as $day)
                 {
-                    $periods += 
+                    $periods +=
                     [
                         substr($day, 0, 3).'-m1' => [
                             'start' => strtotime($day.' last week 08:00:00'),
@@ -240,7 +241,7 @@ class Home extends BaseController
             case 0:
                 foreach($weekdays as $day)
                 {
-                    $periods += 
+                    $periods +=
                     [
                         substr($day, 0, 3).'-m1' => [
                             'start' => strtotime($day.' this week 08:00:00'),
@@ -266,7 +267,7 @@ class Home extends BaseController
             case 1:
                 foreach($_SESSION['helpdesk']['next_week'] as $day)
                 {
-                    $periods += 
+                    $periods +=
                     [
                         substr($day, 0, 3).'-m1' => [
                             'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
@@ -290,66 +291,61 @@ class Home extends BaseController
                 break;
 
             default:
-                $this->isSetPlanningType(NULL);   
+                $this->isSetPlanningType(NULL);
         }
 
         return $periods;
     }
 
+    /** ********************************************************************************************************************************* */
+
 
     /**
-     * Displays the current week planning page
-     *
-     * @param string $success Contains a success message, default value : NULL
-     * @param string $error Contains an error message, default value : NULL
+     * Displays the current week planning.
      * 
-     * @return view 'Helpdesk\planning'
+     * @param string $success Success message, default value : NULL
+     * @param string $error Error message, default value : NULL
+     * 
+     * @return view
      * 
      */
     public function planning($success = NULL, $error = NULL)
     {
-        // If there is a success message, it is stored for being displayed on view
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
         }
 
-        // If there is a error message, it is stored for being displayed on view
         if(isset($error) && !empty($error))
         {
             $data['error'] = $error;
         }
 
-        // Retrieves users having a planning
         $data['planning_data'] = $this->planning_model->getPlanningDataByUser();
-
-        // Get names, stard and end dates for each period of current week
-        $periods = $this->choosePeriods(0); // 0 stands for current week
         
-        // Get CSS classes to hide days off in planning
+        // 0 stands for current week
+        $periods = $this->choosePeriods(0);
+        
         $data['classes'] = $this->defineDaysOff($periods);
 
-        // Page title
         $data['title'] = lang('Helpdesk.ttl_planning');
 
-        // Displays current week planning page
         $this->display_view('Helpdesk\planning', $data);
     }
 
 
     /**
-     * Displays the last week planning page
-     *
-     * @return view 'Helpdesk\lw_planning'
+     * Displays the last week planning.
+     * 
+     * @return view
      * 
      */
     public function lw_planning()
     {
-        // Retrieves users having a planning, from last week
         $data['lw_planning_data'] = $this->lw_planning_model->getPlanningDataByUser();
 
-        // Presences table
-        $data['lw_periods'] = 
+        // SQL names of last week'y planning periods
+        $data['lw_periods'] =
         [
             'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
             'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
@@ -358,137 +354,102 @@ class Home extends BaseController
             'lw_planning_fri_m1', 'lw_planning_fri_m2', 'lw_planning_fri_a1', 'lw_planning_fri_a2',
         ];
 
-        // Get names, stard and end dates for each period of last week
-        $periods = $this->choosePeriods(-1); // -1 stands for last week
+        // -1 stands for last week
+        $periods = $this->choosePeriods(-1);
 
-        // Get CSS classes to hide days off in planning
         $data['classes'] = $this->defineDaysOff($periods);
 
-        // Page title
-        $data['title'] = lang('Helpdesk.ttl_lw_planning');     
+        $data['title'] = lang('Helpdesk.ttl_lw_planning');
 
-        // Displays last week planning page
         $this->display_view('Helpdesk\lw_planning', $data);
     }
 
 
     /**
-     * Displays the next week planning page
-     *
-     * @param string $success Contains a success message, default value : NULL
+     * Displays the next week planning
      * 
-     * @return view 'Helpdesk\nw_planning'
+     * @param string $success Success message, default value : NULL
+     * 
+     * @return view
      * 
      */
     public function nw_planning($success = NULL)
     {
-        // If there is a success message, it is stored for being displayed on view
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
         }
 
-        // Retrieves users having a planning, from next week
         $data['nw_planning_data'] = $this->nw_planning_model->getNwPlanningDataByUser();
     
-        // Get names, stard and end dates for each period of next week
-        $periods = $this->choosePeriods(1); // 1 stands for next week
+        // 1 stands for next week
+        $periods = $this->choosePeriods(1);
 
-        // Get CSS classes to hide days off in planning
         $data['classes'] = $this->defineDaysOff($periods);
 
-        // Page title
         $data['title'] = lang('Helpdesk.ttl_nw_planning');
 
-        // Displays next week planning page
         $this->display_view('Helpdesk\nw_planning', $data);
     }
 
 
     /**
-     * Displays the all_presences page
-     *
-     * @param string $success Contains a success message, default value : NULL
+     * Displays the presences of all technicians.
      * 
-     * @return view 'Helpdesk\all_presences'
+     * @param string $success Success message, default value : NULL
+     * 
+     * @return view
      * 
      */
     public function allPresences($success = NULL)
     {
-        // If there is a success message, it is stored for being displayed on view
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
         }
 
-        // Get all presences data
         $data['all_users_presences'] = $this->presences_model->getAllPresences();
 
-        $data['periods'] =
-        [
-            'presence_mon_m1','presence_mon_m2','presence_mon_a1','presence_mon_a2',
-            'presence_tue_m1','presence_tue_m2','presence_tue_a1','presence_tue_a2',
-            'presence_wed_m1','presence_wed_m2','presence_wed_a1','presence_wed_a2',
-            'presence_thu_m1','presence_thu_m2','presence_thu_a1','presence_thu_a2',
-            'presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2',
-        ];
-
-        // Get names, stard and end dates for each period of current week
-        $periods = $this->choosePeriods(0); // 0 stands for current week
+        // 0 stands for current week
+        $periods = $this->choosePeriods(0);
         
-        // Get CSS classes to hide days off in planning
         $data['classes'] = $this->defineDaysOff($periods);
 
-        // Page title
         $data['title'] = lang('Helpdesk.ttl_all_presences');
 
-        // Displays the all_presences page
         $this->display_view('Helpdesk\all_presences', $data);
     }
 
 
     /**
-     * Displays the your_presences page |
-     * Modifies user presneces 
+     * Displays the page letting users modify their presences, and manages the post of the data.
      * 
-     * @return view 'Helpdesk\your_presences'
-     *
+     * @return view
+     * 
      */
     public function yourPresences()
     {
         $this->isUserLogged();
 
-        // Retrieves user ID
         $user_id = $_SESSION['user_id'];
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
-            // Retrieve presence ID from database
             $id_presence = $this->presences_model->getPresenceId($user_id);
 
-            $form_fields = 
-            [
-                'presence_mon_m1','presence_mon_m2','presence_mon_a1','presence_mon_a2',
-                'presence_tue_m1','presence_tue_m2','presence_tue_a1','presence_tue_a2',
-                'presence_wed_m1','presence_wed_m2','presence_wed_a1','presence_wed_a2',
-                'presence_thu_m1','presence_thu_m2','presence_thu_a1','presence_thu_a2',
-                'presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2',
-            ];
-
-            // Add default value if the field is empty
-            foreach ($form_fields as $field)
+            foreach ($_SESSION['helpdesk']['presences_periods'] as $field)
             {
-                // If the field is empty or doesn't exist or contains a unvalid value
-                if (!isset($_POST[$field]) || empty($_POST[$field]) 
-                    || !in_array($_POST[$field], [1, 2, 3]))
+                if (!isset($_POST[$field]) ||
+                    empty($_POST[$field]) ||
+                    !in_array($_POST[$field], [1, 2, 3]))
                 {
-                    // Value is defined to "Absent"
+                    // Default value is set to "Absent"
                     $_POST[$field] = 3;
                 }
             }
 
-            // Prepare presences to record
-            $data = [
+            $data_to_save =
+            [
                 'id_presence' => $id_presence,
                 'fk_user_id' => $user_id,
 
@@ -518,13 +479,11 @@ class Home extends BaseController
                 'presence_fri_a2' => $_POST['presence_fri_a2']
             ];
 
-            $this->presences_model->save($data);
+            $this->presences_model->save($data_to_save);
 
-            // Success message
             $data['success'] = lang('Helpdesk.scs_presences_updated');
         }
 
-        // Retrieves user presences
         $data['presences'] = $this->presences_model->getPresencesUser($user_id);
 
         $data['weekdays'] =
@@ -536,21 +495,18 @@ class Home extends BaseController
             'friday'    => ['presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2'],
         ];
 
-        // Page title
         $data['title'] = lang('Helpdesk.ttl_your_presences');
 
-        // Displays presences form page
         $this->display_view('Helpdesk\your_presences', $data);
     }
 
 
     /**
-     * Displays the delete confirm page |
-     * Deletes the presence entry
-     *
-     * @param int $id_presnece ID of presence entry
+     * Displays the presence delete confirm page, and does the suppression of the entry.
      * 
-     * @return view 'Helpdesk\all_presneces' if entry is deleted, 'Helpdesk\delete_presences' otherwise
+     * @param int $id_presence ID of the presence entry
+     * 
+     * @return view
      * 
      */
     public function deletePresences($id_presence)
@@ -560,10 +516,8 @@ class Home extends BaseController
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'])
         {
-            // Delete the entry
             $this->presences_model->delete($id_presence);
 
-            // Success message
             $success = lang('Helpdesk.scs_presences_deleted');
 
             $this->allPresences($success);
@@ -574,21 +528,19 @@ class Home extends BaseController
         {
             $data['id_presence'] = $id_presence;
 
-            // Page title
             $data['title'] = lang('Helpdesk.ttl_delete_confirmation');
 
-            // Displays the delete confirmation page
             $this->display_view('Helpdesk\delete_presences', $data);
         }
     }
 
+
     /**
-     * Displays the add_technician page |
-     * Add a technician into a planning
-     *
-     * @param int $planning_type Specifies which planning is being edited
+     * Displays the page for adding technicians in planning, and manages the post of the data.
      * 
-     * @return view 'Helpdesk\planning'
+     * @param int $planning_type ID of the edited planning
+     * 
+     * @return view
      * 
      */
     function addTechnician($planning_type)
@@ -600,34 +552,28 @@ class Home extends BaseController
         // Create variable for planning_type to use it in view
         $data['planning_type'] = $planning_type;
 
-        // Get names, stard and end dates for each period of week
         $periods = $this->choosePeriods($planning_type);
 
-        // Get CSS classes to hide days off in planning
         $data['classes'] = $this->defineDaysOff($periods);
 
-        // Page title
         $data['title'] = lang('Helpdesk.ttl_add_technician');
 
-        // Retrieve all users data from database
         $data['users'] = $this->user_data_model->getUsersData();
 
         // If data is sent
         if (!empty($_POST)) 
         {
-            if (is_numeric($_POST['technician'])) 
+            if (is_numeric($_POST['technician']))
             {
                 $user_id = $_POST['technician'];
 
-                // Finds which planning is used | 0 is current week, 1 is next week
+                // 0 is current week, 1 is next week
                 switch ($planning_type) {
                     case 0:
-                        // Checks whether the user already has a schedule
                         $data['error'] = $this->planning_model->checkUserOwnsPlanning($user_id);
                         break;
 
                     case 1:
-                        // Checks whether the user already has a schedule
                         $data['error'] = $this->nw_planning_model->checkUserOwnsNwPlanning($user_id);
                         break;
 
@@ -654,19 +600,14 @@ class Home extends BaseController
                             $this->isSetPlanningType(NULL);
                     }
 
-                    // Variable for empty fields count
                     $emptyFields = 0;
 
-                    // Add default values if field is empty
-                    foreach ($form_fields_data as $field) 
+                    foreach ($form_fields_data as $field)
                     {
-                        // If the field is empty or not set or an unvalid value
-                        if (!isset($_POST[$field]) || empty($_POST[$field]) || !in_array($_POST[$field], [1, 2, 3])) 
+                        if (!isset($_POST[$field]) || empty($_POST[$field]) || !in_array($_POST[$field], [1, 2, 3]))
                         {
-                            // Value is defined as NULL
                             $_POST[$field] = NULL;
 
-                            // Increment empty fields count by 1
                             $emptyFields++;
                         }
                     }
@@ -674,22 +615,19 @@ class Home extends BaseController
                     // If 20 fields are empty, means all fields are empty. Cannot add a technician without any role
                     if ($emptyFields === 20) 
                     {
-                        // Error message
                         $data['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
 
-                        // Displays the same page with an error message
                         return $this->display_view('Helpdesk\add_technician', $data);
                     }
 
-                    // Success message
                     $success = lang('Helpdesk.scs_technician_added_to_schedule');
 
-                    // Finds which planning is updated | 0 is current week, 1 is next week
+                    // 0 is current week, 1 is next week
                     switch ($planning_type) 
                     {
                         case 0:
-                            // Prepare technician insert
-                            $data = [
+                            $data_to_insert =
+                            [
                                 'fk_user_id' => $user_id,
 
                                 'planning_mon_m1' => $_POST['planning_mon_m1'],
@@ -719,15 +657,15 @@ class Home extends BaseController
                             ];
 
                             // Insert data into "tbl_planning" table
-                            $this->planning_model->insert($data);
+                            $this->planning_model->insert($data_to_insert);
 
                             $this->planning($success);
 
                             break;
 
                         case 1:
-                            // Prepare technician insert
-                            $data = [
+                            $data_to_insert =
+                            [
                                 'fk_user_id' => $user_id,
 
                                 'nw_planning_mon_m1' => $_POST['planning_mon_m1'],
@@ -756,7 +694,6 @@ class Home extends BaseController
                                 'nw_planning_fri_a2' => $_POST['planning_fri_a2'],
                             ];
 
-                            // Insert data into "tbl_nw_planning" table
                             $this->nw_planning_model->insert($data);
 
                             $this->nw_planning($success);
@@ -768,7 +705,7 @@ class Home extends BaseController
                     }
                 } 
                 
-                // $data['error'] isn't empty, means that the user already has a schedule. Returns an error
+                // $data['error'] isn't empty, means that the user already has a schedule.
                 else 
                 {
                     return $this->display_view('Helpdesk\add_technician', $data);
@@ -790,15 +727,14 @@ class Home extends BaseController
         }
     }
 
-    
+
     /**
-     * Displays the update_planning page |
-     * Modifies roles assigned to technicans on periods
-     *
-     * @param int $planning_type Specifies which planning is being edited
-     * @param string $error Contains an error message, default value : NULL
+     * Displays the page to modify roles assigned to technicans on periods and manages the post of the data.
      * 
-     * @return view 'Helpdesk\update_planning'
+     * @param int $planning_type ID of the edited planning
+     * @param string $error Error message, default value : NULL
+     * 
+     * @return view
      * 
      */
     function updatePlanning($planning_type, $error = NULL)
@@ -812,60 +748,53 @@ class Home extends BaseController
 
         $form_fields_data = [];
 
-        // Finds which planning is used for fields names | 0 is current week, 1 is next week
+        // 0 is current week, 1 is next week
         switch($planning_type)
         {
             case 0:
                 $form_fields_data = $_SESSION['helpdesk']['cw_periods'];
-
                 break;
 
             case 1:
                 $form_fields_data = $_SESSION['helpdesk']['nw_periods'];
-                
                 break;
 
             default:
-                $this->isSetPlanningType(NULL);                
+                $this->isSetPlanningType(NULL);
         }
 
         if ($_POST)
         {
-            // Finds which planning is updated | 0 is current week, 1 is next week
+            // 0 is current week, 1 is next week
             switch($planning_type)
             {
                 case 0:
-                    // Get form data
                     $planning_data = $_POST['planning'];
                     break;
-        
+
                 case 1:
-                    // Get from data
                     $planning_data = $_POST['nw_planning'];
                     break;
-                
+
                 default:
                     $this->isSetPlanningType(NULL);
             }
 
-            foreach ($planning_data as $id_planning => $technician_planning) 
+            foreach ($planning_data as $id_planning => $technician_planning)
             {
-                // Empty fields count
                 $emptyFieldsCount = 0;
 
-                // Finds which planning is updated | 0 is current week, 1 is next week
+                // 0 is current week, 1 is next week
                 switch($planning_type)
                 {
                     case 0:
-                        // Add the retrieved value to the array that will be used to update the data. Here, we begin with primary and foreign key
                         $data_to_update = array(
                             'id_planning' => $technician_planning['id_planning'],
                             'fk_user_id' => $technician_planning['fk_user_id']
                         );
                         break;
-            
+
                     case 1:
-                        // Add the retrieved value to the array that will be used to update the data. Here, we begin with primary and foreign key
                         $data_to_update = array(
                             'id_nw_planning' => $technician_planning['id_nw_planning'],
                             'fk_user_id' => $technician_planning['fk_user_id']
@@ -873,43 +802,38 @@ class Home extends BaseController
                         break;
 
                     default:
-                        $this->isSetPlanningType(NULL);                        
+                        $this->isSetPlanningType(NULL);
                 }
-                
-                foreach ($form_fields_data as $field) 
+
+                foreach ($form_fields_data as $field)
                 {
                     $field_value = $technician_planning[$field];
-                    
-                    // In any role value is incorrect, returns an error
+
                     if(!in_array($field_value, ["", 1, 2, 3]))
                     {
-                        // Error message
                         $error = lang('Helpdesk.err_invalid_role');
 
                         unset($_POST);
 
-                        $this->updatePlanning($planning_type, $error);
-                        exit(); // Neccessary to prevent displaying multiple views
+                        // Exit is neccessary to prevent displaying multiple views
+                        exit($this->updatePlanning($planning_type, $error)); 
                     }
 
-                    // Defines value to NULL to insert empty values in database
                     if(empty($field_value))
                     {
+                        // Required for database insertion
                         $field_value = NULL;
 
                         $emptyFieldsCount++;
                     }
 
-                    // Add the retrieved value to the array that will be used to update the data. Here, roles at each period will be recorded
                     $data_to_update[$field] = $field_value;
                 }
 
                 // If all fields are empty, prevent having a technician without any role at any period
                 if($emptyFieldsCount === 20)
                 {
-                    // Error message
                     $data['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
-
                     break;
                 }
 
@@ -918,12 +842,10 @@ class Home extends BaseController
                     switch($planning_type)
                     {
                         case 0:
-                            // Update planning for the user
                             $this->planning_model->update($id_planning, $data_to_update);
                             break;
                 
                         case 1:
-                            // Update planning for the user
                             $this->nw_planning_model->update($id_planning, $data_to_update);
                             break;
 
@@ -931,42 +853,36 @@ class Home extends BaseController
                             $this->isSetPlanningType(NULL);
                     }
                     
-                    // Success message
                     $data['success'] = lang('Helpdesk.scs_planning_updated');
                 }
             }
         }
 
-        // Determines from which planning data are retrieved | 0 is current week, 1 is next week
+        // 0 is current week, 1 is next week
         switch($planning_type)
         {
             case 0:
-                // Retrieve planning data
                 $planning_data = $this->planning_model->getPlanningDataByUser();
 
                 $data['planning_data'] = $planning_data;
-                        
-                // Page title
+
                 $data['title'] = lang('Helpdesk.ttl_update_planning');
 
                 break;
 
             case 1:
-                // Retrieve planning data
                 $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
 
-                $data['nw_planning_data'] = $nw_planning_data;      
+                $data['nw_planning_data'] = $nw_planning_data;
 
-                // Page title
                 $data['title'] = lang('Helpdesk.ttl_update_nw_planning');
 
                 break;
-            
+
             default:
-                $this->isSetPlanningType(NULL);                
+                $this->isSetPlanningType(NULL);
         }
 
-        // If there is a error message, it is stored for being displayed on view
         if(isset($error) && !empty($error))
         {
             $data['error'] = $error;
@@ -974,10 +890,8 @@ class Home extends BaseController
 
         $data['form_fields_data'] = $form_fields_data;
 
-        // Get names, stard and end dates for each period of current week
         $periods = $this->choosePeriods($planning_type);
-        
-        // Get CSS classes to hide days off in planning
+
         $data['classes'] = $this->defineDaysOff($periods);
 
         $this->display_view('Helpdesk\update_planning', $data);
@@ -985,21 +899,19 @@ class Home extends BaseController
 
 
     /**
-     * [DOES NOT HAVE AN ACTUAL USE FOR NOW] Displays the menu of a technician
-     *
-     * @param int $user_id ID of currently logged user
+     * [DOES NOT HAVE AN ACTUAL USE FOR NOW] Displays the menu of a technician.
      * 
-     * @return view 'Helpdesk\technician_menu'
+     * @param int $user_id ID of the currently logged user
+     * 
+     * @return view
      * 
      */
     public function technicianMenu($user_id)
     {
         $this->isUserLogged();
 
-        // Get user data
         $data['user'] = $this->user_data_model->getUserData($user_id);
 
-        // Page title
         $data['title'] = lang('Helpdesk.ttl_technician_menu');
 
         $this->display_view('Helpdesk\technician_menu', $data);
@@ -1007,13 +919,12 @@ class Home extends BaseController
 
 
     /**
-     * Displays the delete confirm page |
-     * Delete a technician form a planning
-     *
-     * @param int $user_id ID of deleted technician
-     * @param int $planning_type Specifies which planning is being edited
+     * Displays the technician delete confirm page, and does the suppression of the entry.
      * 
-     * @return view 'Helpdesk\planning' (or nw_planning, depending of $planning_type) if entry is deleted, 'Helpdesk\delete_technician' otherwise
+     * @param int $user_id ID of the deleted technician
+     * @param int $planning_type ID of the edited planning
+     * 
+     * @return view
      * 
      */
     public function deleteTechnician($user_id, $planning_type)
@@ -1025,30 +936,25 @@ class Home extends BaseController
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
         {
-            // Success message
             $success = lang('Helpdesk.scs_technician_deleted');
 
-            // Finds on which planning entry is deleted | 0 is current week, 1 is next week
+            // 0 is current week, 1 is next week
             switch($planning_type)
             {
                 case 0:
-                    // Retrieves the planning id to delete the entry
                     $planning_data = $this->planning_model->getPlanning($user_id);
 
-                    // Delete the entry
                     $this->planning_model->delete($planning_data['id_planning']);
 
                     $this->planning($success);
 
                     break;
-                
+
                 case 1:
-                    // Retrieves the planning id to delete the entry
                     $id_planning = $this->nw_planning_model->getNwPlanning($user_id);
 
-                    // Delete the entry
                     $this->nw_planning_model->delete($id_planning);
-                    
+
                     $this->nw_planning($success);
 
                     break;
@@ -1062,81 +968,69 @@ class Home extends BaseController
 
             $data['planning_type'] = $planning_type;
 
-            // Page title
             $data['title'] = lang('Helpdesk.ttl_delete_confirmation');
 
-            // Displays the delete confirmation page
             $this->display_view('Helpdesk\delete_technician', $data);
-        }        
+        }
     }
 
-    
+
     /**
-     * Displays the holiday list page
-     *
-     * @param string $success Contains a success message, default value : NULL
+     * Displays the holidays list.
      * 
-     * @return view 'Heldesk\holidays'
+     * @param string $success Success message, default value : NULL
+     * 
+     * @return view
      * 
      */
     public function holidays($success = NULL)
     {
-        // If there is a success message, it is stored for being displayed on view
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
         }
 
-        // Retrieve all holiday data
         $data['holidays_data'] = $this->holidays_model->getHolidays();
 
-        // Page title
         $data['title'] = lang('Helpdesk.ttl_holiday');
 
-        // Displays holiday list view
         $this->display_view('Helpdesk\holidays', $data);
     }
 
 
     /**
-     * Display the add_holiday page |
-     * Adds or modifies a holiday entry
+     * Displays the page to add/modifiy a holiday entry, and anages the post of the data.
      * 
      * @param int $id_holiday ID of the holiday, default value = 0
-     *
-     * @return view 'Helpdesk\add_holidays' until holiday period has been edited. After edit, returns 'Helpdesk\holidays'
+     * 
+     * @return view
+     * 
      */
     public function saveHoliday($id_holiday = 0)
     {
         $this->isUserLogged();
 
-        $error_dates = false;
+        $datetime_error = false;
 
-        // If data is sent
         if($_POST)
         {
             try
             {
-                // Convert String to DateTime for comparison
                 $start_date = new DateTime($_POST['start_date']);
                 $end_date = new DateTime($_POST['end_date']);
             }
 
             catch(\Exception)
             {
-                $error_dates = true;
+                $datetime_error = true;
             }
 
-            // Checks if end date is before start date or if an datetime conversion error happened
-            if($error_dates == true || $end_date < $start_date)
+            if($datetime_error == true || $end_date < $start_date)
             {
-                // Error message
                 $data['error'] = lang('Helpdesk.err_dates_are_incoherent');
 
-                // Checks if we are editing a new entry or adding a new one
                 if(isset($id_holiday) && $id_holiday != 0)
                 {
-                    // Keeping existing entry fields data
                     $form_data =
                     [
                         'id_holiday' => $_POST['id_holiday'],
@@ -1145,38 +1039,32 @@ class Home extends BaseController
                         'end_date_holiday' => $_POST['end_date'],
                     ];
 
-                    // Page title
                     $data['title'] = lang('Helpdesk.ttl_update_holiday');
                 }
 
                 else
                 {
-                    // If a error is created, keep form fields data
                     if(isset($data['error']))
                     {
-                        // Keeping new entry fields data
                         $form_data =
                         [
                             'name_holiday' => trim(esc($_POST['holiday_name'])),
                             'start_date_holiday' => $_POST['start_date'],
                             'end_date_holiday' => $_POST['end_date'],
-                        ]; 
-                        
-                        // Page title
-                        $data['title'] = lang('Helpdesk.ttl_add_holiday');                
+                        ];
+
+                        $data['title'] = lang('Helpdesk.ttl_add_holiday');
                     }
                 }
 
                 $data['holiday'] = $form_data;
 
-                // Displays the add_holiday view
                 $this->display_view('Helpdesk\add_holiday', $data);
             }
 
-            // Otherwise, no error is created, entry creation
+            // No error occured, entry creation
             else
             {
-                // Prepare data to record
                 $data =
                 [
                     'id_holiday' => $_POST['id_holiday'],
@@ -1185,10 +1073,8 @@ class Home extends BaseController
                     'end_date_holiday' => $_POST['end_date'],
                 ];
 
-                // Inserting/Updating data
                 $this->holidays_model->save($data);
 
-                // Success message
                 $success = lang('Helpdesk.scs_holiday_updated');
 
                 $this->holidays($success);
@@ -1198,22 +1084,17 @@ class Home extends BaseController
         // No data is sent
         else
         {
-            // Checks if we are editing a new entry or adding a new one
             if(isset($id_holiday) && $id_holiday != 0)
             {
-                // Retrieve the specific holiday data
                 $data['holiday'] = $this->holidays_model->getHoliday($id_holiday);
-                
-                // Page title
+
                 $data['title'] = lang('Helpdesk.ttl_update_holiday');
             }
 
             else
             {
-                // Page title
-                $data['title'] = lang('Helpdesk.ttl_add_holiday');     
-                
-                // If a error is created, keep form fields data
+                $data['title'] = lang('Helpdesk.ttl_add_holiday');
+
                 if(isset($data['error']))
                 {
                     $form_data =
@@ -1223,37 +1104,32 @@ class Home extends BaseController
                         'end_date_holiday' => $_POST['end_date'],
                     ];
 
-                    $data['holiday'] = $form_data;                
+                    $data['holiday'] = $form_data;
                 }
             }
 
-            // Displays the add_holiday view
             $this->display_view('Helpdesk\add_holiday', $data);
         }
     }
 
 
     /**
-     * Displays the delete confirm page |
-     * Deletes the vacation entry
-     *
+     * Displays the page to deletes the vacation entry, and does the suppression of the entry.
+     * 
      * @param int $id_holiday ID of the holiday
      * 
-     * @return view 'Helpdesk\holidays' if entry is deleted, 'Helpdesk\delete_holiday' otherwise
+     * @return view
      * 
      */
     public function deleteHoliday($id_holiday)
     {
-        // Checks whether user is logged in
         $this->isUserLogged();
 
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
         {
-            // Delete the entry
             $this->holidays_model->delete($id_holiday);
 
-            // Success message
             $success = lang('Helpdesk.scs_holiday_deleted');
 
             $this->holidays($success);
@@ -1264,34 +1140,30 @@ class Home extends BaseController
         {
             $data['id_holiday'] = $id_holiday;
 
-            // Page title
             $data['title'] = lang('Helpdesk.ttl_delete_confirmation');
 
-            // Displays the delete confirmation page
             $this->display_view('Helpdesk\delete_holiday', $data);
         }
     }
 
 
     /**
-     * Displays the assigned technicians of a certain period on a page
+     * Displays the technicians assigned at the moment
      * 
-     * @param string $error Contains an error message, default value : NULL
+     * @param string $error Error message, default value : NULL
      * 
-     * @return view 'Helpdesk\terminal'
+     * @return view
      * 
      */
     public function terminal($error = NULL)
     {
-        $isDayOff = $this->holidays_model->areWeInHolidays();
-
-        // If there is a error message, it is stored for being displayed on view
         if(isset($error) && !empty($error))
         {
             $data['error'] = $error;
         }
 
-        // Checks whether we are in a holiday period or not | true => in day off ; false = not in day off
+        $isDayOff = $this->holidays_model->areWeInHolidays();
+
         if($isDayOff)
         {
             $data['day_off'] = true;
@@ -1301,12 +1173,11 @@ class Home extends BaseController
         {
             $data['day_off'] = false;
 
-            // Retrieves actual time
-            $time = 
+            $time =
             [
-                'day'       => substr(strtolower(date('l', time())), 0, 3), // Keeps only the 3 first chars of weekday
+                'day'       => substr(strtolower(date('l', time())), 0, 3),
                 'period'    => '', // Will be set later
-                'hh:mm'     => strtotime(date('H:i', time())), // time, converted to date, then in time for comparisons
+                'hh:mm'     => strtotime(date('H:i', time())),
             ];
 
             // Determines on which period we actually are
@@ -1314,19 +1185,19 @@ class Home extends BaseController
                 case ($time['hh:mm'] >= strtotime("08:00") && $time['hh:mm'] < strtotime("10:00")):
                     $time['period'] = 'm1';
                     break;
-            
+
                 case ($time['hh:mm'] >= strtotime("10:00") && $time['hh:mm'] < strtotime("12:00")):
                     $time['period'] = 'm2';
                     break;
-            
+
                 case ($time['hh:mm'] >= strtotime("12:45") && $time['hh:mm'] < strtotime("15:00")):
                     $time['period'] = 'a1';
                     break;
-            
+
                 case ($time['hh:mm'] >= strtotime("15:00") && $time['hh:mm'] < strtotime("16:57")):
                     $time['period'] = 'a2';
                     break;
-            
+
                 default:
                     $time['period'] = NULL;
             }
@@ -1337,14 +1208,11 @@ class Home extends BaseController
                 // Constructs the period name
                 $sql_name_period = 'planning_'.$time['day'].'_'.$time['period'];
 
-                // Retrieves the technicians that are assigned to this period
                 $data['technicians'] = $this->planning_model->getTechniciansOnPeriod($sql_name_period);
 
                 if(isset($data['technicians']) && !empty($data['technicians']))
                 {
                     $data['period'] = $sql_name_period;
-                    
-                    /* *************************************************************************************************** */
                     
                     // Resets the availabilities on the beginning of new periods
                     if ($time['hh:mm'] == strtotime("08:00") ||
@@ -1354,14 +1222,14 @@ class Home extends BaseController
                     {
                         $this->terminal_model->ResetAvailabilities();
                     }
-    
+
                     $roles_assigned = [];
-    
+
                     foreach($data['technicians'] as $technician)
                     {
                         array_push($roles_assigned, $technician[$sql_name_period]);
                     }
-                    
+
                     for($role = 1; $role <= 3; $role++)
                     {
                         if(!in_array($role, $roles_assigned))
@@ -1371,14 +1239,12 @@ class Home extends BaseController
                     }
                 }
 
-                
                 $data['technicians_availability'] = $this->terminal_model->getTerminalData();
             }
         }
 
         //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
 
-        // Displays the page of the terminal
         $this->display_view('Helpdesk\terminal', $data);
     }
 
@@ -1388,7 +1254,7 @@ class Home extends BaseController
      * 
      * @param int $technician_type Role of the technician updated
      * 
-     * @return void
+     * @return view
      * 
      */
     public function updateTechnicianAvailability($technician_type)
@@ -1404,15 +1270,15 @@ class Home extends BaseController
                 case 1:
                     $index = 0;
                     break;
-                    
+
                 case 2:
                     $index = 1;
                     break;
-                        
+
                 case 3:
                     $index = 2;
                     break;
-    
+
                 default:
                     $error = lang('Helpdesk.err_unvalid_technician_selected');
             }
@@ -1434,8 +1300,8 @@ class Home extends BaseController
 
     /**
      * Start the planning generation process
-     *
-     * @return view 'Helpdesk\generate_planning'
+     * 
+     * @return view
      * 
      */
     public function generatePlanning()
@@ -1452,7 +1318,7 @@ class Home extends BaseController
         {
             $presences_user = $this->presences_model->getPresencesUser($user['fk_user_id']);
 
-            $data['user-'.$user['fk_user_id']] = 
+            $data['user-'.$user['fk_user_id']] =
             [
                 'firstName' => $user['first_name_user_data'],
                 'lastName' => $user['last_name_user_data'],
@@ -1469,6 +1335,6 @@ class Home extends BaseController
         }
 
         // Displays the page of planning generation
-        $this->display_view('Helpdesk\generate_planning', $data);        
+        $this->display_view('Helpdesk\generate_planning', $data);
     }
 }

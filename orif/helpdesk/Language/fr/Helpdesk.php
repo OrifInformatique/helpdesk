@@ -1,6 +1,6 @@
 <?php
 /**
- * French translations for planning page
+ * French translations
  * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -38,9 +38,21 @@ return[
     'err_invalid_technician'                        => 'Technicien invalide',
     'err_invalid_role'                              => 'Rôle assigné invalide',
     'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes',
-    'err_unfound_planning_type'                     => 'Erreur de planning',
+    'err_unvalid_planning_type'                     => 'Erreur de planning',
     'err_no_technician_selected'                    => 'Aucun technicien n\'a été sélectionné',
     'err_unvalid_technician_selected'               => 'Technicien sélectionné invalide',
+
+    'err_no_technician_available'                   => 'Aucun technicien n\'est disponible.',
+    'err_no_holidays'                               => 'Aucune période fériée n\'existe.',
+    'err_no_technician_assigned'                    => 'Aucun technicien n\'est assigné au planning.',
+    'err_no_technician_presences'                   => 'Aucun technicien n\'a de présences.',
+
+
+    /*
+    ** INFO MESSAGES
+    */
+
+    'info_presences_fields_empty'         => 'Les champs vides seront automatiquement remplis par "Absent".',
 
 
     /*
@@ -55,7 +67,7 @@ return[
     'scs_holiday_updated'               => 'La période de vacances a été modifiée avec succès',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée avec succès',
 
-    
+
     /*
     ** BUTTONS
     */
@@ -113,23 +125,16 @@ return[
     'planning_of_week'          => 'Planning de la semaine du',
     'to'                        => 'au',
     'technician'                => 'Technicien',
-    'no_technician_assigned'    => 'Aucun technicien n\'est assigné au planning.',
-    'no_technician_presences'   => 'Aucun technicien n\'a de présences.',
-
-    'empty_fields_info'         => 'Les champs vides seront automatiquement remplis par "Absent".',
 
     'added_technician'          => 'Technicien à ajouter au planning',
 
     'holiday_name'              => 'Nom des vacances',
     'start_date'                => 'Date de début',
     'end_date'                  => 'Date de fin',
-    'no_holidays'               => 'Aucune période fériée n\'existe.',
 
     'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?',
 
     'technician_menu'           => 'Que souhaitez-vous faire avec le technicien ',
-
-    'no_technician_available'   => 'Aucun technicien n\'est disponible.',
 
     'alt_photo_technician'      => 'Photo de face du technicien',
 

@@ -2,10 +2,11 @@
 
 /**
  * terminal view
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 ?>
@@ -14,30 +15,24 @@
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
 
 <div id="no-technician-available" class="d-flex justify-content-center 
-<?php 
-    if($technicians_availability[0]['tech_available_terminal'] == true || 
-    $technicians_availability[1]['tech_available_terminal'] == true || 
-    $technicians_availability[2]['tech_available_terminal'] == true)
+<?php if($technicians_availability[0]['tech_available_terminal'] == true || 
+        $technicians_availability[1]['tech_available_terminal'] == true || 
+        $technicians_availability[2]['tech_available_terminal'] == true)
     {
         echo "hidden";
-    };
-?>">
-    <p class="no-technician"> <?= lang('Helpdesk.no_technician_available')?></p>
+    };?>
+">
+    <p class="no-technician"> <?= lang('Helpdesk.err_no_technician_available')?></p>
 </div>
 
-<!-- Title, if exists -->
-<?php if(isset($title)){
-    echo ('<h2>' . $title . '</h2>');
-} ?>
+<?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
 
-<!-- Success message, if exists -->
 <?php if(isset($success)): ?>
     <div class="d-flex justify-content-center">
         <?= ('<p class="success">'.$success.'</p>'); ?>
     </div>
 <?php endif; ?>
 
-<!-- Error message, if exists -->
 <?php if(isset($error)): ?>
     <div class="d-flex justify-content-center">
         <?= ('<p class="error">'.$error.'</p>'); ?>
@@ -62,8 +57,7 @@
                             case 3:
                                 echo '<div class="bg-orange border-xs-1 p-2 rounded rounded-3 mx-4">'.lang('Helpdesk.role_3').'</div>';
                                 break;
-                        }
-                        ?>           
+                        }?>
                     </p>
                 </div>
 
@@ -81,7 +75,7 @@
     </div>
 <?php else: ?>
     <div id="no-technician-available" class="d-flex justify-content-center">
-        <p class="no-technician"> <?= lang('Helpdesk.no_technician_available')?></p>
+        <p class="no-technician"> <?= lang('Helpdesk.err_no_technician_available')?></p>
     </div>
 <?php endif; ?>
 

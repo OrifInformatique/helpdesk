@@ -2,10 +2,11 @@
 
 /**
  * Model for tbl_terminal table
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 namespace Helpdesk\Models;
@@ -31,16 +32,15 @@ class Terminal_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
-    
+
     /**
      * Get all technicans availabilities
      * 
-     * @return array terminal_data
+     * @return array
      * 
      */
     public function getTerminalData()
     {
-        // Retrieve all planning data
         $terminal_data = $this->findAll();
         
         return $terminal_data;

@@ -2,10 +2,11 @@
 
 /**
  * Model for tbl_planning table
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 namespace Helpdesk\Models;
@@ -17,7 +18,7 @@ class Planning_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_planning';
     protected $primaryKey = 'id_planning';
-    protected $allowedFields = 
+    protected $allowedFields =
     [
         'fk_user_id',
         'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
@@ -39,16 +40,15 @@ class Planning_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
-    
+
     /** 
      * Get all planning data
      * 
-     * @return array $planning_data
+     * @return array
      * 
      */
     public function getPlanningData()
     {
-        // Retrieve all planning data
         $planning_data = $this->findAll();
 
         return $planning_data;
@@ -58,17 +58,16 @@ class Planning_model extends \CodeIgniter\Model
     /**
      * Get all users having a role in current week planning
      * 
-     * @return array $planning_data_by_user
+     * @return array
      * 
      */
     public function getPlanningDataByUser()
     {
-        // Join with "tbl_user_data" and "user" tables to retrieve both planning and user data
         $planning_data_by_user = $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id')
                                       ->join('user','tbl_planning.fk_user_id = user.id')
                                       ->orderBy('last_name_user_data', 'ASC')
                                       ->findAll();
-        
+
         return $planning_data_by_user;
     }
 
@@ -78,24 +77,20 @@ class Planning_model extends \CodeIgniter\Model
      * 
      * @param int $user_id ID of a specific user
      * 
-     * @return array $data[error], if user already have a planning entry
+     * @return string|void
      * 
-     */ 
+     */
     public function checkUserOwnsPlanning($user_id)
     {
-        // Retrieve user's ID from the user's planning data, if it exists
         $planning_data = $this->where('fk_user_id', $user_id)->findAll();
-        
+
         // If there is a result, it means the user already has a planning. Prevent duplicate creation
         if (!empty($planning_data))
         {
-            // Error message
             $data['error'] = lang('Helpdesk.err_technician_already_has_schedule');
 
             return $data['error'];
         }
-
-        // Otherwise, proceed with the rest of the code
     }
 
 
@@ -104,23 +99,23 @@ class Planning_model extends \CodeIgniter\Model
      * 
      * @param int $user_id ID of a specific user
      * 
-     * @return array $nw_planning_data
+     * @return array
      * 
      */
     public function getPlanning($user_id)
     {
-        $planning_data = $this->where('fk_user_id', $user_id)->first();
+        $planning_entry = $this->where('fk_user_id', $user_id)->first();
 
-        return $planning_data;
+        return $planning_entry;
     }
 
-    
+
     /**
      * Get all users assigned to a specific period
      * 
      * @param string $period Name of the period
      * 
-     * @return mixed $technicians or NULL, NULL if no technicians assigned to a period
+     * @return array|NULL
      * 
      */
     public function getTechniciansOnPeriod($period)
@@ -136,7 +131,7 @@ class Planning_model extends \CodeIgniter\Model
             {
                 $technicians[] = $row;
             }
-            
+
             return $technicians;
         }
 

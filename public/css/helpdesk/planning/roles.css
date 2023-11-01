@@ -1,11 +1,14 @@
-.bg-green {
+.bg-green
+{
     background-color: var(--role-1);
 }
 
-.bg-light-green {
+.bg-light-green
+{
     background-color: var(--role-2);
 }
 
-.bg-orange {
+.bg-orange
+{
     background-color: var(--role-3);
 }

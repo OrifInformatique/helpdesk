@@ -2,10 +2,11 @@
 
 /**
  * Model for tbl_users_data table
- *
+ * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
+ * 
  */
 
 namespace Helpdesk\Models;
@@ -31,33 +32,33 @@ class User_Data_model extends \CodeIgniter\Model
         parent::__construct($db, $validation);
     }
 
+
     /**
      * Get all data about all users
      * 
-     * @return array $users_data
+     * @return array
      * 
      */
     public function getUsersData()
     {
-        // Join with "tbl_user_data" table, to retrieve all user data
         $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->findAll();
-        
+
         return $users_data;
     }
 
+
     /**
-     * Get data from specified user
+     * Get data from a specific user
      * 
-     * @param int $user_id ID of a specific user
+     * @param int $user_id ID of the user
      * 
-     * @return array $user_data
+     * @return array
      * 
      */
     public function getUserData($user_id)
     {
-        // Join with "tbl_user_data" table, to retrieve all user data
         $user_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->findAll();
-        
+
         return $user_data;
     }
 }
