@@ -1340,37 +1340,40 @@ class Home extends BaseController
                 // Retrieves the technicians that are assigned to this period
                 $data['technicians'] = $this->planning_model->getTechniciansOnPeriod($sql_name_period);
 
-                $data['period'] = $sql_name_period;
-                
-                /* *************************************************************************************************** */
-                
-                // Resets the availabilities on the beginning of new periods
-                if ($time['hh:mm'] == strtotime("08:00") ||
-                    $time['hh:mm'] == strtotime("10:00") ||
-                    $time['hh:mm'] == strtotime("12:45") ||
-                    $time['hh:mm'] == strtotime("15:00"))
+                if(isset($data['technicians']) && !empty($data['technicians']))
                 {
-                    $this->terminal_model->ResetAvailabilities();
-                }
-
-                $roles_assigned = [];
-
-                foreach($data['technicians'] as $technician)
-                {
-                    array_push($roles_assigned, $technician[$sql_name_period]);
-                }
-                
-                for($role = 1; $role <= 3; $role++)
-                {
-                    if(!in_array($role, $roles_assigned))
+                    $data['period'] = $sql_name_period;
+                    
+                    /* *************************************************************************************************** */
+                    
+                    // Resets the availabilities on the beginning of new periods
+                    if ($time['hh:mm'] == strtotime("08:00") ||
+                        $time['hh:mm'] == strtotime("10:00") ||
+                        $time['hh:mm'] == strtotime("12:45") ||
+                        $time['hh:mm'] == strtotime("15:00"))
                     {
-                        $this->terminal_model->updateAvailability($role, false);
+                        $this->terminal_model->ResetAvailabilities();
+                    }
+    
+                    $roles_assigned = [];
+    
+                    foreach($data['technicians'] as $technician)
+                    {
+                        array_push($roles_assigned, $technician[$sql_name_period]);
+                    }
+                    
+                    for($role = 1; $role <= 3; $role++)
+                    {
+                        if(!in_array($role, $roles_assigned))
+                        {
+                            $this->terminal_model->updateAvailability($role, false);
+                        }
                     }
                 }
+
                 
                 $data['technicians_availability'] = $this->terminal_model->getTerminalData();
             }
-            
         }
 
         //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
