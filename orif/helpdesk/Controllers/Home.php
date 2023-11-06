@@ -158,9 +158,9 @@ class Home extends BaseController
     {
         if(!in_array($planning_type, [-1,0,1]))
         {
-            $error = lang('Helpdesk.err_unvalid_planning_type');
+            $this->session->setFlashdata('error', lang('Helpdesk.err_unvalid_planning_type'));
 
-            return exit($this->planning(NULL, $error));
+            return exit($this->planning(NULL));
         }
     }
 
@@ -303,14 +303,14 @@ class Home extends BaseController
     /**
      * Displays the current week planning.
      * 
-     * @param string $success Success message, default value : NULL
-     * @param string $error Error message, default value : NULL
-     * 
      * @return view
      * 
      */
-    public function planning($success = NULL, $error = NULL)
+    public function planning()
     {
+        $success = $this->session->getFlashdata('success');
+        $error = $this->session->getFlashdata('error');
+
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
@@ -368,13 +368,13 @@ class Home extends BaseController
     /**
      * Displays the next week planning
      * 
-     * @param string $success Success message, default value : NULL
-     * 
      * @return view
      * 
      */
-    public function nw_planning($success = NULL)
+    public function nw_planning()
     {
+        $success = $this->session->getFlashdata('success');
+
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
@@ -396,13 +396,13 @@ class Home extends BaseController
     /**
      * Displays the presences of all technicians.
      * 
-     * @param string $success Success message, default value : NULL
-     * 
      * @return view
      * 
      */
-    public function allPresences($success = NULL)
+    public function allPresences()
     {
+        $success = $this->session->getFlashdata('success');
+
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
@@ -518,9 +518,9 @@ class Home extends BaseController
         {
             $this->presences_model->delete($id_presence);
 
-            $success = lang('Helpdesk.scs_presences_deleted');
+            $this->session->setFlashdata('success', lang('Helpdesk.scs_presences_deleted'));
 
-            $this->allPresences($success);
+            return redirect()->to('/helpdesk/home/allPresences');
         }
 
         // When the user clicks the delete button
@@ -610,7 +610,7 @@ class Home extends BaseController
 
                             $emptyFields++;
                         }
-                    }
+                    }var_dump($_POST);
 
                     // If 20 fields are empty, means all fields are empty. Cannot add a technician without any role
                     if ($emptyFields === 20) 
@@ -620,7 +620,7 @@ class Home extends BaseController
                         return $this->display_view('Helpdesk\add_technician', $data);
                     }
 
-                    $success = lang('Helpdesk.scs_technician_added_to_schedule');
+                    $this->session->setFlashdata('success', lang('Helpdesk.scs_technician_added_to_schedule'));
 
                     // 0 is current week, 1 is next week
                     switch ($planning_type) 
@@ -659,7 +659,7 @@ class Home extends BaseController
                             // Insert data into "tbl_planning" table
                             $this->planning_model->insert($data_to_insert);
 
-                            $this->planning($success);
+                            return redirect()->to('/helpdesk/home/planning');
 
                             break;
 
@@ -668,35 +668,35 @@ class Home extends BaseController
                             [
                                 'fk_user_id' => $user_id,
 
-                                'nw_planning_mon_m1' => $_POST['planning_mon_m1'],
-                                'nw_planning_mon_m2' => $_POST['planning_mon_m2'],
-                                'nw_planning_mon_a1' => $_POST['planning_mon_a1'],
-                                'nw_planning_mon_a2' => $_POST['planning_mon_a2'],
+                                'nw_planning_mon_m1' => $_POST['nw_planning_mon_m1'],
+                                'nw_planning_mon_m2' => $_POST['nw_planning_mon_m2'],
+                                'nw_planning_mon_a1' => $_POST['nw_planning_mon_a1'],
+                                'nw_planning_mon_a2' => $_POST['nw_planning_mon_a2'],
 
-                                'nw_planning_tue_m1' => $_POST['planning_tue_m1'],
-                                'nw_planning_tue_m2' => $_POST['planning_tue_m2'],
-                                'nw_planning_tue_a1' => $_POST['planning_tue_a1'],
-                                'nw_planning_tue_a2' => $_POST['planning_tue_a2'],
+                                'nw_planning_tue_m1' => $_POST['nw_planning_tue_m1'],
+                                'nw_planning_tue_m2' => $_POST['nw_planning_tue_m2'],
+                                'nw_planning_tue_a1' => $_POST['nw_planning_tue_a1'],
+                                'nw_planning_tue_a2' => $_POST['nw_planning_tue_a2'],
 
-                                'nw_planning_wed_m1' => $_POST['planning_wed_m1'],
-                                'nw_planning_wed_m2' => $_POST['planning_wed_m2'],
-                                'nw_planning_wed_a1' => $_POST['planning_wed_a1'],
-                                'nw_planning_wed_a2' => $_POST['planning_wed_a2'],
+                                'nw_planning_wed_m1' => $_POST['nw_planning_wed_m1'],
+                                'nw_planning_wed_m2' => $_POST['nw_planning_wed_m2'],
+                                'nw_planning_wed_a1' => $_POST['nw_planning_wed_a1'],
+                                'nw_planning_wed_a2' => $_POST['nw_planning_wed_a2'],
 
-                                'nw_planning_thu_m1' => $_POST['planning_thu_m1'],
-                                'nw_planning_thu_m2' => $_POST['planning_thu_m2'],
-                                'nw_planning_thu_a1' => $_POST['planning_thu_a1'],
-                                'nw_planning_thu_a2' => $_POST['planning_thu_a1'],
+                                'nw_planning_thu_m1' => $_POST['nw_planning_thu_m1'],
+                                'nw_planning_thu_m2' => $_POST['nw_planning_thu_m2'],
+                                'nw_planning_thu_a1' => $_POST['nw_planning_thu_a1'],
+                                'nw_planning_thu_a2' => $_POST['nw_planning_thu_a1'],
 
-                                'nw_planning_fri_m1' => $_POST['planning_fri_m1'],
-                                'nw_planning_fri_m2' => $_POST['planning_fri_m2'],
-                                'nw_planning_fri_a1' => $_POST['planning_fri_a1'],
-                                'nw_planning_fri_a2' => $_POST['planning_fri_a2'],
+                                'nw_planning_fri_m1' => $_POST['nw_planning_fri_m1'],
+                                'nw_planning_fri_m2' => $_POST['nw_planning_fri_m2'],
+                                'nw_planning_fri_a1' => $_POST['nw_planning_fri_a1'],
+                                'nw_planning_fri_a2' => $_POST['nw_planning_fri_a2'],
                             ];
 
-                            $this->nw_planning_model->insert($data);
+                            $this->nw_planning_model->insert($data_to_insert);
 
-                            $this->nw_planning($success);
+                            return redirect()->to('/helpdesk/home/nw_planning');
 
                             break;
 
@@ -732,12 +732,11 @@ class Home extends BaseController
      * Displays the page to modify roles assigned to technicans on periods and manages the post of the data.
      * 
      * @param int $planning_type ID of the edited planning
-     * @param string $error Error message, default value : NULL
      * 
      * @return view
      * 
      */
-    function updatePlanning($planning_type, $error = NULL)
+    function updatePlanning($planning_type)
     {
         $this->isUserLogged();
         
@@ -816,7 +815,7 @@ class Home extends BaseController
                         unset($_POST);
 
                         // Exit is neccessary to prevent displaying multiple views
-                        exit($this->updatePlanning($planning_type, $error)); 
+                        exit($this->updatePlanning($planning_type)); 
                     }
 
                     if(empty($field_value))
@@ -833,7 +832,7 @@ class Home extends BaseController
                 // If all fields are empty, prevent having a technician without any role at any period
                 if($emptyFieldsCount === 20)
                 {
-                    $data['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
+                    $error = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
                     break;
                 }
 
@@ -936,7 +935,7 @@ class Home extends BaseController
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
         {
-            $success = lang('Helpdesk.scs_technician_deleted');
+            $this->session->setFlashdata('success', lang('Helpdesk.scs_technician_deleted'));
 
             // 0 is current week, 1 is next week
             switch($planning_type)
@@ -946,7 +945,7 @@ class Home extends BaseController
 
                     $this->planning_model->delete($planning_data['id_planning']);
 
-                    $this->planning($success);
+                    return redirect()->to('helpdesk/home/planning');
 
                     break;
 
@@ -955,7 +954,7 @@ class Home extends BaseController
 
                     $this->nw_planning_model->delete($id_planning);
 
-                    $this->nw_planning($success);
+                    return redirect()->to('helpdesk/home/nw_planning');
 
                     break;
             }
@@ -985,6 +984,8 @@ class Home extends BaseController
      */
     public function holidays($success = NULL)
     {
+        $success = $this->session->getFlashdata('success');
+
         if(isset($success) && !empty($success))
         {
             $data['success'] = $success;
@@ -1075,9 +1076,9 @@ class Home extends BaseController
 
                 $this->holidays_model->save($data);
 
-                $success = lang('Helpdesk.scs_holiday_updated');
+                $this->session->setFlashdata('success', lang('Helpdesk.scs_holiday_updated'));
 
-                $this->holidays($success);
+                return redirect()->to('/helpdesk/home/holidays');
             }
         }
 
@@ -1130,9 +1131,9 @@ class Home extends BaseController
         {
             $this->holidays_model->delete($id_holiday);
 
-            $success = lang('Helpdesk.scs_holiday_deleted');
+            $this->session->setFlashdata('success', lang('Helpdesk.scs_holiday_deleted'));
 
-            $this->holidays($success);
+            return redirect()->to('/helpdesk/home/holidays');
         }
 
         // When the user clicks the delete button

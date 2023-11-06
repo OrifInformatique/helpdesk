@@ -90,7 +90,7 @@
                                 <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', strtotime('thursday this week')); ?></th>
                                 <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', strtotime('friday this week')); ?></th>
                             </tr>
-                        <?php break;?>
+                            <?php break;?>
 
                         <?php case 1: ?>
                             <tr>
@@ -101,7 +101,7 @@
                                 <th colspan="4"><?= lang('Helpdesk.thursday').' '.date('d', $_SESSION['helpdesk']['next_week']['thursday']); ?></th>
                                 <th colspan="4"><?= lang('Helpdesk.friday').' '.date('d', $_SESSION['helpdesk']['next_week']['friday']); ?></th>
                             </tr>
-                        <?php break;?>
+                            <?php break;?>
                     <?php } ?>
 
                     <tr>
@@ -130,7 +130,16 @@
                         </td>
                         <?php for($i = 0; $i < 20; $i++): ?>
                             <td>
-                                <select name="<?= $_SESSION['helpdesk']['cw_periods'][$i] ?>">
+                                <?php switch($planning_type)
+                                {
+                                    case 0:?>
+                                        <select name="<?= $_SESSION['helpdesk']['cw_periods'][$i] ?>">
+                                        <?php break;
+
+                                    case 1:?>
+                                        <select name="<?= $_SESSION['helpdesk']['nw_periods'][$i] ?>">
+                                        <?php break;?>
+                                <?php } ?>
                                     <option selected></option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
