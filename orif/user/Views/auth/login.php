@@ -19,7 +19,6 @@
                 echo form_open("user/auth/login", $attributes);
             ?>
             <fieldset>
-                <legend><?= lang('user_lang.title_page_login'); ?></legend>
                 
                 <!-- Status messages -->
                 <?php if(!is_null($session->getFlashdata('message-danger'))){ ?>

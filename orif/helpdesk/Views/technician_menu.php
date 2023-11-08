@@ -11,27 +11,11 @@
 
 ?>
 
-<div class="container-fluid">
-    <?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
-
-    <?php if(isset($success)): ?>
-        <div class="d-flex justify-content-center">
-            <?= ('<p class="success">'.$success.'</p>'); ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if(isset($error)): ?>
-        <div class="d-flex justify-content-center">
-            <?= ('<p class="error">'.$error.'</p>'); ?>
-        </div>
-    <?php endif; ?>
-
-    <?php foreach($user as $user): ?>
-        <div>
-            <?= lang('Helpdesk.technician_menu').'<strong>'.$user['last_name_user_data'].' '.$user['first_name_user_data'].'</strong> ?'?>
-        </div>
-        <div>
-            <a class="btn btn-primary mb-3" href="javascript:history.back()"><?= lang('Helpdesk.btn_cancel')?></a>
-        </div>
-    <?php endforeach; ?>
-</div>
+<?php foreach($user as $user): ?>
+    <div>
+        <?= lang('Helpdesk.technician_menu').'<strong>'.$user['last_name_user_data'].' '.$user['first_name_user_data'].'</strong> ?'?>
+    </div>
+    <div>
+        <a class="btn btn-primary mb-3" href="javascript:history.back()"><?= lang('Helpdesk.btn_cancel')?></a>
+    </div>
+<?php endforeach; ?>

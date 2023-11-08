@@ -25,20 +25,6 @@
     <p class="no-technician"> <?= lang('Helpdesk.err_no_technician_available')?></p>
 </div>
 
-<?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
-
-<?php if(isset($success)): ?>
-    <div class="d-flex justify-content-center">
-        <?= ('<p class="success">'.$success.'</p>'); ?>
-    </div>
-<?php endif; ?>
-
-<?php if(isset($error)): ?>
-    <div class="d-flex justify-content-center">
-        <?= ('<p class="error">'.$error.'</p>'); ?>
-    </div>
-<?php endif; ?>
-
 <?php if(isset($technicians) && !empty($technicians) && $day_off === false): ?>
     <div class="terminal-display container-fluid">
         <?php foreach($technicians as $technician): ?>

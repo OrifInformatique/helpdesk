@@ -33,14 +33,14 @@ return[
     ** ERROR MESSAGES
     */
 
-    'err_technician_already_has_schedule'           => 'Le technicien renseigné possède déjà un planning',
-    'err_technician_must_be_assigned_to_schedule'   => 'Chaque technicien doit être assigné au minimum à un rôle pendant une période',
-    'err_invalid_technician'                        => 'Technicien invalide',
-    'err_invalid_role'                              => 'Rôle assigné invalide',
-    'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes',
-    'err_unvalid_planning_type'                     => 'Erreur de planning',
-    'err_no_technician_selected'                    => 'Aucun technicien n\'a été sélectionné',
-    'err_unvalid_technician_selected'               => 'Technicien sélectionné invalide',
+    'err_technician_already_has_schedule'           => 'Le technicien renseigné possède déjà un planning.',
+    'err_technician_must_be_assigned_to_schedule'   => 'Chaque technicien doit être assigné au minimum à un rôle pendant une période.',
+    'err_invalid_technician'                        => 'Le technicien sélectionné est invalide.',
+    'err_invalid_role'                              => 'Le rôle assigné est invalide.',
+    'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes.',
+    'err_unvalid_planning_type'                     => 'Erreur de planning.',
+    'err_no_technician_selected'                    => 'Aucun technicien n\'a été sélectionné.',
+    'err_unvalid_technician_selected'               => 'Le technicien sélectionné est invalide.',
 
     'err_no_technician_available'                   => 'Aucun technicien n\'est disponible.',
     'err_no_holidays'                               => 'Aucune période fériée n\'existe.',
@@ -59,13 +59,13 @@ return[
     ** SUCCESS MESSAGES
     */
 
-    'scs_presences_updated'             => 'Présences modifiées avec succès',
-    'scs_presences_deleted'             => 'Présences du technicien supprimées avec succès',
-    'scs_technician_added_to_schedule'  => 'Technicien ajouté au planning avec succès',
-    'scs_technician_deleted'            => 'Le technicien a été supprimé du planning avec succès',
-    'scs_planning_updated'              => 'Planning de la semaine modifié avec succès',
-    'scs_holiday_updated'               => 'La période de vacances a été modifiée avec succès',
-    'scs_holiday_deleted'               => 'La période de vacances a été supprimée avec succès',
+    'scs_presences_updated'             => 'Vos présences ont été modifiées.',
+    'scs_presences_deleted'             => 'Les présences du technicien ont été supprimées.',
+    'scs_technician_added_to_schedule'  => 'Le technicien a été ajouté au planning.',
+    'scs_technician_deleted'            => 'Le technicien a été supprimé du planning.',
+    'scs_planning_updated'              => 'La planning de la semaine a été modifié.',
+    'scs_holiday_updated'               => 'La période de vacances a été modifiée.',
+    'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
 
 
     /*

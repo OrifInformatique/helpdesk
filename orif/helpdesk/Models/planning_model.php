@@ -87,9 +87,7 @@ class Planning_model extends \CodeIgniter\Model
         // If there is a result, it means the user already has a planning. Prevent duplicate creation
         if (!empty($planning_data))
         {
-            $data['error'] = lang('Helpdesk.err_technician_already_has_schedule');
-
-            return $data['error'];
+            return lang('Helpdesk.err_technician_already_has_schedule');
         }
     }
 

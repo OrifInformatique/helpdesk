@@ -28,22 +28,6 @@ if(isset($users))
 
 <script src="<?= base_url('Scripts/planningGeneration/text_animation.js')?>" defer></script>
 
-<div class="container-fluid">
-    <?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
-
-    <?php if(isset($success)): ?>
-        <div class="d-flex justify-content-center">
-            <?= ('<p class="success">'.$success.'</p>'); ?>
-        </div>
-    <?php endif; ?>
-
-    <?php if(isset($error)): ?>
-        <div class="d-flex justify-content-center">
-            <?= ('<p class="error">'.$error.'</p>'); ?>
-        </div>
-    <?php endif; ?>
-
-    <div id="waiting-text" class="d-flex justify-content-center align-center">
-        <?= lang('Helpdesk.planning_generation') ?>
-    </div>
+<div id="waiting-text" class="d-flex justify-content-center align-center">
+    <?= lang('Helpdesk.planning_generation') ?>
 </div>
