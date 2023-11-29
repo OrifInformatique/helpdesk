@@ -56,7 +56,7 @@ class Home extends BaseController
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/planning/cw_planning');
+        return redirect()->to('/helpdesk/planning/cw_planning');
     }
 
 

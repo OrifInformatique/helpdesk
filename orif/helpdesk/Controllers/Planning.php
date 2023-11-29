@@ -225,7 +225,7 @@ class Planning extends Home
 
                 $this->planning_model->insert($data_to_insert);
 
-                return redirect()->to('/planning/cw_planning');
+                return redirect()->to('/helpdesk/planning/cw_planning');
 
             case 1:
                 $data_to_insert =
@@ -260,7 +260,7 @@ class Planning extends Home
 
                 $this->nw_planning_model->insert($data_to_insert);
 
-                return redirect()->to('/planning/nw_planning');
+                return redirect()->to('/helpdesk/planning/nw_planning');
 
             default:
                 $this->isSetPlanningType(NULL);
@@ -351,7 +351,7 @@ class Planning extends Home
                     {
                         $this->session->setFlashdata('error', lang('Helpdesk.err_invalid_role'));
 
-                        return redirect()->to('/planning/update_planning/'.$planning_type);
+                        return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
                     }
 
                     if(empty($field_value))
@@ -370,7 +370,7 @@ class Planning extends Home
                 {
                     $this->session->setFlashdata('error', lang('Helpdesk.err_technician_must_be_assigned_to_schedule'));
 
-                    return redirect()->to('/planning/update_planning/'.$planning_type);
+                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
                 }
 
                 switch($planning_type)
@@ -456,14 +456,14 @@ class Planning extends Home
 
                     $this->planning_model->delete($planning_data['id_planning']);
 
-                    return redirect()->to('/planning/cw_planning');
+                    return redirect()->to('/helpdesk/planning/cw_planning');
 
                 case 1:
                     $id_planning = $this->nw_planning_model->getNwPlanning($user_id);
 
                     $this->nw_planning_model->delete($id_planning);
 
-                    return redirect()->to('/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nw_planning');
 
                 default:
                     $this->isSetPlanningType(NULL);

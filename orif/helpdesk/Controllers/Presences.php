@@ -150,7 +150,7 @@ class Presences extends Home
 
             $this->session->setFlashdata('success', lang('Helpdesk.scs_presences_deleted'));
 
-            return redirect()->to('/presences/all_presences');
+            return redirect()->to('/helpdesk/presences/all_presences');
         }
 
         // When the user clicks the delete button

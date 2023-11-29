@@ -104,7 +104,7 @@ class Holidays extends Home
 
                 $this->session->setFlashdata('success', lang('Helpdesk.scs_holiday_updated'));
 
-                return redirect()->to('/holidays/holidays_list');
+                return redirect()->to('/helpdesk/holidays/holidays_list');
             }
         }
 
@@ -142,7 +142,7 @@ class Holidays extends Home
 
             $this->session->setFlashdata('success', lang('Helpdesk.scs_holiday_deleted'));
 
-            return redirect()->to('/holidays/holidays_list');
+            return redirect()->to('/helpdesk/holidays/holidays_list');
         }
 
         // When the user clicks the delete button
