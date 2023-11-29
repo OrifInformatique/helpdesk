@@ -8,6 +8,9 @@ use CodeIgniter\Validation\FormatRules;
 use CodeIgniter\Validation\Rules;
 use User\Validation\CustomRules;
 
+use Helpdesk\Validation\Rules\CoherentDates;
+use Helpdesk\Validation\Rules\NotInPlanning;
+
 class Validation
 {
     //--------------------------------------------------------------------
@@ -25,7 +28,10 @@ class Validation
         FormatRules::class,
         FileRules::class,
         CreditCardRules::class,
-        CustomRules::class
+        CustomRules::class,
+
+        CoherentDates::class,
+        NotInPlanning::class
     ];
 
     /**

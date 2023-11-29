@@ -14,7 +14,7 @@ return[
     */
 
     'ttl_all_presences'         => 'Présences des techniciens',
-    'ttl_your_presences'        => 'Vos présences',
+    'ttl_my_presences'          => 'Mes présences',
     'ttl_add_technician'        => 'Ajouter un technicien',
     'ttl_technician_menu'       => 'Menu du technicien',
     'ttl_planning'              => 'Planning de la semaine',
@@ -33,7 +33,6 @@ return[
     ** ERROR MESSAGES
     */
 
-    'err_technician_already_has_schedule'           => 'Le technicien renseigné possède déjà un planning.',
     'err_technician_must_be_assigned_to_schedule'   => 'Chaque technicien doit être assigné au minimum à un rôle pendant une période.',
     'err_invalid_technician'                        => 'Le technicien sélectionné est invalide.',
     'err_invalid_role'                              => 'Le rôle assigné est invalide.',
@@ -59,7 +58,7 @@ return[
     ** SUCCESS MESSAGES
     */
 
-    'scs_presences_updated'             => 'Vos présences ont été modifiées.',
+    'scs_presences_updated'             => 'Les présences ont été modifiées.',
     'scs_presences_deleted'             => 'Les présences du technicien ont été supprimées.',
     'scs_technician_added_to_schedule'  => 'Le technicien a été ajouté au planning.',
     'scs_technician_deleted'            => 'Le technicien a été supprimé du planning.',
@@ -67,13 +66,22 @@ return[
     'scs_holiday_updated'               => 'La période de vacances a été modifiée.',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
 
+    /*
+    ** FORM CUSTOM ERRORS
+    */
+
+    'required'    => 'Le champ est requis.',
+    'alpha_space' => 'Le champ ne peut contenir que des caractères alphabétiques et des espaces.',
+    'valid_date'  => 'Date entrée incorrecte.',
+    'is_nautral_no_zero' => 'Technicien sélectionné invalide.',
+
 
     /*
     ** BUTTONS
     */
 
     'btn_all_presences'     => 'Présences des techniciens',
-    'btn_your_presences'    => 'Modifier mes présences',
+    'btn_my_presences'      => 'Modifier mes présences',
     'btn_add_technician'    => 'Ajouter un technicien',
     'btn_edit_planning'     => 'Modifier le planning',
     'btn_holiday'           => 'Liste des vacances',
@@ -84,7 +92,8 @@ return[
     'btn_cancel'            => 'Annuler',
     'btn_last_week'         => '◄◄ Semaine dernière',
     'btn_next_week'         => 'Semaine suivante ►►',
-    'btn_terminal'          => 'Aperçu de l\'affichage des techniciens',
+    'btn_terminal'          => 'Terminal',
+    'btn_reset'             => 'Réinitialiser',
 
     'btn_delete_from_planning' => 'Supprimer du planning',
 

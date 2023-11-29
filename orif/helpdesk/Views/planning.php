@@ -12,8 +12,8 @@
 ?>
 
 <nav>
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/allPresences') ?>"><?= lang('Helpdesk.btn_all_presences')?></a>
-    <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/holidays') ?>"><?= lang('Helpdesk.btn_holiday')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('/presences/all_presences') ?>"><?= lang('Helpdesk.btn_all_presences')?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('/holidays/holidays_list') ?>"><?= lang('Helpdesk.btn_holiday')?></a>
     <a class="btn btn-primary mb-3" href="<?= base_url('helpdesk/home/terminal') ?>"><?= lang('Helpdesk.btn_terminal')?></a>
 </nav>
 
@@ -25,7 +25,7 @@
     </div>
 
     <div class="week">
-        <a class="btn btn-primary btn-last-week" href="<?= base_url('helpdesk/home/lw_planning') ?>"><?= lang('Helpdesk.btn_last_week')?></a>
+        <a class="btn btn-primary btn-last-week" href="<?= base_url('/planning/lw_planning') ?>"><?= lang('Helpdesk.btn_last_week')?></a>
 
         <div>
             <?= lang('Helpdesk.planning_of_week')?>
@@ -38,7 +38,7 @@
             </span>
         </div>
 
-        <a class="btn btn-primary btn-next-week" href="<?= base_url('helpdesk/home/nw_planning') ?>"><?= lang('Helpdesk.btn_next_week')?></a>
+        <a class="btn btn-primary btn-next-week" href="<?= base_url('/planning/nw_planning') ?>"><?= lang('Helpdesk.btn_next_week')?></a>
     </div>
 
     <table class="table-responsive
@@ -90,7 +90,7 @@
                 <tr>
                     <td colspan="21">
                         <?= lang('Helpdesk.err_no_technician_assigned')?><br>
-                        <a class="btn btn-blue" href="<?= base_url('helpdesk/home/addTechnician/0') ?>"><?= lang('Helpdesk.btn_add_technician')?></a>
+                        <a class="btn btn-blue" href="<?= base_url('/planning/add_technician/0') ?>"><?= lang('Helpdesk.btn_add_technician')?></a>
                     </td>
                 </tr>
             <?php endif; ?>
@@ -99,7 +99,7 @@
 
     <div class="action-menu d-flex justify-content-center">
         <?php if(isset($planning_data)): ?>
-            <a class="btn btn-blue" href="<?= base_url('helpdesk/home/updatePlanning/0') ?>"><?= lang('Helpdesk.btn_edit_planning')?></a>
+            <a class="btn btn-blue" href="<?= base_url('/planning/update_planning/0') ?>"><?= lang('Helpdesk.btn_edit_planning')?></a>
         <?php else: ?>
             <button disabled class="btn btn-blue"><?= lang('Helpdesk.btn_edit_planning')?></button>
         <?php endif; ?>

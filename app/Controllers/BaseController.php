@@ -35,7 +35,7 @@ class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['form'];
 
     /**
      * Limit the accessibility to the entire controller.
@@ -136,6 +136,8 @@ class BaseController extends Controller
 
         // Display login bar
         echo view('Common\login_bar');
+
+        echo view('Common\body_common');
 
         // Display admin menu if appropriate
         foreach (config('Common\Config\AdminPanelConfig')->tabs as $tab){

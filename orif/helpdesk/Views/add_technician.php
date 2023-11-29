@@ -11,7 +11,7 @@
 
 ?>
 
-<form action="<?= base_url('helpdesk/home/addTechnician/'.$planning_type) ?>" method="post">
+<?= form_open(base_url('/planning/add_technician/'.$planning_type)) ?>
     <div class="planning">
         <div class="d-flex justify-content-center roles">
             <div class="bg-green  border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_1')?></div>
@@ -103,51 +103,51 @@
             <tbody>
                 <tr>
                     <td>
-                        <select name="technician" required>
-                            <option disabled selected></option>
+                        <?php 
+                        $options = ['' => ''];
 
-                            <?php foreach($users as $user)
-                            {
-                                echo '<option value="'.$user['id'].'">'.$user['last_name_user_data'].' '.$user['first_name_user_data'].'</option>';
-                            }
-                            ?>
-                        </select>
+                        foreach($users as $user)
+                        {
+                            $options[$user['id']] = $user['last_name_user_data'].' '.$user['first_name_user_data'];
+                        }
+                        
+                        echo form_dropdown('technician', $options, '')
+                        ?>
                     </td>
                     <?php for($i = 0; $i < 20; $i++): ?>
                         <td>
-                            <?php switch($planning_type)
-                            {
-                                case 0:?>
-                                    <select name="<?= $_SESSION['helpdesk']['cw_periods'][$i] ?>">
-                                    <?php break;
+                            <?php 
+                            $options = ['' => '', '1' => '1', '2' => '2', '3' => '3'];
 
-                                case 1:?>
-                                    <select name="<?= $_SESSION['helpdesk']['nw_periods'][$i] ?>">
-                                    <?php break;?>
-                            <?php } ?>
-                                <option selected></option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                            </select>
+                            switch($planning_type)
+                            {
+                                case 0:
+                                    echo form_dropdown($_SESSION['helpdesk']['cw_periods'][$i], $options, '');
+                                    break;
+
+                                case 1:
+                                    echo form_dropdown($_SESSION['helpdesk']['nw_periods'][$i], $options, '');
+                                    break;
+                            }?>
                         </td>
                     <?php endfor; ?>
                 </tr>
             </tbody>
         </table>
         <div class="action-menu d-flex justify-content-center">
-            <input class="btn btn-success" type="submit" value="<?= lang('Helpdesk.btn_save')?>"/>
-
+            <?= form_submit('', lang('Helpdesk.btn_save'), ['class' => 'btn btn-success']) ?>
+            <?= form_reset('', lang('Helpdesk.btn_reset'), ['class' => 'btn btn-warning']) ?>
+            
             <?php switch($planning_type)
             {
                 case 0:
-                    echo '<a class="btn btn-primary" href="'.base_url('helpdesk/home/planning').'">'.lang('Helpdesk.btn_back').'</a>';
+                    echo '<a class="btn btn-primary" href="'.base_url('/planning/cw_planning').'">'.lang('Helpdesk.btn_back').'</a>';
                     break;
 
                 case 1:
-                    echo '<a class="btn btn-primary" href="'.base_url('helpdesk/home/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>';
+                    echo '<a class="btn btn-primary" href="'.base_url('/planning/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>';
                     break;
             } ?>
         </div>
     </div>
-</form>
+<?= form_close() ?>

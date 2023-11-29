@@ -11,7 +11,7 @@
 
 ?>
 
-<form method="POST" action="<?= base_url('helpdesk/home/deleteTechnician/'.$user_id.'/'.$planning_type) ?>">
+<form method="POST" action="<?= base_url('/planning/delete_technician/'.$user_id.'/'.$planning_type) ?>">
     <input type="hidden" name="delete_confirmation" value="true">
 
     <div>
@@ -19,7 +19,7 @@
     </div>
 
     <div class="buttons-area">
-        <a class="btn btn-primary mb-3" href="javascript:history.back()"><?= lang('Helpdesk.btn_cancel')?></a>
+        <a class="btn btn-primary mb-3" href="<?= base_url('/planning/update_planning/'.$planning_type) ?>"><?= lang('Helpdesk.btn_cancel')?></a>
         <input class="btn btn-danger mb-3" type="submit" value="<?= lang('Helpdesk.btn_delete')?>">
     </div>
 </form>

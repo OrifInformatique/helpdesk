@@ -11,7 +11,7 @@
 
 ?>
 
-<form method="POST" action="<?= base_url('helpdesk/home/updatePlanning/'.$planning_type) ?>">
+<?= form_open(base_url('/planning/update_planning/'.$planning_type)) ?>
     <div class="planning">
         <div class="d-flex justify-content-center roles">
             <div class="bg-green  border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_1')?></div>
@@ -103,16 +103,16 @@
             <tbody>
                 <?php if(isset($planning_data)) : ?>
                     <?php foreach($planning_data as $planning) : ?>
+                        <?= form_hidden("planning[".$planning['id_planning']."][id_planning]", $planning['id_planning']) ?>
+                        <?= form_hidden("planning[".$planning['id_planning']."][fk_user_id]", $planning['fk_user_id']) ?>
                         <tr>
                             <th>
                                 <?= $planning['last_name_user_data'].'<br>'.$planning['first_name_user_data']; ?>
-                                <input type="hidden" name="planning[<?= $planning['id_planning']; ?>][id_planning]" value="<?= $planning['id_planning']; ?>">
-                                <input type="hidden" name="planning[<?= $planning['id_planning']; ?>][fk_user_id]" value="<?= $planning['fk_user_id']; ?>">
                             </th>
 
                             <?php foreach ($form_fields_data as $field): ?>
                                 <td>
-                                    <select name="planning[<?= $planning['id_planning']; ?>][<?= $field; ?>]">
+                                    <select name="planning[<?= $planning['id_planning'] ?>][<?= $field ?>]">
                                         <?php
                                         $choices = array('', 1, 2, 3);
                                         foreach ($choices as $choice) 
@@ -125,13 +125,13 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$planning['fk_user_id'].'/0')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
+                                <a class="btn btn-danger" href="<?= base_url('/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     <tr class="visible">
                         <td>
-                            <a class="btn btn-success" href="<?= base_url('helpdesk/home/addTechnician/0') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
+                            <a class="btn btn-success" href="<?= base_url('/planning/add_technician/0') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
                         </td>
                         <td colspan="21"></td>
                     </tr>
@@ -140,12 +140,12 @@
                         <tr>
                             <th>
                                 <?= $nw_planning['last_name_user_data'].'<br>'.$nw_planning['first_name_user_data']; ?>
-                                <input type="hidden" name="nw_planning[<?= $nw_planning['id_nw_planning']; ?>][id_nw_planning]" value="<?= $nw_planning['id_nw_planning']; ?>">
-                                <input type="hidden" name="nw_planning[<?= $nw_planning['id_nw_planning']; ?>][fk_user_id]" value="<?= $nw_planning['fk_user_id']; ?>">
+                                <input type="hidden" name="nw_planning[<?= $nw_planning['id_nw_planning'] ?>][id_nw_planning]" value="<?= $nw_planning['id_nw_planning'] ?>">
+                                <input type="hidden" name="nw_planning[<?= $nw_planning['id_nw_planning'] ?>][fk_user_id]" value="<?= $nw_planning['fk_user_id'] ?>">
                             </th>
                             <?php foreach ($form_fields_data as $field) : ?>
                                 <td>
-                                    <select name="nw_planning[<?= $nw_planning['id_nw_planning']; ?>][<?= $field; ?>]">
+                                    <select name="nw_planning[<?= $nw_planning['id_nw_planning'] ?>][<?= $field ?>]">
                                         <?php
                                         $choices = array('', 1, 2, 3);
 
@@ -159,13 +159,13 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-danger" href="<?= base_url('helpdesk/home/deleteTechnician/'.$nw_planning['fk_user_id'].'/1')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
+                                <a class="btn btn-danger" href="<?= base_url('/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     <tr>
                         <td>
-                            <a class="btn btn-success" href="<?= base_url('helpdesk/home/addTechnician/1') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
+                            <a class="btn btn-success" href="<?= base_url('/planning/add_technician/1') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
                         </td>
                         <td colspan="21"></td>
                     </tr>
@@ -182,15 +182,16 @@
         <div class="action-menu d-flex justify-content-center">
             <?php if(isset($planning_data) || isset($nw_planning_data)): ?>
                 <input class="btn btn-success" type="submit" value="<?= lang('Helpdesk.btn_save')?>">
+                <?= form_reset('', lang('Helpdesk.btn_reset'), ['class' => 'btn btn-warning']) ?>
             <?php endif; ?>
             <?php switch($planning_type)
             {
                 case 0:
-                    echo('<a class="btn btn-primary" href="'.base_url('helpdesk/home/planning').'">'.lang('Helpdesk.btn_back').'</a>');
+                    echo('<a class="btn btn-primary" href="'.base_url('/planning/cw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
                     break;
 
                 case 1:
-                    echo('<a class="btn btn-primary" href="'.base_url('helpdesk/home/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
+                    echo('<a class="btn btn-primary" href="'.base_url('/planning/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
                     break;
             }?>
         </div>

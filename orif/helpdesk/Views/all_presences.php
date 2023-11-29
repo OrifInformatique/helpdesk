@@ -11,9 +11,9 @@
 
 ?>
 
-<a class="btn btn-primary" href="<?= base_url('helpdesk/home/planning') ?>"><?= lang('Helpdesk.btn_back')?></a>
+<a class="btn btn-primary" href="<?= base_url('/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a>
 
-<div class="planning">
+<div class="presences">
 	<div class="d-flex justify-content-center roles">
 		<div class="present border-xs-1 p-2 rounded rounded-3 mx-3">P - <?= lang('Helpdesk.present')?></div>
 		<div class="partly-absent border-xs-1 p-2 rounded rounded-3 mx-3">I - <?= lang('Helpdesk.partly_absent')?></div>
@@ -37,7 +37,7 @@
 				<th colspan="4"><?= lang('Helpdesk.wednesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.thursday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.friday')?></th>
-				<th></th>
+				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th></th>' ?>
 			</tr>
 			<tr>
 				<th><?= lang('Helpdesk.technician')?></th>
@@ -48,7 +48,7 @@
 					<th>12:45 15:00</th>
 					<th>15:00 16:57</th>
 				<?php endfor; ?>
-				<th></th>
+				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th></th>' ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -78,7 +78,7 @@
 						}?>
 
 						<td>
-							<a class="btn btn-danger" href="<?= base_url('helpdesk/home/deletePresences/'.$user_presences['id_presence'])?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
+							<a class="btn btn-danger" href="<?= base_url('/presences/delete_presences/'.$user_presences['id_presence'])?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -93,6 +93,6 @@
 	</table>
 
 	<div class="action-menu d-flex justify-content-center">
-			<a class="btn btn-blue" href="<?= base_url('helpdesk/home/yourPresences') ?>"><?= lang('Helpdesk.btn_your_presences')?></a>
+			<a class="btn btn-blue" href="<?= base_url('/presences/my_presences') ?>"><?= lang('Helpdesk.btn_my_presences')?></a>
 	</div>
 </div>

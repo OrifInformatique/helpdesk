@@ -50,7 +50,7 @@ return [
 	'valid_emails'          => 'Le champ {field} doit contenir des adresses email valides.',
 	'valid_ip'              => 'Le champ {field} doit contenir une IP valide.',
 	'valid_url'             => 'Le champ {field} doit contenir une URL valide.',
-	'valid_date'            => 'Le champ {field} doit contenir une date valide.',
+	'valid_date'            => 'Le champ {field} est invalide.',
 
 	// Credit Cards
 	'valid_cc_num' => '{field} ne semble pas être un numéro de carte de crédit valide.',
@@ -62,4 +62,8 @@ return [
 	'mime_in'  => '{field} n\'a pas un type MIME valide.',
 	'ext_in'   => 'L\'extension du fichier {field}  n\'est pas valide.',
 	'max_dims' => 'Soit {field} n\'est pas une image, soit elle est trop haute ou trop large.',
+
+	// Custom Rules
+	'coherent_dates' => 'La date de fin doit être ultérieure à la date de début.',
+	'not_in_planning' => 'Le technicien renseigné figure déjà dans le planning.'
 ];

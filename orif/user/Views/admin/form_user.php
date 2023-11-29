@@ -10,12 +10,6 @@ $update = !is_null($user);
 $validation=\Config\Services::validation();
 ?>
 <div class="container">
-    <!-- TITLE -->
-    <div class="row">
-        <div class="col">
-            <h1 class="title-section"><?= lang('user_lang.title_user_'.($update ? 'update' : 'new')); ?></h1>
-        </div>
-    </div>
     
     <!-- INFORMATION MESSAGE IF USER IS DISABLED -->
     <?php if ($update && $user['archive']) { ?>

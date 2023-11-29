@@ -70,20 +70,20 @@
     // If the url ends with "planning" or "public/", or contains "updatePlanning" or "addTechnician", adds the planning stylesheet
     else if(substr($current_url, -8) === "planning" ||
             substr($current_url, -7) === "public/" ||
-            strpos($current_url, 'updatePlanning') !== false ||
-            strpos($current_url, 'addTechnician') !== false)
+            strpos($current_url, 'update_planning') !== false ||
+            strpos($current_url, 'add_technician') !== false)
     {
         echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/planning/planning.css").'">';
     }
 
     // If the url ends with "allPresences", adds the presences stylesheet
-    else if(substr($current_url, -12) === "allPresences")
+    else if(substr($current_url, -13) === "all_presences")
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/all_presences.css").'">';
     }
 
     // If the url ends with "yourPresences", adds the presences stylesheet
-    else if(substr($current_url, -13) === "yourPresences")
+    else if(substr($current_url, -12) === "my_presences")
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/your_presences.css").'">';
     }
@@ -92,11 +92,6 @@
     else if(strpos($current_url, 'holidays') !== false)
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/holidays.css").'">';
-    }
-
-    // If the url contains "saveHoliday", adds the holidays stylesheet
-    else if(strpos($current_url, 'saveHoliday') !== false)
-    {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/add_holiday.css").'">';
     }
 

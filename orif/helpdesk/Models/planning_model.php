@@ -73,26 +73,6 @@ class Planning_model extends \CodeIgniter\Model
 
 
     /**
-     * Check if a user has a role in the current week planning (if he has a planning entry)
-     * 
-     * @param int $user_id ID of a specific user
-     * 
-     * @return string|void
-     * 
-     */
-    public function checkUserOwnsPlanning($user_id)
-    {
-        $planning_data = $this->where('fk_user_id', $user_id)->findAll();
-
-        // If there is a result, it means the user already has a planning. Prevent duplicate creation
-        if (!empty($planning_data))
-        {
-            return lang('Helpdesk.err_technician_already_has_schedule');
-        }
-    }
-
-
-    /**
      * Get the planning ID of a specific user planning entry
      * 
      * @param int $user_id ID of a specific user
