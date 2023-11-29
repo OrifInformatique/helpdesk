@@ -27,6 +27,7 @@ class Validation extends BaseConfig
         FileRules::class,
         CreditCardRules::class,
         CustomRules::class,
+
         CoherentDates::class,
         NotInPlanning::class
     ];

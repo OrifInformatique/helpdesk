@@ -10,7 +10,7 @@ $routes = Services::routes();
  * Router Setup
  * --------------------------------------------------------------------
  */
-$routes->setDefaultNamespace('App\Controllers');
+$routes->setDefaultNamespace('Helpdesk\Controllers');
 $routes->setDefaultController('Home');
 $routes->setDefaultMethod('index');
 $routes->setTranslateURIDashes(false);
@@ -29,7 +29,7 @@ $routes->set404Override();
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', '\Welcome\Controllers\Home::index');
+$routes->get('/', '\Helpdesk\Controllers\Home::index');
 
 /*
  * --------------------------------------------------------------------

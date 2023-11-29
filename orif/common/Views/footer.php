@@ -9,6 +9,8 @@
 
 ?>
 
+</div>
+
 <!-- Script to update favicon in some browsers -->
 <script defer type="text/javascript">
     let icolink=document.querySelector("link:first-of-type");
