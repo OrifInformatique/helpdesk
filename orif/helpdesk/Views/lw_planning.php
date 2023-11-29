@@ -12,8 +12,8 @@
 ?>
 
 <nav>
-    <a class="btn btn-primary mb-3" href="<?= base_url('/presences/all_presences') ?>"><?= lang('Helpdesk.btn_all_presences') ?></a>
-    <a class="btn btn-primary mb-3" href="<?= base_url('/holidays/holidays_list') ?>"><?= lang('Helpdesk.btn_holiday') ?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('/helpdesk/presences/all_presences') ?>"><?= lang('Helpdesk.btn_all_presences') ?></a>
+    <a class="btn btn-primary mb-3" href="<?= base_url('/helpdesk/holidays/holidays_list') ?>"><?= lang('Helpdesk.btn_holiday') ?></a>
 </nav>
 
 <div class="planning">
@@ -37,7 +37,7 @@
             </span>
         </div>
 
-        <a class="btn btn-primary btn-next-week" href="<?= base_url('/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_next_week') ?></a>
+        <a class="btn btn-primary btn-next-week" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_next_week') ?></a>
     </div>
 
     <table class="table-responsive
@@ -73,7 +73,7 @@
                 <?php foreach ($lw_planning_data as $user) : ?>
                     <tr>
                         <th <?php if($user['fk_user_type'] == 4){echo 'class="mentor"';}?>>
-                            <a href="<?= base_url('helpdesk/home/technicianMenu/'.$user['fk_user_id']) ?>">
+                            <a href="<?= base_url('/helpdesk/home/technicianMenu/'.$user['fk_user_id']) ?>">
                                 <?= $user['last_name_user_data'].'<br>'.$user['first_name_user_data']; ?>
                             </a>
                         </th>

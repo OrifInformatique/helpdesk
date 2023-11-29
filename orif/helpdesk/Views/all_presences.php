@@ -11,7 +11,7 @@
 
 ?>
 
-<a class="btn btn-primary" href="<?= base_url('/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a>
+<a class="btn btn-primary" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a>
 
 <div class="presences">
 	<div class="d-flex justify-content-center roles">
@@ -78,7 +78,7 @@
 						}?>
 
 						<td>
-							<a class="btn btn-danger" href="<?= base_url('/presences/delete_presences/'.$user_presences['id_presence'])?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
+							<a class="btn btn-danger" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -93,6 +93,6 @@
 	</table>
 
 	<div class="action-menu d-flex justify-content-center">
-			<a class="btn btn-blue" href="<?= base_url('/presences/my_presences') ?>"><?= lang('Helpdesk.btn_my_presences')?></a>
+			<a class="btn btn-blue" href="<?= base_url('/helpdesk/presences/my_presences') ?>"><?= lang('Helpdesk.btn_my_presences')?></a>
 	</div>
 </div>

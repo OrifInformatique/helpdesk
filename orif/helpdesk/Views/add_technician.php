@@ -11,7 +11,7 @@
 
 ?>
 
-<?= form_open(base_url('/planning/add_technician/'.$planning_type)) ?>
+<?= form_open(base_url('/helpdesk/planning/add_technician/'.$planning_type)) ?>
     <div class="planning">
         <div class="d-flex justify-content-center roles">
             <div class="bg-green  border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_1')?></div>
@@ -141,11 +141,11 @@
             <?php switch($planning_type)
             {
                 case 0:
-                    echo '<a class="btn btn-primary" href="'.base_url('/planning/cw_planning').'">'.lang('Helpdesk.btn_back').'</a>';
+                    echo '<a class="btn btn-primary" href="'.base_url('/helpdesk/planning/cw_planning').'">'.lang('Helpdesk.btn_back').'</a>';
                     break;
 
                 case 1:
-                    echo '<a class="btn btn-primary" href="'.base_url('/planning/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>';
+                    echo '<a class="btn btn-primary" href="'.base_url('/helpdesk/planning/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>';
                     break;
             } ?>
         </div>

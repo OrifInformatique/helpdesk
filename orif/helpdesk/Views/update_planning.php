@@ -11,7 +11,7 @@
 
 ?>
 
-<?= form_open(base_url('/planning/update_planning/'.$planning_type)) ?>
+<?= form_open(base_url('/helpdesk/planning/update_planning/'.$planning_type)) ?>
     <div class="planning">
         <div class="d-flex justify-content-center roles">
             <div class="bg-green  border-xs-1 p-2 rounded rounded-3 mx-3"><?= lang('Helpdesk.role_1')?></div>
@@ -125,13 +125,13 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-danger" href="<?= base_url('/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
+                                <a class="btn btn-danger" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     <tr class="visible">
                         <td>
-                            <a class="btn btn-success" href="<?= base_url('/planning/add_technician/0') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
+                            <a class="btn btn-success" href="<?= base_url('/helpdesk/planning/add_technician/0') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
                         </td>
                         <td colspan="21"></td>
                     </tr>
@@ -159,13 +159,13 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-danger" href="<?= base_url('/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
+                                <a class="btn btn-danger" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
                             </td>
                         </tr>
                     <?php endforeach; ?>
                     <tr>
                         <td>
-                            <a class="btn btn-success" href="<?= base_url('/planning/add_technician/1') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
+                            <a class="btn btn-success" href="<?= base_url('/helpdesk/planning/add_technician/1') ?>">✚</button> <!-- ✚ = U+271A | &#10010; -->
                         </td>
                         <td colspan="21"></td>
                     </tr>
@@ -187,11 +187,11 @@
             <?php switch($planning_type)
             {
                 case 0:
-                    echo('<a class="btn btn-primary" href="'.base_url('/planning/cw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
+                    echo('<a class="btn btn-primary" href="'.base_url('/helpdesk/planning/cw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
                     break;
 
                 case 1:
-                    echo('<a class="btn btn-primary" href="'.base_url('/planning/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
+                    echo('<a class="btn btn-primary" href="'.base_url('/helpdesk/planning/nw_planning').'">'.lang('Helpdesk.btn_back').'</a>');
                     break;
             }?>
         </div>
