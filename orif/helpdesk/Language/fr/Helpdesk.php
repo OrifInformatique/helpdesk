@@ -46,6 +46,11 @@ return[
     'err_no_technician_assigned'                    => 'Aucun technicien n\'est assigné au planning.',
     'err_no_technician_presences'                   => 'Aucun technicien n\'a de présences.',
 
+    /*
+    ** CUSTOM VALIDATION RULES MESSAGES
+    */
+	'coherent_dates' => 'La date de fin doit être ultérieure à la date de début.',
+	'not_in_planning' => 'Le technicien renseigné figure déjà dans le planning.',
 
     /*
     ** INFO MESSAGES

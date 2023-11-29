@@ -36,7 +36,7 @@ abstract class BaseController extends Controller
      *
      * @var array
      */
-    protected $helpers = [];
+    protected $helpers = ['form'];
 
     /**
      * Be sure to declare properties for any property fetch you initialized.
@@ -149,7 +149,7 @@ abstract class BaseController extends Controller
 
         // Add login bar to the view
         $viewToDisplay .= view('Common\login_bar');
-
+        echo view('Common\body_common');
         // Add admin menu to the view if the current url is an admin url
         foreach (config('Common\Config\AdminPanelConfig')->tabs as $tab){
             if (strstr(current_url(),$tab['pageLink'])) {

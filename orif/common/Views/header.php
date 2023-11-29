@@ -36,7 +36,9 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
 
-
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+    
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -46,6 +48,67 @@
 
     <!-- Application styles -->
     <link rel="stylesheet" href="<?= base_url("css/MY_styles.css"); ?>" />
+    
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/colors.css") ?>">
+
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/custom_messages.css") ?>">
+
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/planning/roles.css") ?>">
+
+    <?php
+    // Get the current url
+    $current_url = $_SERVER['REQUEST_URI'];
+
+    // If the url ends with "terminal" or contains "updateTechnicianAvailability", adds the terminal stylesheet and meta data
+    if(substr($current_url, -8) === "terminal" ||
+        strpos($current_url, "updateTechnicianAvailability"))
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/terminal/terminal.css").'">';
+        echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';
+    }
+
+    // If the url ends with "planning" or "public/", or contains "updatePlanning" or "addTechnician", adds the planning stylesheet
+    else if(substr($current_url, -8) === "planning" ||
+            substr($current_url, -7) === "public/" ||
+            strpos($current_url, 'update_planning') !== false ||
+            strpos($current_url, 'add_technician') !== false)
+    {
+        echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/planning/planning.css").'">';
+    }
+
+    // If the url ends with "allPresences", adds the presences stylesheet
+    else if(substr($current_url, -13) === "all_presences")
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/all_presences.css").'">';
+    }
+
+    // If the url ends with "yourPresences", adds the presences stylesheet
+    else if(substr($current_url, -12) === "my_presences")
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/your_presences.css").'">';
+    }
+
+    // If the url contains "holidays", adds the holidays stylesheet
+    else if(strpos($current_url, 'holidays') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/holidays.css").'">';
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/add_holiday.css").'">';
+    }
+
+    // If the url contains "delete", adds the delete_confirmation stylesheet
+    else if(strpos($current_url, 'delete') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
+    }
+
+    // If the url contains "generate", adds the generate_planning stylesheet
+    else if(strpos($current_url, 'generate') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/planning/generate_planning.css").'">';
+    }
+
+    ?>
+
 </head>
 <body>
     <?php
