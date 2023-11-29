@@ -1,86 +1,75 @@
-# Project Title
+# Site Helpdesk
 
-One Paragraph of project description goes here
+## What is it?
 
-## Getting Started
+The helpdesk site is a project by Pomy's IT department, aimed at automating the process of assigning roles and displaying on-call technicians. All modifications can be made easily via a web interface.
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+## Tools and software
 
-### Prerequisites
+The helpdesk site is developed using :
 
-What things you need to install the software and how to install them
+- [CodeIgniter](https://codeigniter.com/), a PHP framework using MVC architecture.
+- [Bootstrap](https://getbootstrap.com/), CSS library.
+- [Visual Studio Code](https://code.visualstudio.com/), text editor, with GitHub and PHP extensions.
+- [Laragon](https://laragon.org/), Apache and MySQL server (PHPMyAdmin, PHP 7.4.X).
+- [GitHub Desktop](https://desktop.github.com/), for data synchronization. Optional
 
-```text
-Give examples
-```
+# Reproduction of the environment
 
-### Installing
+## Software installation
 
-A step by step series of examples that tell you how to get a development env running
+### Visual Studio Code
 
-Say what the step will be
+1. Download and install VSC (Visual Studio Code).
+2. Connect to GitHub via VSC.
+3. Download extensions for GitHub.
+    - [Remote Repositories](https://marketplace.visualstudio.com/items?itemName=ms-vscode.remote-repositories)
+    - [GitHub Pull Requests and Issues](https://marketplace.visualstudio.com/items?itemName=GitHub.vscode-pull-request-github)
+    - [PHP Extension Pack](https://marketplace.visualstudio.com/items?itemName=xdebug.php-pack)
+    - [PHP Intelephense](https://marketplace.visualstudio.com/items?itemName=bmewburn.vscode-intelephense-client)
 
-```text
-Give the example
-```
+### GitHub Desktop
 
-And repeat
+1. Download and install GitHub Desktop.
+2. Connect to GitHub via GitHub Desktop.
 
-```text
-until finished
-```
+### Laragon
 
-End with an example of getting some data out of the system or using it for a little demo
+1. Download and install Laragon.
+2. Start the Apache and MySQL servers.
 
-## Running the tests
+_Projects and web files are located under `laragon\www`._
 
-Explain how to run the automated tests for this system
+## Cloning the project
 
-### Break down into end to end tests
+### With GitHub
 
-Explain what these tests test and why
+1. In GitHub Desktop, `File` > `Clone Repository`.
+   Shortcut: `Ctrl` + `Shift` + `O`.
+2. Choose the URL option.
+3. Paste the link leading to the desired GitHub repostiory.
+4. Below, enter the destination, in the folder `laragon\www\<your_folder>`.
 
-```text
-Give an example
-```
+### Without GitHub
 
-### And coding style tests
+1. In VSC, open a remote directory via the `Explorer` tab.
+2. Open the Helpdesk directory.
 
-Explain what these tests test and why
+## Configuration
 
-```text
-Give an example
-```
+1. Download the `.env` file from the Teams channel of the Helpdesk site.
+   You can log in the shared database too. Infos are also in channel.
+2. Place it at the root of the project.
 
-## Deployment
+### For local databases
+1. Copy-paste the `env` file and edit it with correct info according to the Apache server used. Rename the new file `.env`.
+2. On your MySQL server, create manually a new database.
+    The name has to be the same as defined in .env file, in `database.default.database` field.
+    Use utf8_general_ci or utf8mb4_general_ci collation.
+3. On a new terminal, on project root, execute `php spark migrate --all` to migrate all tables and default values.
 
-Add additional notes about how to deploy this on a live system
 
-## Built With
+# You're all set!
+The project is listed under `orif\helpdesk`.
 
-* [CodeIgniter](https://www.codeigniter.com/) - PHP framework
-* [Bootstrap](https://getbootstrap.com/) - To simplify views design
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
-
-## Authors
-
-* **Orif, domaine informatique** - *Initiating and following the project* - [GitHub account](https://github.com/OrifInformatique)
-
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+Go to the local website : http://localhost/helpdesk/public.
