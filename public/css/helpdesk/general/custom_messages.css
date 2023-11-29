@@ -1,0 +1,28 @@
+.custom-alert
+{
+	position: absolute;
+	top: 12%;
+	right: 4%;
+	width: 28%;
+	align-items: center;
+}
+
+.alert i
+{
+	color: var(--black);
+	font-size: 1.5em;
+	margin-right: 10px;
+}
+
+.fade
+{
+	animation: fadeOut 4s forwards;
+}
+
+/* Fade animation */
+@keyframes fadeOut
+{
+	0% { opacity: 1; }
+	80% { opacity: 1; }
+	100% { opacity: 0; display: none;}
+}

@@ -1,0 +1,264 @@
+nav
+{
+    background-color: var(---blue-orif);
+}
+
+.planning
+{
+    max-width: 1900px;
+    margin: 25px auto;
+}
+
+.roles
+{
+    padding: 15px 0;
+    background-color: var(--roles);
+    border-radius: 8px 8px 0 0;
+    width: fit-content;
+    margin: auto;
+}
+
+.roles div
+{
+    border: 1px solid var(--gray);
+}
+
+.week
+{
+    background-color: var(--week);
+    padding: 8px;
+    font-size: 18px;
+    text-align: center;
+    height: 58px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+}
+
+select[name="technician"]
+{
+    width: 160px;
+    height: 40px;
+}
+
+table
+{
+    width: fit-content;
+}
+
+th, td
+{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid var(--light-gray);
+}
+
+thead tr:nth-child(1) th
+{
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+thead tr:nth-child(2) th
+{
+    font-weight: bold;
+}
+
+tbody tr:nth-child(even)
+{
+    background-color: var(--even-line);
+}
+
+tr th:first-child
+{
+    height: 75px;
+    min-width: 115px;
+}
+
+/*
+ * Periods off classes
+ *
+ */
+.mon-m1-off tbody tr td:nth-child(2),
+.tue-m1-off tbody tr td:nth-child(6),
+.wed-m1-off tbody tr td:nth-child(10),
+.thu-m1-off tbody tr td:nth-child(14),
+.fri-m1-off tbody tr td:nth-child(18),
+
+.mon-m2-off tbody tr td:nth-child(3),
+.tue-m2-off tbody tr td:nth-child(7),
+.wed-m2-off tbody tr td:nth-child(11),
+.thu-m2-off tbody tr td:nth-child(15),
+.fri-m2-off tbody tr td:nth-child(19),
+
+.mon-a1-off tbody tr td:nth-child(4),
+.tue-a1-off tbody tr td:nth-child(8),
+.wed-a1-off tbody tr td:nth-child(12),
+.thu-a1-off tbody tr td:nth-child(16),
+.fri-a1-off tbody tr td:nth-child(20),
+
+.mon-a2-off tbody tr td:nth-child(5),
+.tue-a2-off tbody tr td:nth-child(9),
+.wed-a2-off tbody tr td:nth-child(13),
+.thu-a2-off tbody tr td:nth-child(17),
+.fri-a2-off tbody tr td:nth-child(21) 
+{
+    background-color: var(--light-gray);
+    text-indent: -9999px;
+    line-height: 0;
+}
+
+/* *********************************************************** */
+
+.action-menu
+{
+    padding: 15px;
+    background-color: var(--roles);
+    border-radius: 0 0 150% 150%;
+    width: 100%;
+    margin: auto;
+}
+
+.action-menu a:nth-child(2)
+{
+    margin: 0 8px;
+}
+
+.btn-blue {
+    background-color: var(--btn-blue);
+}
+
+.btn-blue:hover {
+    color: var(--white);
+}
+
+.mentor
+{
+    box-shadow: 12px 0 var(--mentor) inset;
+}
+
+button:disabled
+{
+    cursor: not-allowed;
+}
+
+button:disabled:hover
+{
+    color: var(--black);
+}
+
+td[colspan="21"] *
+{
+    margin: 5px 0;
+}
+
+
+
+
+@media screen and (max-width: 1305px)
+{
+    /*
+     * Sticks the first column to the left when scrolling
+     *
+     */
+    th:first-child, td:first-child
+    {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: var(--white);
+    }
+
+    /*
+     * NOT WORKING
+     * Colors every even line
+     *
+     */
+    tbody td:first-child:nth-child(even)
+    {
+        background-color: var(--even-line);
+    }    
+}
+
+@media screen and (max-width: 875px)
+{
+    /*
+     * Reduces buttons sizes by removing content
+     *
+     */
+    .btn-last-week, .btn-next-week
+    {
+        text-indent: -9999px;
+        line-height: 0;
+    }
+
+    .btn-last-week::after , .btn-next-week::after
+    {
+        text-indent: 0;
+        display: block;
+        line-height: initial;
+    }
+
+    .btn-last-week::after 
+    {
+        content: "◄◄";
+    }
+
+    .btn-next-week::after
+    {
+        content: "►►";
+    }
+
+
+
+    /*
+     * Display the nav menu as a list
+     *
+     */
+    nav
+    {
+        display: flex;
+        flex-direction: column;
+        justify-content: left;
+    }
+
+    nav a
+    {
+        width: fit-content;
+    }
+
+
+
+    /*
+     * Padding adjustment on week class
+     * Removes rounded edges from week background
+     *
+     */
+    .week
+    {
+        border-radius: 0;
+    }
+
+    .week div
+    {
+        padding: 0 25px;
+    }
+
+
+
+    /*
+     * Adjust no technicians text to be visible without scrolling
+     *
+     */
+    td[colspan="21"]
+    {
+        text-align: left;
+    }
+
+    .planning
+    {
+        padding-bottom: 100px;
+    }
+}
