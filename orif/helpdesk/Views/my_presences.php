@@ -11,6 +11,8 @@
 
 ?>
 
+<?= view('Helpdesk\Common\body_start') ?>
+
 <?php if(!isset($presences)): ?>
 	<div class="d-flex justify-content-center alert alert-info">
 		<?= '<i class="fa-solid fa-circle-info"></i>'.lang('Helpdesk.info_presences_fields_empty')?>

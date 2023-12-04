@@ -9,6 +9,8 @@
  * 
  */
 
+view('Helpdesk\Common\body_common');
+
 if(isset($users))
 {
     foreach($users as $user => $fields)

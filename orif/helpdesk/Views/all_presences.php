@@ -11,6 +11,8 @@
 
 ?>
 
+<?= view('Helpdesk\Common\body_start') ?>
+
 <a class="btn btn-primary" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a>
 
 <div class="presences">
@@ -78,7 +80,7 @@
 						}?>
 
 						<td>
-							<a class="btn btn-danger" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>">✕</a> <!-- ✕ => U+2715 | &#10005; -->
+							<a class="btn btn-danger" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>"><i class="fa-solid fa-trash-can"></i></a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

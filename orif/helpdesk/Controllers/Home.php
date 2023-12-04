@@ -17,20 +17,29 @@ use CodeIgniter\HTTP\RequestInterface;
 use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
-use Helpdesk\Models\terminal_model;
-use Helpdesk\Models\holidays_model;
+use Helpdesk\Models\Lw_planning_model;
 use Helpdesk\Models\Planning_model;
-use Helpdesk\Models\User_Data_model;
+use Helpdesk\Models\Nw_planning_model;
+
+use Helpdesk\Models\holidays_model;
 use Helpdesk\Models\Presences_model;
+use Helpdesk\Models\terminal_model;
+
+use Helpdesk\Models\User_Data_model;
 
 class Home extends BaseController
 {
     protected $session;
-    protected $user_data_model;
-    protected $holidays_model;
-    protected $terminal_model;
+
+    protected $lw_planning_model;
     protected $planning_model;
+    protected $nw_planning_model;
+
+    protected $holidays_model;
     protected $presences_model;
+    protected $terminal_model;
+
+    protected $user_data_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -38,18 +47,24 @@ class Home extends BaseController
 
         $this->session = \Config\Services::session();
 
-        $this->holidays_model = new holidays_model();
-        $this->terminal_model = new terminal_model();
+        $this->lw_planning_model = new lw_planning_model();
         $this->planning_model = new planning_model();
-        $this->user_data_model = new user_data_model();
+        $this->nw_planning_model = new nw_planning_model();
+
+        $this->holidays_model = new holidays_model();
         $this->presences_model = new presences_model();
+        $this->terminal_model = new terminal_model();
+
+        $this->user_data_model = new user_data_model();
+
+        helper('form');
     }
 
 
     /**
      * Default function, displays the planning page.
      * 
-     * @return view 'Helpdesk\planning'
+     * @return view
      * 
      */
     public function index()
@@ -155,7 +170,7 @@ class Home extends BaseController
         {
             $this->session->setFlashdata('error', lang('Helpdesk.err_unvalid_planning_type'));
 
-            return exit($this->planning(NULL));
+            return $this->index();
         }
     }
 
@@ -308,215 +323,44 @@ class Home extends BaseController
     /** ********************************************************************************************************************************* */
 
 
+    // /**
+    //  * Start the planning generation process
+    //  * 
+    //  * @return view
+    //  * 
+    //  */
+    // public function generatePlanning()
+    // {
+    //     $this->isUserLogged();
 
+    //     // Get all users data
+    //     $users = $this->user_data_model->getUsersData();
 
+    //     $data['users'] = [];
 
-    /**
-     * Displays the technicians assigned at the moment
-     * 
-     * @param string $error Error message, default value : NULL
-     * 
-     * @return view
-     * 
-     */
-    public function terminal()
-    {
-        $data = $this->getFlashdataMessages();
+    //     // Data formatting for getting data easier with JS
+    //     foreach($users as $user)
+    //     {
+    //         // .FIX : PREVOIR QUE CETTE FONCTION PEUT RETOURNER NULL
+    //         $presences_user = $this->presences_model->getPresencesUser($user['fk_user_id']);
 
-        $isDayOff = $this->holidays_model->areWeInHolidays();
+    //         $data['user-'.$user['fk_user_id']] =
+    //         [
+    //             'firstName' => $user['first_name_user_data'],
+    //             'lastName' => $user['last_name_user_data'],
+    //             'id' => $user['last_name_user_data'].substr($user['last_name_user_data'], 0, 1),
+    //             'active' => true, // .TODO : RETRIEVE AUTOMATICALLY THIS VALUE, PRESETTED FOR TESTS
+    //         ];
 
-        if($isDayOff)
-        {
-            $data['day_off'] = true;
-        }
+    //         foreach($presences_user as $presence_name => $presence)
+    //         {
+    //             $data['user-'.$user['fk_user_id']][$presence_name] = $presence;
+    //         }
 
-        else
-        {
-            $data['day_off'] = false;
+    //         array_push($data['users'], $data['user-'.$user['fk_user_id']]);
+    //     }
 
-            $time =
-            [
-                'day'       => substr(strtolower(date('l', time())), 0, 3),
-                'period'    => '', // Will be set later
-                'hh:mm'     => strtotime(date('H:i', time())),
-            ];
-
-            // Determines on which period we actually are
-            switch (true) {
-                case ($time['hh:mm'] >= strtotime("08:00") && $time['hh:mm'] < strtotime("10:00")):
-                    $time['period'] = 'm1';
-                    break;
-
-                case ($time['hh:mm'] >= strtotime("10:00") && $time['hh:mm'] < strtotime("12:00")):
-                    $time['period'] = 'm2';
-                    break;
-
-                case ($time['hh:mm'] >= strtotime("12:45") && $time['hh:mm'] < strtotime("15:00")):
-                    $time['period'] = 'a1';
-                    break;
-
-                case ($time['hh:mm'] >= strtotime("15:00") && $time['hh:mm'] < strtotime("16:57")):
-                    $time['period'] = 'a2';
-                    break;
-
-                default:
-                    $time['period'] = NULL;
-            }
-
-            // If we are in work timetables
-            if(isset($time['period']))
-            {
-                // Constructs the period name
-                $sql_name_period = 'planning_'.$time['day'].'_'.$time['period'];
-
-                $data['technicians'] = $this->planning_model->getTechniciansOnPeriod($sql_name_period);
-
-                if(isset($data['technicians']) && !empty($data['technicians']))
-                {
-                    $data['period'] = $sql_name_period;
-                    
-                    // Resets the availabilities on the beginning of new periods
-                    if ($time['hh:mm'] == strtotime("08:00") ||
-                        $time['hh:mm'] == strtotime("10:00") ||
-                        $time['hh:mm'] == strtotime("12:45") ||
-                        $time['hh:mm'] == strtotime("15:00"))
-                    {
-                        $this->terminal_model->ResetAvailabilities();
-                    }
-
-                    $roles_assigned = [];
-
-                    foreach($data['technicians'] as $technician)
-                    {
-                        array_push($roles_assigned, $technician[$sql_name_period]);
-                    }
-
-                    for($role = 1; $role <= 3; $role++)
-                    {
-                        if(!in_array($role, $roles_assigned))
-                        {
-                            $this->terminal_model->updateAvailability($role, false);
-                        }
-                    }
-                }
-
-                $data['technicians_availability'] = $this->terminal_model->getTerminalData();
-            }
-        }
-
-        //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
-
-        return $this->display_view('Helpdesk\terminal', $data);
-    }
-
-
-    /**
-     * Changes technician availability on terminal
-     * 
-     * @param int $technician_type Role of the technician updated
-     * 
-     * @return view
-     * 
-     */
-    public function updateTechnicianAvailability($technician_type)
-    {
-        $error = NULL;
-
-        if(isset($technician_type) && !empty($technician_type))
-        {
-            $technicians_availability = $this->terminal_model->getTerminalData();
-
-            switch($technician_type)
-            {
-                case 1:
-                    $index = 0;
-                    break;
-
-                case 2:
-                    $index = 1;
-                    break;
-
-                case 3:
-                    $index = 2;
-                    break;
-
-                default:
-                    $error = lang('Helpdesk.err_unvalid_technician_selected');
-            }
-
-            $role = $index+1;
-
-            $this->terminal_model->updateAvailability($role, !$technicians_availability[$index]['tech_available_terminal']);
-        }
-
-        else
-        {
-            $error = lang('Helpdesk.err_no_technician_selected');
-        }
-
-        // Refreshes the terminal
-        $this->terminal($error);
-    }
-
-
-    /**
-     * Start the planning generation process
-     * 
-     * @return view
-     * 
-     */
-    public function generatePlanning()
-    {
-        $this->isUserLogged();
-
-        // Get all users data
-        $users = $this->user_data_model->getUsersData();
-
-        $data['users'] = [];
-
-        // Data formatting for getting data easier with JS
-        foreach($users as $user)
-        {
-            // FIX : PREVOIR QUE CETTE FONCTION PEUT RETOURNER NULL
-            $presences_user = $this->presences_model->getPresencesUser($user['fk_user_id']);
-
-            $data['user-'.$user['fk_user_id']] =
-            [
-                'firstName' => $user['first_name_user_data'],
-                'lastName' => $user['last_name_user_data'],
-                'id' => $user['last_name_user_data'].substr($user['last_name_user_data'], 0, 1),
-                'active' => true, // TODO : RETRIEVE AUTOMATICALLY THIS VALUE, PRESETTED FOR TESTS
-            ];
-
-            foreach($presences_user as $presence_name => $presence)
-            {
-                $data['user-'.$user['fk_user_id']][$presence_name] = $presence;
-            }
-
-            array_push($data['users'], $data['user-'.$user['fk_user_id']]);
-        }
-
-        // Displays the page of planning generation
-        return $this->display_view('Helpdesk\generate_planning', $data);
-    }
-
-
-    /**
-     * [DOES NOT HAVE AN ACTUAL USE FOR NOW] Displays the menu of a technician.
-     * 
-     * @param int $user_id ID of the currently logged user
-     * 
-     * @return view
-     * 
-     */
-    public function technicianMenu($user_id)
-    {
-        $this->isUserLogged();
-
-        $data['user'] = $this->user_data_model->getUserData($user_id);
-
-        $data['title'] = lang('Helpdesk.ttl_technician_menu');
-
-        return $this->display_view('Helpdesk\technician_menu', $data);
-    }
+    //     // Displays the page of planning generation
+    //     return $this->display_view('Helpdesk\generate_planning', $data);
+    // }
 }

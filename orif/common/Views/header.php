@@ -59,15 +59,14 @@
     // Get the current url
     $current_url = $_SERVER['REQUEST_URI'];
 
-    // If the url ends with "terminal" or contains "updateTechnicianAvailability", adds the terminal stylesheet and meta data
-    if(substr($current_url, -8) === "terminal" ||
-        strpos($current_url, "updateTechnicianAvailability"))
+    // If the url ends with "terminal", adds the terminal stylesheet and meta data
+    if(substr($current_url, -7) === "display")
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/terminal/terminal.css").'">';
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';
     }
 
-    // If the url ends with "planning" or "public/", or contains "updatePlanning" or "addTechnician", adds the planning stylesheet
+    // If the url ends with "planning" or "public/", or contains "update_planning" or "add_technician", adds the planning stylesheet
     else if(substr($current_url, -8) === "planning" ||
             substr($current_url, -7) === "public/" ||
             strpos($current_url, 'update_planning') !== false ||
@@ -76,13 +75,13 @@
         echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/planning/planning.css").'">';
     }
 
-    // If the url ends with "allPresences", adds the presences stylesheet
+    // If the url ends with "all_presences", adds the presences stylesheet
     else if(substr($current_url, -13) === "all_presences")
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/all_presences.css").'">';
     }
 
-    // If the url ends with "yourPresences", adds the presences stylesheet
+    // If the url ends with "my_presences", adds the presences stylesheet
     else if(substr($current_url, -12) === "my_presences")
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/your_presences.css").'">';
@@ -101,11 +100,11 @@
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
     }
 
-    // If the url contains "generate", adds the generate_planning stylesheet
-    else if(strpos($current_url, 'generate') !== false)
-    {
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/planning/generate_planning.css").'">';
-    }
+    // // If the url contains "generate", adds the generate_planning stylesheet
+    // else if(strpos($current_url, 'generate') !== false)
+    // {
+    //     echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/planning/generate_planning.css").'">';
+    // }
 
     ?>
 

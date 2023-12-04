@@ -35,7 +35,6 @@ return[
 
     'err_technician_must_be_assigned_to_schedule'   => 'Chaque technicien doit être assigné au minimum à un rôle pendant une période.',
     'err_invalid_technician'                        => 'Le technicien sélectionné est invalide.',
-    'err_invalid_role'                              => 'Le rôle assigné est invalide.',
     'err_dates_are_incoherent'                      => 'Les dates entrées sont incohérentes.',
     'err_unvalid_planning_type'                     => 'Erreur de planning.',
     'err_no_technician_selected'                    => 'Aucun technicien n\'a été sélectionné.',
@@ -95,9 +94,9 @@ return[
     'btn_save'              => 'Enregistrer',
     'btn_delete'            => 'Supprimer',
     'btn_cancel'            => 'Annuler',
-    'btn_last_week'         => '◄◄ Semaine dernière',
-    'btn_next_week'         => 'Semaine suivante ►►',
-    'btn_terminal'          => 'Terminal',
+    'btn_last_week'         => '<i class="fa-solid fa-left-long"></i> Semaine dernière',
+    'btn_next_week'         => 'Semaine suivante <i class="fa-solid fa-right-long"></i>',
+    'btn_terminal'          => 'Aperçu du terminal',
     'btn_reset'             => 'Réinitialiser',
 
     'btn_delete_from_planning' => 'Supprimer du planning',

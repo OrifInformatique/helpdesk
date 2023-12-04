@@ -11,6 +11,8 @@
 
 ?>
 
+<?= view('Helpdesk\Common\body_start') ?>
+
 <a class="btn btn-primary" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a><br>
 
 <div class="d-flex flex-column align-items-center">

@@ -11,6 +11,8 @@
 
 ?>
 
+<?= view('Helpdesk\Common\body_start') ?>
+
 <?= form_open(base_url('/helpdesk/presences/delete_presences/'.$id_presence)) ?>
     <?= form_hidden('delete_confirmation', true) ?>
 

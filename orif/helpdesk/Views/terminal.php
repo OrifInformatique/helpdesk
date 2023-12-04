@@ -11,6 +11,8 @@
 
 ?>
 
+<?= view('Helpdesk\Common\body_start') ?>
+
 <div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('/helpdesk/home/terminal')) ?>"></div>
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
 
@@ -28,7 +30,7 @@
 <?php if(isset($technicians) && !empty($technicians) && $day_off === false): ?>
     <div class="terminal-display container-fluid">
         <?php foreach($technicians as $technician): ?>
-            <a class="technician-sheet d-flex justify-content-center <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?>" href="<?= base_url('/helpdesk/home/updateTechnicianAvailability/'.$technician[$period]) ?>">
+            <a class="technician-sheet d-flex justify-content-center <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?>" href="<?= base_url('/helpdesk/terminal/update_technician_availability/'.$technician[$period]) ?>">
                 <p class="technician-<?= $technician[$period] ?>-unavailable-text unavailable-text <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? 'hidden' : ''; ?>"><?= lang('Helpdesk.unavailable')?></p>
                 <div class="role">
                     <p>

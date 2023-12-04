@@ -19,12 +19,27 @@ use Helpdesk\Controllers\Home;
 
 class Holidays extends Home
 {
-    protected $holidays_model;
-
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
     }
+
+
+    /**
+     * Default function, displays the holidays list.
+     * 
+     * @return view
+     * 
+     */
+    public function index()
+    {
+        $this->setSessionVariables();
+
+        return redirect()->to('/helpdesk/holidays/holidays_list');
+    }
+
+
+    /** ********************************************************************************************************************************* */
 
 
     /**
@@ -70,18 +85,19 @@ class Holidays extends Home
             [
                 'holiday_name' => 
                 [
-                    'required' => lang('Helpdesk.required'),
+                    'required'    => lang('Helpdesk.required'),
                     'alpha_space' => lang('Helpdesk.alpha_space')
                 ],
-                'start_date'   => 
+                'start_date' => 
                 [
-                    'required' => lang('Helpdesk.required'),
+                    'required'   => lang('Helpdesk.required'),
                     'valid_date' => lang('Helpdesk.valid_date')
                 ],
-                'end_date'     => 
+                'end_date' => 
                 [
-                    'required' => lang('Helpdesk.required'),
-                    'valid_date' => lang('Helpdesk.valid_date')
+                    'required'       => lang('Helpdesk.required'),
+                    'valid_date'     => lang('Helpdesk.valid_date'),
+                    'coherent_dates' => lang('Helpdesk.coherent_dates')
                 ]
             ]);
 
