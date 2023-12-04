@@ -50,9 +50,9 @@ class NotInPlanning
         // If there is a result (array not empty), it means the user already is in the planning.
         if (!empty($planning_data))
         {
-            return false;
+            return false; // The user is in planning (NOT inexistent in planning)
         }
 
-        return true;
+        return true; // The user isn't in planning (inexistent in planning)
     }
 }

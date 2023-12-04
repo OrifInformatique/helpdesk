@@ -1,6 +1,7 @@
 <?php
+
 /**
- * Start of body view
+ * Start of body component
  * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique

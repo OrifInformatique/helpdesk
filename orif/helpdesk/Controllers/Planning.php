@@ -16,28 +16,32 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 use Helpdesk\Controllers\Home;
-use Helpdesk\Models\lw_planning_model;
-use Helpdesk\Models\planning_model;
-use Helpdesk\Models\nw_planning_model;
-use Helpdesk\Models\user_data_model;
 
 class Planning extends Home
 {
-    protected $lw_planning_model;
-    protected $planning_model;
-    protected $nw_planning_model;
-
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
-
-        $this->lw_planning_model = new lw_planning_model();
-        $this->planning_model = new planning_model();
-        $this->nw_planning_model = new nw_planning_model();
-        $this->user_data_model = new user_data_model();
     }
 
-    
+
+    /**
+     * Default function, displays the current week planning.
+     * 
+     * @return view
+     * 
+     */
+    public function index()
+    {
+        $this->setSessionVariables();
+
+        return redirect()->to('/helpdesk/planning/cw_planning');
+    }
+
+
+    /** ********************************************************************************************************************************* */
+
+
     /**
      * Displays the last week planning.
      * 
@@ -53,6 +57,7 @@ class Planning extends Home
         [
             'lw_planning_data' => $this->lw_planning_model->getPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
+            'planning_type'    => -1,
             'title'            => lang('Helpdesk.ttl_lw_planning'),
             'lw_periods'       => // SQL names of last week's planning periods
             [
@@ -84,6 +89,7 @@ class Planning extends Home
             'messages'      => $this->getFlashdataMessages(),
             'planning_data' => $this->planning_model->getPlanningDataByUser(),
             'classes'       => $this->defineDaysOff($periods),
+            'planning_type' => 0,
             'title'         => lang('Helpdesk.ttl_planning')
         ];
 
@@ -107,6 +113,7 @@ class Planning extends Home
             'messages'         => $this->getFlashdataMessages(),
             'nw_planning_data' => $this->nw_planning_model->getNwPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
+            'planning_type'    => 1,
             'title'            => lang('Helpdesk.ttl_nw_planning')
         ];
 
@@ -148,11 +155,13 @@ class Planning extends Home
 
         $validation = \Config\Services::validation();
         $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']', 
-        ['is_natural_no_zero' => lang('helpdesk.is_nautral_no_zero')]);
+        ['is_natural_no_zero' => lang('helpdesk.is_nautral_no_zero'),
+         'not_in_planning'    => lang('helpdesk.not_in_planning')]);
         
         if(!$validation->run($_POST))
         {
             $data['messages']['error'] = $validation->getError('technician');
+            $data['old_add_tech_form'] = $_POST;
             
             return $this->display_view('Helpdesk\add_technician', $data);
         }
@@ -183,6 +192,7 @@ class Planning extends Home
         if($empty_fields === 20) 
         {
             $data['messages']['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
+            $data['old_add_tech_form'] = $_POST;
 
             return $this->display_view('Helpdesk\add_technician', $data);
         }
@@ -261,9 +271,6 @@ class Planning extends Home
                 $this->nw_planning_model->insert($data_to_insert);
 
                 return redirect()->to('/helpdesk/planning/nw_planning');
-
-            default:
-                $this->isSetPlanningType(NULL);
         }
     }
 
@@ -296,9 +303,6 @@ class Planning extends Home
             case 1:
                 $form_fields_data = $_SESSION['helpdesk']['nw_periods'];
                 break;
-
-            default:
-                $this->isSetPlanningType(NULL);
         }
 
         if ($_POST)
@@ -313,52 +317,33 @@ class Planning extends Home
                 case 1:
                     $planning_data = $_POST['nw_planning'];
                     break;
-
-                default:
-                    $this->isSetPlanningType(NULL);
             }
 
             foreach ($planning_data as $id_planning => $technician_planning)
             {
-                $emptyFieldsCount = 0;
-
                 // 0 is current week, 1 is next week
                 switch($planning_type)
                 {
                     case 0:
-                        $data_to_update = array(
-                            'id_planning' => $technician_planning['id_planning'],
-                            'fk_user_id' => $technician_planning['fk_user_id']
-                        );
+                        $data_to_update['id_planning'] = $technician_planning['id_planning'];
                         break;
 
                     case 1:
-                        $data_to_update = array(
-                            'id_nw_planning' => $technician_planning['id_nw_planning'],
-                            'fk_user_id' => $technician_planning['fk_user_id']
-                        );
+                        $data_to_update['id_nw_planning'] = $technician_planning['id_nw_planning'];
                         break;
-
-                    default:
-                        $this->isSetPlanningType(NULL);
-                }
-
+                    }
+                    
+                $data_to_update['fk_user_id'] = $technician_planning['fk_user_id'];
+                    
+                $emptyFieldsCount = 0;
                 foreach ($form_fields_data as $field)
                 {
                     $field_value = $technician_planning[$field];
 
-                    if(!in_array($field_value, ["", 1, 2, 3]))
-                    {
-                        $this->session->setFlashdata('error', lang('Helpdesk.err_invalid_role'));
-
-                        return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
-                    }
-
-                    if(empty($field_value))
+                    if(!in_array($field_value, ["", 1, 2, 3]) || empty($field_value))
                     {
                         // Required for database insertion
                         $field_value = NULL;
-
                         $emptyFieldsCount++;
                     }
 
@@ -369,6 +354,7 @@ class Planning extends Home
                 if($emptyFieldsCount === 20)
                 {
                     $this->session->setFlashdata('error', lang('Helpdesk.err_technician_must_be_assigned_to_schedule'));
+                    $this->session->setFlashdata('old_edit_plan_form', $_POST);
 
                     return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
                 }
@@ -382,9 +368,6 @@ class Planning extends Home
                     case 1:
                         $this->nw_planning_model->update($id_planning, $data_to_update);
                         break;
-
-                    default:
-                        $this->isSetPlanningType(NULL);
                 }
                 
                 $this->session->setFlashdata('success', lang('Helpdesk.scs_planning_updated'));
@@ -398,31 +381,25 @@ class Planning extends Home
                 $planning_data = $this->planning_model->getPlanningDataByUser();
 
                 $data['planning_data'] = $planning_data;
-
-                $data['title'] = lang('Helpdesk.ttl_update_planning');
-
+                $data['title']         = lang('Helpdesk.ttl_update_planning');
                 break;
 
             case 1:
                 $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
 
                 $data['nw_planning_data'] = $nw_planning_data;
-
-                $data['title'] = lang('Helpdesk.ttl_update_nw_planning');
-
+                $data['title']            = lang('Helpdesk.ttl_update_nw_planning');
                 break;
-
-            default:
-                $this->isSetPlanningType(NULL);
         }
 
-        $data['messages'] = $this->getFlashdataMessages();
-
-        $data['form_fields_data'] = $form_fields_data;
+        if($this->session->getFlashdata('old_edit_plan_form'))
+            $data['old_edit_plan_form'] = $this->session->getFlashdata('old_edit_plan_form');
 
         $periods = $this->choosePeriods($planning_type);
 
-        $data['classes'] = $this->defineDaysOff($periods);
+        $data['messages']         = $this->getFlashdataMessages();
+        $data['form_fields_data'] = $form_fields_data;
+        $data['classes']          = $this->defineDaysOff($periods);
 
         return $this->display_view('Helpdesk\update_planning', $data);
     }
@@ -464,20 +441,18 @@ class Planning extends Home
                     $this->nw_planning_model->delete($id_planning);
 
                     return redirect()->to('/helpdesk/planning/nw_planning');
-
-                default:
-                    $this->isSetPlanningType(NULL);
             }
         }
 
         // When the user clicks the delete button
         else
         {
-            $data['user_id'] = $user_id;
-
-            $data['planning_type'] = $planning_type;
-
-            $data['title'] = lang('Helpdesk.ttl_delete_confirmation');
+            $data =
+            [
+                'user_id'       => $user_id,
+                'planning_type' => $planning_type,
+                'title'         => lang('Helpdesk.ttl_delete_confirmation')
+            ];
 
             return $this->display_view('Helpdesk\delete_technician', $data);
         }

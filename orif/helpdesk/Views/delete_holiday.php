@@ -11,6 +11,8 @@
 
 ?>
 
+<?= view('Helpdesk\Common\body_start') ?>
+
 <?= form_open(base_url('/helpdesk/holidays/delete_holiday/'.$id_holiday)) ?>
     <?= form_hidden('delete_confirmation', true) ?>
 

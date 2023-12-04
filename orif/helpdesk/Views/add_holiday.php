@@ -11,17 +11,18 @@
 
 ?>
 
+<?= view('Helpdesk\Common\body_start') ?>
+
 <div id="add-holiday">
     <?php if(isset($holiday['id_holiday'])): ?>
         <?= form_open(base_url('/helpdesk/holidays/save_holiday/'.$holiday['id_holiday'])) ?>
         <?= form_hidden('id_holiday', esc($holiday['id_holiday'])) ?>
     <?php else: ?>
-        <?= form_open(base_url('/helpdesk/holidays/save_holiday/')) ?>
+        <?= form_open(base_url('/helpdesk/holidays/save_holiday/0')) ?>
         <?= form_hidden('id_holiday', 0) ?>
     <?php endif; ?>
 
         <div class="d-flex justify-content-center">
-
             <?= form_fieldset() ?>
                 <?= form_label(lang('Helpdesk.holiday_name'), 'holiday_name')?>
                 <?= form_input('holiday_name', set_value('holiday_name', isset($holiday['name_holiday']) ? $holiday['name_holiday'] : '', true)) ?>

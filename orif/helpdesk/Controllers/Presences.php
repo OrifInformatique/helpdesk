@@ -16,20 +16,32 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 use Helpdesk\Controllers\Home;
-use Helpdesk\Models\presences_model;
 
 class Presences extends Home
 {
-    protected $presences_model;
-
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
-
-        $this->presences_model = new presences_model();
     }
 
-    
+
+    /**
+     * Default function, displays the presences of all technicians.
+     * 
+     * @return view
+     * 
+     */
+    public function index()
+    {
+        $this->setSessionVariables();
+
+        return redirect()->to('/helpdesk/presences/all_presences');
+    }
+
+
+    /** ********************************************************************************************************************************* */
+
+
     /**
      * Displays the presences of all technicians.
      * 
