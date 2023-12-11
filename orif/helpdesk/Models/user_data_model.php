@@ -61,4 +61,20 @@ class User_Data_model extends \CodeIgniter\Model
 
         return $user_data;
     }
+
+
+    /**
+     * Get data from a specific user
+     * 
+     * @param int $user_id ID of the user
+     * 
+     * @return array
+     * 
+     */
+    public function getUserDataId($user_id)
+    {
+        $id_user_data = $this->select('id_user_data')->where('fk_user_id', $user_id)->first();
+
+        return $id_user_data;
+    }
 }

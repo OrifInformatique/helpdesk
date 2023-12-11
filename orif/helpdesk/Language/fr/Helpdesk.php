@@ -156,5 +156,12 @@ return[
     'updating_in'               => 'Actualisation dans',
     'seconds'                   => 'seconde·s',
 
-    'planning_generation'       => 'Génération du planning'
+    'planning_generation'       => 'Génération du planning',
+
+    'first_name' => 'Prénom',
+    'last_name' => 'Nom',
+    'photo' => 'Photo de face',
+    'mail' => 'Email',
+    'password' => 'Mot de passe',
+    'password_confirm' => 'Confirmer le mot de passe'
 ];
