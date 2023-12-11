@@ -57,7 +57,7 @@ class User_Data_model extends \CodeIgniter\Model
      */
     public function getUserData($user_id)
     {
-        $user_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->first();
+        $user_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->findAll();
 
         return $user_data;
     }

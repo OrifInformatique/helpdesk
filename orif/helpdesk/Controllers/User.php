@@ -242,7 +242,7 @@ class User extends Admin
      * @return void
      */
     public function helpdesk_delete_user(int $user_id, ?int $action = 0)
-    {// TODO : VERIFIER QUE LE TECHNICIEN NE SOIT PLUS DANS LE PLANNING OU DANS LES PRESENCES AVANT DE HARD DELETE
+    {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {
             return redirect()->to('/user/admin/list_user');
