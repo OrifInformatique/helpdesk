@@ -57,9 +57,41 @@ class User_Data_model extends \CodeIgniter\Model
      */
     public function getUserData($user_id)
     {
-        $user_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->findAll();
+        $user_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->first();
 
         return $user_data;
+    }
+
+    /**
+     * Get the full name of a specific user
+     * 
+     * @param int $user_id ID of the user
+     * 
+     * @return array
+     * 
+     */
+    public function getUserFullName($user_id)
+    {
+        $user_full_name = $this->select('first_name_user_data, last_name_user_data')
+                          ->join('user', 'user.id = tbl_user_data.fk_user_id')
+                          ->where('id', $user_id)->first();
+
+        return $user_full_name;
+    }
+
+    /**
+     * Get the photo of a specific user
+     * 
+     * @param int $user_id ID of the user
+     * 
+     * @return array
+     * 
+     */
+    public function getUserPhoto($user_id)
+    {
+        $user_photo = $this->select('photo_user_data')->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->first();
+
+        return $user_photo['photo_user_data'];
     }
 
 

@@ -18,10 +18,14 @@ use Psr\Log\LoggerInterface;
 use User\Controllers\Admin;
 use User\Models\User_model;
 use Helpdesk\Models\User_Data_model;
+use Helpdesk\Models\Presences_model;
+use Helpdesk\Models\Planning_model;
 
 class User extends Admin
 {
     protected $user_data_model;
+    protected $presences_model;
+    protected $planning_model;
     protected $user_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
@@ -29,6 +33,8 @@ class User extends Admin
         parent::initController($request, $response, $logger);
         $this->user_data_model = new user_data_model();
         $this->user_model = new user_model();
+        $this->presences_model = new presences_model();
+        $this->planning_model = new planning_model();
     }
 
     /**
@@ -59,52 +65,85 @@ class User extends Admin
                 'user_password_again'   => $this->request->getPost('user_password_again'),
 
                 'id_user_data'          => $user_id == 0 ? 0 : ($this->user_data_model->getUserDataId($user_id)),
-                'fk_user_id'            => $user_id != 0 ?: null,
+                'fk_user_id'            => $user_id != 0 ? $user_id : null,
                 'first_name_user_data'  => $this->request->getPost('first_name_user_data'),
                 'last_name_user_data'   => $this->request->getPost('last_name_user_data'),
-                'photo_user_data'       => $this->request->getFile('photo_user_data')
+                'photo_user_data'       => $this->request->getFile('photo_user_data')->getSize() > 0 ? $this->request->getFile('photo_user_data') : null
             );
 
             $validation = \Config\Services::validation();
-            $validation->setRules([
-                'username' => [
-                    'label' => lang('user_lang.field_username'),
-                    'rules' => 'required|trim|'.
-                            'min_length['.config('\User\Config\UserConfig')->username_min_length.']|'.
-                            'max_length['.config('\User\Config\UserConfig')->username_max_length.']'
-                ],
-                'fk_user_type' => [
-                    'label' => lang('user_lang.field_usertype'),
-                    'rules' => 'required|cb_not_null_user_type'
-                ],
-                'email' => [
-                    'label' => lang('Helpdesk.mail'),
-                    'rules' => 'required|valid_email'
-                ],
-                'first_name_user_data' => [
-                    'label' => lang('Helpdesk.first_name'),
-                    'rules' => 'required|min_length[3]|max_length[50]|alpha'
-                ],
-                'last_name_user_data' => [
-                    'label' => lang('Helpdesk.last_name'),
-                    'rules' => 'required|min_length[3]|max_length[50]|alpha',
-                ],
-                'photo_user_data' => [
-                    'label' => lang('Helpdesk.photo'),
-                    'rules' => 'uploaded[photo_user_data]|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
-                ],
-                'user_password' => [
-                    'label' => lang('Helpdesk.password'),
-                    'rules' => 'required|trim|'.
-                            'min_length['.config("\User\Config\UserConfig")->password_min_length.']|'.
-                            'max_length['.config("\User\Config\UserConfig")->password_max_length.']|'.
-                            'matches[user_password_again]'
-                ],
-                'user_password_again' => [
-                    'label' => lang('Helpdesk.password_confirm'),
-                    'rules' => 'if_exist|required'
-                ]]);
-            d($post_data);
+            if($user_id == 0)
+            {
+                $validation->setRules([
+                    'username' => [
+                        'label' => lang('user_lang.field_username'),
+                        'rules' => 'required|trim|'.
+                                'min_length['.config('\User\Config\UserConfig')->username_min_length.']|'.
+                                'max_length['.config('\User\Config\UserConfig')->username_max_length.']'
+                    ],
+                    'fk_user_type' => [
+                        'label' => lang('user_lang.field_usertype'),
+                        'rules' => 'required|cb_not_null_user_type'
+                    ],
+                    'email' => [
+                        'label' => lang('Helpdesk.mail'),
+                        'rules' => 'required|valid_email'
+                    ],
+                    'first_name_user_data' => [
+                        'label' => lang('Helpdesk.first_name'),
+                        'rules' => 'required|min_length[3]|max_length[50]|alpha'
+                    ],
+                    'last_name_user_data' => [
+                        'label' => lang('Helpdesk.last_name'),
+                        'rules' => 'required|min_length[3]|max_length[50]|alpha',
+                    ],
+                    'photo_user_data' => [
+                        'label' => lang('Helpdesk.photo'),
+                        'rules' => 'uploaded[photo_user_data]|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
+                    ],
+                    'user_password' => [
+                        'label' => lang('Helpdesk.password'),
+                        'rules' => 'required|trim|'.
+                                'min_length['.config("\User\Config\UserConfig")->password_min_length.']|'.
+                                'max_length['.config("\User\Config\UserConfig")->password_max_length.']|'.
+                                'matches[user_password_again]'
+                    ],
+                    'user_password_again' => [
+                        'label' => lang('Helpdesk.password_confirm'),
+                        'rules' => 'if_exist|required'
+                    ]]);
+            }
+
+            else
+            {
+                $validation->setRules([
+                    'username' => [
+                        'label' => lang('user_lang.field_username'),
+                        'rules' => 'required|trim|'.
+                                'min_length['.config('\User\Config\UserConfig')->username_min_length.']|'.
+                                'max_length['.config('\User\Config\UserConfig')->username_max_length.']'
+                    ],
+                    'fk_user_type' => [
+                        'label' => lang('user_lang.field_usertype'),
+                        'rules' => 'required|cb_not_null_user_type'
+                    ],
+                    'email' => [
+                        'label' => lang('Helpdesk.mail'),
+                        'rules' => 'required|valid_email'
+                    ],
+                    'first_name_user_data' => [
+                        'label' => lang('Helpdesk.first_name'),
+                        'rules' => 'required|min_length[3]|max_length[50]|alpha'
+                    ],
+                    'last_name_user_data' => [
+                        'label' => lang('Helpdesk.last_name'),
+                        'rules' => 'required|min_length[3]|max_length[50]|alpha',
+                    ],
+                    'photo_user_data' => [
+                        'label' => lang('Helpdesk.photo'),
+                        'rules' => 'if_exist|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
+                    ]]);
+            }
             if(!$validation->run($post_data))
                 $errors = $validation->getErrors();
 
@@ -122,15 +161,17 @@ class User extends Admin
                     'first_name_user_data'  => $post_data['first_name_user_data'],
                     'last_name_user_data'   => $post_data['last_name_user_data'],
                     'initials_user_data'    => $user['username'],
-                    'photo_user_data'       => $post_data['photo_user_data']
+                    'photo_user_data'       => $post_data['photo_user_data'] ?? null
                 ];
-                d($user,$user_data);
-                $file_name = $user_data['photo_user_data']->getRandomName();
-                $file_path = WRITEPATH.'uploads/images/'.$file_name;
-                $user_data['photo_user_data']->move($file_path);
-                $user_data['photo_user_data'] = $file_path;
 
-                
+                if($user_data['photo_user_data'])
+                {
+                    $file_name = $user_data['photo_user_data']->getRandomName();
+                    $file_path = WRITEPATH.'uploads/images/';
+                    $user_data['photo_user_data']->move($file_path, $file_name);
+                    $user_data['photo_user_data'] = $file_path.$file_name;
+                }
+
                 if ($user_id == 0)
                 {
                     $this->user_model->insert($user);
@@ -140,8 +181,25 @@ class User extends Admin
                 
                 else 
                 {
-                    $this->user_model->update($user);
-                    $this->user_data_model->update($user_data);
+                    if(!$user_data['photo_user_data'])
+                        $user_data['photo_user_data'] = $this->user_data_model->getUserPhoto($user_id);
+
+                    else
+                    {
+                        $old_image = $this->user_data_model->getUserPhoto($user_id);
+                        if($old_image)
+                            unlink($old_image);
+                    }
+
+                    try {
+                        $this->user_model->update($user['id'], $user);
+                    }
+                    catch(\Exception){/* No data being updated in this table */}
+                    
+                    try {
+                        $this->user_data_model->update($user_data['id_user_data'], $user_data);
+                    }
+                    catch(\Exception){/* No data being updated in this table */}
                 }
 
                 //In the case of errors
@@ -157,19 +215,19 @@ class User extends Admin
         foreach ($usertiarray as $row){
             $usertypes[$row['id']]=$row['name'];
         }
+        $user_data_data = $this->user_data_model->getUserFullName($user_id);
         $data = array(
             'title'         => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
             'user'          => $this->user_model->withDeleted()->find($user_id),
             'user_types'    => $usertypes,
             'user_name'     => $oldName,
             'user_usertype' => $oldUsertype,
-            'email'         => $post_data['email']??null,
-            'first_name_user_data' => $post_data['first_name_user_data']??null,
-            'last_name_user_data' => $post_data['last_name_user_data']??null,
-            'photo_user_data' => $post_data['photo_user_data']??null,
-            'errors'        => $errors??null,
+            'email'         => $post_data['email'] ?? null,
+            'first_name_user_data' => $post_data['first_name_user_data'] ?? $user_data_data['first_name_user_data'] ?? null,
+            'last_name_user_data' => $post_data['last_name_user_data'] ?? $user_data_data['last_name_user_data'] ?? null,
+            'photo_user_data' => $post_data['photo_user_data'] ?? null,
+            'errors'        => $errors ?? null,
         );
-        d($data);
         return $this->display_view('\Helpdesk\form_user', $data);
     }
 
@@ -184,12 +242,15 @@ class User extends Admin
      * @return void
      */
     public function helpdesk_delete_user(int $user_id, ?int $action = 0)
-    {
+    {// TODO : VERIFIER QUE LE TECHNICIEN NE SOIT PLUS DANS LE PLANNING OU DANS LES PRESENCES AVANT DE HARD DELETE
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {
             return redirect()->to('/user/admin/list_user');
         }
-        $user_data_id =  $this->user_data_model->withDeleted()->getUserDataId($user_id);
+        $id_user_data =  $this->user_data_model->withDeleted()->getUserDataId($user_id);
+
+        $user_has_presences = (bool) $this->presences_model->getPresencesUser($user_id);
+        $user_is_in_planning = (bool) $this->planning_model->getPlanning($user_id);
 
         switch($action) {
             case 0: // Display confirmation
@@ -201,13 +262,16 @@ class User extends Admin
                 break;
             case 1: // Deactivate (soft delete) user
                 if ($_SESSION['user_id'] != $user['id']) {
-                    $this->user_data_model->delete($user_data_id, FALSE);
+                    $this->user_data_model->delete($id_user_data, FALSE);
                     $this->user_model->delete($user_id, FALSE);
                 }
                 return redirect()->to('/user/admin/list_user');
             case 2: // Delete user
-                if ($_SESSION['user_id'] != $user['id']) {
-                    $this->user_data_model->delete($user_data_id, TRUE);
+                if ($_SESSION['user_id'] != $user['id'] && !$user_has_presences && !$user_is_in_planning) {
+                    $old_image = $this->user_data_model->getUserPhoto($user_id);
+                    if($old_image)
+                        unlink($old_image);                    
+                    $this->user_data_model->delete($id_user_data, TRUE);
                     $this->user_model->delete($user_id, TRUE);
                 }
                 return redirect()->to('/user/admin/list_user');
