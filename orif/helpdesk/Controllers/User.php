@@ -247,7 +247,7 @@ class User extends Admin
         if (is_null($user)) {
             return redirect()->to('/user/admin/list_user');
         }
-        $id_user_data =  $this->user_data_model->withDeleted()->getUserDataId($user_id);
+        $id_user_data =  $this->user_data_model->withDeleted()->getUserDataId($user_id);d($id_user_data);
 
         $user_has_presences = (bool) $this->presences_model->getPresencesUser($user_id);
         $user_is_in_planning = (bool) $this->planning_model->getPlanning($user_id);
@@ -262,7 +262,6 @@ class User extends Admin
                 break;
             case 1: // Deactivate (soft delete) user
                 if ($_SESSION['user_id'] != $user['id']) {
-                    $this->user_data_model->delete($id_user_data, FALSE);
                     $this->user_model->delete($user_id, FALSE);
                 }
                 return redirect()->to('/user/admin/list_user');
