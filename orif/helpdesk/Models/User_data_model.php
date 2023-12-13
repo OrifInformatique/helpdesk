@@ -41,7 +41,7 @@ class User_Data_model extends \CodeIgniter\Model
      */
     public function getUsersData()
     {
-        $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->findAll();
+        $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('user.archive', NULL)->findAll();
 
         return $users_data;
     }
@@ -60,5 +60,55 @@ class User_Data_model extends \CodeIgniter\Model
         $user_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->findAll();
 
         return $user_data;
+    }
+
+
+    /**
+     * Get the full name of a specific user
+     * 
+     * @param int $user_id ID of the user
+     * 
+     * @return array
+     * 
+     */
+    public function getUserFullName($user_id)
+    {
+        $user_full_name = $this->select('first_name_user_data, last_name_user_data')
+                          ->join('user', 'user.id = tbl_user_data.fk_user_id')
+                          ->where('id', $user_id)->first();
+
+        return $user_full_name;
+    }
+
+
+    /**
+     * Get the photo of a specific user
+     * 
+     * @param int $user_id ID of the user
+     * 
+     * @return array
+     * 
+     */
+    public function getUserPhoto($user_id)
+    {
+        $user_photo = $this->select('photo_user_data')->join('user', 'user.id = tbl_user_data.fk_user_id')->where('id', $user_id)->first();
+
+        return $user_photo['photo_user_data'];
+    }
+
+
+    /**
+     * Get data from a specific user
+     * 
+     * @param int $user_id ID of the user
+     * 
+     * @return array
+     * 
+     */
+    public function getUserDataId($user_id)
+    {
+        $id_user_data = $this->select('id_user_data')->where('fk_user_id', $user_id)->first();
+
+        return $id_user_data;
     }
 }
