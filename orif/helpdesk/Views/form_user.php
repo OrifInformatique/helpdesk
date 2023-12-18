@@ -30,7 +30,7 @@ $validation=\Config\Services::validation();
         'id' => 'user_form',
         'name' => 'user_form'
     );
-    echo form_open('user/admin/save_user', $attributes, [
+    echo form_open_multipart('helpdesk/user/helpdesk_save_user', $attributes, [
         'id' => $user['id'] ?? 0
     ]);
     ?>
@@ -39,6 +39,16 @@ $validation=\Config\Services::validation();
         <div class="alert alert-danger" role="alert">
             <ul>
                 <?php foreach ($errors as $error): ?>
+                <li><?= $error ?></li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+        <?php endif ?>
+        <!-- ERROR MESSAGES -->
+        <?php if (!empty($user_data_errors)) : ?>
+        <div class="alert alert-danger" role="alert">
+            <ul>
+                <?php foreach ($user_data_errors as $error): ?>
                 <li><?= $error ?></li>
                 <?php endforeach ?>
             </ul>
@@ -53,7 +63,7 @@ $validation=\Config\Services::validation();
                 <?php else: ?>
                     <div class="form-group">
                 <?php endif ?>
-                    <?= form_label(lang('user_lang.field_username'), 'user_name', ['class' => 'form-label']); ?>
+                    <?= form_label(lang('user_lang.field_username').' (Initiales)', 'user_name', ['class' => 'form-label']); ?>
                     <?= form_input('user_name', $user_name ?? $user['username'] ?? '', [
                         'maxlength' => config("\User\Config\UserConfig")->username_max_length,
                         'class' => 'form-control', 'id' => 'user_name', 'required' => ''
@@ -63,8 +73,19 @@ $validation=\Config\Services::validation();
                     <?= form_label(lang('user_lang.field_email'), 'user_email', ['class' => 'form-label']); ?>
                     <?= form_input('user_email', $user['email'] ?? $email ?? '', [
                         'maxlength' => config('\User\Config\UserConfig')->email_max_length,
-                        'class' => 'form-control', 'id' => 'user_email'
-                    ]); ?>
+                        'class' => 'form-control', 'id' => 'user_email']); ?>
+                </div>
+                <div class="form-group">
+                    <?= form_label(lang('Helpdesk.first_name'), 'first_name_user_data', ['class' => 'form-label']); ?>
+                    <?= form_input('first_name_user_data', $first_name_user_data ?? '', ['class' => 'form-control', 'id' => 'first_name_user_data']); ?>
+                </div>
+                <div class="form-group">
+                    <?= form_label(lang('Helpdesk.last_name'), 'last_name_user_data', ['class' => 'form-label']); ?>
+                    <?= form_input('last_name_user_data', $last_name_user_data ?? '', ['class' => 'form-control', 'id' => 'last_name_user_data']); ?>
+                </div>
+                <div class="form-group">
+                    <?= form_label(lang('Helpdesk.photo'), 'photo_user_data', ['class' => 'form-label']); ?><br>
+                    <?= form_upload('photo_user_data', $photo_user_data ?? '', ['id' => 'photo_user_data']); ?>
                 </div>
             </div>
             <div class="col-sm-6 form-group">
@@ -118,7 +139,7 @@ $validation=\Config\Services::validation();
                         </a>
                     </div>
                     <div class="col-12">
-                        <a href="<?= base_url('user/admin/delete_user/'.$user['id']); ?>" class="text-danger" >
+                        <a href="<?= base_url('helpdesk/user/helpdesk_delete_user/'.$user['id']); ?>" class="text-danger" >
                             <?= lang("user_lang.btn_hard_delete_user"); ?>
                         </a>
                     </div>
