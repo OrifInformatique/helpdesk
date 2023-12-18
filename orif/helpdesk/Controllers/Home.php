@@ -21,11 +21,11 @@ use Helpdesk\Models\Lw_planning_model;
 use Helpdesk\Models\Planning_model;
 use Helpdesk\Models\Nw_planning_model;
 
-use Helpdesk\Models\holidays_model;
+use Helpdesk\Models\Holidays_model;
 use Helpdesk\Models\Presences_model;
-use Helpdesk\Models\terminal_model;
+use Helpdesk\Models\Terminal_model;
 
-use Helpdesk\Models\User_Data_model;
+use Helpdesk\Models\User_data_model;
 
 class Home extends BaseController
 {

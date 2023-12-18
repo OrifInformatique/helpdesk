@@ -62,6 +62,7 @@ class User_Data_model extends \CodeIgniter\Model
         return $user_data;
     }
 
+
     /**
      * Get the full name of a specific user
      * 
@@ -78,6 +79,7 @@ class User_Data_model extends \CodeIgniter\Model
 
         return $user_full_name;
     }
+
 
     /**
      * Get the photo of a specific user
