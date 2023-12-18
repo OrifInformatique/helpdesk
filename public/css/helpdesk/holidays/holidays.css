@@ -41,13 +41,3 @@ tbody tr:nth-child(even)
 {
     background-color: var(--even-line);
 }
-
-.btn-blue
-{
-    background-color: var(--btn-blue);
-}
-
-.btn-blue:hover
-{
-    color: var(--white);
-}

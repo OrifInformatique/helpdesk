@@ -21,7 +21,7 @@
     </div>
 
     <div class="buttons-area">
-        <a class="btn btn-primary mb-3" href="<?= base_url('/helpdesk/planning/update_planning/'.$planning_type) ?>"><?= lang('Helpdesk.btn_cancel')?></a>
-        <?= form_submit('', lang('Helpdesk.btn_delete'), ['class' => 'btn btn-danger mb-3']) ?>
+        <a class="btn mb-3" href="<?= base_url('/helpdesk/planning/update_planning/'.$planning_type) ?>"><?= lang('Helpdesk.btn_cancel')?></a>
+        <?= form_submit('', lang('Helpdesk.btn_delete'), ['class' => 'btn btn-delete mb-3']) ?>
     </div>
 <?= form_close() ?>

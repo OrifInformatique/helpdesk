@@ -51,6 +51,8 @@
     
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/colors.css") ?>">
 
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/buttons.css") ?>">
+
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/custom_messages.css") ?>">
 
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/planning/roles.css") ?>">

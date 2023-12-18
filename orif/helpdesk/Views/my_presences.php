@@ -66,8 +66,8 @@
 	<?php endforeach ?>
 
 	<div class="action-menu d-flex justify-content-center">
-		<input class="btn btn-success" type="submit" value="<?= lang('Helpdesk.btn_save')?>">
-		<?= form_reset('', lang('Helpdesk.btn_reset'), ['class' => 'btn btn-warning']) ?>
-		<a class="btn btn-primary" href="<?= base_url('/helpdesk/presences/all_presences') ?>"><?= lang('Helpdesk.btn_back')?></a>
+		<?= form_submit('', lang('Helpdesk.btn_save'), ['class' => 'btn btn-save']) ?>
+		<?= form_reset('', lang('Helpdesk.btn_reset'), ['class' => 'btn btn-reset']) ?>
+		<a class="btn" href="<?= base_url('/helpdesk/presences/all_presences') ?>"><?= lang('Helpdesk.btn_back')?></a>
 	</div>
 <?= form_close() ?>

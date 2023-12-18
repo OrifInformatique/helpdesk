@@ -33,7 +33,7 @@
 	">
 		<thead>
 			<tr>
-				<th><a class="btn btn-blue" href="<?= base_url('/helpdesk/presences/my_presences') ?>" title="<?= lang('Helpdesk.btn_my_presences')?>"><i class="fa-solid fa-square-pen"></i></a></th>
+				<th><a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/my_presences') ?>" title="<?= lang('Helpdesk.btn_my_presences')?>"><i class="fa-solid fa-square-pen"></i></a></th>
 				<th colspan="4"><?= lang('Helpdesk.monday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.tuesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.wednesday')?></th>

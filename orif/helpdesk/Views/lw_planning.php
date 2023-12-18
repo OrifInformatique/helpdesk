@@ -18,17 +18,17 @@
     <?= view('Helpdesk\Common\planning_roles') ?>
 
     <div class="week">
-        <button disabled class="btn btn-primary btn-last-week"><?= lang('Helpdesk.btn_last_week') ?></button>
+        <button disabled class="btn btn-last-week"><?= lang('Helpdesk.btn_last_week') ?></button>
 
         <?= view('Helpdesk\Common\planning_week', ['planning_type' => $planning_type]) ?>
 
-        <a class="btn btn-primary btn-next-week" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_next_week') ?></a>
+        <a class="btn btn-next-week" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_next_week') ?></a>
     </div>
 
     <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
         <thead>
             <tr>
-                <th><button disabled class="btn btn-blue"><i class="fa-solid fa-square-pen"></i></button></th>
+                <th><button disabled class="btn btn-edit"><i class="fa-solid fa-square-pen"></i></button></th>
                 <?= view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
             </tr>
             <?= view('Helpdesk\Common\planning_schedules_row') ?>

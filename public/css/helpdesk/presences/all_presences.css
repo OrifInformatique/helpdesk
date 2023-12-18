@@ -97,21 +97,6 @@ tr th:first-child
     margin: auto;
 }
 
-.btn-blue
-{
-    background-color: var(--btn-blue);
-}
-
-.btn-blue:hover
-{
-    color: var(--white);
-}
-
-button:disabled
-{
-    cursor: not-allowed;
-}
-
 td[colspan="21"] *
 {
     margin: 5px 0;

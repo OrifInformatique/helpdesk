@@ -1,0 +1,142 @@
+/* *************************************************************** */
+
+/* Regular button */
+.btn, .btn:disabled:hover, .btn:disabled:active, .btn:disabled:focus
+{
+    background-color: var(--blue-orif);
+    border: 1px solid var(--blue-orif);
+    color: var(--white);
+}
+
+.btn:hover
+{
+    background-color: var(--light-blue-orif);
+    color: var(--dark-blue-orif);
+}
+
+.btn:active, .btn:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-blue-orif);
+}
+
+.btn:disabled
+{
+    box-shadow: none;
+    opacity: 33%;
+    cursor: not-allowed;
+}
+
+/* *************************************************************** */
+
+/* Add button */
+.btn-add
+{
+    background-color: var(--lime);
+    border: 1px solid var(--lime);
+    color: var(--white);
+}
+
+.btn-add:hover
+{
+    background-color: var(--light-green);
+    border: 1px solid var(--lime);
+    color: var(--lime);
+}
+
+.btn-add:active, .btn-add:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--lime);
+}
+
+/* *************************************************************** */
+
+/* Edit button */
+.btn-edit, .btn-edit:disabled:hover, .btn-edit:disabled:active, .btn-edit:disabled:focus
+{
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    color: var(--white);
+}
+
+.btn-edit:hover
+{
+    background-color: var(--light-orange);
+    color: var(--orange);
+}
+
+.btn-edit:active, .btn-edit:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--orange);
+}
+
+.btn-edit:disabled
+{
+    box-shadow: none;
+    opacity: 33%;
+    cursor: not-allowed;
+}
+
+/* *************************************************************** */
+
+/* Delete button */
+.btn-delete
+{
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    color: var(--white);
+}
+
+.btn-delete:hover
+{
+    background-color: var(--light-red);
+    color: var(--dark-red);
+}
+
+.btn-delete:active, .btn-save:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-red);
+}
+
+/* *************************************************************** */
+
+/* Save button */
+.btn-save
+{
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    color: var(--white);
+}
+
+.btn-save:hover
+{
+    background-color: var(--lime);
+    color: var(--dark-green);
+}
+
+.btn-save:active, .btn-save:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-green);
+}
+
+/* *************************************************************** */
+
+/* Reset button */
+.btn-reset
+{
+    background-color: var(--yellow);
+    border: 1px solid var(--yellow);
+    color: var(--black);
+}
+
+.btn-reset:hover
+{
+    background-color: var(--light-yellow);
+    color: var(--dark-yellow);
+}
+
+.btn-reset:active, .btn-reset:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-yellow);
+}
+
+/* *************************************************************** */

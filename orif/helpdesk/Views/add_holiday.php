@@ -43,13 +43,13 @@
         </div>
 
         <div class="buttons-area">
-            <?= form_submit('', lang('Helpdesk.btn_save'), ['class' => 'btn btn-success']) ?>
-            <?= form_reset('', lang('Helpdesk.btn_reset'), ['class' => 'btn btn-warning']) ?>
+            <?= form_submit('', lang('Helpdesk.btn_save'), ['class' => 'btn btn-save']) ?>
+            <?= form_reset('', lang('Helpdesk.btn_reset'), ['class' => 'btn btn-reset']) ?>
             <?php if(isset($holiday['id_holiday'])): ?>
-                <a class="btn btn-danger" href="<?= base_url('/helpdesk/holidays/delete_holiday/'.$holiday['id_holiday']) ?>"><?= lang('Helpdesk.btn_delete')?></a>
+                <a class="btn btn-delete" href="<?= base_url('/helpdesk/holidays/delete_holiday/'.$holiday['id_holiday']) ?>"><?= lang('Helpdesk.btn_delete')?></a>
                 <?php endif; ?>
         </div>
         <div class="buttons-area">
-            <a class="btn btn-primary mt-4" href="<?= base_url('/helpdesk/holidays/holidays_list') ?>"><?= lang('Helpdesk.btn_back')?></a>
+            <a class="btn mt-2" href="<?= base_url('/helpdesk/holidays/holidays_list') ?>"><?= lang('Helpdesk.btn_back')?></a>
         </div>
     <?= form_close('</div>') ?>
