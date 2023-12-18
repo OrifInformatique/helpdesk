@@ -15,7 +15,10 @@
 
 <a class="btn btn-primary" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a><br>
 
-<div class="d-flex flex-column align-items-center">
+<div class="d-flex align-items-center">
+    <div class="action-menu">
+        <a class="btn btn-blue" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><?= lang('Helpdesk.btn_add_holiday')?></a>
+    </div>
     <table class="table-responsive">
         <thead>
             <tr>
@@ -48,7 +51,4 @@
             <?php endif; ?>
         </tbody>
     </table>
-    <div class="action-menu d-flex justify-content-center">
-        <a class="btn btn-blue" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><?= lang('Helpdesk.btn_add_holiday')?></a>
-    </div>
 </div>

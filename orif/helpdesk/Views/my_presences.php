@@ -19,7 +19,7 @@
 	</div>
 <?php endif; ?>
 
-<form method="POST" action="<?= base_url('/helpdesk/presences/my_presences') ?>">
+<?= form_open(base_url('/helpdesk/presences/my_presences')) ?>
 	<?php foreach($weekdays as $day => $periods): ?>
 		<div class="d-flex justify-content-center">
 			<div class="table-responsive">
@@ -67,6 +67,7 @@
 
 	<div class="action-menu d-flex justify-content-center">
 		<input class="btn btn-success" type="submit" value="<?= lang('Helpdesk.btn_save')?>">
+		<?= form_reset('', lang('Helpdesk.btn_reset'), ['class' => 'btn btn-warning']) ?>
 		<a class="btn btn-primary" href="<?= base_url('/helpdesk/presences/all_presences') ?>"><?= lang('Helpdesk.btn_back')?></a>
 	</div>
-</form>
+<?= form_close() ?>
