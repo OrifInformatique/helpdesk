@@ -26,10 +26,11 @@
         <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
         <thead>
             <tr>
-                <th></th>
+                <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/'.$planning_type) ?>" title="<?= lang('Helpdesk.btn_add_technician') ?>"></a></th>
                 <?= view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
+                <th></th>
             </tr>
-            <?= view('Helpdesk\Common\planning_schedules_row') ?>
+            <?= view('Helpdesk\Common\planning_schedules_row', ['update_extra_cell' => '<th></th>']) ?>
         </thead>
             <tbody>
                 <?php if(isset($planning_data)) : ?>
@@ -51,16 +52,10 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>"><i class="fa-solid fa-trash-can"></i></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>" title="<?= lang('Helpdesk.btn_delete_tech_from_planning')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                    <tr>
-                        <td>
-                            <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/0') ?>"><i class="fa-solid fa-plus"></i></button>
-                        </td>
-                        <td colspan="21"></td>
-                    </tr>
                 <?php elseif(isset($nw_planning_data)): ?>
                     <?php foreach($nw_planning_data as $nw_planning) : ?>
                         <?= form_hidden("nw_planning[".$nw_planning['id_nw_planning']."][id_nw_planning]", $nw_planning['id_nw_planning']) ?>
@@ -79,16 +74,10 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>"><i class="fa-solid fa-trash-can"></i></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>" title="<?= lang('Helpdesk.btn_delete_tech_from_planning')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                    <tr>
-                        <td>
-                            <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/1') ?>"><i class="fa-solid fa-plus"></i></button>
-                        </td>
-                        <td colspan="21"></td>
-                    </tr>
                 <?php else: ?>
                     <tr>
                         <td colspan="21">

@@ -13,7 +13,7 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<a class="btn btn-primary" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a>
+<a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
 
 <div class="presences">
 	<div class="d-flex justify-content-center roles">
@@ -33,7 +33,7 @@
 	">
 		<thead>
 			<tr>
-				<th><a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/my_presences') ?>" title="<?= lang('Helpdesk.btn_my_presences')?>"><i class="fa-solid fa-square-pen"></i></a></th>
+				<th><a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/my_presences') ?>" title="<?= lang('Helpdesk.btn_my_presences')?>"></a></th>
 				<th colspan="4"><?= lang('Helpdesk.monday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.tuesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.wednesday')?></th>
@@ -80,7 +80,7 @@
 						}?>
 
 						<td>
-							<a class="btn btn-danger" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>"><i class="fa-solid fa-trash-can"></i></a>
+							<a class="btn btn-delete" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>"></a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

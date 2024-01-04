@@ -13,11 +13,11 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<a class="btn" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a><br>
+<a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
 
 <div class="d-flex align-items-center">
     <div class="action-menu">
-        <a class="btn btn-add" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><?= lang('Helpdesk.btn_add_holiday')?></a>
+        <a class="btn btn-add" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><span><?= lang('Helpdesk.btn_add_holiday')?></span></a>
     </div>
     <table class="table-responsive">
         <thead>

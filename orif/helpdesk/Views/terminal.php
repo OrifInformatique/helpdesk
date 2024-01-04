@@ -17,7 +17,8 @@
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
 
 <div id="no-technician-available" class="d-flex justify-content-center 
-<?php if($technicians_availability[0]['tech_available_terminal'] == true || 
+<?php if($day_off == true ||
+        $technicians_availability[0]['tech_available_terminal'] == true || 
         $technicians_availability[1]['tech_available_terminal'] == true || 
         $technicians_availability[2]['tech_available_terminal'] == true)
     {

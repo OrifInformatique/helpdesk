@@ -26,6 +26,25 @@
     cursor: not-allowed;
 }
 
+/* Icons formatting */
+.btn::before, .btn::after
+{
+    font: var(--fa-font-solid);
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Spacing between the icon and text
+**
+** Cannot be put on the icon directly because some
+** buttons only contains the icon, and the icon won't
+** be centered in the button.
+*/
+.btn span
+{
+    padding: 0 0 0 5px;
+}
+
 /* *************************************************************** */
 
 /* Add button */
@@ -46,6 +65,11 @@
 .btn-add:active, .btn-add:focus
 {
     box-shadow: 0px 0px 1px 3px var(--lime);
+}
+
+.btn-add::before
+{
+    content: "\2b"; /* https://fontawesome.com/icons/plus?f=classic&s=solid */
 }
 
 /* *************************************************************** */
@@ -76,6 +100,11 @@
     cursor: not-allowed;
 }
 
+.btn-edit::before
+{
+    content: "\f044"; /* https://fontawesome.com/icons/pen-to-square?f=classic&s=solid */
+}
+
 /* *************************************************************** */
 
 /* Delete button */
@@ -92,9 +121,14 @@
     color: var(--dark-red);
 }
 
-.btn-delete:active, .btn-save:focus
+.btn-delete:active, .btn-delete:focus
 {
     box-shadow: 0px 0px 1px 3px var(--dark-red);
+}
+
+.btn-delete::before
+{
+    content: "\f2ed"; /* https://fontawesome.com/icons/trash-can?f=classic&s=solid */
 }
 
 /* *************************************************************** */
@@ -118,6 +152,11 @@
     box-shadow: 0px 0px 1px 3px var(--dark-green);
 }
 
+.btn-save::before
+{
+    content: "\f0c7"; /* https://fontawesome.com/icons/floppy-disk?f=classic&s=solid */
+}
+
 /* *************************************************************** */
 
 /* Reset button */
@@ -137,6 +176,53 @@
 .btn-reset:active, .btn-reset:focus
 {
     box-shadow: 0px 0px 1px 3px var(--dark-yellow);
+}
+
+.btn-reset::before
+{
+    content: "\f01e"; /* https://fontawesome.com/icons/arrow-rotate-right?f=classic&s=solid */
+}
+
+/* *************************************************************** */
+
+/* Others buttons
+**
+** Only the icon is added.
+*/
+.btn-back::before
+{
+    content: "\f04a"; /* https://fontawesome.com/icons/backward?f=classic&s=solid */
+}
+
+.btn-last-week::before
+{
+    content: "\f177"; /* https://fontawesome.com/icons/arrow-left-long?f=classic&s=solid */
+}
+
+.btn-next-week::after
+{
+    content: "\f178"; /* https://fontawesome.com/icons/arrow-right-long?f=classic&s=solid */
+}
+
+/* Because the icon is on the right, spacing is on the right. */
+.btn-next-week span
+{
+    padding: 0 5px 0 0;
+}
+
+.btn-presences::before
+{
+    content: "\f017"; /* https://fontawesome.com/icons/clock?f=classic&s=solid */
+}
+
+.btn-holidays::before
+{
+    content: "\f073"; /* https://fontawesome.com/icons/calendar-days?f=classic&s=solid */
+}
+
+.btn-terminal::before
+{
+    content: "\f26c"; /* https://fontawesome.com/icons/tv?f=classic&s=solid */
 }
 
 /* *************************************************************** */

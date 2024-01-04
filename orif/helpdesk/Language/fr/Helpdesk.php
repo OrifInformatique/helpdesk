@@ -94,12 +94,13 @@ return[
     'btn_save'              => 'Enregistrer',
     'btn_delete'            => 'Supprimer',
     'btn_cancel'            => 'Annuler',
-    'btn_last_week'         => '<i class="fa-solid fa-left-long"></i> Semaine dernière',
-    'btn_next_week'         => 'Semaine suivante <i class="fa-solid fa-right-long"></i>',
+    'btn_last_week'         => 'Semaine dernière',
+    'btn_next_week'         => 'Semaine suivante',
     'btn_terminal'          => 'Aperçu du terminal',
     'btn_reset'             => 'Réinitialiser',
 
     'btn_delete_from_planning' => 'Supprimer du planning',
+    'btn_delete_tech_from_planning' => 'Supprimer le technicien du planning',
 
 
     /*

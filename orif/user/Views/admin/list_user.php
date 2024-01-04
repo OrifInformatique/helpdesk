@@ -16,7 +16,7 @@ helper("form");
     </div>
     <div class="row">
         <div class="col-sm-3 text-left">
-            <a href="<?= base_url('user/admin/save_user'); ?>" class="btn btn-primary">
+            <a href="<?= base_url('user/admin/save_user'); ?>" class="btn">
                 <?= lang('common_lang.btn_new_m'); ?>
             </a>
         </div>
