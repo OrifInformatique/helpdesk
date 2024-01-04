@@ -30,15 +30,22 @@
         <tbody>
             <?php if(isset($holidays_data) && !empty($holidays_data)) : ?>
                 <?php foreach ($holidays_data as $holiday) : ?>
+                    <?php 
+                        $start_date_holiday = new DateTime($holiday['start_date_holiday']); 
+                        $start_date_holiday = $start_date_holiday->format('d/m/Y, H:i:s');
+
+                        $end_date_holiday = new DateTime($holiday['start_date_holiday']); 
+                        $end_date_holiday = $end_date_holiday->format('d/m/Y, H:i:s');
+                    ?>
                     <tr>
                         <td>
                             <a href="<?= base_url('/helpdesk/holidays/save_holiday/'.$holiday['id_holiday']);?>"><?= htmlentities($holiday['name_holiday']); ?></a>
                         </td>
                         <td>
-                            <?= $holiday['start_date_holiday']; ?>
+                            <?= $start_date_holiday; ?>
                         </td>
                         <td>
-                            <?= $holiday['end_date_holiday']; ?>
+                            <?= $end_date_holiday; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>

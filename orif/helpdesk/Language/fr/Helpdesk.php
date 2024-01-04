@@ -138,24 +138,29 @@ return[
 
     'planning_of_week'          => 'Planning de la semaine du',
     'to'                        => 'au',
+
     'technician'                => 'Technicien',
-
+    
     'added_technician'          => 'Technicien à ajouter au planning',
-
+    
     'holiday_name'              => 'Nom des vacances',
     'start_date'                => 'Date de début',
     'end_date'                  => 'Date de fin',
-
+    
     'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?',
-
+    
     'technician_menu'           => 'Que souhaitez-vous faire avec le technicien ',
-
+    
     'alt_photo_technician'      => 'Photo de face du technicien',
-
+    
     'unavailable'               => 'Indisponible',
-
+    
     'updating_in'               => 'Actualisation dans',
     'seconds'                   => 'seconde·s',
-
-    'planning_generation'       => 'Génération du planning'
+    
+    'planning_generation'       => 'Génération du planning',
+    
+    'delete_from_planning_of_week'  => 'du planning de la semaine',
+    'delete_from_presences'         => 'des présences des techniciens.',
+    'holiday_period'                => 'Période fériée'
 ];

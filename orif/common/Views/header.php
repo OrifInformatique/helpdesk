@@ -89,6 +89,12 @@
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/your_presences.css").'">';
     }
 
+    // If the url contains "delete", adds the delete_confirmation stylesheet
+    else if(strpos($current_url, 'delete') !== false)
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
+    }
+
     // If the url contains "holidays", adds the holidays stylesheet
     else if(strpos($current_url, 'holidays') !== false)
     {
@@ -96,11 +102,6 @@
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/add_holiday.css").'">';
     }
 
-    // If the url contains "delete", adds the delete_confirmation stylesheet
-    else if(strpos($current_url, 'delete') !== false)
-    {
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
-    }
 
     // // If the url contains "generate", adds the generate_planning stylesheet
     // else if(strpos($current_url, 'generate') !== false)

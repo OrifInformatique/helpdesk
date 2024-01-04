@@ -122,4 +122,19 @@ class Presences_model extends \CodeIgniter\Model
 
         return null;
     }
+
+    /**
+     * Get the user id of a presence entry
+     * 
+     * @param int $id_presnece ID of a presence entry
+     * 
+     * @return int
+     * 
+     */
+    public function getUserId($id_presence)
+    {
+        $presence_data = $this->select('fk_user_id')->where('id_presence', $id_presence)->first();
+
+        return $presence_data['fk_user_id'];
+    }
 }
