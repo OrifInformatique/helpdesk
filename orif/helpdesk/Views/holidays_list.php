@@ -34,7 +34,7 @@
                         $start_date_holiday = new DateTime($holiday['start_date_holiday']); 
                         $start_date_holiday = $start_date_holiday->format('d/m/Y, H:i:s');
 
-                        $end_date_holiday = new DateTime($holiday['start_date_holiday']); 
+                        $end_date_holiday = new DateTime($holiday['end_date_holiday']); 
                         $end_date_holiday = $end_date_holiday->format('d/m/Y, H:i:s');
                     ?>
                     <tr>
