@@ -1,4 +1,4 @@
-/**
+/*
  * Let the user know that a technician is available or not
  * by clicking the technician card
  * 
@@ -175,13 +175,65 @@
 
 
 
+/*
+ * Attempt to do the preview functionality in JS.
+ * Code do works but simplier to do it with PHP at the moment.
+ * If getting a unique ID from the terminal is possible, 
+ * feel free to explore this path.
+ */
+// let userAgent = navigator.userAgent;
+// console.log(userAgent);
+
+// if(userAgent.platform !== 'PlateformeDeLaBorne')
+// {
+//     let body = document.querySelector("body")
+
+//     // Remove ability to click on the technician sheet
+//     let technicianSheets = document.querySelector(".technician-sheet")
+//     technicianSheets.style.pointerEvents = "none"
+    
+//     // Gray foreground to let the user know the page is readonly
+//     let previewFilter = document.createElement("div")
+//     previewFilter.style.position = "fixed"
+//     previewFilter.style.top = "0"
+//     previewFilter.style.left = "0"
+//     previewFilter.style.width = "100vw"
+//     previewFilter.style.height = "100vh"
+//     previewFilter.style.backgroundColor = "rgba(185, 185, 185, 0.4)"
+//     previewFilter.style.zIndex = "10";
+//     previewFilter.style.pointerEvents = "none"
+    
+//     body.appendChild(previewFilter);
+    
+//     let previewText = document.createElement("p")
+//     previewText.style.position = "fixed"
+//     previewText.style.top = "1%"
+//     previewText.style.zIndex = "15";
+//     previewText.style.width = "fit-content"
+//     previewText.style.padding = "10px"
+//     previewText.style.borderRadius = "5px"
+//     previewText.style.backgroundColor = "rgba(185, 185, 185, 1)"
+//     previewText.style.fontSize = "20px"
+//     previewText.innerText = "Aperçu"
+//     previewText.style.pointerEvents = "none"
+    
+//     let previewTextDuplicate = previewText.cloneNode(true)
+//     previewText.style.left = "1%"
+//     previewTextDuplicate.style.right = "1%"
+
+//     body.appendChild(previewText)
+//     body.appendChild(previewTextDuplicate)
+// }
+
+
+
 // Set timer value (in seconds)
 let timer = 60
 
 // Select the html element to put the timer
 let timerText = document.querySelector(".timer")
 
-// Get the link to redirect
+// Get the link to reload the page
 let reloadPage = document.getElementById('reload-page-data').dataset.reloadPage;
 
 /**

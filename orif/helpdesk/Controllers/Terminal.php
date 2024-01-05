@@ -48,9 +48,15 @@ class Terminal extends Home
      * @return view
      * 
      */
-    public function display()
+    public function display($preview = NULL)
     {
         $data = $this->getFlashdataMessages();
+
+        // TODO : Upgrade this system to directly redirect wtih the correct text in url
+        if(isset($preview) && $preview != 'preview')
+            $preview = 'preview';
+
+        $data['preview'] = $preview;
 
         $isDayOff = $this->holidays_model->areWeInHolidays();
 

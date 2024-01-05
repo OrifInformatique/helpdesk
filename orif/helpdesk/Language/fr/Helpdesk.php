@@ -162,5 +162,7 @@ return[
     
     'delete_from_planning_of_week'  => 'du planning de la semaine',
     'delete_from_presences'         => 'des présences des techniciens.',
-    'holiday_period'                => 'Période fériée'
+    'holiday_period'                => 'Période fériée',
+
+    'preview'                   => 'Aperçu'
 ];

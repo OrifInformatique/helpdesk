@@ -14,6 +14,40 @@
     user-select: none;
 }
 
+.no-click {
+    pointer-events: none;
+}
+
+.preview-filter {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(185, 185, 185, 0.4);
+    z-index: 10;
+    user-select: none;
+}
+
+.preview-text {
+    position: fixed;
+    top: 1%;
+    width: fit-content;
+    padding: 10px;
+    border-radius: 2px;
+    background-color: rgba(185, 185, 185, 0.6);
+    font-size: 20px;
+    pointer-events: none;
+}
+
+.preview-text-left {
+    left: 1%;
+}
+
+.preview-text-right {
+    right: 1%;
+}
+
 
 .technician-sheet
 {
@@ -182,5 +216,19 @@ span
     {
         font-size: 1.5em;
         margin: 0 30px;
+    }
+
+    .preview-text-left
+    {
+        top: 90vh;
+        left: 0;
+        right: 0;
+        margin: auto;
+        height: min-content;
+        padding: 10px 20px;
+    }
+    .preview-text-right
+    {
+        display: none;
     }
 }

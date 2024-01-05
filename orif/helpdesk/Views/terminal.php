@@ -13,25 +13,30 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('/helpdesk/home/terminal')) ?>"></div>
+<div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('/helpdesk/terminal/display/'.$preview)) ?>"></div>
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
 
-<div id="no-technician-available" class="d-flex justify-content-center 
-<?php if($day_off == true ||
-        $technicians_availability[0]['tech_available_terminal'] == true || 
-        $technicians_availability[1]['tech_available_terminal'] == true || 
-        $technicians_availability[2]['tech_available_terminal'] == true)
-    {
-        echo "hidden";
-    };?>
-">
-    <p class="no-technician"> <?= lang('Helpdesk.err_no_technician_available')?></p>
-</div>
+<?php if($preview) :?>
+    <div class="preview-filter">
+        <p class="preview-text preview-text-left"><?= lang('Helpdesk.preview') ?></p>
+        <p class="preview-text preview-text-right"><?= lang('Helpdesk.preview') ?></p>
+    </div>
+<?php endif; ?>
 
-<?php if(isset($technicians) && !empty($technicians) && $day_off === false): ?>
+<?php if($day_off == true ||
+        $technicians_availability[0]['tech_available_terminal'] == false &&
+        $technicians_availability[1]['tech_available_terminal'] == false &&
+        $technicians_availability[2]['tech_available_terminal'] == false) : 
+?>
+    <div id="no-technician-available" class="d-flex justify-content-center">
+        <p class="no-technician"> <?= lang('Helpdesk.err_no_technician_available')?></p>
+    </div>
+<?php endif; ?>
+
+<?php if($day_off === false && isset($technicians) && !empty($technicians) ): ?>
     <div class="terminal-display container-fluid">
         <?php foreach($technicians as $technician): ?>
-            <a class="technician-sheet d-flex justify-content-center <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?>" href="<?= base_url('/helpdesk/terminal/update_technician_availability/'.$technician[$period]) ?>">
+            <a class="technician-sheet d-flex justify-content-center <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?> <?= $preview ? 'no-click' : '' ?>" href="<?= base_url('/helpdesk/terminal/update_technician_availability/'.$technician[$period]) ?>">
                 <p class="technician-<?= $technician[$period] ?>-unavailable-text unavailable-text <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? 'hidden' : ''; ?>"><?= lang('Helpdesk.unavailable')?></p>
                 <div class="role">
                     <p>
