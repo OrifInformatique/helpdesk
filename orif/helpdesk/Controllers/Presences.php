@@ -50,6 +50,8 @@ class Presences extends Home
      */
     public function all_presences()
     {
+        $this->setSessionVariables();
+
         // 0 stands for current week
         $periods = $this->choosePeriods(0);
 
@@ -74,6 +76,7 @@ class Presences extends Home
     public function my_presences()
     {
         $this->isUserLogged();
+        $this->setSessionVariables();
 
         $user_id = $_SESSION['user_id'];
 

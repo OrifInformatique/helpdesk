@@ -81,6 +81,8 @@ class Planning extends Home
      */
     public function cw_planning()
     {
+        $this->setSessionVariables();
+
         // 0 stands for current week
         $periods = $this->choosePeriods(0);
 
@@ -105,6 +107,8 @@ class Planning extends Home
      */
     public function nw_planning()
     {
+        $this->setSessionVariables();
+
         // 1 stands for next week
         $periods = $this->choosePeriods(1);
 
@@ -135,6 +139,7 @@ class Planning extends Home
     function add_technician($planning_type)
     {
         $this->isUserLogged();
+        $this->setSessionVariables();
 
         $this->isSetPlanningType($planning_type);
 
@@ -286,6 +291,7 @@ class Planning extends Home
     function update_planning($planning_type)
     {
         $this->isUserLogged();
+        $this->setSessionVariables();
         
         $this->isSetPlanningType($planning_type);
 

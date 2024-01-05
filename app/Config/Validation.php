@@ -10,6 +10,7 @@ use CodeIgniter\Validation\StrictRules\Rules;
 use User\Validation\CustomRules;
 use Helpdesk\Validation\Rules\CoherentDates;
 use Helpdesk\Validation\Rules\NotInPlanning;
+use Helpdesk\Validation\Rules\FrenchAlphaSpace;
 
 class Validation extends BaseConfig
 {
@@ -30,7 +31,8 @@ class Validation extends BaseConfig
         CreditCardRules::class,
         CustomRules::class,
         CoherentDates::class,
-        NotInPlanning::class
+        NotInPlanning::class,
+        FrenchAlphaSpace::class
     ];
 
     /**
