@@ -75,7 +75,7 @@ return[
     */
 
     'required'    => 'Le champ est requis.',
-    'alpha_space' => 'Le champ ne peut contenir que des caractères alphabétiques et des espaces.',
+    'french_alpha_space' => 'Le champ ne peut contenir que des caractères alphabétiques et des espaces.',
     'valid_date'  => 'Date entrée incorrecte.',
     'is_nautral_no_zero' => 'Technicien sélectionné invalide.',
 
@@ -94,12 +94,13 @@ return[
     'btn_save'              => 'Enregistrer',
     'btn_delete'            => 'Supprimer',
     'btn_cancel'            => 'Annuler',
-    'btn_last_week'         => '<i class="fa-solid fa-left-long"></i> Semaine dernière',
-    'btn_next_week'         => 'Semaine suivante <i class="fa-solid fa-right-long"></i>',
+    'btn_last_week'         => 'Semaine dernière',
+    'btn_next_week'         => 'Semaine suivante',
     'btn_terminal'          => 'Aperçu du terminal',
     'btn_reset'             => 'Réinitialiser',
 
     'btn_delete_from_planning' => 'Supprimer du planning',
+    'btn_delete_tech_from_planning' => 'Supprimer le technicien du planning',
 
 
     /*
@@ -137,22 +138,23 @@ return[
 
     'planning_of_week'          => 'Planning de la semaine du',
     'to'                        => 'au',
+
     'technician'                => 'Technicien',
-
+    
     'added_technician'          => 'Technicien à ajouter au planning',
-
+    
     'holiday_name'              => 'Nom des vacances',
     'start_date'                => 'Date de début',
     'end_date'                  => 'Date de fin',
-
+    
     'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?',
-
+    
     'technician_menu'           => 'Que souhaitez-vous faire avec le technicien ',
-
+    
     'alt_photo_technician'      => 'Photo de face du technicien',
-
+    
     'unavailable'               => 'Indisponible',
-
+    
     'updating_in'               => 'Actualisation dans',
     'seconds'                   => 'seconde·s',
 
@@ -164,4 +166,10 @@ return[
     'mail' => 'Email',
     'password' => 'Mot de passe',
     'password_confirm' => 'Confirmer le mot de passe'
+  
+    'delete_from_planning_of_week'  => 'du planning de la semaine',
+    'delete_from_presences'         => 'des présences des techniciens.',
+    'holiday_period'                => 'Période fériée',
+
+    'preview'                   => 'Aperçu'
 ];

@@ -50,6 +50,8 @@ class Presences extends Home
      */
     public function all_presences()
     {
+        $this->setSessionVariables();
+
         // 0 stands for current week
         $periods = $this->choosePeriods(0);
 
@@ -74,6 +76,7 @@ class Presences extends Home
     public function my_presences()
     {
         $this->isUserLogged();
+        $this->setSessionVariables();
 
         $user_id = $_SESSION['user_id'];
 
@@ -168,13 +171,20 @@ class Presences extends Home
         // When the user clicks the delete button
         else
         {
+            $user_id = $this->presences_model->getUserId($id_presence);
+            $user_fullname = $this->user_data_model->getUserFullName($user_id);
+
+            $presence_entry = lang('Helpdesk.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.lang('Helpdesk.delete_from_presences');
+
             $data = 
             [
-                'id_presence' => $id_presence,
-                'title'       => lang('Helpdesk.ttl_delete_confirmation')
+                'title'         => lang('Helpdesk.ttl_delete_confirmation'),
+                'delete_url'    => base_url('/helpdesk/presences/delete_presences/'.$id_presence),
+                'btn_back_url'  => base_url('/helpdesk/presences/all_presences'),
+                'entry'         => $presence_entry
             ];
 
-            return $this->display_view('Helpdesk\delete_presences', $data);
+            return $this->display_view('Helpdesk\delete_entry', $data);
         }
     }
 }

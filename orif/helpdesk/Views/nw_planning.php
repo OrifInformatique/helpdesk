@@ -18,21 +18,21 @@
     <?= view('Helpdesk\Common\planning_roles') ?>
 
     <div class="week">
-        <a class="btn btn-primary btn-last-week" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_last_week')?></a>
+        <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_last_week')?></span></a>
 
         <?= view('Helpdesk\Common\planning_week', ['planning_type' => $planning_type]) ?>
 
-        <button disabled class="btn btn-primary btn-next-week"><?= lang('Helpdesk.btn_next_week')?></button>
+        <button disabled class="btn btn-next-week"><span><?= lang('Helpdesk.btn_next_week')?></span></button>
     </div>
 
     <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
         <thead>
             <tr>
                 <th>
-                    <?php if(isset($nw_planning_data)): ?>
-                        <a class="btn btn-blue" href="<?= base_url('/helpdesk/planning/update_planning/1') ?>" title="<?= lang('Helpdesk.btn_edit_planning') ?>"><i class="fa-solid fa-square-pen"></i></a>
+                    <?php if(!empty($nw_planning_data)): ?>
+                        <a class="btn btn-edit" href="<?= base_url('/helpdesk/planning/update_planning/1') ?>" title="<?= lang('Helpdesk.btn_edit_planning') ?>"></a>
                     <?php else: ?>
-                        <button disabled class="btn btn-blue"><i class="fa-solid fa-square-pen"></i></button>
+                        <button disabled class="btn btn-edit"></button>
                     <?php endif; ?>
                 </th>
                 <?php $planning_type = 1; echo view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
@@ -54,7 +54,7 @@
                 <tr>
                     <td colspan="21">
                         <?= lang('Helpdesk.err_no_technician_assigned')?><br>
-                        <a class="btn btn-blue" href="<?= base_url('/helpdesk/planning/add_technician/1') ?>"><?= lang('Helpdesk.btn_add_technician')?></a>
+                        <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/1') ?>"><span><?= lang('Helpdesk.btn_add_technician')?></span></a>
                     </td>
                 </tr>
             <?php endif; ?>

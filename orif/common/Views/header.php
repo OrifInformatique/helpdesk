@@ -51,6 +51,8 @@
     
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/colors.css") ?>">
 
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/buttons.css") ?>">
+
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/custom_messages.css") ?>">
 
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/planning/roles.css") ?>">
@@ -60,7 +62,7 @@
     $current_url = $_SERVER['REQUEST_URI'];
 
     // If the url ends with "terminal", adds the terminal stylesheet and meta data
-    if(substr($current_url, -7) === "display")
+    if(strpos($current_url, 'display'))
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/terminal/terminal.css").'">';
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';
@@ -69,8 +71,8 @@
     // If the url ends with "planning" or "public/", or contains "update_planning" or "add_technician", adds the planning stylesheet
     else if(substr($current_url, -8) === "planning" ||
             substr($current_url, -7) === "public/" ||
-            strpos($current_url, 'update_planning') !== false ||
-            strpos($current_url, 'add_technician') !== false)
+            strpos($current_url, 'update_planning') ||
+            strpos($current_url, 'add_technician'))
     {
         echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/planning/planning.css").'">';
     }
@@ -87,18 +89,19 @@
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/your_presences.css").'">';
     }
 
+    // If the url contains "delete", adds the delete_confirmation stylesheet
+    else if(strpos($current_url, 'delete'))
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
+    }
+
     // If the url contains "holidays", adds the holidays stylesheet
-    else if(strpos($current_url, 'holidays') !== false)
+    else if(strpos($current_url, 'holidays'))
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/holidays.css").'">';
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/add_holiday.css").'">';
     }
 
-    // If the url contains "delete", adds the delete_confirmation stylesheet
-    else if(strpos($current_url, 'delete') !== false)
-    {
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
-    }
 
     // // If the url contains "generate", adds the generate_planning stylesheet
     // else if(strpos($current_url, 'generate') !== false)

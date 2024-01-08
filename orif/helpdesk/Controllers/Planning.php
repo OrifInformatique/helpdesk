@@ -81,6 +81,8 @@ class Planning extends Home
      */
     public function cw_planning()
     {
+        $this->setSessionVariables();
+
         // 0 stands for current week
         $periods = $this->choosePeriods(0);
 
@@ -105,6 +107,8 @@ class Planning extends Home
      */
     public function nw_planning()
     {
+        $this->setSessionVariables();
+
         // 1 stands for next week
         $periods = $this->choosePeriods(1);
 
@@ -135,6 +139,7 @@ class Planning extends Home
     function add_technician($planning_type)
     {
         $this->isUserLogged();
+        $this->setSessionVariables();
 
         $this->isSetPlanningType($planning_type);
 
@@ -286,6 +291,7 @@ class Planning extends Home
     function update_planning($planning_type)
     {
         $this->isUserLogged();
+        $this->setSessionVariables();
         
         $this->isSetPlanningType($planning_type);
 
@@ -447,14 +453,20 @@ class Planning extends Home
         // When the user clicks the delete button
         else
         {
+            $user_fullname = $this->user_data_model->getUserFullName($user_id);
+            $week = $planning_type == 0 ? 'actuelle' : 'prochaine';
+
+            $user_entry = lang('Helpdesk.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.lang('Helpdesk.delete_from_planning_of_week').' <strong>'.$week.'</strong>.';
+
             $data =
             [
-                'user_id'       => $user_id,
-                'planning_type' => $planning_type,
-                'title'         => lang('Helpdesk.ttl_delete_confirmation')
+                'title'         => lang('Helpdesk.ttl_delete_confirmation'),
+                'delete_url'    => base_url('/helpdesk/planning/delete_technician/'.$user_id.'/'.$planning_type),
+                'btn_back_url'  => base_url('/helpdesk/planning/update_planning/'.$planning_type),
+                'entry'         => $user_entry
             ];
 
-            return $this->display_view('Helpdesk\delete_technician', $data);
+            return $this->display_view('Helpdesk\delete_entry', $data);
         }
     }
 }

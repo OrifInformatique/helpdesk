@@ -78,7 +78,7 @@ class Holidays extends Home
             $validation = \Config\Services::validation();
             $validation->setRules(
             [
-                'holiday_name'  => 'required|alpha_space',
+                'holiday_name'  => 'required|french_alpha_space',
                 'start_date'    => 'required|valid_date[Y-m-d\TH:i]',
                 'end_date'      => 'required|valid_date[Y-m-d\TH:i]|coherent_dates['.$_POST['start_date'].']'
             ],
@@ -86,7 +86,7 @@ class Holidays extends Home
                 'holiday_name' => 
                 [
                     'required'    => lang('Helpdesk.required'),
-                    'alpha_space' => lang('Helpdesk.alpha_space')
+                    'french_alpha_space' => lang('Helpdesk.french_alpha_space')
                 ],
                 'start_date' => 
                 [
@@ -164,13 +164,19 @@ class Holidays extends Home
         // When the user clicks the delete button
         else
         {
+            $holiday_data = $this->holidays_model->getHoliday($id_holiday);
+
+            $holiday_entry = lang('Helpdesk.holiday_period').' <strong>'.$holiday_data['name_holiday'].'</strong>.';
+
             $data = 
             [
-                'id_holiday' => $id_holiday,
-                'title'      => lang('Helpdesk.ttl_delete_confirmation')
+                'title'         => lang('Helpdesk.ttl_delete_confirmation'),
+                'delete_url'    => base_url('/helpdesk/holidays/delete_holiday/'.$id_holiday),
+                'btn_back_url'  => base_url('/helpdesk/holidays/save_holiday/'.$id_holiday),
+                'entry'         => $holiday_entry
             ];
 
-            return $this->display_view('Helpdesk\delete_holiday', $data);
+            return $this->display_view('Helpdesk\delete_entry', $data);
         }
     }
 }

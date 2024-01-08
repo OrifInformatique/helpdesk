@@ -1,45 +1,74 @@
 :root
 {
-    /* Roles colors */
+    /* 
+    ** Roles
+    */
     --role-1: #c5deb5;
     --role-2: #e5f874;
     --role-3: #ffd965;
     --mentor: #9bc2e6;
 
+
+    /* 
+    ** Presences
+    */
     --present: #a9d08e;
     --partly-absent: #ffd966;
     --absent: #f25454;
 
-    /* Gray shades for planning */
+
+    /*
+    ** Gray shades for planning
+    */
     --roles: #eee;
     --week: #dfdfdf;
     --even-line: #f2f2f2;
 
-    /* Blue button */
-    --btn-blue: #b4c6e7;
 
-    /* Classic colors */
+    /*
+    ** Classic colors
+    */
     --white: #ffffff;
     --lighter-gray: #efefef;
     --light-gray: #dddddd;
     --gray: #9a9a9a;
-    --black: #000000;
+    --black: #111111;
 
-    --light-red: #ff0000b9;
-    --red: red;
-    --dark-red: darkred;
-
-    --orange: orange;
-    --dark-orange: darkorange;
     
+    /*
+    ** Delete confirmation
+    */
+    --delete-light-red: #fff7f7;
+
+
+    /* 
+    ** Buttons 
+    */
+    
+    /* Regular button */
     --blue-orif: #086eb6;
     --light-blue-orif: #c4e5fd;
     --dark-blue-orif: #044a7b;
+    
+    /* Add button */
+    --light-green: #ddf5d5;
+    --lime: #52c827;
+    --green: #008000;
 
-    --lime: greenyellow;
-    --green: green;
-    --dark-green: darkgreen;
+    /* Edit button */
+    --light-orange: #ffe6b7;
+    --orange: orange;
 
-    /* Delete confirmation colors */
-    --delete-light-red: #fff7f7;
+    /* Delete button */
+    --light-red: #F7CACA;
+    --red: #c92020;
+    --dark-red: #8D1616;
+    
+    /* Save button */
+    --dark-green: #002a00;
+
+    /* Reset button */
+    --light-yellow: #FEF3C3;
+    --yellow: #fbda48;
+    --dark-yellow: #DCB404;
 }

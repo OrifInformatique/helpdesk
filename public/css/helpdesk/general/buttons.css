@@ -1,0 +1,238 @@
+/* *************************************************************** */
+
+/* Regular button */
+.btn, .btn:disabled:hover, .btn:disabled:active, .btn:disabled:focus
+{
+    background-color: var(--blue-orif);
+    border: 1px solid var(--blue-orif);
+    color: var(--white);
+}
+
+.btn:hover
+{
+    background-color: var(--light-blue-orif);
+    color: var(--dark-blue-orif);
+}
+
+.btn:active, .btn:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-blue-orif);
+}
+
+.btn:disabled
+{
+    box-shadow: none;
+    opacity: 33%;
+    cursor: not-allowed;
+}
+
+/* Icons formatting */
+.btn::before, .btn::after
+{
+    font: var(--fa-font-solid);
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Spacing between the icon and text
+**
+** Cannot be put on the icon directly because some
+** buttons only contains the icon, and the icon won't
+** be centered in the button.
+*/
+.btn span
+{
+    padding: 0 0 0 5px;
+}
+
+/* *************************************************************** */
+
+/* Add button */
+.btn-add
+{
+    background-color: var(--lime);
+    border: 1px solid var(--lime);
+    color: var(--white);
+}
+
+.btn-add:hover
+{
+    background-color: var(--light-green);
+    border: 1px solid var(--lime);
+    color: var(--lime);
+}
+
+.btn-add:active, .btn-add:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--lime);
+}
+
+.btn-add::before
+{
+    content: "\2b"; /* https://fontawesome.com/icons/plus?f=classic&s=solid */
+}
+
+/* *************************************************************** */
+
+/* Edit button */
+.btn-edit, .btn-edit:disabled:hover, .btn-edit:disabled:active, .btn-edit:disabled:focus
+{
+    background-color: var(--orange);
+    border: 1px solid var(--orange);
+    color: var(--white);
+}
+
+.btn-edit:hover
+{
+    background-color: var(--light-orange);
+    color: var(--orange);
+}
+
+.btn-edit:active, .btn-edit:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--orange);
+}
+
+.btn-edit:disabled
+{
+    box-shadow: none;
+    opacity: 33%;
+    cursor: not-allowed;
+}
+
+.btn-edit::before
+{
+    content: "\f044"; /* https://fontawesome.com/icons/pen-to-square?f=classic&s=solid */
+}
+
+/* *************************************************************** */
+
+/* Delete button */
+.btn-delete
+{
+    background-color: var(--red);
+    border: 1px solid var(--red);
+    color: var(--white);
+}
+
+.btn-delete:hover
+{
+    background-color: var(--light-red);
+    color: var(--dark-red);
+}
+
+.btn-delete:active, .btn-delete:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-red);
+}
+
+.btn-delete::before
+{
+    content: "\f2ed"; /* https://fontawesome.com/icons/trash-can?f=classic&s=solid */
+}
+
+/* *************************************************************** */
+
+/* Save button */
+.btn-save
+{
+    background-color: var(--green);
+    border: 1px solid var(--green);
+    color: var(--white);
+}
+
+.btn-save:hover
+{
+    background-color: var(--lime);
+    color: var(--dark-green);
+}
+
+.btn-save:active, .btn-save:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-green);
+}
+
+.btn-save::before
+{
+    content: "\f0c7"; /* https://fontawesome.com/icons/floppy-disk?f=classic&s=solid */
+}
+
+/* *************************************************************** */
+
+/* Reset button */
+.btn-reset
+{
+    background-color: var(--yellow);
+    border: 1px solid var(--yellow);
+    color: var(--black);
+}
+
+.btn-reset:hover
+{
+    background-color: var(--light-yellow);
+    color: var(--dark-yellow);
+}
+
+.btn-reset:active, .btn-reset:focus
+{
+    box-shadow: 0px 0px 1px 3px var(--dark-yellow);
+}
+
+.btn-reset::before
+{
+    content: "\f01e"; /* https://fontawesome.com/icons/arrow-rotate-right?f=classic&s=solid */
+}
+
+/* *************************************************************** */
+
+/* Others buttons
+**
+** Only the icon is added.
+*/
+.btn-back::before
+{
+    content: "\f04a"; /* https://fontawesome.com/icons/backward?f=classic&s=solid */
+}
+
+.btn-last-week::before
+{
+    content: "\f177"; /* https://fontawesome.com/icons/arrow-left-long?f=classic&s=solid */
+}
+
+.btn-next-week::after
+{
+    content: "\f178"; /* https://fontawesome.com/icons/arrow-right-long?f=classic&s=solid */
+}
+
+/* Because the icon is on the right, spacing is on the right. */
+.btn-next-week span
+{
+    padding: 0 5px 0 0;
+}
+
+.btn-presences::before
+{
+    content: "\f017"; /* https://fontawesome.com/icons/clock?f=classic&s=solid */
+}
+
+.btn-holidays::before
+{
+    content: "\f073"; /* https://fontawesome.com/icons/calendar-days?f=classic&s=solid */
+}
+
+.btn-terminal::before
+{
+    content: "\f26c"; /* https://fontawesome.com/icons/tv?f=classic&s=solid */
+}
+
+.btn-terminal::after
+{
+    content: "\f35d"; /* https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid */
+}
+
+.btn-terminal span
+{
+    padding: 0 5px;
+}
+
+/* *************************************************************** */

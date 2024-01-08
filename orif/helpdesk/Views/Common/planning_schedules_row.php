@@ -19,4 +19,5 @@
         <th>12:45 15:00</th>
         <th>15:00 16:57</th>
     <?php endfor; ?>
+    <?= $update_extra_cell ?? '' ?>
 </tr>

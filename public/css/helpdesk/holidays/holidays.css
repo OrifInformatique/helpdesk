@@ -21,7 +21,7 @@ th, td
     width: 250px;
 }
 
-thead tr:nth-child(1) th
+thead th
 {
     text-align: center;
     font-size: 20px;
@@ -30,25 +30,14 @@ thead tr:nth-child(1) th
 
 .action-menu
 {
-    padding: 15px;
+    padding: 15px 25px;
     background-color: var(--roles);
-    border-radius: 0 0 150% 150%;
-    width: 100%;
-    max-width: 750px;
+    border-radius: 10px 10px 0 0;
+    width: fit-content;
     margin: auto;
 }
 
 tbody tr:nth-child(even)
 {
     background-color: var(--even-line);
-}
-
-.btn-blue
-{
-    background-color: var(--btn-blue);
-}
-
-.btn-blue:hover
-{
-    color: var(--white);
 }

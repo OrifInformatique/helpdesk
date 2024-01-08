@@ -13,9 +13,12 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<a class="btn btn-primary" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><?= lang('Helpdesk.btn_back')?></a><br>
+<a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
 
-<div class="d-flex flex-column align-items-center">
+<div class="d-flex align-items-center">
+    <div class="action-menu">
+        <a class="btn btn-add" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><span><?= lang('Helpdesk.btn_add_holiday')?></span></a>
+    </div>
     <table class="table-responsive">
         <thead>
             <tr>
@@ -27,15 +30,22 @@
         <tbody>
             <?php if(isset($holidays_data) && !empty($holidays_data)) : ?>
                 <?php foreach ($holidays_data as $holiday) : ?>
+                    <?php 
+                        $start_date_holiday = new DateTime($holiday['start_date_holiday']); 
+                        $start_date_holiday = $start_date_holiday->format('d/m/Y, H:i:s');
+
+                        $end_date_holiday = new DateTime($holiday['end_date_holiday']); 
+                        $end_date_holiday = $end_date_holiday->format('d/m/Y, H:i:s');
+                    ?>
                     <tr>
                         <td>
                             <a href="<?= base_url('/helpdesk/holidays/save_holiday/'.$holiday['id_holiday']);?>"><?= htmlentities($holiday['name_holiday']); ?></a>
                         </td>
                         <td>
-                            <?= $holiday['start_date_holiday']; ?>
+                            <?= $start_date_holiday; ?>
                         </td>
                         <td>
-                            <?= $holiday['end_date_holiday']; ?>
+                            <?= $end_date_holiday; ?>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -48,7 +58,4 @@
             <?php endif; ?>
         </tbody>
     </table>
-    <div class="action-menu d-flex justify-content-center">
-        <a class="btn btn-blue" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><?= lang('Helpdesk.btn_add_holiday')?></a>
-    </div>
 </div>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * delete_presences view
+ * delete_entry view
  * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -13,15 +13,16 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<?= form_open(base_url('/helpdesk/presences/delete_presences/'.$id_presence)) ?>
+<?= form_open($delete_url) ?>
     <?= form_hidden('delete_confirmation', true) ?>
 
     <div>
         <p><?= lang('Helpdesk.delete_confirmation') ?></p>
+        <p><?= $entry ?></p>
     </div>
 
     <div class="buttons-area">
-        <a class="btn btn-primary mb-3" href="<?= base_url('/helpdesk/presences/all_presences') ?>"><?= lang('Helpdesk.btn_cancel')?></a>
-        <?= form_submit('', lang('Helpdesk.btn_delete'), ['class' => 'btn btn-danger mb-3']) ?>
+        <a class="btn btn-back mb-3" href="<?= $btn_back_url ?>"><span><?= lang('Helpdesk.btn_cancel')?></span></a>
+        <button type="submit" class="btn btn-delete mb-3"><span><?= lang('Helpdesk.btn_delete') ?></span></button>
     </div>
 <?= form_close() ?>
