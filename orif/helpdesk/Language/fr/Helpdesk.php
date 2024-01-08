@@ -44,12 +44,14 @@ return[
     'err_no_holidays'                               => 'Aucune période fériée n\'existe.',
     'err_no_technician_assigned'                    => 'Aucun technicien n\'est assigné au planning.',
     'err_no_technician_presences'                   => 'Aucun technicien n\'a de présences.',
+    'err_technician_is_absent_on_periods'           => 'Le technicien %s est absent durant ces périodes :<br>',
 
     /*
     ** CUSTOM VALIDATION RULES MESSAGES
     */
 	'coherent_dates' => 'La date de fin doit être ultérieure à la date de début.',
 	'not_in_planning' => 'Le technicien renseigné figure déjà dans le planning.',
+	'has_presences' => 'Le technicien renseigné n\'a pas de présences.<br>Ajoutez-lui des présences dans la page des présences.',
 
     /*
     ** INFO MESSAGES
@@ -130,6 +132,36 @@ return[
     'wednesday' => 'Mercredi',
     'thursday'  => 'Jeudi',
     'friday'    => 'Vendredi',
+
+
+    /*
+    ** PERIODS
+    */
+
+    'mon_m1' => 'Lun. 08h00 - 09h45',
+    'mon_m2' => 'Lun. 10h00 - 12h00',
+    'mon_a1' => 'Lun. 12h45 - 14h45',
+    'mon_a2' => 'Lun. 15h00 - 16h57',
+
+    'tue_m1' => 'Mar. 08h00 - 09h45',
+    'tue_m2' => 'Mar. 10h00 - 12h00',
+    'tue_a1' => 'Mar. 12h45 - 14h45',
+    'tue_a2' => 'Mar. 15h00 - 16h57',
+
+    'wed_m1' => 'Mer. 08h00 - 09h45',
+    'wed_m2' => 'Mer. 10h00 - 12h00',
+    'wed_a1' => 'Mer. 12h45 - 14h45',
+    'wed_a2' => 'Mer. 15h00 - 16h57',
+
+    'thu_m1' => 'Jeu. 08h00 - 09h45',
+    'thu_m2' => 'Jeu. 10h00 - 12h00',
+    'thu_a1' => 'Jeu. 12h45 - 14h45',
+    'thu_a2' => 'Jeu. 15h00 - 16h57',
+
+    'fri_m1' => 'Ven. 08h00 - 09h45',
+    'fri_m2' => 'Ven. 10h00 - 12h00',
+    'fri_a1' => 'Ven. 12h45 - 14h45',
+    'fri_a2' => 'Ven. 15h00 - 16h57',
 
 
     /*

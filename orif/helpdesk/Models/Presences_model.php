@@ -137,4 +137,22 @@ class Presences_model extends \CodeIgniter\Model
 
         return $presence_data['fk_user_id'];
     }
+
+    /**
+     * Get a user presences on a specific period
+     * 
+     * @param int $user_id
+     * @param string $planning_period
+     * 
+     * @return int
+     * 
+     */
+    public function getTechnicianPresenceInSpecificPeriod($user_id, $planning_period)
+    {
+        $presence_period = 'presence_'.substr($planning_period, -6);
+
+        $presence = $this->select($presence_period)->where('fk_user_id', $user_id)->get()->getFirstRow();
+
+        return (int) $presence->$presence_period;
+    }
 }

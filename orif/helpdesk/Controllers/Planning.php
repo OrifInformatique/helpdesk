@@ -159,9 +159,10 @@ class Planning extends Home
         }
 
         $validation = \Config\Services::validation();
-        $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']', 
+        $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']|has_presences', 
         ['is_natural_no_zero' => lang('helpdesk.is_nautral_no_zero'),
-         'not_in_planning'    => lang('helpdesk.not_in_planning')]);
+         'not_in_planning'    => lang('helpdesk.not_in_planning'),
+         'has_presences'      => lang('Helpdesk.has_presences')]);
         
         if(!$validation->run($_POST))
         {
@@ -185,13 +186,36 @@ class Planning extends Home
                 break;
         }
 
+        $user_id = $_POST['technician'];
+        $technician_absent = false;
+        $technician_absent_periods = [];
+
         foreach ($form_fields as $field)
         {
+            $technician_presence = $this->presences_model->getTechnicianPresenceInSpecificPeriod($user_id, $field);
+            
             if (!isset($_POST[$field]) || empty($_POST[$field]) || !in_array($_POST[$field], [1, 2, 3]))
             {
                 $_POST[$field] = NULL;
                 $empty_fields++;
             }
+            
+            if($technician_presence === 3 && in_array($_POST[$field], [1, 2, 3]))
+            {
+                $technician_absent = true;
+                array_push($technician_absent_periods, lang('Helpdesk.'.substr($field, -6)));
+            }
+        }
+
+        if($technician_absent)
+        {
+            $technician_fullname = $this->user_data_model->getUserFullName($user_id);
+            $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
+
+            $data['messages']['error'] = sprintf(lang('Helpdesk.err_technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.';
+            $data['old_add_tech_form'] = $_POST;
+    
+            return $this->display_view('Helpdesk\add_technician', $data);
         }
 
         if($empty_fields === 20) 
@@ -297,17 +321,17 @@ class Planning extends Home
 
         $data['planning_type'] = $planning_type;
 
-        $form_fields_data = [];
+        $form_fields = [];
 
         // 0 is current week, 1 is next week
         switch($planning_type)
         {
             case 0:
-                $form_fields_data = $_SESSION['helpdesk']['cw_periods'];
+                $form_fields = $_SESSION['helpdesk']['cw_periods'];
                 break;
 
             case 1:
-                $form_fields_data = $_SESSION['helpdesk']['nw_periods'];
+                $form_fields = $_SESSION['helpdesk']['nw_periods'];
                 break;
         }
 
@@ -342,18 +366,40 @@ class Planning extends Home
                 $data_to_update['fk_user_id'] = $technician_planning['fk_user_id'];
                     
                 $emptyFieldsCount = 0;
-                foreach ($form_fields_data as $field)
+                $user_id = $technician_planning['fk_user_id'];
+                $technician_absent = false;
+                $technician_absent_periods = [];
+
+                foreach ($form_fields as $field)
                 {
+                    $technician_presence = $this->presences_model->getTechnicianPresenceInSpecificPeriod($user_id, $field);
                     $field_value = $technician_planning[$field];
 
-                    if(!in_array($field_value, ["", 1, 2, 3]) || empty($field_value))
+                    if(!$technician_absent && (!in_array($field_value, ["", 1, 2, 3]) || empty($field_value)))
                     {
-                        // Required for database insertion
-                        $field_value = NULL;
+                        $field_value = NULL; // Required for database insertion
                         $emptyFieldsCount++;
                     }
 
+                    if($technician_presence === 3 && in_array($field_value, [1, 2, 3]))
+                    {
+                        $technician_absent = true;
+                        array_push($technician_absent_periods, lang('Helpdesk.'.substr($field, -6)));
+                        continue;
+                    }
+
                     $data_to_update[$field] = $field_value;
+                }
+                
+                if($technician_absent)
+                {
+                    $technician_fullname = $this->user_data_model->getUserFullName($user_id);
+                    $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
+
+                    $this->session->setFlashdata('error', sprintf(lang('Helpdesk.err_technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.');
+                    $this->session->setFlashdata('old_edit_plan_form', $_POST);
+                    
+                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
                 }
 
                 // If all fields are empty, prevent having a technician without any role at any period
@@ -404,7 +450,7 @@ class Planning extends Home
         $periods = $this->choosePeriods($planning_type);
 
         $data['messages']         = $this->getFlashdataMessages();
-        $data['form_fields_data'] = $form_fields_data;
+        $data['form_fields']      = $form_fields;
         $data['classes']          = $this->defineDaysOff($periods);
 
         return $this->display_view('Helpdesk\update_planning', $data);
