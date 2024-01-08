@@ -14,7 +14,9 @@
 <?= view('Helpdesk\Common\body_start') ?>
 
 <div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('/helpdesk/terminal/display/'.$preview)) ?>"></div>
+<div id="img-link-data" data-img-link="<?= htmlspecialchars(base_url('/images/helpdesk/default_technician_picture.jpg')) ?>"></div>
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
+<script src="<?= base_url('Scripts/terminal/image_error_handling.js')?>"></script>
 
 <?php if($preview) :?>
     <div class="preview-filter">
@@ -56,7 +58,7 @@
                 </div>
 
                 <div>
-                    <img src="<?= $technician['photo_user_data'] ?>" alt="<?= lang('Helpdesk.alt_photo_technician') ?>">
+                    <img src="<?= $technician['photo_user_data'] ?>" alt="<?= lang('Helpdesk.alt_photo_technician') ?>" onerror="HideImage<?= $technician[$period] ?>(this)">
                 </div>
 
                 <div class="identity">

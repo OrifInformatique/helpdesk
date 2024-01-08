@@ -21,7 +21,7 @@ class Admin extends BaseController
      * Constructor
      */
     public function initController(RequestInterface $request,
-        ResponseInterface $response, LoggerInterface $logger): void
+        ResponseInterface $response, LoggerInterface $logger)
     {
         // Set Access level before calling parent constructor
         // Accessibility reserved to admin users
@@ -187,7 +187,7 @@ class Admin extends BaseController
             return redirect()->to('/user/admin/list_user');
         } else {
             $this->user_model->withDeleted()->update($user_id,['archive'=>null]);
-            return redirect()->to('/user/admin/save_user/'.$user_id);
+            return redirect()->to('/helpdesk/user/helpdesk_save_user/'.$user_id);
         }
     }
 
@@ -197,7 +197,7 @@ class Admin extends BaseController
      * @param integer $user_id = ID of the user to update
      * @return void
      */
-    public function password_change_user(int $user_id): Response
+    public function password_change_user(int $user_id)
     {
         // Get user from DB, redirect if user doesn't exist
         $user = $this->user_model->withDeleted()->find($user_id);

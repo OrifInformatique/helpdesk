@@ -157,9 +157,16 @@ return[
     
     'updating_in'               => 'Actualisation dans',
     'seconds'                   => 'seconde·s',
-    
+
     'planning_generation'       => 'Génération du planning',
-    
+
+    'first_name' => 'Prénom',
+    'last_name' => 'Nom',
+    'photo' => 'Photo de face',
+    'mail' => 'Email',
+    'password' => 'Mot de passe',
+    'password_confirm' => 'Confirmer le mot de passe'
+  
     'delete_from_planning_of_week'  => 'du planning de la semaine',
     'delete_from_presences'         => 'des présences des techniciens.',
     'holiday_period'                => 'Période fériée',
