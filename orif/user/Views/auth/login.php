@@ -12,11 +12,12 @@
         <div class="col-md-6 col-sm-10 well">
             <legend><?= lang('user_lang.title_page_login'); ?></legend>
             <?php 
-                $attributes = array("class" => "form-horizontal",
-                                    "id" => "azureloginform",
-                                    "name" => "azureloginform");
-                echo form_open("user/auth/login", $attributes);
+                // $attributes = array("class" => "form-horizontal",
+                //                     "id" => "azureloginform",
+                //                     "name" => "azureloginform");
+                // echo form_open("user/auth/login", $attributes);
             ?>
+            <!-- 
             <fieldset>
                 <div class="form-group">
                     <div class="row colbox">
@@ -30,8 +31,9 @@
                         </div>
                     </div>
                 </div>
-            </fieldset>
-            <?= form_close(); ?>
+            </fieldset> 
+            -->
+            <?php // form_close(); ?>
             <?php
             $session=\Config\Services::session();
             $validation=\Config\Services::validation();
@@ -45,7 +47,8 @@
                 <?php if(!is_null($session->getFlashdata('message-danger'))){ ?>
                     <div class="alert alert-danger text-center"><?= $session->getFlashdata('message-danger'); ?></div>
                 <?php } ?>
-                <span id='hiddenLoginOption' style="display: none;">
+                <!-- <span id='hiddenLoginOption' style="display: none;"> -->
+                <span>
                     <div class="form-group">
                         <div class="row colbox">
                             <div class="col-sm-4">
@@ -79,6 +82,7 @@
                 </span>
             </fieldset>
             <?= form_close(); ?>
+            <!--
             <div id='reveal' class="row colbox">
                 <div class="col-sm-4">
                     <label for="username" class="control-label"></label>
@@ -87,10 +91,12 @@
                     <button id="btn_reveal" class="btn btn-primary"><?= lang('user_lang.btn_connect_with_local_account'); ?></button>
                 </div>
             </div>
+                -->
         </div>
     </div>
 </div>
 
+<!--
 <script>
   // Get the button element
   const button = document.getElementById('btn_reveal');
@@ -105,4 +111,5 @@
 
   });
 </script>
+-->
 

@@ -17,7 +17,7 @@ use Psr\Log\LoggerInterface;
 
 use User\Controllers\Admin;
 use User\Models\User_model;
-use Helpdesk\Models\User_Data_model;
+use Helpdesk\Models\User_data_model;
 use Helpdesk\Models\Presences_model;
 use Helpdesk\Models\Planning_model;
 
@@ -31,10 +31,10 @@ class User extends Admin
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
         parent::initController($request, $response, $logger);
-        $this->user_data_model = new user_data_model();
-        $this->user_model = new user_model();
-        $this->presences_model = new presences_model();
-        $this->planning_model = new planning_model();
+        $this->user_data_model = new User_data_model();
+        $this->user_model = new User_model();
+        $this->presences_model = new Presences_model();
+        $this->planning_model = new Planning_model();
     }
 
     /**
