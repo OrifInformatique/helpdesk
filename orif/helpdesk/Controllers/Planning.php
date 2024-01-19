@@ -160,8 +160,8 @@ class Planning extends Home
 
         $validation = \Config\Services::validation();
         $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']|has_presences', 
-        ['is_natural_no_zero' => lang('helpdesk.is_nautral_no_zero'),
-         'not_in_planning'    => lang('helpdesk.not_in_planning'),
+        ['is_natural_no_zero' => lang('Helpdesk.is_natural_no_zero'),
+         'not_in_planning'    => lang('Helpdesk.not_in_planning'),
          'has_presences'      => lang('Helpdesk.has_presences')]);
         
         if(!$validation->run($_POST))
