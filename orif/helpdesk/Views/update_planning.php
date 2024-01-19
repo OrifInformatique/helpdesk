@@ -42,7 +42,7 @@
                                 <?= $planning['last_name_user_data'].'<br>'.$planning['first_name_user_data']; ?>
                             </th>
 
-                            <?php foreach ($form_fields_data as $field): ?>
+                            <?php foreach ($form_fields as $field): ?>
                                 <td>
                                 <?php
                                     $options = ['' => '', '1' => '1', '2' => '2', '3' => '3'];
@@ -64,7 +64,7 @@
                             <th>
                                 <?= $nw_planning['last_name_user_data'].'<br>'.$nw_planning['first_name_user_data']; ?>
                             </th>
-                            <?php foreach ($form_fields_data as $field) : ?>
+                            <?php foreach ($form_fields as $field) : ?>
                                 <td>
                                     <?php
                                     $options = ['' => '', '1' => '1', '2' => '2', '3' => '3'];

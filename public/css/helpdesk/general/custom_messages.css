@@ -5,6 +5,8 @@
 	right: 4%;
 	width: 28%;
 	align-items: center;
+	user-select: none;
+	pointer-events: none;
 }
 
 .alert i
