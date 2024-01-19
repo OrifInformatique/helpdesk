@@ -45,6 +45,7 @@ return[
     'err_no_technician_assigned'                    => 'Aucun technicien n\'est assigné au planning.',
     'err_no_technician_presences'                   => 'Aucun technicien n\'a de présences.',
     'err_technician_is_absent_on_periods'           => 'Le technicien %s est absent durant ces périodes :<br>',
+    'err_role_duplicates_on_periods'                => 'Plusieurs techniciens sont assignés aux mêmes rôles durant ces périodes :<br>',
 
     /*
     ** CUSTOM VALIDATION RULES MESSAGES
