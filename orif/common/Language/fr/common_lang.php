@@ -12,7 +12,7 @@ return[
     'app_title'                      => 'Helpdesk',
 
 // Page titles
-    'page_prefix'                    => 'Packbase V4',
+    'page_prefix'                    => 'Helpdesk',
 
 // Buttons
     'btn_admin'                      => 'Administration',

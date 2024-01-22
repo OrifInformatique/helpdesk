@@ -11,6 +11,7 @@ use User\Validation\CustomRules;
 use Helpdesk\Validation\Rules\CoherentDates;
 use Helpdesk\Validation\Rules\NotInPlanning;
 use Helpdesk\Validation\Rules\FrenchAlphaSpace;
+use Helpdesk\Validation\Rules\FrenchAlpha;
 use Helpdesk\Validation\Rules\HasPresences;
 
 class Validation extends BaseConfig
@@ -34,6 +35,7 @@ class Validation extends BaseConfig
         CoherentDates::class,
         NotInPlanning::class,
         FrenchAlphaSpace::class,
+        FrenchAlpha::class,
         HasPresences::class
     ];
 

@@ -191,7 +191,16 @@ class Planning extends Home
         $role_duplicated =  false;
         $technician_absent_periods = [];
         $roles_duplicated_periods = [];
-        $planning_data = $this->planning_model->getPlanningData();
+
+        switch($planning_type)
+        {
+            case 0:
+                $planning_data = $this->planning_model->getPlanningData();
+                break;
+            case 1:
+                $planning_data = $this->nw_planning_model->getNwPlanningData();
+                break;
+        }
 
         foreach ($form_fields as $field)
         {

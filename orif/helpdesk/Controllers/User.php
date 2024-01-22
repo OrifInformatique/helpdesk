@@ -91,11 +91,13 @@ class User extends Admin
                     ],
                     'first_name_user_data' => [
                         'label' => lang('Helpdesk.first_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|alpha'
+                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
+                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
                     ],
                     'last_name_user_data' => [
                         'label' => lang('Helpdesk.last_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|alpha',
+                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
+                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
                     ],
                     'photo_user_data' => [
                         'label' => lang('Helpdesk.photo'),
@@ -133,11 +135,13 @@ class User extends Admin
                     ],
                     'first_name_user_data' => [
                         'label' => lang('Helpdesk.first_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|alpha'
+                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
+                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
                     ],
                     'last_name_user_data' => [
                         'label' => lang('Helpdesk.last_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|alpha',
+                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
+                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
                     ],
                     'photo_user_data' => [
                         'label' => lang('Helpdesk.photo'),

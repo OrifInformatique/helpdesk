@@ -79,6 +79,7 @@ return[
 
     'required'    => 'Le champ est requis.',
     'french_alpha_space' => 'Le champ ne peut contenir que des caractères alphabétiques et des espaces.',
+    'french_alpha' => 'Le champ {field} ne peut contenir que des caractères alphabétiques.',
     'valid_date'  => 'Date entrée incorrecte.',
     'is_natural_no_zero' => 'Technicien sélectionné invalide.',
 

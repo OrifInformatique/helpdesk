@@ -1,7 +1,7 @@
 <?php
 
 /**
- * Custom rule for holiday name
+ * Custom rule for user first and last name
  * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -11,7 +11,7 @@
 
 namespace Helpdesk\Validation\Rules;
 
-class FrenchAlphaSpace
+class FrenchAlpha
 {
     /**
      * Check if the field matches a regex
@@ -21,10 +21,10 @@ class FrenchAlphaSpace
      * @return bool
      * 
      */
-    public function french_alpha_space($field)
+    public function french_alpha($field)
     {
-        /* Regex rule matches if the string contains Unicode chars (\p{L}) or/and spaces (\s) */
-        if(preg_match("/^[\p{L}\s]+$/u", trim($field)))
+        /* Regex rule matches if the string contains Unicode chars (\p{L}) */
+        if(preg_match("/^[\p{L}]+$/u", trim($field)))
             return true;
 
         return false;
