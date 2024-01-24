@@ -41,7 +41,7 @@ class User_Data_model extends \CodeIgniter\Model
      */
     public function getUsersData()
     {
-        $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('user.archive', NULL)->findAll();
+        $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('user.archive', NULL)->orderBy('ASC')->findAll();
 
         return $users_data;
     }
