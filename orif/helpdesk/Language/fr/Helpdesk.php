@@ -98,7 +98,7 @@ return[
     'btn_save'              => 'Enregistrer',
     'btn_delete'            => 'Supprimer',
     'btn_cancel'            => 'Annuler',
-    'btn_last_week'         => 'Semaine dernière',
+    'btn_last_week'         => 'Semaine précédente',
     'btn_next_week'         => 'Semaine suivante',
     'btn_terminal'          => 'Aperçu du terminal',
     'btn_reset'             => 'Réinitialiser',
