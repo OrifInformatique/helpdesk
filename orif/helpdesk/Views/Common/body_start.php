@@ -12,7 +12,7 @@
 ?>
 
 <div class="container-fluid">
-  <?php if(isset($title)){echo '<h2>'.$title.'</h2>';} ?>
+  <?php if(isset($title) && !empty($title)){echo '<h2>'.$title.'</h2>';} ?>
 
   <?php if(isset($messages['success'])): ?>
       <div class="d-flex justify-content-center alert alert-success custom-alert fade">

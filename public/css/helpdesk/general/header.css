@@ -64,7 +64,6 @@ h1 a
     
     #login-bar div div[class="col-sm-12 col-md-3 text-right"]
     {
-        flex: 0 0 100%;
         width: 50%;
         max-width: 50%;
         display: block;

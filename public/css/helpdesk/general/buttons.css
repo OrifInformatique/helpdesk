@@ -236,3 +236,28 @@
 }
 
 /* *************************************************************** */
+
+@media screen and (max-width: 525px)
+{
+    /*
+     * Reduces buttons sizes by removing content
+     *
+     */
+    .btn-save span, .btn-reset span, .btn-back span, #add-holiday .btn-delete span, .btn-delete span
+    {
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+
+    /*
+     * Exceptions
+     *
+     */
+    nav .btn-back span, #add-holiday .btn-back span
+    {
+        padding: 0 0 0 5px;
+        display: inline;
+        width: min-content;
+    }
+}

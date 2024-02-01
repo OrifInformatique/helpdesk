@@ -1,0 +1,19 @@
+h2
+{
+    text-align: center;
+    border-top: 5px solid var(--blue-orif);
+    border-bottom: 5px solid var(--blue-orif);
+    border-radius: 5px;
+    width: fit-content;
+    padding: 10px calc(15px + 8%);
+    margin: 1rem auto 1rem auto;
+}
+
+@media screen and (max-width: 525px) 
+{
+    h2
+    {
+        font-size: 1.25rem;
+        padding: 10px 5%;
+    }
+}

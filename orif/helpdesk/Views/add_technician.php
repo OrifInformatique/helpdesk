@@ -14,8 +14,7 @@
 <?= view('Helpdesk\Common\body_start') ?>
 
 <?= form_open(base_url('/helpdesk/planning/add_technician/'.$planning_type)) ?>
-    <div class="planning">
-        <?= view('Helpdesk\Common\planning_roles') ?>
+    <div class="planning-table">
 
         <div class="week">
             <div></div>
@@ -33,7 +32,7 @@
             </thead>
             <tbody>
                 <tr>
-                    <td>
+                    <th>
                         <?php 
                         $options = ['' => ''];
 
@@ -42,7 +41,7 @@
                             $options[$user['id']] = $user['last_name_user_data'].' '.$user['first_name_user_data'];
                         }
                         echo form_dropdown('technician', $options, isset($old_add_tech_form['technician']) ? $old_add_tech_form['technician'] : '')?>
-                    </td>
+                    </th>
                     <?php for($i = 0; $i < 20; $i++): ?>
                         <td>
                             <?php 
@@ -64,5 +63,7 @@
             </tbody>
         </table>
         <?= view('Helpdesk\Common\planning_form_action_menu', ['planning_type' => $planning_type]) ?>
+
+        <?= view('Helpdesk\Common\planning_roles') ?>
     </div>
 <?= form_close() ?>

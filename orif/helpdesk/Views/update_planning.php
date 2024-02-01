@@ -14,8 +14,7 @@
 <?= view('Helpdesk\Common\body_start') ?>
 
 <?= form_open(base_url('/helpdesk/planning/update_planning/'.$planning_type)) ?>
-    <div class="planning">
-        <?= view('Helpdesk\Common\planning_roles') ?>
+    <div class="planning-table">
 
         <div class="week">
             <div></div>
@@ -88,5 +87,7 @@
             </tbody>
         </table>
         <?= view('Helpdesk\Common\planning_form_action_menu', ['planning_type' => $planning_type]) ?>
+
+        <?= view('Helpdesk\Common\planning_roles') ?>
     </div>
 <?= form_close() ?>

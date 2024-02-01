@@ -13,7 +13,7 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
+<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a></nav>
 
 <div class="d-flex align-items-center">
     <div class="action-menu">

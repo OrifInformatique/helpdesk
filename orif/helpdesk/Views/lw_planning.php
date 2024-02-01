@@ -14,8 +14,7 @@
 <?= view('Helpdesk\Common\body_start') ?>
 <?= view('Helpdesk\Common\planning_nav') ?>
 
-<div class="planning">
-    <?= view('Helpdesk\Common\planning_roles') ?>
+<div class="planning-table">
 
     <div class="week">
         <button disabled class="btn btn-last-week"><span><?= lang('Helpdesk.btn_last_week') ?></span></button>
@@ -54,4 +53,6 @@
         </tbody>
     </table>
     <?= view('Helpdesk\Common\planning_bottom') ?>
+
+    <?= view('Helpdesk\Common\planning_roles') ?>
 </div>

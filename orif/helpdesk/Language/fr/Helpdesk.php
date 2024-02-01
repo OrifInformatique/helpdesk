@@ -74,6 +74,18 @@ return[
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
 
     /*
+    ** FORM FIELDS
+    */
+
+    
+    'first_name' => 'Prénom',
+    'last_name' => 'Nom',
+    'photo' => 'Photo de face',
+    'mail' => 'Email',
+    'password' => 'Mot de passe',
+    'password_confirm' => 'Confirmer le mot de passe',
+
+    /*
     ** FORM CUSTOM ERRORS
     */
 
@@ -193,13 +205,6 @@ return[
     'seconds'                   => 'seconde·s',
 
     'planning_generation'       => 'Génération du planning',
-
-    'first_name' => 'Prénom',
-    'last_name' => 'Nom',
-    'photo' => 'Photo de face',
-    'mail' => 'Email',
-    'password' => 'Mot de passe',
-    'password_confirm' => 'Confirmer le mot de passe',
   
     'delete_from_planning_of_week'  => 'du planning de la semaine',
     'delete_from_presences'         => 'des présences des techniciens.',

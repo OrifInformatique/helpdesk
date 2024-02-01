@@ -13,14 +13,9 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
+<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a></nav>
 
-<div class="presences">
-	<div class="d-flex justify-content-center roles">
-		<div class="present border-xs-1 p-2 rounded rounded-3 mx-3">P - <?= lang('Helpdesk.present')?></div>
-		<div class="partly-absent border-xs-1 p-2 rounded rounded-3 mx-3">I - <?= lang('Helpdesk.partly_absent')?></div>
-		<div class="absent border-xs-1 p-2 rounded rounded-3 mx-3">A - <?= lang('Helpdesk.absent')?></div>
-	</div>
+<div class="planning-table">
 
 	<table class="table-responsive
 	<?php if(isset($classes))
@@ -95,5 +90,11 @@
 	</table>
 
 	<div class="action-menu d-flex justify-content-center">
+	</div>
+
+	<div class="roles roles-presences">
+		<div class="present">P - <?= lang('Helpdesk.present')?></div>
+		<div class="partly-absent">I - <?= lang('Helpdesk.partly_absent')?></div>
+		<div class="absent">A - <?= lang('Helpdesk.absent')?></div>
 	</div>
 </div>

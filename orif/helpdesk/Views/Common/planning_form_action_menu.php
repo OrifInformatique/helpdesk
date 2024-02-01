@@ -11,7 +11,7 @@
 
 ?>
 
-<div class="action-menu d-flex justify-content-center">
+<div class="action-menu">
     <button type="submit" class="btn btn-save"><span><?= lang('Helpdesk.btn_save') ?></span></button>
     <button type="reset" class="btn btn-reset"><span><?= lang('Helpdesk.btn_reset') ?></span></button>
 

@@ -11,6 +11,6 @@
 
 ?>
 
-<div class="action-menu d-flex justify-content-center">
-    <?php // Empty for now, only for style ?>
+<div class="action-menu">
+    <!-- Empty for now, only for style -->
 </div>
