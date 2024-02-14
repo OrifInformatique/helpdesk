@@ -69,7 +69,7 @@ return[
     'scs_presences_deleted'             => 'Les présences du technicien ont été supprimées.',
     'scs_technician_added_to_schedule'  => 'Le technicien a été ajouté au planning.',
     'scs_technician_deleted'            => 'Le technicien a été supprimé du planning.',
-    'scs_planning_updated'              => 'La planning de la semaine a été modifié.',
+    'scs_planning_updated'              => 'Le planning de la semaine a été modifié.',
     'scs_holiday_updated'               => 'La période de vacances a été modifiée.',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
 

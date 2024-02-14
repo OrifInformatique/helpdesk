@@ -103,7 +103,6 @@
     else if(strpos($current_url, 'holidays'))
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/holidays.css").'">';
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/add_holiday.css").'">';
     }
 
 
