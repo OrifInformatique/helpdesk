@@ -54,6 +54,8 @@
 
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/colors.css") ?>">
 
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/scrollbar.css") ?>">
+
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/buttons.css") ?>">
 
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/custom_messages.css") ?>">
@@ -80,17 +82,17 @@
     // If the url ends with "planning" or "public/" or "all_presences", or contains "update_planning" or "add_technician", adds the planning stylesheet
     else if(substr($current_url, -8) === "planning" ||
             substr($current_url, -7) === "public/" ||
-            substr($current_url, -13) === "all_presences" ||
+            substr($current_url, -14) === "presences_list" ||
             strpos($current_url, 'update_planning') ||
             strpos($current_url, 'add_technician'))
     {
         echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/general/planning_table.css").'">';
     }
 
-    // If the url ends with "my_presences", adds the presences stylesheet
-    else if(substr($current_url, -12) === "my_presences")
+    // If the url ends with "technician_presences", adds the presences stylesheet
+    else if(substr($current_url, -20) === "technician_presences")
     {
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/your_presences.css").'">';
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/technician_presences.css").'">';
     }
 
     // If the url contains "delete", adds the delete_confirmation stylesheet
@@ -113,7 +115,6 @@
     // }
 
     ?>
-
 </head>
 <body>
     <?php

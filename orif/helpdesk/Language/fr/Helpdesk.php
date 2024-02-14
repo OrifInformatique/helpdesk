@@ -13,8 +13,8 @@ return[
     ** PAGE TITLES
     */
 
-    'ttl_all_presences'         => 'Présences des techniciens',
-    'ttl_my_presences'          => 'Mes présences',
+    'ttl_presences_list'        => 'Présences des techniciens',
+    'ttl_technician_presences'  => 'Mes présences',
     'ttl_add_technician'        => 'Ajouter un technicien',
     'ttl_technician_menu'       => 'Menu du technicien',
     'ttl_planning'              => 'Planning de la semaine',
@@ -50,9 +50,9 @@ return[
     /*
     ** CUSTOM VALIDATION RULES MESSAGES
     */
-	'coherent_dates' => 'La date de fin doit être ultérieure à la date de début.',
-	'not_in_planning' => 'Le technicien renseigné figure déjà dans le planning.',
-	'has_presences' => 'Le technicien renseigné n\'a pas de présences.<br>Ajoutez-lui des présences dans la page des présences.',
+	'coherent_dates'    => 'La date de fin doit être ultérieure à la date de début.',
+	'not_in_planning'   => 'Le technicien renseigné figure déjà dans le planning.',
+	'has_presences'     => 'Le technicien renseigné n\'a pas de présences.<br>Ajoutez-lui des présences dans la page des présences.',
 
     /*
     ** INFO MESSAGES
@@ -78,44 +78,44 @@ return[
     */
 
     
-    'first_name' => 'Prénom',
-    'last_name' => 'Nom',
-    'photo' => 'Photo de face',
-    'mail' => 'Email',
-    'password' => 'Mot de passe',
-    'password_confirm' => 'Confirmer le mot de passe',
+    'first_name'        => 'Prénom',
+    'last_name'         => 'Nom',
+    'photo'             => 'Photo de face',
+    'mail'              => 'Email',
+    'password'          => 'Mot de passe',
+    'password_confirm'  => 'Confirmer le mot de passe',
 
     /*
     ** FORM CUSTOM ERRORS
     */
 
-    'required'    => 'Le champ est requis.',
-    'french_alpha_space' => 'Le champ ne peut contenir que des caractères alphabétiques et des espaces.',
-    'french_alpha' => 'Le champ {field} ne peut contenir que des caractères alphabétiques.',
-    'valid_date'  => 'Date entrée incorrecte.',
-    'is_natural_no_zero' => 'Technicien sélectionné invalide.',
+    'required'              => 'Le champ est requis.',
+    'french_alpha_space'    => 'Le champ ne peut contenir que des caractères alphabétiques et des espaces.',
+    'french_alpha'          => 'Le champ {field} ne peut contenir que des caractères alphabétiques.',
+    'valid_date'            => 'Date entrée incorrecte.',
+    'is_natural_no_zero'    => 'Technicien sélectionné invalide.',
 
 
     /*
     ** BUTTONS
     */
 
-    'btn_all_presences'     => 'Présences des techniciens',
-    'btn_my_presences'      => 'Modifier mes présences',
-    'btn_add_technician'    => 'Ajouter un technicien',
-    'btn_edit_planning'     => 'Modifier le planning',
-    'btn_holiday'           => 'Liste des vacances',
-    'btn_add_holiday'       => 'Ajouter des vacances',
-    'btn_back'              => 'Retour',
-    'btn_save'              => 'Enregistrer',
-    'btn_delete'            => 'Supprimer',
-    'btn_cancel'            => 'Annuler',
-    'btn_last_week'         => 'Semaine précédente',
-    'btn_next_week'         => 'Semaine suivante',
-    'btn_terminal'          => 'Aperçu du terminal',
-    'btn_reset'             => 'Réinitialiser',
+    'btn_presences_list'        => 'Présences des techniciens',
+    'btn_technician_presences'  => 'Modifier mes présences',
+    'btn_add_technician'        => 'Ajouter un technicien',
+    'btn_edit_planning'         => 'Modifier le planning',
+    'btn_holiday'               => 'Liste des vacances',
+    'btn_add_holiday'           => 'Ajouter des vacances',
+    'btn_back'                  => 'Retour',
+    'btn_save'                  => 'Enregistrer',
+    'btn_delete'                => 'Supprimer',
+    'btn_cancel'                => 'Annuler',
+    'btn_last_week'             => 'Semaine précédente',
+    'btn_next_week'             => 'Semaine suivante',
+    'btn_terminal'              => 'Aperçu du terminal',
+    'btn_reset'                 => 'Réinitialiser',
 
-    'btn_delete_from_planning' => 'Supprimer du planning',
+    'btn_delete_from_planning'      => 'Supprimer du planning',
     'btn_delete_tech_from_planning' => 'Supprimer le technicien du planning',
 
 
@@ -205,10 +205,10 @@ return[
     'seconds'                   => 'seconde·s',
 
     'planning_generation'       => 'Génération du planning',
-  
+    
+    'preview'                   => 'Aperçu',
+
     'delete_from_planning_of_week'  => 'du planning de la semaine',
     'delete_from_presences'         => 'des présences des techniciens.',
-    'holiday_period'                => 'Période fériée',
-
-    'preview'                   => 'Aperçu'
+    'holiday_period'                => 'Période fériée'
 ];

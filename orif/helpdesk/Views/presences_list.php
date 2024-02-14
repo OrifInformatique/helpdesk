@@ -1,7 +1,7 @@
 <?php
 
 /**
- * all_presences view
+ * presences_list view
  * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -16,7 +16,7 @@
 <nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a></nav>
 
 <div class="planning-table">
-
+	<div class="table-top"></div>
 	<table class="table-responsive
 	<?php if(isset($classes))
 	{
@@ -28,7 +28,7 @@
 	">
 		<thead>
 			<tr>
-				<th><a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/my_presences') ?>" title="<?= lang('Helpdesk.btn_my_presences')?>"></a></th>
+				<th><a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences') ?>" title="<?= lang('Helpdesk.btn_technician_presences')?>"></a></th>
 				<th colspan="4"><?= lang('Helpdesk.monday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.tuesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.wednesday')?></th>
@@ -88,9 +88,7 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
-
-	<div class="action-menu d-flex justify-content-center">
-	</div>
+	<?= view('Helpdesk\Common\planning_bottom') ?>
 
 	<div class="roles roles-presences">
 		<div class="present">P - <?= lang('Helpdesk.present')?></div>

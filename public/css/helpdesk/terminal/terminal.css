@@ -1,24 +1,36 @@
-#login-bar, hr, div[class='alert alert-warning text-center'], #toolbarContainer
+*
+{
+    cursor: none;
+    user-select: none;
+}
+
+#login-bar, hr, div[class='alert alert-warning text-center'], #toolbarContainer, 
+#reload-page-data, #img-link-data
 {
     display: none;
+}
+
+::-webkit-scrollbar
+{
+    width: 0;
 }
 
 .terminal-display
 {
     display: flex;
-    height: 98%;
     justify-content: center;
     align-items: center;
-    flex-direction: row;
-    position: absolute;
-    user-select: none;
+    height: 100vh;
+    margin: 0;
 }
 
-.no-click {
+.no-click 
+{
     pointer-events: none;
 }
 
-.preview-filter {
+.preview-filter 
+{
     position: fixed;
     top: 0;
     left: 0;
@@ -26,10 +38,11 @@
     height: 100vh;
     background-color: rgba(185, 185, 185, 0.4);
     z-index: 10;
-    user-select: none;
+    cursor: default;
 }
 
-.preview-text {
+.preview-text 
+{
     position: fixed;
     top: 1%;
     width: fit-content;
@@ -40,16 +53,17 @@
     pointer-events: none;
 }
 
-.preview-text-left {
+.preview-text-left 
+{
     left: 1%;
 }
 
-.preview-text-right {
+.preview-text-right 
+{
     right: 1%;
 }
 
-
-.technician-sheet
+.technician-sheet, .technician-sheet:hover
 {
     align-items: center;
     position: relative;
@@ -58,12 +72,6 @@
     width: 350px;
     height: 530px;
     margin: 15px;
-    text-decoration: none;
-    color: var(--black);
-}
-
-.technician-sheet:hover
-{
     text-decoration: none;
     color: var(--black);
 }
@@ -82,7 +90,7 @@
 
 .terminal-display img
 {
-    margin: 100px 0 40px 0;
+    margin: 100px 0 15px 0;
     width: 305px;
     height: 305px;
     border: 2px solid var(--gray);
@@ -149,35 +157,17 @@ span
     font-size: 1.15em;
 }
 
-/**
- * Disables the cursor on terminal screen
- *
- */
-@media screen and (max-width: 1280px) and (max-height: 720px)
-{
-    *
-    {
-        cursor: none;
-    }
-}
-
-/**
- * Applies special behaviors on bigger screens
- *
- */
+/*
+** Applies special behaviors on bigger screens
+*/
 @media screen and (min-width: 1850px) and (min-height: 1025px)
 {
-    *
-    {
-        cursor: default;
-    }
-
     .unavailable-text
     {
         scale: 1.2;
     }
 
-    .technician-sheet
+    .technician-sheet, .technician-sheet:hover
     {
         scale: 1.6;
         margin: 0 130px;
@@ -185,10 +175,13 @@ span
 
     .no-technician
     {
-        scale: 3;
+        scale: 2.8;
     }
 }
 
+/*
+** Terminal display on mobile devices
+*/
 @media screen and (max-width: 1150px)
 {
     .terminal-display
@@ -218,17 +211,8 @@ span
         margin: 0 30px;
     }
 
-    .preview-text-left
+    .preview-text-left, .preview-text-right
     {
-        top: 90vh;
-        left: 0;
-        right: 0;
-        margin: auto;
-        height: min-content;
-        padding: 10px 20px;
-    }
-    .preview-text-right
-    {
-        display: none;
+        top: 93vh;
     }
 }

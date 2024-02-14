@@ -47,21 +47,6 @@ tbody tr th a:hover
     text-decoration: underline;
 }
 
-::-webkit-scrollbar
-{
-    width: initial;
-}
-
-::-webkit-scrollbar-track
-{
-    background: var(--light-blue-orif);
-}
-
-::-webkit-scrollbar-thumb
-{
-    background: var(--blue-orif);
-}
-
 .table-bottom
 {
     background-color: var(--week);

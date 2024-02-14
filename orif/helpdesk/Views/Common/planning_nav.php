@@ -12,7 +12,7 @@
 ?>
 
 <nav>
-    <a class="btn btn-presences" href="<?= base_url('/helpdesk/presences/all_presences') ?>"><span><?= lang('Helpdesk.btn_all_presences')?></span></a>
+    <a class="btn btn-presences" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Helpdesk.btn_presences_list')?></span></a>
     <a class="btn btn-holidays" href="<?= base_url('/helpdesk/holidays/holidays_list') ?>"><span><?= lang('Helpdesk.btn_holiday')?></span></a>
     <a class="btn btn-terminal" href="<?= base_url('/helpdesk/terminal/display/preview') ?>" target="_blank"><span><?= lang('Helpdesk.btn_terminal')?></span></a>
 </nav>

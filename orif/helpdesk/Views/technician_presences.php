@@ -13,21 +13,20 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
+
 <?php if(!isset($presences)): ?>
 	<div class="d-flex justify-content-center alert alert-info">
 		<?= '<i class="fa-solid fa-circle-info"></i>'.lang('Helpdesk.info_presences_fields_empty')?>
 	</div>
 <?php endif; ?>
 
-<?= form_open(base_url('/helpdesk/presences/my_presences')) ?>
+<?= form_open(base_url('/helpdesk/presences/technician_presences')) ?>
 	<?php foreach($weekdays as $day => $periods): ?>
-		<div class="d-flex justify-content-center">
+		<h3><?= lang('Helpdesk.'.$day)?></h3>
+		<div>
 			<div class="table-responsive">
 				<table>
 					<thead>
-						<tr>
-							<th colspan="4"><?= lang('Helpdesk.'.$day)?></th>
-						</tr>
 						<tr>
 							<th>8:00 - 10:00</th>
 							<th>10:00 - 12:00</th>
@@ -63,11 +62,12 @@
 				</table>
 			</div>
 		</div>
+		<div class="table-bottom"></div>
 	<?php endforeach ?>
 
-	<div class="action-menu d-flex justify-content-center">
+	<div class="action-menu">
 		<button type="submit" class="btn btn-save"><span><?= lang('Helpdesk.btn_save') ?></span></button>
 		<button type="reset" class="btn btn-reset"><span><?= lang('Helpdesk.btn_reset') ?></span></button>
-		<a class="btn btn-back" href="<?= base_url('/helpdesk/presences/all_presences') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
+		<a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
 	</div>
 <?= form_close() ?>

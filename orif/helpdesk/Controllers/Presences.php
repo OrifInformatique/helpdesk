@@ -35,7 +35,7 @@ class Presences extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/presences/all_presences');
+        return redirect()->to('/helpdesk/presences/presences_list');
     }
 
 
@@ -48,7 +48,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function all_presences()
+    public function presences_list()
     {
         $this->setSessionVariables();
 
@@ -60,10 +60,10 @@ class Presences extends Home
             'messages'            => $this->getFlashdataMessages(),
             'all_users_presences' => $this->presences_model->getAllPresences(),
             'classes'             => $this->defineDaysOff($periods),
-            'title'               => lang('Helpdesk.ttl_all_presences')
+            'title'               => lang('Helpdesk.ttl_presences_list')
         ];
 
-        return $this->display_view('Helpdesk\all_presences', $data);
+        return $this->display_view('Helpdesk\presences_list', $data);
     }
 
 
@@ -73,7 +73,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function my_presences()
+    public function technician_presences()
     {
         $this->isUserLogged();
         $this->setSessionVariables();
@@ -140,9 +140,9 @@ class Presences extends Home
             'friday'    => ['presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2'],
         ];
 
-        $data['title'] = lang('Helpdesk.ttl_my_presences');
+        $data['title'] = lang('Helpdesk.ttl_technician_presences');
 
-        return $this->display_view('Helpdesk\my_presences', $data);
+        return $this->display_view('Helpdesk\technician_presences', $data);
     }
 
 
@@ -165,7 +165,7 @@ class Presences extends Home
 
             $this->session->setFlashdata('success', lang('Helpdesk.scs_presences_deleted'));
 
-            return redirect()->to('/helpdesk/presences/all_presences');
+            return redirect()->to('/helpdesk/presences/presences_list');
         }
 
         // When the user clicks the delete button
@@ -180,7 +180,7 @@ class Presences extends Home
             [
                 'title'         => lang('Helpdesk.ttl_delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/presences/delete_presences/'.$id_presence),
-                'btn_back_url'  => base_url('/helpdesk/presences/all_presences'),
+                'btn_back_url'  => base_url('/helpdesk/presences/presences_list'),
                 'entry'         => $presence_entry
             ];
 
