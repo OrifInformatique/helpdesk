@@ -12,14 +12,14 @@ h3
     width: 100%;
     max-width: 900px;
     text-align: center;
-    background-color: var(--week);
+    background-color: var(--table-decoration);
     border-radius: 5px 5px 0 0;
     color: var(--blue-orif);
 }
 
 .table-bottom
 {
-    background-color: var(--week);
+    background-color: var(--table-decoration);
     border-radius: 0 0 5px 5px;
     width: 100%;
     max-width: 900px;
@@ -138,10 +138,11 @@ form
     right: 0;
     bottom: 5%;
     width: fit-content;
-    background-color: var(--roles);
+    background-color: var(--white);
     margin: auto;
     padding: 15px;
     border-radius: 5px;
+    border: 4px solid var(--light-blue-orif);
 }
 
 .action-menu *

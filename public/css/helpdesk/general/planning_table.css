@@ -6,7 +6,7 @@
 
 .table-top
 {
-    background-color: var(--week);
+    background-color: var(--table-decoration);
     border-radius: 5px 5px 0 0;
     width: 100%;
     height: 30px;
@@ -15,7 +15,7 @@
 
 .week
 {
-    background-color: var(--week);
+    background-color: var(--table-decoration);
     padding: 8px;
     font-size: 1.15em;
     text-align: center;
@@ -102,7 +102,7 @@ tbody tr th a:hover
     display: flex;
     justify-content: center;
     padding: 15px;
-    background-color: var(--week);
+    background-color: var(--table-decoration);
     border-radius: 0 0 5px 5px;
     width: 100%;
     margin: auto;

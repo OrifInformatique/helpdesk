@@ -9,7 +9,7 @@
     display: flex;
     justify-content: center;
     padding: 10px 5px;
-    background-color: var(--roles);
+    background-color: var(--table-decoration);
     border-radius: 12px 12px 0 0;
     margin: auto;
 }
@@ -49,7 +49,7 @@ tbody tr th a:hover
 
 .table-bottom
 {
-    background-color: var(--week);
+    background-color: var(--table-decoration);
     border-radius: 0 0 5px 5px;
     width: 100%;
     height: 30px;
