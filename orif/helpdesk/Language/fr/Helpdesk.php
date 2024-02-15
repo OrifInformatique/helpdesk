@@ -23,7 +23,7 @@ return[
     'ttl_update_planning'       => 'Modifier le planning',
     'ttl_update_nw_planning'    => 'Modifier le planning de la semaine prochaine',
     'ttl_holiday'               => 'Vacances et périodes fériées',
-    'ttl_add_holiday'           => 'Ajouter une préiode fériée',
+    'ttl_add_holiday'           => 'Ajouter une période fériée',
     'ttl_update_holiday'        => 'Modifier une période fériée',
     'ttl_delete_confirmation'   => 'Confirmation de suppression',
     'ttl_welcome_to_helpdesk'   => 'Bienvenue au helpdesk de Pomy !',
