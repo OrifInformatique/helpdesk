@@ -188,14 +188,15 @@ span
     {
         height: fit-content;
         flex-direction: column;
-        top: 5%;
     }
 
     .auto-refresh-timer
     {
-        height: fit-content;
-        top: 2%;
-        z-index: 2;
+        height: min-content;
+        width: fit-content;
+        margin: auto;
+        left: 0;
+        right: 0;
     }
 
     .auto-refresh-timer p
@@ -213,6 +214,39 @@ span
 
     .preview-text-left, .preview-text-right
     {
-        top: 93vh;
+        margin: auto;
+        left: 0;
+        right: 0;
+    }
+    
+    .preview-text-right
+    {
+        top: 92vh;
+    }
+}
+
+@media screen and (max-width: 400px)
+{
+    .technician-sheet, .technician-sheet:hover
+    {
+        width: 80%;
+        height: fit-content;
+    }
+
+    .role, .no-technician
+    {
+        font-size: 1em;
+    }
+
+    .unavailable-text
+    {
+        font-size: 1.5em;
+        margin-bottom: -30px;
+    }
+
+    .technician-sheet img
+    {
+        width: 150px;
+        height: 150px;
     }
 }
