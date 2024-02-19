@@ -485,7 +485,7 @@ class Planning extends Home
                         break;
                 }
                 
-                $this->session->setFlashdata('success', lang('Helpdesk.scs_planning_updated'));
+                $data['messages']['success'] = lang('Helpdesk.scs_planning_updated');
             }
         }
 
@@ -512,7 +512,8 @@ class Planning extends Home
 
         $periods = $this->choosePeriods($planning_type);
 
-        $data['messages']         = $this->getFlashdataMessages();
+        if(empty($data['messages']['success']))
+            $data['messages']         = $this->getFlashdataMessages();
         $data['form_fields']      = $form_fields;
         $data['classes']          = $this->defineDaysOff($periods);
 

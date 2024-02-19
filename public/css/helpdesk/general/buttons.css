@@ -230,12 +230,17 @@
     content: "\f26c"; /* https://fontawesome.com/icons/tv?f=classic&s=solid */
 }
 
-.btn-terminal::after
+.btn-terminal span
+{
+    padding: 0 5px;
+}
+
+.btn-target-new-window::after
 {
     content: "\f35d"; /* https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid */
 }
 
-.btn-terminal span
+.btn-target-new-window span
 {
     padding: 0 5px;
 }

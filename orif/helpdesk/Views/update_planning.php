@@ -13,6 +13,8 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
+<?= view('Helpdesk\Common\planning_presences_quick_goto') ?>
+
 <?= form_open(base_url('/helpdesk/planning/update_planning/'.$planning_type)) ?>
     <div class="planning-table">
 
