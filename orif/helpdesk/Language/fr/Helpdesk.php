@@ -218,7 +218,7 @@ return[
     'preview'                   => 'Aperçu',
 
     'delete_from_planning_of_week'  => 'du planning de la semaine',
-    'technician_presences'                    => 'Présences de',
+    'technician_presences'          => 'Présences de',
     'holiday_period'                => 'Période fériée',
 
     'add_technician_presences_label' => 'Sélectionnez un technicien pour lui assigner des présences.'
