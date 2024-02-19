@@ -25,7 +25,7 @@
     </div>
 <?php endif; ?>
 
-<?php if($day_off == true ||
+<?php if($day_off == true || !isset($technicians_availability) ||
         $technicians_availability[0]['tech_available_terminal'] == false &&
         $technicians_availability[1]['tech_available_terminal'] == false &&
         $technicians_availability[2]['tech_available_terminal'] == false) : 
@@ -69,7 +69,7 @@
             </a>
         <?php endforeach; ?>
     </div>
-<?php else: ?>
+<?php elseif(isset($technicians_availability)): ?>
     <div id="no-technician-available" class="d-flex justify-content-center">
         <p class="no-technician"> <?= lang('Helpdesk.err_no_technician_available')?></p>
     </div>

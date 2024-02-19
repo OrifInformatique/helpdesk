@@ -355,6 +355,7 @@ class Planning extends Home
 
         $data['planning_type'] = $planning_type;
 
+        $technicians_updated_planning = [];
         $form_fields = [];
 
         // 0 is current week, 1 is next week
@@ -472,19 +473,33 @@ class Planning extends Home
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
         
                     return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
-                }        
+                }
 
                 switch($planning_type)
                 {
                     case 0:
-                        $this->planning_model->update($id_planning, $data_to_update);
+                        $technicians_updated_planning[$data_to_update['id_planning']] = $data_to_update;
+                        break;
+                        
+                    case 1:
+                        $technicians_updated_planning[$data_to_update['id_nw_planning']] = $data_to_update;
+                        break;
+                }
+            }
+
+            foreach($technicians_updated_planning as $id_planning => $technician_updated_planning)
+            {
+                switch($planning_type)
+                {
+                    case 0:
+                        $this->planning_model->update($id_planning, $technician_updated_planning);
                         break;
             
                     case 1:
-                        $this->nw_planning_model->update($id_planning, $data_to_update);
+                        $this->nw_planning_model->update($id_planning, $technician_updated_planning);
                         break;
                 }
-                
+
                 $data['messages']['success'] = lang('Helpdesk.scs_planning_updated');
             }
         }
