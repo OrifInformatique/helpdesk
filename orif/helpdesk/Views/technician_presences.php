@@ -20,7 +20,7 @@
 	</div>
 <?php endif; ?>
 
-<?= form_open(base_url('/helpdesk/presences/technician_presences')) ?>
+<?= form_open(base_url('/helpdesk/presences/technician_presences/'.$user_id)) ?>
 	<?php foreach($weekdays as $day => $periods): ?>
 		<h3><?= lang('Helpdesk.'.$day)?></h3>
 		<div>

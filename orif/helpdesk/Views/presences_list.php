@@ -16,7 +16,10 @@
 <nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a></nav>
 
 <div class="planning-table">
-	<div class="table-top"></div>
+	<div class="action-menu table-top">
+		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/add_technician_presences') ?>"><span><?= lang('Helpdesk.btn_add_technician_presences') ?></span></a>
+		<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Helpdesk.btn_my_presences') ?></span></a>
+	</div>
 	<table class="table-responsive
 	<?php if(isset($classes))
 	{
@@ -28,13 +31,13 @@
 	">
 		<thead>
 			<tr>
-				<th><a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences') ?>" title="<?= lang('Helpdesk.btn_technician_presences')?>"></a></th>
+				<th></th>
 				<th colspan="4"><?= lang('Helpdesk.monday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.tuesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.wednesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.thursday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.friday')?></th>
-				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th></th>' ?>
+				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th class="empty-cell"></th><th class="empty-cell"></th>' ?>
 			</tr>
 			<tr>
 				<th><?= lang('Helpdesk.technician')?></th>
@@ -45,7 +48,7 @@
 					<th>12:45 15:00</th>
 					<th>15:00 16:57</th>
 				<?php endfor; ?>
-				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th></th>' ?>
+				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th class="empty-cell"></th><th class="empty-cell"></th>' ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -74,6 +77,9 @@
 							}
 						}?>
 
+						<td>
+							<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$user_presences['fk_user_id'])?>"></a>
+						</td>
 						<td>
 							<a class="btn btn-delete" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>"></a>
 						</td>

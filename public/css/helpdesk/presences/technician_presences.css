@@ -1,3 +1,42 @@
+#add-technician-presences
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: var(--lighter-gray);
+    padding: 25px;
+    border-radius: 8px;
+    width: fit-content;
+    margin: auto;
+}
+
+#add-technician-presences *
+{
+    margin: 7.5px auto;
+    text-align: center;
+}
+
+#add-technician-presences p
+{
+    margin: 0;
+}
+
+i
+{
+	color: var(--black);
+	font-size: 1.5em;
+	margin-right: 10px;
+}
+
+@media screen and (max-width: 600px) 
+{
+    .alert
+    {
+        flex-direction: column;
+        text-align: center;
+    }
+}
+
 form > div
 {
     display: flex;

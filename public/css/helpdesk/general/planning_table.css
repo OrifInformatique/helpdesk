@@ -4,14 +4,7 @@
     margin: auto;
 }
 
-.table-top
-{
-    background-color: var(--table-decoration);
-    border-radius: 5px 5px 0 0;
-    width: 100%;
-    height: 30px;
-    margin: auto;
-}
+
 
 .week
 {
@@ -24,6 +17,11 @@
     justify-content: space-between;
     align-items: center;
     border-radius: 5px 5px 0 0;
+}
+
+.empty-cell
+{
+    background-color: var(--table-decoration);
 }
 
 th, td
@@ -108,6 +106,11 @@ tbody tr th a:hover
     margin: auto;
 }
 
+.table-top
+{
+    border-radius: 5px 5px 0 0;
+}
+
 .action-menu *
 {
     margin: 0 8px;
@@ -155,33 +158,6 @@ tbody tr th a:hover
 .absent
 {
     background-color: var(--absent);
-}
-
-/* ****************************************************** */
-
-/* 
-** Planning forms
-*/
-select 
-{
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    text-align: center;
-    padding: 2px 10px;
-}
-
-select:focus {
-    width: 32px;
-    text-align: left;
-    text-indent: 0;
-}
-
-select[name="technician"]
-{
-    text-align: center;
-    width: 160px;
-    height: 40px;
 }
 
 /* ****************************************************** */

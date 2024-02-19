@@ -27,9 +27,9 @@
             <tr>
                 <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/'.$planning_type) ?>" title="<?= lang('Helpdesk.btn_add_technician') ?>"></a></th>
                 <?= view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
-                <th></th>
+                <th class="empty-cell"></th>
             </tr>
-            <?= view('Helpdesk\Common\planning_schedules_row', ['update_extra_cell' => '<th></th>']) ?>
+            <?= view('Helpdesk\Common\planning_schedules_row', ['update_extra_cell' => '<th class="empty-cell"></th>']) ?>
         </thead>
             <tbody>
                 <?php if(isset($planning_data)) : ?>

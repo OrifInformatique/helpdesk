@@ -56,6 +56,8 @@
 
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/scrollbar.css") ?>">
 
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/select.css") ?>">
+
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/buttons.css") ?>">
 
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/custom_messages.css") ?>">
@@ -79,6 +81,12 @@
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">';
     }
 
+    // If the url contains "technician_presences", adds the presences stylesheet
+    else if(strpos($current_url, 'technician_presences'))
+    {
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/technician_presences.css").'">';
+    }
+    
     // If the url ends with "planning" or "public/" or "all_presences", or contains "update_planning" or "add_technician", adds the planning stylesheet
     else if(substr($current_url, -8) === "planning" ||
             substr($current_url, -7) === "public/" ||
@@ -87,12 +95,6 @@
             strpos($current_url, 'add_technician'))
     {
         echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/general/planning_table.css").'">';
-    }
-
-    // If the url ends with "technician_presences", adds the presences stylesheet
-    else if(substr($current_url, -20) === "technician_presences")
-    {
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/technician_presences.css").'">';
     }
 
     // If the url contains "delete", adds the delete_confirmation stylesheet

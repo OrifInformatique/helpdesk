@@ -13,20 +13,22 @@ return[
     ** PAGE TITLES
     */
 
-    'ttl_presences_list'        => 'Présences des techniciens',
-    'ttl_technician_presences'  => 'Mes présences',
-    'ttl_add_technician'        => 'Ajouter un technicien',
-    'ttl_technician_menu'       => 'Menu du technicien',
-    'ttl_planning'              => 'Planning de la semaine',
-    'ttl_lw_planning'           => 'Planning de la semaine dernière',
-    'ttl_nw_planning'           => 'Planning de la semaine prochaine',
-    'ttl_update_planning'       => 'Modifier le planning',
-    'ttl_update_nw_planning'    => 'Modifier le planning de la semaine prochaine',
-    'ttl_holiday'               => 'Vacances et périodes fériées',
-    'ttl_add_holiday'           => 'Ajouter une période fériée',
-    'ttl_update_holiday'        => 'Modifier une période fériée',
-    'ttl_delete_confirmation'   => 'Confirmation de suppression',
-    'ttl_welcome_to_helpdesk'   => 'Bienvenue au helpdesk de Pomy !',
+    'ttl_presences_list'            => 'Présences des techniciens',
+    'ttl_my_presences'              => 'Mes présences',
+    'ttl_technician_presences'      => 'Présences de %s',
+    'ttl_add_technician_presences'  => 'Ajouter des présences à un technicien',
+    'ttl_add_technician'            => 'Ajouter un technicien',
+    'ttl_technician_menu'           => 'Menu du technicien',
+    'ttl_planning'                  => 'Planning de la semaine',
+    'ttl_lw_planning'               => 'Planning de la semaine dernière',
+    'ttl_nw_planning'               => 'Planning de la semaine prochaine',
+    'ttl_update_planning'           => 'Modifier le planning',
+    'ttl_update_nw_planning'        => 'Modifier le planning de la semaine prochaine',
+    'ttl_holiday'                   => 'Vacances et périodes fériées',
+    'ttl_add_holiday'               => 'Ajouter une période fériée',
+    'ttl_update_holiday'            => 'Modifier une période fériée',
+    'ttl_delete_confirmation'       => 'Confirmation de suppression',
+    'ttl_welcome_to_helpdesk'       => 'Bienvenue au helpdesk de Pomy !',
 
 
     /*
@@ -47,18 +49,22 @@ return[
     'err_technician_is_absent_on_periods'           => 'Le technicien %s est absent durant ces périodes :<br>',
     'err_role_duplicates_on_periods'                => 'Plusieurs techniciens sont assignés aux mêmes rôles durant ces périodes :<br>',
 
+
     /*
     ** CUSTOM VALIDATION RULES MESSAGES
     */
+
 	'coherent_dates'    => 'La date de fin doit être ultérieure à la date de début.',
 	'not_in_planning'   => 'Le technicien renseigné figure déjà dans le planning.',
 	'has_presences'     => 'Le technicien renseigné n\'a pas de présences.<br>Ajoutez-lui des présences dans la page des présences.',
+
 
     /*
     ** INFO MESSAGES
     */
 
     'info_presences_fields_empty'         => 'Les champs vides seront automatiquement remplis par "Absent".',
+    'info_all_technicians_have_presences' => 'Tous les techniciens possèdent des présences.',
 
 
     /*
@@ -73,17 +79,18 @@ return[
     'scs_holiday_updated'               => 'La période de vacances a été modifiée.',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
 
+
     /*
     ** FORM FIELDS
     */
 
-    
     'first_name'        => 'Prénom',
     'last_name'         => 'Nom',
     'photo'             => 'Photo de face',
     'mail'              => 'Email',
     'password'          => 'Mot de passe',
     'password_confirm'  => 'Confirmer le mot de passe',
+
 
     /*
     ** FORM CUSTOM ERRORS
@@ -100,20 +107,22 @@ return[
     ** BUTTONS
     */
 
-    'btn_presences_list'        => 'Présences des techniciens',
-    'btn_technician_presences'  => 'Modifier mes présences',
-    'btn_add_technician'        => 'Ajouter un technicien',
-    'btn_edit_planning'         => 'Modifier le planning',
-    'btn_holiday'               => 'Liste des vacances',
-    'btn_add_holiday'           => 'Ajouter des vacances',
-    'btn_back'                  => 'Retour',
-    'btn_save'                  => 'Enregistrer',
-    'btn_delete'                => 'Supprimer',
-    'btn_cancel'                => 'Annuler',
-    'btn_last_week'             => 'Semaine précédente',
-    'btn_next_week'             => 'Semaine suivante',
-    'btn_terminal'              => 'Aperçu du terminal',
-    'btn_reset'                 => 'Réinitialiser',
+    'btn_presences_list'            => 'Présences des techniciens',
+    'btn_my_presences'              => 'Modifier mes présences',
+    'btn_add_technician_presences'  => 'Ajouter des présences',
+    'btn_add_technician'            => 'Ajouter un technicien',
+    'btn_edit_planning'             => 'Modifier le planning',
+    'btn_holiday'                   => 'Liste des vacances',
+    'btn_add_holiday'               => 'Ajouter des vacances',
+    'btn_back'                      => 'Retour',
+    'btn_save'                      => 'Enregistrer',
+    'btn_delete'                    => 'Supprimer',
+    'btn_cancel'                    => 'Annuler',
+    'btn_last_week'                 => 'Semaine précédente',
+    'btn_next_week'                 => 'Semaine suivante',
+    'btn_terminal'                  => 'Aperçu du terminal',
+    'btn_reset'                     => 'Réinitialiser',
+    'btn_continue'                  => 'Continuer',
 
     'btn_delete_from_planning'      => 'Supprimer du planning',
     'btn_delete_tech_from_planning' => 'Supprimer le technicien du planning',
@@ -209,6 +218,8 @@ return[
     'preview'                   => 'Aperçu',
 
     'delete_from_planning_of_week'  => 'du planning de la semaine',
-    'delete_from_presences'         => 'des présences des techniciens.',
-    'holiday_period'                => 'Période fériée'
+    'technician_presences'                    => 'Présences de',
+    'holiday_period'                => 'Période fériée',
+
+    'add_technician_presences_label' => 'Sélectionnez un technicien pour lui assigner des présences.'
 ];
