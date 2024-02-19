@@ -13,7 +13,7 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<?= form_open($delete_url) ?>
+<?= form_open($delete_url, ['id' => 'delete-entry']) ?>
     <?= form_hidden('delete_confirmation', true) ?>
 
     <div>

@@ -1,0 +1,27 @@
+nav
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+nav a
+{
+    width: max-content;
+    margin: 5px;
+}
+
+@media screen and (max-width: 450px)
+{
+    nav
+    {
+        width: fit-content;
+        margin: 1rem auto;
+    }
+
+    nav a
+    {
+        width: 100%;
+    }
+}

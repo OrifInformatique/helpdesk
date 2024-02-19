@@ -1,0 +1,323 @@
+.planning-table
+{
+    max-width: 1700px;
+    margin: auto;
+}
+
+
+
+.week
+{
+    background-color: var(--table-decoration);
+    padding: 8px;
+    font-size: 1.15em;
+    text-align: center;
+    height: 58px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 5px 5px 0 0;
+}
+
+.empty-cell
+{
+    background-color: var(--table-decoration);
+}
+
+th, td
+{
+    padding: 8px;
+    text-align: center;
+    border: 1px solid var(--light-gray);
+}
+
+thead tr:nth-child(1) th
+{
+    font-size: 1.3em;
+    height: 62px;
+}
+
+tbody tr:nth-child(even)
+{
+    background-color: var(--even-line);
+}
+
+tbody tr th:first-child
+{
+    height: 75px;
+    min-width: 115px;
+}
+
+tbody tr th a
+{
+    color: var(--blue-orif);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+tbody tr th a:hover
+{
+    color: var(--blue-orif);
+    text-decoration: underline;
+}
+
+/*
+ * Periods off classes
+ *
+ */
+.mon-m1-off tbody tr td:nth-child(2),
+.mon-m2-off tbody tr td:nth-child(3),
+.mon-a1-off tbody tr td:nth-child(4),
+.mon-a2-off tbody tr td:nth-child(5),
+
+.tue-m1-off tbody tr td:nth-child(6),
+.tue-m2-off tbody tr td:nth-child(7),
+.tue-a1-off tbody tr td:nth-child(8),
+.tue-a2-off tbody tr td:nth-child(9),
+
+.wed-m1-off tbody tr td:nth-child(10),
+.wed-m2-off tbody tr td:nth-child(11),
+.wed-a1-off tbody tr td:nth-child(12),
+.wed-a2-off tbody tr td:nth-child(13),
+
+.thu-m1-off tbody tr td:nth-child(14),
+.thu-m2-off tbody tr td:nth-child(15),
+.thu-a1-off tbody tr td:nth-child(16),
+.thu-a2-off tbody tr td:nth-child(17),
+
+.fri-m1-off tbody tr td:nth-child(18),
+.fri-m2-off tbody tr td:nth-child(19),
+.fri-a1-off tbody tr td:nth-child(20),
+.fri-a2-off tbody tr td:nth-child(21) 
+{
+    background-color: var(--light-gray);
+    text-indent: -9999px;
+    line-height: 0;
+}
+
+.action-menu
+{
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    background-color: var(--table-decoration);
+    border-radius: 0 0 5px 5px;
+    width: 100%;
+    margin: auto;
+}
+
+.ignore_presences_check_option
+{
+    align-items: center;
+    padding: 8px;
+    background-color: var(--table-decoration);
+    border-radius: 0;
+    border-bottom: 1px solid var(--gray);
+}
+
+.ignore_presences_check_option label
+{
+    user-select: none;
+}
+
+.ignore_presences_check_option input[type="checkbox"]
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background-color: var(--red);
+    border: 2px solid var(--blue-orif);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.ignore_presences_check_option input[type="checkbox"]:checked
+{
+    background-color: var(--lime);
+}
+
+@media screen and (max-width: 350px)
+{
+    .ignore_presences_check_option input[type="checkbox"]
+    {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }    
+}
+
+.table-top
+{
+    border-radius: 5px 5px 0 0;
+}
+
+.action-menu *
+{
+    margin: 0 8px;
+}
+
+.roles
+{
+    display: flex;
+    justify-content: center;
+    padding: 15px;
+    background-color: var(--roles);
+    border-radius: 0 0 20px 20px;
+    width: fit-content;
+    margin: auto;
+}
+
+.roles div
+{
+    padding: 10px;
+    height: fit-content;
+    border-radius: 5px;
+    border: 1px solid var(--gray);
+}
+
+.roles div:nth-child(2)
+{
+    margin: 0 10px;
+}
+
+.mentor
+{
+    box-shadow: 12px 0 var(--mentor) inset;
+}
+
+.present
+{
+    background-color: var(--present);
+}
+
+.partly-absent
+{
+    background-color: var(--partly-absent);
+}
+
+.absent
+{
+    background-color: var(--absent);
+}
+
+/* ****************************************************** */
+
+@media screen and (max-width: 1305px)
+{
+    /*
+     * Sticks the first column to the left when scrolling
+     *
+     */
+    td:first-child, th:first-child
+    {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        background-color: var(--white);
+    }
+
+    th:first-child::before, th:first-child::after
+    {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        height: 103%;
+    }
+    
+    th:first-child::before
+    {
+        width: 2px;
+        background-color: var(--light-gray);
+        left: -1px;
+    }
+    
+    th:first-child::after
+    {
+        width: 2px;
+        background-color: var(--black);
+        right: 0;
+    }
+
+    table
+    {
+        overflow-y: hidden;
+    }
+}
+
+@media screen and (max-width: 875px)
+{
+    .btn-last-week span, .btn-next-week span
+    {
+        display: none;
+    }
+
+    td[colspan="21"]
+    {
+        text-align: left;
+    }
+
+    td[colspan="21"] a
+    {
+        margin-top: 5px;
+    }
+
+    .planning
+    {
+        padding-bottom: 100px;
+    }
+}
+
+@media screen and (max-width: 720px)
+{
+    .roles
+    {
+        flex-direction: column;
+    }
+
+    
+    .roles div:nth-child(2)
+    {
+        margin: 10px 0;
+
+    }
+    
+    .roles.roles-presences
+    {
+        flex-direction: row;
+    }
+
+    .roles.roles-presences div:nth-child(2)
+    {
+        margin: 0 10px;
+    }
+}
+
+@media screen and (max-width: 450px) 
+{
+    .roles.roles-presences
+    {
+        flex-direction: column;
+    }
+
+    .roles.roles-presences div
+    {
+        width: 100%;
+        margin: auto;
+        text-align: center;
+    }
+
+    .roles.roles-presences div:nth-child(2)
+    {
+        margin: 10px 0;
+    }
+
+    select[name="technician"]
+    {
+        width: 80px;
+    }
+}

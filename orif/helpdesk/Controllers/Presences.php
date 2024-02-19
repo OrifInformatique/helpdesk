@@ -35,7 +35,7 @@ class Presences extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/presences/all_presences');
+        return redirect()->to('/helpdesk/presences/presences_list');
     }
 
 
@@ -48,7 +48,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function all_presences()
+    public function presences_list()
     {
         $this->setSessionVariables();
 
@@ -60,12 +60,39 @@ class Presences extends Home
             'messages'            => $this->getFlashdataMessages(),
             'all_users_presences' => $this->presences_model->getAllPresences(),
             'classes'             => $this->defineDaysOff($periods),
-            'title'               => lang('Helpdesk.ttl_all_presences')
+            'title'               => lang('Helpdesk.ttl_presences_list')
         ];
 
-        return $this->display_view('Helpdesk\all_presences', $data);
+        return $this->display_view('Helpdesk\presences_list', $data);
     }
 
+    /**
+     * Adds the presences of a technician
+     * 
+     * @return view
+     * 
+     */
+    public function add_technician_presences()
+    {
+        $this->isUserLogged();
+        $this->setSessionVariables();
+
+        if($_SERVER['REQUEST_METHOD'] == 'POST')
+        {
+            $user_id = $_POST['technician'];
+
+            if(!isset($user_id) || empty($user_id) || !is_numeric($user_id))
+                $data['messages']['error'] = lang('Helpdesk.err_unvalid_technician_selected');
+
+            else
+                return redirect()->to('/helpdesk/presences/technician_presences/'.$user_id);
+        }
+
+        $data['users'] = $this->user_data_model->getUsersWithoutPresences();
+        $data['title'] = lang('Helpdesk.ttl_add_technician_presences');
+
+        return $this->display_view('Helpdesk\add_technician_presences', $data);
+    }
 
     /**
      * Displays the page letting users modify their presences, and manages the post of the data.
@@ -73,12 +100,17 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function my_presences()
+    public function technician_presences($user_id = NULL)
     {
         $this->isUserLogged();
         $this->setSessionVariables();
 
-        $user_id = $_SESSION['user_id'];
+        if(!isset($user_id) || empty($user_id) || !is_numeric($user_id))
+        {
+            $this->session->setFlashdata('error', lang('Helpdesk.err_unvalid_technician_selected'));
+
+            return redirect()->to('/helpdesk/presences/presences_list');
+        }
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
@@ -140,9 +172,21 @@ class Presences extends Home
             'friday'    => ['presence_fri_m1','presence_fri_m2','presence_fri_a1','presence_fri_a2'],
         ];
 
-        $data['title'] = lang('Helpdesk.ttl_my_presences');
+        if($user_id == $_SESSION['user_id'])
+        {
+            $data['title'] = lang('Helpdesk.ttl_my_presences');
+            $data['user_id'] = $_SESSION['user_id'];
+        }
 
-        return $this->display_view('Helpdesk\my_presences', $data);
+        else
+        {
+            $technician_fullname = $this->user_data_model->getUserFullName($user_id);
+            $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
+            $data['title'] = sprintf(lang('Helpdesk.ttl_technician_presences'), $technician_fullname);
+            $data['user_id'] = $user_id;
+        }
+
+        return $this->display_view('Helpdesk\technician_presences', $data);
     }
 
 
@@ -165,7 +209,7 @@ class Presences extends Home
 
             $this->session->setFlashdata('success', lang('Helpdesk.scs_presences_deleted'));
 
-            return redirect()->to('/helpdesk/presences/all_presences');
+            return redirect()->to('/helpdesk/presences/presences_list');
         }
 
         // When the user clicks the delete button
@@ -174,13 +218,13 @@ class Presences extends Home
             $user_id = $this->presences_model->getUserId($id_presence);
             $user_fullname = $this->user_data_model->getUserFullName($user_id);
 
-            $presence_entry = lang('Helpdesk.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.lang('Helpdesk.delete_from_presences');
+            $presence_entry = lang('Helpdesk.technician_presences').' <strong>'.implode(' ', $user_fullname).'</strong>.';
 
             $data = 
             [
                 'title'         => lang('Helpdesk.ttl_delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/presences/delete_presences/'.$id_presence),
-                'btn_back_url'  => base_url('/helpdesk/presences/all_presences'),
+                'btn_back_url'  => base_url('/helpdesk/presences/presences_list'),
                 'entry'         => $presence_entry
             ];
 

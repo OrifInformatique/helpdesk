@@ -102,7 +102,7 @@
 
 .btn-edit::before
 {
-    content: "\f044"; /* https://fontawesome.com/icons/pen-to-square?f=classic&s=solid */
+    content: "\f303"; /* https://fontawesome.com/icons/pencil?f=classic&s=light */
 }
 
 /* *************************************************************** */
@@ -204,8 +204,13 @@
     content: "\f178"; /* https://fontawesome.com/icons/arrow-right-long?f=classic&s=solid */
 }
 
+.btn-continue::after
+{
+    content: "\f138"; /* https://fontawesome.com/icons/circle-chevron-right?f=classic&s=solid */
+}
+
 /* Because the icon is on the right, spacing is on the right. */
-.btn-next-week span
+.btn-next-week span, .btn-continue span
 {
     padding: 0 5px 0 0;
 }
@@ -225,14 +230,44 @@
     content: "\f26c"; /* https://fontawesome.com/icons/tv?f=classic&s=solid */
 }
 
-.btn-terminal::after
-{
-    content: "\f35d"; /* https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid */
-}
-
 .btn-terminal span
 {
     padding: 0 5px;
 }
 
+.btn-target-new-window::after
+{
+    content: "\f35d"; /* https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid */
+}
+
+.btn-target-new-window span
+{
+    padding: 0 5px;
+}
+
 /* *************************************************************** */
+
+@media screen and (max-width: 525px)
+{
+    /*
+     * Reduces buttons sizes by removing text
+     *
+     */
+    .btn-add span, .btn-edit span, .btn-save span, .btn-reset span, .btn-back span, #add-holiday .btn-delete span, .btn-delete span
+    {
+        padding: 0;
+        margin: 0;
+        display: none;
+    }
+
+    /*
+     * Exceptions
+     *
+     */
+    nav .btn-back span, #add-holiday .btn-back span
+    {
+        padding: 0 0 0 5px;
+        display: inline;
+        width: min-content;
+    }
+}

@@ -14,8 +14,7 @@
 <?= view('Helpdesk\Common\body_start') ?>
 <?= view('Helpdesk\Common\planning_nav') ?>
 
-<div class="planning">
-    <?= view('Helpdesk\Common\planning_roles') ?>
+<div class="planning-table">
 
     <div class="week">
         <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_last_week')?></span></a>
@@ -61,4 +60,6 @@
         </tbody>
     </table>
     <?= view('Helpdesk\Common\planning_bottom') ?>
+
+    <?= view('Helpdesk\Common\planning_roles') ?>
 </div>

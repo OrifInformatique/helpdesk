@@ -1,15 +1,18 @@
 .custom-alert
 {
+	display: flex;
+	justify-content: center;
+	align-items: center;
 	position: absolute;
 	top: 12%;
 	right: 4%;
-	width: 28%;
-	align-items: center;
+	width: fit-content;
+	z-index: 2;
 	user-select: none;
 	pointer-events: none;
 }
 
-.alert i
+.custom-alert i
 {
 	color: var(--black);
 	font-size: 1.5em;
@@ -27,4 +30,27 @@
 	0% { opacity: 1; }
 	80% { opacity: 1; }
 	100% { opacity: 0; display: none;}
+}
+
+@media screen and (max-width: 720px)
+{
+	.custom-alert
+	{
+		flex-direction: column;
+		margin: 0 auto;
+		left: 0;
+		right: 0;
+	}
+
+	.custom-alert i
+	{
+		font-size: 2em;
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
+
+	.custom-alert span
+	{
+		text-align: center;
+	}
 }

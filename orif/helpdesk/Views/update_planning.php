@@ -13,9 +13,10 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
+<?= view('Helpdesk\Common\planning_presences_quick_goto') ?>
+
 <?= form_open(base_url('/helpdesk/planning/update_planning/'.$planning_type)) ?>
-    <div class="planning">
-        <?= view('Helpdesk\Common\planning_roles') ?>
+    <div class="planning-table">
 
         <div class="week">
             <div></div>
@@ -28,9 +29,9 @@
             <tr>
                 <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/'.$planning_type) ?>" title="<?= lang('Helpdesk.btn_add_technician') ?>"></a></th>
                 <?= view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
-                <th></th>
+                <th class="empty-cell"></th>
             </tr>
-            <?= view('Helpdesk\Common\planning_schedules_row', ['update_extra_cell' => '<th></th>']) ?>
+            <?= view('Helpdesk\Common\planning_schedules_row', ['update_extra_cell' => '<th class="empty-cell"></th>']) ?>
         </thead>
             <tbody>
                 <?php if(isset($planning_data)) : ?>
@@ -88,5 +89,7 @@
             </tbody>
         </table>
         <?= view('Helpdesk\Common\planning_form_action_menu', ['planning_type' => $planning_type]) ?>
+
+        <?= view('Helpdesk\Common\planning_roles') ?>
     </div>
 <?= form_close() ?>

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * all_presences view
+ * presences_list view
  * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique
@@ -13,15 +13,13 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
+<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a></nav>
 
-<div class="presences">
-	<div class="d-flex justify-content-center roles">
-		<div class="present border-xs-1 p-2 rounded rounded-3 mx-3">P - <?= lang('Helpdesk.present')?></div>
-		<div class="partly-absent border-xs-1 p-2 rounded rounded-3 mx-3">I - <?= lang('Helpdesk.partly_absent')?></div>
-		<div class="absent border-xs-1 p-2 rounded rounded-3 mx-3">A - <?= lang('Helpdesk.absent')?></div>
+<div class="planning-table">
+	<div class="action-menu table-top">
+		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/add_technician_presences') ?>"><span><?= lang('Helpdesk.btn_add_technician_presences') ?></span></a>
+		<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Helpdesk.btn_my_presences') ?></span></a>
 	</div>
-
 	<table class="table-responsive
 	<?php if(isset($classes))
 	{
@@ -33,13 +31,13 @@
 	">
 		<thead>
 			<tr>
-				<th><a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/my_presences') ?>" title="<?= lang('Helpdesk.btn_my_presences')?>"></a></th>
+				<th></th>
 				<th colspan="4"><?= lang('Helpdesk.monday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.tuesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.wednesday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.thursday')?></th>
 				<th colspan="4"><?= lang('Helpdesk.friday')?></th>
-				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th></th>' ?>
+				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th class="empty-cell"></th><th class="empty-cell"></th>' ?>
 			</tr>
 			<tr>
 				<th><?= lang('Helpdesk.technician')?></th>
@@ -50,7 +48,7 @@
 					<th>12:45 15:00</th>
 					<th>15:00 16:57</th>
 				<?php endfor; ?>
-				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th></th>' ?>
+				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th class="empty-cell"></th><th class="empty-cell"></th>' ?>
 			</tr>
 		</thead>
 		<tbody>
@@ -80,6 +78,9 @@
 						}?>
 
 						<td>
+							<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$user_presences['fk_user_id'])?>"></a>
+						</td>
+						<td>
 							<a class="btn btn-delete" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>"></a>
 						</td>
 					</tr>
@@ -93,7 +94,11 @@
 			<?php endif; ?>
 		</tbody>
 	</table>
+	<?= view('Helpdesk\Common\planning_bottom') ?>
 
-	<div class="action-menu d-flex justify-content-center">
+	<div class="roles roles-presences">
+		<div class="present">P - <?= lang('Helpdesk.present')?></div>
+		<div class="partly-absent">I - <?= lang('Helpdesk.partly_absent')?></div>
+		<div class="absent">A - <?= lang('Helpdesk.absent')?></div>
 	</div>
 </div>

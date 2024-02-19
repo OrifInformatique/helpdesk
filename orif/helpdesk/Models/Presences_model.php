@@ -50,8 +50,8 @@ class Presences_model extends \CodeIgniter\Model
     public function getAllPresences()
     {
         $all_presences_data = $this->join('tbl_user_data', 'tbl_presences.fk_user_id = tbl_user_data.fk_user_id')
-                                    ->orderBy('last_name_user_data', 'ASC')
-                                    ->findAll();
+            ->orderBy('last_name_user_data', 'ASC')
+            ->findAll();
 
         return $all_presences_data;
     }
@@ -154,5 +154,19 @@ class Presences_model extends \CodeIgniter\Model
         $presence = $this->select($presence_period)->where('fk_user_id', $user_id)->get()->getFirstRow();
 
         return (int) $presence->$presence_period;
+    }
+
+    /**
+     * Get IDs of all users that have presences
+     * 
+     * @return array
+     * 
+     */
+    public function getUsersIdsInPresences()
+    {
+        $users_presences_ids = $this->select('fk_user_id')->get()->getResultArray();
+        $users_presences_ids = array_column($users_presences_ids, 'fk_user_id');
+    
+        return $users_presences_ids;
     }
 }

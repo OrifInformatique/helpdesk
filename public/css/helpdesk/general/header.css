@@ -1,0 +1,122 @@
+div[class='alert alert-warning text-center']
+{
+    display: none;
+}
+
+#login-bar
+{
+    padding-top: 1rem;
+}
+
+#login-bar .row
+{
+    align-items: center;
+}
+
+#login-bar img
+{
+    vertical-align: baseline;
+}
+
+h1
+{
+    text-align: center;
+}
+
+h1 a
+{
+    font-size: 35px;
+}
+
+#login-bar a
+{
+    color: var(--blue-orif);
+}
+
+#login-bar a:hover, #login-bar a:focus
+{
+    text-decoration: underline;
+}
+
+@media screen and (max-width: 1024px)
+{
+    #login-bar div
+    {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    #login-bar img, #login-bar div div[class="col-sm-5 col-md-3"]
+    {
+        display: none;
+    }
+
+    #login-bar div div[class="col-sm-7 col-md-6"]
+    {
+        max-width: fit-content;
+    }
+
+    #login-bar h1
+    {
+        text-align: left;
+        align-self: center;
+    }
+    
+    #login-bar div div[class="col-sm-12 col-md-3 text-right"]
+    {
+        width: 50%;
+        max-width: 50%;
+        display: block;
+    }
+}
+
+@media screen and (max-width: 525px) 
+{
+    #login-bar div div[class="col-sm-12 col-md-3 text-right"]
+    {
+        max-width: min-content;
+        max-height: min-content;
+    }
+
+    #login-bar div div[class="col-sm-12 col-md-3 text-right"]::before
+    {
+        font: var(--fa-font-solid);
+        font-size: 30px;
+        text-rendering: auto;
+        -webkit-font-smoothing: antialiased;
+        content: "\f0c9"; /* https://fontawesome.com/icons/bars?f=classic&s=solid */
+    }
+
+    #login-bar div div[class="col-sm-12 col-md-3 text-right"] div
+    {
+        display: none;
+        position: absolute;
+        right: 15px;
+        top: 45px;
+        z-index: 1;
+        background-color: var(--white);
+        border: 3px solid var(--dark-blue-orif);
+        width: max-content;
+    }
+
+    #login-bar div div[class="col-sm-12 col-md-3 text-right"] div a
+    {
+        border-bottom: 1px solid var(--dark-blue-orif);
+        padding: 5px;
+        width: 100%;
+        text-align: right;
+    }
+
+    #login-bar div div[class="col-sm-12 col-md-3 text-right"] .active
+    {
+        display: flex;
+    }
+}
+
+@media (min-width: 576px)
+{
+    .container 
+    {
+        max-width: 98%;
+    }
+}

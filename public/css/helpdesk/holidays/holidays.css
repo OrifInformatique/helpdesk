@@ -1,16 +1,17 @@
-.flex-column
-{
-    flex-direction: column;
-}
-
-.align-items-center
-{
-    align-items: center;
-}
-
-table
+.holidays-table
 {
     max-width: 750px;
+    margin: auto;
+}
+
+.add-holiday
+{
+    display: flex;
+    justify-content: center;
+    padding: 10px 5px;
+    background-color: var(--table-decoration);
+    border-radius: 12px 12px 0 0;
+    margin: auto;
 }
 
 th, td
@@ -28,16 +29,112 @@ thead th
     font-weight: bold;
 }
 
-.action-menu
+tbody tr:nth-child(even)
 {
-    padding: 15px 25px;
-    background-color: var(--roles);
-    border-radius: 10px 10px 0 0;
+    background-color: var(--even-line);
+}
+
+tbody tr th a
+{
+    color: var(--blue-orif);
+    font-weight: 500;
+    text-decoration: none;
+}
+
+tbody tr th a:hover
+{
+    color: var(--blue-orif);
+    text-decoration: underline;
+}
+
+.table-bottom
+{
+    background-color: var(--table-decoration);
+    border-radius: 0 0 5px 5px;
+    width: 100%;
+    height: 30px;
+    margin: auto;
+}
+
+/* ****************************************************** */
+
+/*
+** Holiday form
+*/
+form
+{
+    background-color: var(--lighter-gray);
+    padding: 25px;
+    border-radius: 8px;
     width: fit-content;
     margin: auto;
 }
 
-tbody tr:nth-child(even)
+.form-fields
 {
-    background-color: var(--even-line);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+label
+{
+    width: 175px;
+}
+
+input
+{
+    width: 160px;
+}
+
+.buttons-area
+{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.buttons-area .btn
+{
+    margin: 2px 6px;
+}
+
+.form-field-error
+{
+    max-width: 320px;
+    width: fit-content;
+    font-size: 0.9em;
+    border-left: 5px solid var(--red);
+    padding: 0 7px;
+}
+
+/* ****************************************************** */
+
+@media screen and (max-width: 525px)
+{
+    form
+    {
+        width: 94%;
+    }
+
+    .form-fields
+    {
+        align-items: normal;
+    }
+
+    fieldset
+    {
+        display: flex;
+        flex-direction: column;
+    }
+
+    label, input, .form-field-error
+    {
+        width: 100%;
+    }
+
+    .form-field-error
+    {
+        margin-top: 8px;
+    }
 }
