@@ -106,6 +106,50 @@ tbody tr th a:hover
     margin: auto;
 }
 
+.ignore_presences_check_option
+{
+    align-items: center;
+    padding: 8px;
+    background-color: var(--table-decoration);
+    border-radius: 0;
+    border-bottom: 1px solid var(--gray);
+}
+
+.ignore_presences_check_option label
+{
+    user-select: none;
+}
+
+.ignore_presences_check_option input[type="checkbox"]
+{
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 22px;
+    height: 22px;
+    background-color: var(--red);
+    border: 2px solid var(--blue-orif);
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.ignore_presences_check_option input[type="checkbox"]:checked
+{
+    background-color: var(--lime);
+}
+
+@media screen and (max-width: 350px)
+{
+    .ignore_presences_check_option input[type="checkbox"]
+    {
+        width: 32px;
+        height: 32px;
+        min-width: 32px;
+        min-height: 32px;
+    }    
+}
+
 .table-top
 {
     border-radius: 5px 5px 0 0;

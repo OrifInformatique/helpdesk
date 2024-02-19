@@ -221,5 +221,7 @@ return[
     'technician_presences'          => 'Présences de',
     'holiday_period'                => 'Période fériée',
 
-    'add_technician_presences_label' => 'Sélectionnez un technicien pour lui assigner des présences.'
+    'add_technician_presences_label' => 'Sélectionnez un technicien pour lui assigner des présences.',
+
+    'ignore_presences_check'          => 'Ignorer la vérification des présences'
 ];

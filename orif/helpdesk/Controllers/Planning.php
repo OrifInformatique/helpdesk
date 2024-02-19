@@ -191,6 +191,7 @@ class Planning extends Home
         $role_duplicated =  false;
         $technician_absent_periods = [];
         $roles_duplicated_periods = [];
+        $presences_check = isset($_POST['ignore_presences_check']) && $_POST['ignore_presences_check'] === 'on' ? false : true;
 
         switch($planning_type)
         {
@@ -212,7 +213,7 @@ class Planning extends Home
                 $empty_fields++;
             }
             
-            if($technician_presence === 3 && in_array($_POST[$field], [1, 2, 3]))
+            if($presences_check && $technician_presence === 3 && in_array($_POST[$field], [1, 2, 3]))
             {
                 $technician_absent = true;
                 array_push($technician_absent_periods, lang('Helpdesk.'.substr($field, -6)));
@@ -231,7 +232,8 @@ class Planning extends Home
             }
         }
 
-        if($technician_absent)
+
+        if($presences_check && $technician_absent)
         {
             $technician_fullname = $this->user_data_model->getUserFullName($user_id);
             $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
@@ -403,6 +405,7 @@ class Planning extends Home
                 $role_duplicated =  false;
                 $technician_absent_periods = [];
                 $roles_duplicated_periods = [];
+                $presences_check = isset($_POST['ignore_presences_check']) && $_POST['ignore_presences_check'] === 'on' ? false : true;
 
                 foreach ($form_fields as $field)
                 {
@@ -415,7 +418,7 @@ class Planning extends Home
                         $emptyFieldsCount++;
                     }
 
-                    if($technician_presence === 3 && in_array($field_value, [1, 2, 3]))
+                    if($presences_check && $technician_presence === 3 && in_array($field_value, [1, 2, 3]))
                     {
                         $technician_absent = true;
                         array_push($technician_absent_periods, lang('Helpdesk.'.substr($field, -6)));
@@ -443,7 +446,7 @@ class Planning extends Home
                     $data_to_update[$field] = $field_value;
                 }
                 
-                if($technician_absent)
+                if($presences_check && $technician_absent)
                 {
                     $technician_fullname = $this->user_data_model->getUserFullName($user_id);
                     $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
