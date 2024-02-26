@@ -18,7 +18,11 @@
 <div class="planning-table">
 	<div class="action-menu table-top">
 		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/add_technician_presences') ?>"><span><?= lang('Helpdesk.btn_add_technician_presences') ?></span></a>
-		<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Helpdesk.btn_my_presences') ?></span></a>
+		<?php if(isset($_SESSION['user_id']) && !empty($_SESSION('user_id'))): ?>
+			<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Helpdesk.btn_my_presences') ?></span></a>
+		<?php else: ?>
+			<button disabled class="btn btn-edit"><span><?= lang('Helpdesk.btn_my_presences') ?></span></button>
+		<?php endif; ?>
 	</div>
 	<table class="table-responsive
 	<?php if(isset($classes))
