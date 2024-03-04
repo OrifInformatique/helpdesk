@@ -58,15 +58,7 @@ class Planning extends Home
             'lw_planning_data' => $this->lw_planning_model->getPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
             'planning_type'    => -1,
-            'title'            => lang('Helpdesk.ttl_lw_planning'),
-            'lw_periods'       => // SQL names of last week's planning periods
-            [
-                'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
-                'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
-                'lw_planning_wed_m1', 'lw_planning_wed_m2', 'lw_planning_wed_a1', 'lw_planning_wed_a2',
-                'lw_planning_thr_m1', 'lw_planning_thr_m2', 'lw_planning_thr_a1', 'lw_planning_thr_a2',
-                'lw_planning_fri_m1', 'lw_planning_fri_m2', 'lw_planning_fri_a1', 'lw_planning_fri_a2',
-            ]
+            'title'            => lang('Helpdesk.ttl_lw_planning')
         ];
 
         return $this->display_view('Helpdesk\lw_planning', $data);
@@ -136,7 +128,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    function add_technician($planning_type)
+    public function add_technician($planning_type)
     {
         $this->isUserLogged();
         $this->setSessionVariables();
@@ -346,7 +338,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    function update_planning($planning_type)
+    public function update_planning($planning_type)
     {
         $this->isUserLogged();
         $this->setSessionVariables();
@@ -593,5 +585,119 @@ class Planning extends Home
 
             return $this->display_view('Helpdesk\delete_entry', $data);
         }
+    }
+
+    /** ********************************************************************************************************************************* */
+
+
+
+
+    /**
+     * Shifts the weeks to the left (nw => cw, cw => lw, lw deleted).
+     * This function is executed every Monday, at 00:00 (with Infomaniak Task Planner).
+     * 
+     * @return
+     * 
+     */
+    public function shift_weeks()
+    {
+        try
+        {
+            // PART 1 : Last week deletion
+            $this->lw_planning_model->emptyTable();
+
+            // PART 2 : Current week to last week transfer
+            $cw_planning = $this->planning_model->getPlanningData();
+            
+            if($cw_planning)
+            {
+                $lw_planning = $this->duplicate($cw_planning, -1);
+                $this->lw_planning_model->insertBatch($lw_planning);
+                $this->planning_model->emptyTable();
+            }
+
+            // PART 3 : Next week to current week transfer
+            $nw_planning = $this->nw_planning_model->getNwPlanningData();
+
+            if($nw_planning)
+            {
+                $cw_planning = $this->duplicate($nw_planning, 0);
+                $this->planning_model->insertBatch($cw_planning);
+                $this->nw_planning_model->emptyTable();
+            }
+            
+            // PART 4 : Next week generation
+            $this->planning_generation();
+
+            $this->session->setFlashdata('success', lang('Helpdesk.scs_weeks_shift'));
+            return redirect()->to('helpdesk/planning/cw_planning');
+        }
+
+        catch(\Exception)
+        {
+            $this->session->setFlashdata('error', lang('Helpdesk.err_weeks_shift'));
+            return redirect()->to('helpdesk/planning/cw_planning');
+        }
+    }
+    
+    
+    /**
+     * Duplicates a specified planning.
+     * 
+     * @param array $planning Planning to be duplicated
+     * @param int $planning_type Type of the planning duplicated
+     * 
+     * @return array
+     * 
+     */
+    public function duplicate($planning, $planning_type)
+    {
+        $duplicated_planning_data = [];
+        $periods = [];
+
+        switch($planning_type)
+        {
+            case -1:
+                $periods = $_SESSION['helpdesk']['lw_periods'];
+                break;
+
+            case 0:
+                $periods = $_SESSION['helpdesk']['cw_periods'];
+                break;
+        }
+
+        foreach($planning as $row)
+        {
+            $duplicated_planning_entry = [];
+            $i = 0;
+
+            foreach($row as $key => $value)
+            {
+                if($key === 'id_planning' || $key === 'id_nw_planning' || $key === 'fk_user_id')
+                    $duplicated_planning_entry[$key] = $value;
+
+                else
+                {
+                    $duplicated_planning_entry[$periods[$i]] = $value;
+                    $i++;
+                }
+            }
+
+            $duplicated_planning_data[] = $duplicated_planning_entry;
+        }
+
+        return $duplicated_planning_data;
+    }
+
+
+    /**
+     * Generates the next week planning.
+     * 
+     * @return void
+     * 
+     */
+    public function planning_generation()
+    {
+
     }
 }

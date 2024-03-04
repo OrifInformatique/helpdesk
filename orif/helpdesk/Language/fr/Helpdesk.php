@@ -48,6 +48,7 @@ return[
     'err_no_technician_presences'                   => 'Aucun technicien n\'a de présences.',
     'err_technician_is_absent_on_periods'           => 'Le technicien %s est absent durant ces périodes :<br>',
     'err_role_duplicates_on_periods'                => 'Plusieurs techniciens sont assignés aux mêmes rôles durant ces périodes :<br>',
+    'err_weeks_shift'                               => 'Une erreur est survenue lors du déplacement des semaines.',
 
 
     /*
@@ -78,6 +79,7 @@ return[
     'scs_planning_updated'              => 'Le planning de la semaine a été modifié.',
     'scs_holiday_updated'               => 'La période de vacances a été modifiée.',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
+    'scs_weeks_shift'                   => 'Les semaines ont été déplacées.',
 
 
     /*
@@ -132,7 +134,7 @@ return[
     ** ROLES
     */
 
-    'role_1' => '1 - Technicien d\'abstreinte',
+    'role_1' => '1 - Technicien d\'astreinte',
     'role_2' => '2 - Technicien de backup',
     'role_3' => '3 - Technicien de réserve',
 

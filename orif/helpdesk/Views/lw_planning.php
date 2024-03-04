@@ -38,7 +38,7 @@
                     <tr>
                         <?= view('Helpdesk\Common\planning_technician_name_column', $user) ?>
 
-                        <?php foreach ($lw_periods as $period): ?>
+                        <?php foreach ($_SESSION['helpdesk']['lw_periods'] as $period): ?>
                             <?= view('Helpdesk\Common\planning_technician_roles_row', ['period' => $user[$period]]) ?>
                         <?php endforeach; ?>
                     </tr>

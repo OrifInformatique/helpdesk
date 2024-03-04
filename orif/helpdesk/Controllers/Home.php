@@ -103,6 +103,16 @@ class Home extends BaseController
                     'thursday' => strtotime('+3 days', $next_monday),
                     'friday' => strtotime('+4 days', $next_monday)
                 ],
+                
+                // SQL names of last week's planning periods (lw)
+                'lw_periods'       => 
+                [
+                    'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
+                    'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
+                    'lw_planning_wed_m1', 'lw_planning_wed_m2', 'lw_planning_wed_a1', 'lw_planning_wed_a2',
+                    'lw_planning_thu_m1', 'lw_planning_thu_m2', 'lw_planning_thu_a1', 'lw_planning_thu_a2',
+                    'lw_planning_fri_m1', 'lw_planning_fri_m2', 'lw_planning_fri_a1', 'lw_planning_fri_a2',
+                ],
 
                 // SQL names of the current week's planning periods (cw)
                 'cw_periods' =>
