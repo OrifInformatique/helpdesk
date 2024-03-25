@@ -87,6 +87,7 @@ class Home extends BaseController
     public function setSessionVariables()
     {
         if(!isset($_SESSION['helpdesk']['next_week']) ||
+            !isset($_SESSION['helpdesk']['lw_periods']) ||
             !isset($_SESSION['helpdesk']['cw_periods']) ||
             !isset($_SESSION['helpdesk']['nw_periods']) ||
             !isset($_SESSION['helpdesk']['presence_periods']))
@@ -105,7 +106,7 @@ class Home extends BaseController
                 ],
                 
                 // SQL names of last week's planning periods (lw)
-                'lw_periods'       => 
+                'lw_periods' => 
                 [
                     'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
                     'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
@@ -219,8 +220,8 @@ class Home extends BaseController
     /**
      * Get names, stard and end dates for each period of a week.
      * 
-     * @param int $planning_type ID of the edited planning
-     * 
+     * @param int $planning_type
+     *  
      * @return array
      * 
      */
@@ -283,25 +284,25 @@ class Home extends BaseController
                 break;
 
             case 1:
-                foreach($_SESSION['helpdesk']['next_week'] as $day)
+                foreach($_SESSION['helpdesk']['next_week'] as $key => $day)
                 {
                     $periods +=
                     [
-                        substr($day, 0, 3).'-m1' => [
+                        substr($key, 0, 3).'-m1' => [
                             'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
                             'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
                         ],
-                        substr($day, 0, 3).'-m2' => [
-                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
-                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        substr($key, 0, 3).'-m2' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 10:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 12:00:00')
                         ],
-                        substr($day, 0, 3).'-a1' => [
-                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
-                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        substr($key, 0, 3).'-a1' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 12:45:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 14:45:00')
                         ],
-                        substr($day, 0, 3).'-a2' => [
-                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
-                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        substr($key, 0, 3).'-a2' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 15:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 16:57:00')
                         ]
                     ];
                 }
@@ -328,49 +329,4 @@ class Home extends BaseController
         
         return $messages;
     }
-
-
-    /** ********************************************************************************************************************************* */
-
-
-    // /**
-    //  * Start the planning generation process
-    //  * 
-    //  * @return view
-    //  * 
-    //  */
-    // public function generatePlanning()
-    // {
-    //     $this->isUserLogged();
-
-    //     // Get all users data
-    //     $users = $this->user_data_model->getUsersData();
-
-    //     $data['users'] = [];
-
-    //     // Data formatting for getting data easier with JS
-    //     foreach($users as $user)
-    //     {
-    //         // .FIX : PREVOIR QUE CETTE FONCTION PEUT RETOURNER NULL
-    //         $presences_user = $this->presences_model->getPresencesUser($user['fk_user_id']);
-
-    //         $data['user-'.$user['fk_user_id']] =
-    //         [
-    //             'firstName' => $user['first_name_user_data'],
-    //             'lastName' => $user['last_name_user_data'],
-    //             'id' => $user['last_name_user_data'].substr($user['last_name_user_data'], 0, 1),
-    //             'active' => true, // .TODO : RETRIEVE AUTOMATICALLY THIS VALUE, PRESETTED FOR TESTS
-    //         ];
-
-    //         foreach($presences_user as $presence_name => $presence)
-    //         {
-    //             $data['user-'.$user['fk_user_id']][$presence_name] = $presence;
-    //         }
-
-    //         array_push($data['users'], $data['user-'.$user['fk_user_id']]);
-    //     }
-
-    //     // Displays the page of planning generation
-    //     return $this->display_view('Helpdesk\generate_planning', $data);
-    // }
 }

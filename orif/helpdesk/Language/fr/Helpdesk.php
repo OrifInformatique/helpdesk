@@ -28,7 +28,6 @@ return[
     'ttl_add_holiday'               => 'Ajouter une période fériée',
     'ttl_update_holiday'            => 'Modifier une période fériée',
     'ttl_delete_confirmation'       => 'Confirmation de suppression',
-    'ttl_welcome_to_helpdesk'       => 'Bienvenue au helpdesk de Pomy !',
 
 
     /*
@@ -49,6 +48,11 @@ return[
     'err_technician_is_absent_on_periods'           => 'Le technicien %s est absent durant ces périodes :<br>',
     'err_role_duplicates_on_periods'                => 'Plusieurs techniciens sont assignés aux mêmes rôles durant ces périodes :<br>',
     'err_weeks_shift'                               => 'Une erreur est survenue lors du déplacement des semaines.',
+
+    'err_planning_generation'                       => 'Une erreur est survenue lors de la génération du planning.',
+    'err_planning_generation_no_period'             => 'Génération du planning impossible : Aucune période de travail dans la semaine.',
+    'err_planning_generation_no_technician'         => 'Génération du planning impossible : Aucun technicien n\'a de présences.',
+    'err_planning_generation_absent_technicians'    => 'Génération du planning impossible : Tous les techniciens sont absents durant toute la semaine.',
 
 
     /*
@@ -79,7 +83,6 @@ return[
     'scs_planning_updated'              => 'Le planning de la semaine a été modifié.',
     'scs_holiday_updated'               => 'La période de vacances a été modifiée.',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
-    'scs_weeks_shift'                   => 'Les semaines ont été déplacées.',
 
 
     /*
@@ -125,10 +128,6 @@ return[
     'btn_terminal'                  => 'Aperçu du terminal',
     'btn_reset'                     => 'Réinitialiser',
     'btn_continue'                  => 'Continuer',
-
-    'btn_delete_from_planning'      => 'Supprimer du planning',
-    'btn_delete_tech_from_planning' => 'Supprimer le technicien du planning',
-
 
     /*
     ** ROLES
@@ -193,20 +192,13 @@ return[
     ** OTHER TEXT
     */
 
-    'planning_of_week'          => 'Planning de la semaine du',
-    'to'                        => 'au',
-
     'technician'                => 'Technicien',
-    
-    'added_technician'          => 'Technicien à ajouter au planning',
     
     'holiday_name'              => 'Nom des vacances',
     'start_date'                => 'Date de début',
     'end_date'                  => 'Date de fin',
     
     'delete_confirmation'       => 'Voulez-vous vraiment supprimer cette entrée ?',
-    
-    'technician_menu'           => 'Que souhaitez-vous faire avec le technicien ',
     
     'alt_photo_technician'      => 'Photo de face du technicien',
     
@@ -225,5 +217,8 @@ return[
 
     'add_technician_presences_label' => 'Sélectionnez un technicien pour lui assigner des présences.',
 
-    'ignore_presences_check'          => 'Ignorer la vérification des présences'
+    'ignore_presences_check'          => 'Ignorer la vérification des présences',
+
+    'actual'                    => 'actuelle',
+    'next'                      => 'prochaine'
 ];

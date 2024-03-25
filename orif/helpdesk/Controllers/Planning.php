@@ -571,7 +571,7 @@ class Planning extends Home
         else
         {
             $user_fullname = $this->user_data_model->getUserFullName($user_id);
-            $week = $planning_type == 0 ? 'actuelle' : 'prochaine';
+            $week = $planning_type == 0 ? lang('Helpdesk.actual') : lang('Helpdesk.next');
 
             $user_entry = lang('Helpdesk.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.lang('Helpdesk.delete_from_planning_of_week').' <strong>'.$week.'</strong>.';
 
@@ -587,16 +587,15 @@ class Planning extends Home
         }
     }
 
+    
     /** ********************************************************************************************************************************* */
-
-
 
 
     /**
      * Shifts the weeks to the left (nw => cw, cw => lw, lw deleted).
      * This function is executed every Monday, at 00:00 (with Infomaniak Task Planner).
      * 
-     * @return
+     * @return view|void
      * 
      */
     public function shift_weeks()
@@ -611,7 +610,7 @@ class Planning extends Home
             
             if($cw_planning)
             {
-                $lw_planning = $this->duplicate($cw_planning, -1);
+                $lw_planning = $this->duplicate_planning($cw_planning, -1);
                 $this->lw_planning_model->insertBatch($lw_planning);
                 $this->planning_model->emptyTable();
             }
@@ -621,16 +620,13 @@ class Planning extends Home
 
             if($nw_planning)
             {
-                $cw_planning = $this->duplicate($nw_planning, 0);
+                $cw_planning = $this->duplicate_planning($nw_planning, 0);
                 $this->planning_model->insertBatch($cw_planning);
                 $this->nw_planning_model->emptyTable();
             }
             
             // PART 4 : Next week generation
-            $this->planning_generation();
-
-            $this->session->setFlashdata('success', lang('Helpdesk.scs_weeks_shift'));
-            return redirect()->to('helpdesk/planning/cw_planning');
+            /* $this->planning_generation(); */
         }
 
         catch(\Exception)
@@ -650,9 +646,9 @@ class Planning extends Home
      * @return array
      * 
      */
-    public function duplicate($planning, $planning_type)
+    private function duplicate_planning($planning, $planning_type)
     {
-        $duplicated_planning_data = [];
+        $duplicated_planning = [];
         $periods = [];
 
         switch($planning_type)
@@ -673,7 +669,7 @@ class Planning extends Home
 
             foreach($row as $key => $value)
             {
-                if($key === 'id_planning' || $key === 'id_nw_planning' || $key === 'fk_user_id')
+                if(!in_array($key, ['id_planning', 'id_nw_planning', 'fk_user_id']))
                     $duplicated_planning_entry[$key] = $value;
 
                 else
@@ -683,21 +679,441 @@ class Planning extends Home
                 }
             }
 
-            $duplicated_planning_data[] = $duplicated_planning_entry;
+            $duplicated_planning[] = $duplicated_planning_entry;
         }
 
-        return $duplicated_planning_data;
+        return $duplicated_planning;
     }
 
 
     /**
      * Generates the next week planning.
      * 
-     * @return void
+     * @return view|void
      * 
      */
     public function planning_generation()
     {
+        $this->setSessionVariables();
 
+        try
+        {
+            // Get the periods
+            $periods = $this->choosePeriods(1);
+            $periods = $this->removePeriodsOff($periods);
+
+            if(empty($periods))
+            {
+                $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation_no_period'));
+                return redirect()->to('helpdesk/planning/nw_planning');
+            }
+
+            // Get all users that have presences
+            $users_ids = $this->presences_model->getUsersIdsInPresences();
+
+            if(empty($users_ids))
+            {
+                $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation_no_technician'));
+                return redirect()->to('helpdesk/planning/nw_planning');
+            }
+
+            $technicians_data = $this->prepareTechniciansData($periods, $users_ids);
+
+            if(is_null($technicians_data))
+            {
+                $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation_absent_technicians'));
+                return redirect()->to('helpdesk/planning/nw_planning');
+            }
+
+            $generated_planning = $technicians_data['generated_planning'];
+            $technicians_presences = $technicians_data['technicians_presences'];
+            $technicians_presences_count = $technicians_data['technicians_presences_count'];
+            $technician_assignations_per_role = $technicians_data['technician_assignations_per_role'];
+            $technician_max_assignations_per_role = $technicians_data['technician_max_assignations_per_role'];
+
+            $periods_assignations_count = $this->orderPeriodsByAssignationsCount($periods, $technicians_presences);
+            
+            $periods_assignations_count = $this->shuffleRowsWithSameValueInArray($periods_assignations_count);
+            
+            $cw_planning = $this->getAndArrangeCwPlanning();
+
+            // 1 => Present, 2 => Partly absent
+            $presences = [1, 2];
+
+            /*
+             * Planning generation algorithm
+             * 
+             */
+            foreach($periods_assignations_count as $period_name => $possible_assignations_count)
+            {
+                $sql_nw_period = 'nw_planning_'.str_replace('-', '_', $period_name);
+                $sql_cw_period = 'planning_'.str_replace('-', '_', $period_name);
+                $sql_presence = 'presence_'.str_replace('-', '_', $period_name);
+                
+                $roles_assigned_in_period = [];
+
+                $roles_available_in_period = $this->determineRolesAvailableForSpecificPeriod($technicians_presences, $users_ids, $sql_presence);
+
+                // If there are no roles available (means that every technician is absent on that period), loop to the next period.
+                if(empty($roles_available_in_period))
+                    continue;
+
+                foreach($presences as $presence)
+                {
+                    foreach($technicians_presences_count as $user_id => $user_id)
+                    {
+                        $user_presence_on_period = $technicians_presences[$user_id][$sql_presence] ?? null;
+
+                        if($user_presence_on_period != $presence)
+                            continue;
+
+                        // If a technician is available at a period which can only fit one technician,
+                        // he will be assigned as first tech in that period, despite the max assignations limit exceeded.
+                        if($possible_assignations_count == 1)
+                        {
+                            $generated_planning[$user_id][$sql_nw_period] = 1;
+                            $technician_assignations_per_role[$user_id][1]++;
+                            break;
+                        }
+
+                        foreach($roles_available_in_period as $role)
+                        {
+                            if($technician_assignations_per_role[$user_id][$role] >= $technician_max_assignations_per_role)
+                                continue;
+
+                            if(!in_array($role, $roles_assigned_in_period))
+                            {
+                                if(isset($cw_planning[$user_id]))
+                                {
+                                    // Prevents a technician to have the same role in the same period 2 weeks in a row.
+                                    if($cw_planning[$user_id][$sql_cw_period] == $role)
+                                    {
+                                        $possible_assignations_count--;
+                                        continue;
+                                    }
+                                }
+                                    
+                                $generated_planning[$user_id][$sql_nw_period] = $role;
+                                array_push($roles_assigned_in_period, $role);
+                                $technician_assignations_per_role[$user_id][$role]++;
+                                break;
+                            }
+                        }
+                    }                    
+                }
+            }
+
+            asort($generated_planning);
+
+            $nw_planning = $this->nw_planning_model->getNwPlanningData();
+
+            if($nw_planning)
+                $this->nw_planning_model->emptyTable();
+
+            foreach($generated_planning as $user_id => $generated_planning_entry)
+            {
+                // Prevent inserting empty rows (technicinain with no assignations).
+                if($technician_assignations_per_role[$user_id][1] === 0 &&
+                    $technician_assignations_per_role[$user_id][2] === 0 &&
+                    $technician_assignations_per_role[$user_id][3] === 0)
+                {
+                    continue;
+                }
+
+                $this->nw_planning_model->insert($generated_planning_entry); 
+            }
+
+            return redirect()->to('helpdesk/planning/nw_planning');
+        }
+
+        catch(\Exception $e)
+        {
+            $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation'));
+            return redirect()->to('helpdesk/planning/nw_planning');
+        }
+    }
+
+
+    /**
+     * Removes from the periods array periods that are off.
+     * 
+     * @param array $periods
+     * 
+     * @return array
+     * 
+     */
+    private function removePeriodsOff($periods)
+    {
+        $holidays_data = $this->holidays_model->getHolidays();
+
+        foreach($holidays_data as $holiday)
+        {
+            foreach($periods as $period_name => $period)
+            {
+                // If the period is in a holiday period
+                if($period['start'] >= strtotime($holiday['start_date_holiday']) && $period['end'] <= strtotime($holiday['end_date_holiday']))
+                {
+                    unset($periods[$period_name]);
+                }
+            }
+        }
+
+        return $periods;
+    }
+
+
+    /**
+     * Prepare technician data for the planning generation.
+     * For code optimization, technicians presences, technicians presences count, 
+     * technician assignations per role, and empty generated planning are set here 
+     * (this way we loop only once in users).
+     * 
+     * @param array $periods
+     * @param array $users_ids
+     * 
+     * @return array
+     * 
+     */
+    private function prepareTechniciansData($periods, $users_ids)
+    {
+        $generated_planning = [];
+        $technicians_presences_count = [];
+        $technicians_presences = [];
+        $technician_assignations_per_role = [];
+        $technicians_absent_all_week_count = 0;
+
+        foreach($users_ids as $user_id)
+        {
+            // Technician presences
+            $user_presences = $this->presences_model->getPresencesUser($user_id);
+
+            foreach($user_presences as $presence_name => $presence_value)
+            {
+                $period_name = str_replace('_', '-', substr($presence_name, -6));
+                if(!isset($periods[$period_name]) || $presence_value == 3)
+                    unset($user_presences[$presence_name]);
+            }
+
+            if(empty($user_presences))
+                $technicians_absent_all_week_count++;
+
+            else
+            {
+                $technicians_presences[$user_id] = $user_presences;
+
+                // Number of times a technician is available
+                $technicians_presences_count[$user_id] = count($user_presences);
+
+                // Setting array to count the number of times a technician is assigned to each role
+                $technician_assignations_per_role[$user_id] = 
+                [
+                    1 => 0,
+                    2 => 0,
+                    3 => 0
+                ];
+            }
+
+            // If all technicians are absent all week
+            if($technicians_absent_all_week_count >= count($users_ids))
+            {
+                // Will return an error in the parent function
+                return null;
+            }
+
+            // Generated planning array preperation
+            $generated_planning[$user_id]['fk_user_id'] = $user_id;
+
+            foreach($_SESSION['helpdesk']['nw_periods'] as $sql_nw_period)
+            {
+                $generated_planning[$user_id][$sql_nw_period] = null;
+            }
+        }
+        
+        // Prioritze the technicians that are the less often available by putting them on top of the array
+        // They will then get picked first when creating the planning, ensuring fair distribution of roles between technicians
+        asort($technicians_presences_count);
+
+        $technicians_presences_count = $this->shuffleRowsWithSameValueInArray($technicians_presences_count);
+
+        // This operation makes a fair distribution of techncicians possible
+        switch(count($users_ids))
+        {
+            case 1:
+                $technician_max_assignations_per_role = 20;
+                break;
+
+            case 2:
+                $technician_max_assignations_per_role = 10;
+                break;
+
+            case 3:
+                $technician_max_assignations_per_role = 7;
+                break;
+
+            case 4:
+                $technician_max_assignations_per_role = 5;
+                break;
+
+            case in_array(count($users_ids), [5,6]):
+                $technician_max_assignations_per_role = 4;
+                break;
+
+            case in_array(count($users_ids), [7,8,9]):
+                $technician_max_assignations_per_role = 3;
+                break;
+
+            case count($users_ids) >= 10 && count($users_ids) < 20:
+                $technician_max_assignations_per_role = 2;
+                break;
+
+            default:
+                $technician_max_assignations_per_role = 1;
+        }
+
+        $output = 
+        [
+            'generated_planning'                    => $generated_planning,
+            'technicians_presences'                 => $technicians_presences,
+            'technicians_presences_count'           => $technicians_presences_count,
+            'technician_assignations_per_role'      => $technician_assignations_per_role,
+            'technician_max_assignations_per_role'  => $technician_max_assignations_per_role
+        ];
+
+        return $output;
+    }
+
+
+    /**
+     * Determines which roles are available depending on the number of technicians that can be assigned to the period.
+     * Example : if there's only one technician on a period, we don't want to assign him any other role than 1.
+     * 
+     * @param array $technicians_presences
+     * @param array $users_ids
+     * @param string $sql_presence
+     * 
+     * @return array
+     * 
+     */
+    private function determineRolesAvailableForSpecificPeriod($technicians_presences, $users_ids, $sql_presence)
+    {
+        $technicians_on_period = 0;
+        $roles_available_in_period = [];
+
+        foreach($users_ids as $user_id)
+        {
+            if(isset($technicians_presences[$user_id][$sql_presence]))
+                $technicians_on_period++;
+        }
+
+        switch($technicians_on_period)
+        {
+            case 0:
+                return [];
+                break;
+
+            case 1:
+                $roles_available_in_period = [1];
+                break;
+
+            case 2:
+                $roles_available_in_period = [1, 2];
+                break;
+
+            default: // 3 or more technicians
+                $roles_available_in_period = [1, 2, 3];
+        }
+
+        return $roles_available_in_period;
+    }
+
+
+    /**
+     * Orders the periods by the number of technicians that can be assigned on each period (ASC).
+     * 
+     * @param array $periods
+     * @param array $technicians_presences
+     * 
+     * @return array
+     * 
+     */
+    private function orderPeriodsByAssignationsCount($periods, $technicians_presences)
+    {
+        foreach($periods as $period_name => $period_name)
+        {
+            $periods_assignations_count[$period_name] = 0;
+            $sql_presence = 'presence_'.str_replace('-', '_', $period_name);
+
+            foreach($technicians_presences as $technician_presence)
+            {
+                if(isset($technician_presence[$sql_presence]))
+                    $periods_assignations_count[$period_name]++;
+            }
+
+            if($periods_assignations_count[$period_name] == 0)
+                unset($periods_assignations_count[$period_name]);
+        }
+
+        asort($periods_assignations_count);
+
+        return $periods_assignations_count;
+    }
+
+    /**
+     * Get and arrange the current week planning
+     * 
+     * @return array
+     * 
+     */
+    private function getAndArrangeCwPlanning()
+    {
+        $cw_planning = $this->planning_model->getPlanningData();
+        $arranged_cw_planning = [];
+
+        foreach($cw_planning as $cw_planning_entry)
+        {
+            $cw_user_planning = [];
+
+            foreach($cw_planning_entry as $cw_planning_cell_name => $cw_planning_cell_value)
+            {
+                if(!in_array($cw_planning_cell_name, ['id_planning','fk_user_id']))
+                    $cw_user_planning[$cw_planning_cell_name] = $cw_planning_cell_value;
+            }
+
+            $arranged_cw_planning[$cw_planning_entry['fk_user_id']] = $cw_user_planning;
+        }
+
+        return $arranged_cw_planning;
+    }
+
+
+    /**
+     * Shuffles the rows that have the same amount of columns (count()) in an array.
+     * 
+     * @param array
+     * 
+     * @return array $shuffled_array
+     * 
+     */
+    private function shuffleRowsWithSameValueInArray($array)
+    {
+        $groups = [];
+        $shuffled_array = [];
+
+        foreach($array as $key => $row)
+        {
+            $groups[$row][] = $key;
+        }
+
+        foreach($groups as $key => $group)
+        {
+            shuffle($group);
+
+            foreach($group as $value)
+            {
+                $shuffled_array[$value] = $key;
+            }
+        }
+
+        return $shuffled_array;
     }
 }
