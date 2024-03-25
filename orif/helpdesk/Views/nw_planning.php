@@ -14,6 +14,11 @@
 <?= view('Helpdesk\Common\body_start') ?>
 <?= view('Helpdesk\Common\planning_nav') ?>
 
+<nav class="nw-planning-nav">
+    <a class="btn btn-shift-weeks" href="<?= base_url('/helpdesk/home/confirm_action/shift_weeks') ?>"><span><?= lang('Helpdesk.btn_shift_weeks') ?></span></a>
+    <a class="btn btn-generate-planning" href="<?= base_url('/helpdesk/home/confirm_action/generate_planning') ?>"><span><?= lang('Helpdesk.btn_generate_planning') ?></span></a>
+</nav>
+
 <div class="planning-table">
 
     <div class="week">

@@ -82,33 +82,33 @@
     }
 
     // If the url contains "technician_presences", adds the presences stylesheet
-    else if(strpos($current_url, 'technician_presences'))
+    if(strpos($current_url, 'technician_presences'))
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/presences/technician_presences.css").'">';
     }
     
     // If the url ends with "planning" or "public/" or "all_presences", or contains "update_planning" or "add_technician", adds the planning stylesheet
-    else if(substr($current_url, -8) === "planning" ||
-            substr($current_url, -7) === "public/" ||
-            substr($current_url, -14) === "presences_list" ||
-            strpos($current_url, 'update_planning') ||
-            strpos($current_url, 'add_technician'))
+    if(substr($current_url, -8) === "planning" ||
+        substr($current_url, -7) === "public/" ||
+        substr($current_url, -14) === "presences_list" ||
+        strpos($current_url, 'update_planning') ||
+        strpos($current_url, 'add_technician'))
     {
         echo '<link rel="stylesheet" href="' .base_url("css/helpdesk/general/planning_table.css").'">';
     }
 
-    // If the url contains "delete", adds the delete_confirmation stylesheet
-    else if(strpos($current_url, 'delete'))
+    // If the url contains "delete" or "confirm", adds the confirm_action stylesheet
+    if(strpos($current_url, 'delete') ||
+        strpos($current_url, 'confirm'))
     {
-        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/delete_confirmation.css").'">';
+        echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/general/confirm_action.css").'">';
     }
 
     // If the url contains "holidays", adds the holidays stylesheet
-    else if(strpos($current_url, 'holidays'))
+    if(strpos($current_url, 'holidays'))
     {
         echo '<link rel="stylesheet" href="'.base_url("css/helpdesk/holidays/holidays.css").'">';
     }
-
 
     // // If the url contains "generate", adds the generate_planning stylesheet
     // else if(strpos($current_url, 'generate') !== false)

@@ -28,6 +28,7 @@ return[
     'ttl_add_holiday'               => 'Ajouter une période fériée',
     'ttl_update_holiday'            => 'Modifier une période fériée',
     'ttl_delete_confirmation'       => 'Confirmation de suppression',
+    'ttl_confirm_action'            => 'Confirmation d\'action',
 
 
     /*
@@ -53,6 +54,8 @@ return[
     'err_planning_generation_no_period'             => 'Génération du planning impossible : Aucune période de travail dans la semaine.',
     'err_planning_generation_no_technician'         => 'Génération du planning impossible : Aucun technicien n\'a de présences.',
     'err_planning_generation_absent_technicians'    => 'Génération du planning impossible : Tous les techniciens sont absents durant toute la semaine.',
+
+    'err_action_unvalid'                            => 'L\'action à exécuter est inconnue.',
 
 
     /*
@@ -83,6 +86,9 @@ return[
     'scs_planning_updated'              => 'Le planning de la semaine a été modifié.',
     'scs_holiday_updated'               => 'La période de vacances a été modifiée.',
     'scs_holiday_deleted'               => 'La période de vacances a été supprimée.',
+    'scs_shift_weeks'                   => 'Les semaines ont été déplacées.',
+    'scs_planning_generation'           => 'Le planning a été généré.',
+    'scs_shift_weeks_with_planning_generation' => 'Les semaines ont été déplacées et le planning a été généré.',
 
 
     /*
@@ -128,6 +134,10 @@ return[
     'btn_terminal'                  => 'Aperçu du terminal',
     'btn_reset'                     => 'Réinitialiser',
     'btn_continue'                  => 'Continuer',
+    'btn_shift_weeks'               => 'Déplacer les semaines',
+    'btn_generate_planning'         => 'Générer un planning',
+
+    'btn_shift_weeks_with_planning_generation' => 'Déplacer les semaines et générer un planning',
 
     /*
     ** ROLES
@@ -220,5 +230,9 @@ return[
     'ignore_presences_check'          => 'Ignorer la vérification des présences',
 
     'actual'                    => 'actuelle',
-    'next'                      => 'prochaine'
+    'next'                      => 'prochaine',
+
+    'confirm_action'            => 'Êtes-vous sûr(e) de vouloir continuer ?',
+    'irreversible_action'       => 'Cette action est irréversible.',
+    'generated_planning_overwrite_old_one' => 'Générer un nouveau planning écrasera le planning existant.'
 ];

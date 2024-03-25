@@ -185,6 +185,19 @@
 
 /* *************************************************************** */
 
+/* Alternative buttons
+**
+** They act as regular buttons, but look different
+** to visually identify them as second choice button.
+*/
+.btn-alt
+{
+    background-color: var(--white);
+    color: var(--blue-orif);
+}
+
+/* *************************************************************** */
+
 /* Others buttons
 **
 ** Only the icon is added.
@@ -235,6 +248,16 @@
     padding: 0 5px;
 }
 
+.btn-shift-weeks::before
+{
+    content: "\f049"; /* https://fontawesome.com/icons/backward-fast?f=classic&s=solid */
+}
+
+.btn-generate-planning::before, .btn-shift-weeks-with-planning-generation::before
+{
+    content: "\f271"; /* https://fontawesome.com/icons/calendar-plus?f=classic&s=solid */
+}
+
 .btn-target-new-window::after
 {
     content: "\f35d"; /* https://fontawesome.com/icons/up-right-from-square?f=classic&s=solid */
@@ -264,7 +287,7 @@
      * Exceptions
      *
      */
-    nav .btn-back span, #add-holiday .btn-back span
+    nav .btn-back span, #add-holiday .btn-back span, #confirm-action .btn-back span
     {
         padding: 0 0 0 5px;
         display: inline;

@@ -598,7 +598,7 @@ class Planning extends Home
      * @return view|void
      * 
      */
-    public function shift_weeks()
+    public function shift_weeks($generate_planning = false)
     {
         try
         {
@@ -624,9 +624,18 @@ class Planning extends Home
                 $this->planning_model->insertBatch($cw_planning);
                 $this->nw_planning_model->emptyTable();
             }
-            
+
             // PART 4 : Next week generation
-            /* $this->planning_generation(); */
+            if($generate_planning)
+            {
+                $this->planning_generation();
+                $this->session->setFlashData('success', lang('Helpdesk.scs_shift_weeks_with_planning_generation'));
+            }
+
+            else
+                $this->session->setFlashData('success', lang('Helpdesk.scs_shift_weeks'));
+
+            return redirect()->to('helpdesk/planning/nw_planning');
         }
 
         catch(\Exception)
@@ -669,7 +678,7 @@ class Planning extends Home
 
             foreach($row as $key => $value)
             {
-                if(!in_array($key, ['id_planning', 'id_nw_planning', 'fk_user_id']))
+                if(in_array($key, ['id_planning', 'id_nw_planning', 'fk_user_id']))
                     $duplicated_planning_entry[$key] = $value;
 
                 else
@@ -823,6 +832,7 @@ class Planning extends Home
                 $this->nw_planning_model->insert($generated_planning_entry); 
             }
 
+            $this->session->setFlashdata('success', lang('Helpdesk.scs_planning_generation'));
             return redirect()->to('helpdesk/planning/nw_planning');
         }
 

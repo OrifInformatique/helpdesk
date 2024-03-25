@@ -84,7 +84,7 @@ class Home extends BaseController
      * @return void
      * 
      */
-    public function setSessionVariables()
+    protected function setSessionVariables()
     {
         if(!isset($_SESSION['helpdesk']['next_week']) ||
             !isset($_SESSION['helpdesk']['lw_periods']) ||
@@ -155,7 +155,7 @@ class Home extends BaseController
      * @return view|void 
      * 
      */
-    public function isUserLogged()
+    protected function isUserLogged()
     {
         if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']))
         {
@@ -175,7 +175,7 @@ class Home extends BaseController
      * @return view|void
      * 
      */
-    public function isSetPlanningType($planning_type)
+    protected function isSetPlanningType($planning_type)
     {
         if(!in_array($planning_type, [-1,0,1]))
         {
@@ -194,7 +194,7 @@ class Home extends BaseController
      * @return array
      * 
      */
-    public function defineDaysOff($periods)
+    protected function defineDaysOff($periods)
     {
         $holidays_data = $this->holidays_model->getHolidays();
 
@@ -225,7 +225,7 @@ class Home extends BaseController
      * @return array
      * 
      */
-    public function choosePeriods($planning_type)
+    protected function choosePeriods($planning_type)
     {
         $periods = [];
 
@@ -322,11 +322,78 @@ class Home extends BaseController
      * @return array
      * 
      */
-    public function getFlashdataMessages()
+    protected function getFlashdataMessages()
     {
         $messages['success'] = $this->session->getFlashdata('success');
         $messages['error'] = $this->session->getFlashdata('error');
         
         return $messages;
+    }
+
+    /**
+     * Display a confirmation page for a specified action (no entry deletion)
+     * 
+     * @param string $action Action that we want to do
+     * 
+     * @return view
+     * 
+     */
+    public function confirm_action($action = null)
+    {
+        $this->isUserLogged();
+
+        switch($action)
+        {
+            case 'shift_weeks':
+                $action =
+                [
+                    'name' => 'shift_weeks_with_planning_generation',
+                    'css' => 'shift-weeks-with-planning-generation',
+                    'url' => base_url('helpdesk/planning/shift_weeks/true'),
+                    'desc' => lang('Helpdesk.generated_planning_overwrite_old_one')
+                ];
+
+                $alt_action = 
+                [
+                    'name' => 'shift_weeks',
+                    'css' => 'shift-weeks',
+                    'url' => base_url('helpdesk/planning/shift_weeks')
+                ];
+
+                $irreversible_action = true;
+                $back_btn_url = base_url('helpdesk/planning/nw_planning');
+                break;
+
+            case 'generate_planning':
+                $action = 
+                [
+                    'name' => 'generate_planning',
+                    'css' => 'generate-planning',
+                    'url' => base_url('helpdesk/planning/planning_generation'),
+                    'desc' => lang('Helpdesk.generated_planning_overwrite_old_one')
+                ];
+                
+                $alt_action = null;
+
+                $irreversible_action = true;
+
+                $back_btn_url = base_url('helpdesk/planning/nw_planning');
+                break;
+
+            default:
+                $this->session->setFlashData('error', lang('Helpdesk.err_action_unvalid'));
+                return redirect()->to('helpdesk/planning/cw_planning');
+        }
+
+        $data = 
+        [
+            'action' => $action,
+            'alt_action' => $alt_action,
+            'back_btn_url' => $back_btn_url,
+            'irreversible_action' => $irreversible_action ?? false,
+            'title' => lang('Helpdesk.ttl_confirm_action')
+        ];
+
+        return $this->display_view('Helpdesk\confirm_action', $data);
     }
 }
