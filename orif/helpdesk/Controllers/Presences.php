@@ -82,7 +82,7 @@ class Presences extends Home
             $user_id = $_POST['technician'];
 
             if(!isset($user_id) || empty($user_id) || !is_numeric($user_id))
-                $data['messages']['error'] = lang('Errors.unvalid_technician_selected');
+                $data['messages']['error'] = lang('Errors.invalid_technician_selected');
 
             else
                 return redirect()->to('/helpdesk/presences/technician_presences/'.$user_id);
@@ -107,7 +107,7 @@ class Presences extends Home
 
         if(!isset($user_id) || empty($user_id) || !is_numeric($user_id))
         {
-            $this->session->setFlashdata('error', lang('Errors.unvalid_technician_selected'));
+            $this->session->setFlashdata('error', lang('Errors.invalid_technician_selected'));
 
             return redirect()->to('/helpdesk/presences/presences_list');
         }

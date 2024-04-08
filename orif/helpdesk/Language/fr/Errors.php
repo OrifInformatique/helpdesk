@@ -11,7 +11,7 @@ return[
 
     /* Presences errors */
     'no_technician_presences'       => 'Aucun technicien n\'a de présences.',
-    'unvalid_technician_selected'   => 'Le technicien sélectionné est invalide.', // Also a terminal error
+    'invalid_technician_selected'   => 'Le technicien sélectionné est invalide.', // Also a terminal error
     
     /* Planning errors */
     'no_technician_assigned'                    => 'Aucun technicien n\'est assigné au planning.',

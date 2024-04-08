@@ -163,7 +163,7 @@ class Terminal extends Home
                     $index = 2;
                     break;
                 default:
-                    $this->session->setFlashdata('error', lang('Errors.unvalid_technician_selected'));
+                    $this->session->setFlashdata('error', lang('Errors.invalid_technician_selected'));
             }
 
             $role = $index+1;
