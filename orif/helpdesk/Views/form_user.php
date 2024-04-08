@@ -76,15 +76,15 @@ $validation=\Config\Services::validation();
                         'class' => 'form-control', 'id' => 'user_email']); ?>
                 </div>
                 <div class="form-group">
-                    <?= form_label(lang('Helpdesk.first_name'), 'first_name_user_data', ['class' => 'form-label']); ?>
+                    <?= form_label(lang('Forms/Fields.first_name'), 'first_name_user_data', ['class' => 'form-label']); ?>
                     <?= form_input('first_name_user_data', $first_name_user_data ?? '', ['class' => 'form-control', 'id' => 'first_name_user_data']); ?>
                 </div>
                 <div class="form-group">
-                    <?= form_label(lang('Helpdesk.last_name'), 'last_name_user_data', ['class' => 'form-label']); ?>
+                    <?= form_label(lang('Forms/Fields.last_name'), 'last_name_user_data', ['class' => 'form-label']); ?>
                     <?= form_input('last_name_user_data', $last_name_user_data ?? '', ['class' => 'form-control', 'id' => 'last_name_user_data']); ?>
                 </div>
                 <div class="form-group">
-                    <?= form_label(lang('Helpdesk.photo'), 'photo_user_data', ['class' => 'form-label']); ?><br>
+                    <?= form_label(lang('Forms/Fields.photo'), 'photo_user_data', ['class' => 'form-label']); ?><br>
                     <?= form_upload('photo_user_data', $photo_user_data ?? '', ['id' => 'photo_user_data']); ?>
                 </div>
             </div>

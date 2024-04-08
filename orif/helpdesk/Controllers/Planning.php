@@ -58,7 +58,7 @@ class Planning extends Home
             'lw_planning_data' => $this->lw_planning_model->getPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
             'planning_type'    => -1,
-            'title'            => lang('Helpdesk.ttl_lw_planning')
+            'title'            => lang('Titles.lw_planning')
         ];
 
         return $this->display_view('Helpdesk\lw_planning', $data);
@@ -84,7 +84,7 @@ class Planning extends Home
             'planning_data' => $this->planning_model->getPlanningDataByUser(),
             'classes'       => $this->defineDaysOff($periods),
             'planning_type' => 0,
-            'title'         => lang('Helpdesk.ttl_planning')
+            'title'         => lang('Titles.planning')
         ];
 
         return $this->display_view('Helpdesk\planning', $data);
@@ -110,7 +110,7 @@ class Planning extends Home
             'nw_planning_data' => $this->nw_planning_model->getNwPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
             'planning_type'    => 1,
-            'title'            => lang('Helpdesk.ttl_nw_planning')
+            'title'            => lang('Titles.nw_planning')
         ];
 
         return $this->display_view('Helpdesk\nw_planning', $data);
@@ -142,7 +142,7 @@ class Planning extends Home
             'planning_type' => $planning_type,
             'classes'       => $this->defineDaysOff($periods),
             'users'         => $this->user_data_model->getUsersData(),
-            'title'         => lang('Helpdesk.ttl_add_technician')
+            'title'         => lang('Titles.add_technician')
         ];
 
         if($_SERVER["REQUEST_METHOD"] != "POST")
@@ -152,9 +152,9 @@ class Planning extends Home
 
         $validation = \Config\Services::validation();
         $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']|has_presences', 
-        ['is_natural_no_zero' => lang('Helpdesk.is_natural_no_zero'),
-         'not_in_planning'    => lang('Helpdesk.not_in_planning'),
-         'has_presences'      => lang('Helpdesk.has_presences')]);
+        ['is_natural_no_zero' => lang('Forms/Errors.is_natural_no_zero'),
+         'not_in_planning'    => lang('Forms/Errors.not_in_planning'),
+         'has_presences'      => lang('Forms/Errors.has_presences')]);
         
         if(!$validation->run($_POST))
         {
@@ -208,7 +208,7 @@ class Planning extends Home
             if($presences_check && $technician_presence === 3 && in_array($_POST[$field], [1, 2, 3]))
             {
                 $technician_absent = true;
-                array_push($technician_absent_periods, lang('Helpdesk.'.substr($field, -6)));
+                array_push($technician_absent_periods, lang('Time.'.substr($field, -6)));
             }
 
             foreach($planning_data as $planning_entry)
@@ -219,7 +219,7 @@ class Planning extends Home
                 if($_POST[$field] != '' && $_POST[$field] == $planning_entry[$field])
                 {
                     $role_duplicated = true;
-                    array_push($roles_duplicated_periods, lang('Helpdesk.'.substr($field, -6)));
+                    array_push($roles_duplicated_periods, lang('Time.'.substr($field, -6)));
                 }
             }
         }
@@ -230,7 +230,7 @@ class Planning extends Home
             $technician_fullname = $this->user_data_model->getUserFullName($user_id);
             $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
 
-            $data['messages']['error'] = sprintf(lang('Helpdesk.err_technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.';
+            $data['messages']['error'] = sprintf(lang('Errors.technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.';
             $data['old_add_tech_form'] = $_POST;
     
             return $this->display_view('Helpdesk\add_technician', $data);
@@ -238,7 +238,7 @@ class Planning extends Home
 
         if($empty_fields === 20) 
         {
-            $data['messages']['error'] = lang('Helpdesk.err_technician_must_be_assigned_to_schedule');
+            $data['messages']['error'] = lang('Errors.technician_must_be_assigned_to_schedule');
             $data['old_add_tech_form'] = $_POST;
 
             return $this->display_view('Helpdesk\add_technician', $data);
@@ -246,13 +246,13 @@ class Planning extends Home
 
         if($role_duplicated) 
         {
-            $data['messages']['error'] = lang('Helpdesk.err_role_duplicates_on_periods').implode(',<br>', $roles_duplicated_periods).'.';
+            $data['messages']['error'] = lang('Errors.role_duplicates_on_periods').implode(',<br>', $roles_duplicated_periods).'.';
             $data['old_add_tech_form'] = $_POST;
 
             return $this->display_view('Helpdesk\add_technician', $data);
         }
 
-        $this->session->setFlashdata('success', lang('Helpdesk.scs_technician_added_to_schedule'));
+        $this->session->setFlashdata('success', lang('Success.technician_added_to_schedule'));
 
         // 0 is current week, 1 is next week
         switch($planning_type) 
@@ -414,7 +414,7 @@ class Planning extends Home
                     if($presences_check && $technician_presence === 3 && in_array($field_value, [1, 2, 3]))
                     {
                         $technician_absent = true;
-                        array_push($technician_absent_periods, lang('Helpdesk.'.substr($field, -6)));
+                        array_push($technician_absent_periods, lang('Time.'.substr($field, -6)));
                         continue;
                     }
 
@@ -431,8 +431,8 @@ class Planning extends Home
                         {
                             $role_duplicated = true;
 
-                            if(!in_array(lang('Helpdesk.'.substr($field, -6)), $roles_duplicated_periods))
-                                array_push($roles_duplicated_periods, lang('Helpdesk.'.substr($field, -6)));
+                            if(!in_array(lang('Time.'.substr($field, -6)), $roles_duplicated_periods))
+                                array_push($roles_duplicated_periods, lang('Time.'.substr($field, -6)));
                         }
                     }
 
@@ -444,7 +444,7 @@ class Planning extends Home
                     $technician_fullname = $this->user_data_model->getUserFullName($user_id);
                     $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
 
-                    $this->session->setFlashdata('error', sprintf(lang('Helpdesk.err_technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.');
+                    $this->session->setFlashdata('error', sprintf(lang('Errors.technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.');
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
                     
                     return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
@@ -453,7 +453,7 @@ class Planning extends Home
                 // If all fields are empty, prevent having a technician without any role at any period
                 if($emptyFieldsCount === 20)
                 {
-                    $this->session->setFlashdata('error', lang('Helpdesk.err_technician_must_be_assigned_to_schedule'));
+                    $this->session->setFlashdata('error', lang('Errors.technician_must_be_assigned_to_schedule'));
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
 
                     return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
@@ -461,7 +461,7 @@ class Planning extends Home
 
                 if($role_duplicated) 
                 {
-                    $this->session->setFlashdata('error', lang('Helpdesk.err_role_duplicates_on_periods').implode(',<br>', $roles_duplicated_periods).'.');
+                    $this->session->setFlashdata('error', lang('Errors.role_duplicates_on_periods').implode(',<br>', $roles_duplicated_periods).'.');
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
         
                     return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
@@ -492,7 +492,7 @@ class Planning extends Home
                         break;
                 }
 
-                $data['messages']['success'] = lang('Helpdesk.scs_planning_updated');
+                $data['messages']['success'] = lang('Success.planning_updated');
             }
         }
 
@@ -503,14 +503,14 @@ class Planning extends Home
                 $planning_data = $this->planning_model->getPlanningDataByUser();
 
                 $data['planning_data'] = $planning_data;
-                $data['title']         = lang('Helpdesk.ttl_update_planning');
+                $data['title']         = lang('Titles.update_planning');
                 break;
 
             case 1:
                 $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
 
                 $data['nw_planning_data'] = $nw_planning_data;
-                $data['title']            = lang('Helpdesk.ttl_update_nw_planning');
+                $data['title']            = lang('Titles.update_nw_planning');
                 break;
         }
 
@@ -546,7 +546,7 @@ class Planning extends Home
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
         {
-            $this->session->setFlashdata('success', lang('Helpdesk.scs_technician_deleted'));
+            $this->session->setFlashdata('success', lang('Success.technician_deleted'));
 
             // 0 is current week, 1 is next week
             switch($planning_type)
@@ -571,13 +571,13 @@ class Planning extends Home
         else
         {
             $user_fullname = $this->user_data_model->getUserFullName($user_id);
-            $week = $planning_type == 0 ? lang('Helpdesk.actual') : lang('Helpdesk.next');
+            $week = $planning_type == 0 ? lang('MiscTexts.actual') : lang('MiscTexts.next');
 
-            $user_entry = lang('Helpdesk.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.lang('Helpdesk.delete_from_planning_of_week').' <strong>'.$week.'</strong>.';
+            $user_entry = lang('MiscTexts.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.lang('MiscTexts.delete_from_planning_of_week').' <strong>'.$week.'</strong>.';
 
             $data =
             [
-                'title'         => lang('Helpdesk.ttl_delete_confirmation'),
+                'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/planning/delete_technician/'.$user_id.'/'.$planning_type),
                 'btn_back_url'  => base_url('/helpdesk/planning/update_planning/'.$planning_type),
                 'entry'         => $user_entry
@@ -629,18 +629,18 @@ class Planning extends Home
             if($generate_planning)
             {
                 $this->planning_generation();
-                $this->session->setFlashData('success', lang('Helpdesk.scs_shift_weeks_with_planning_generation'));
+                $this->session->setFlashData('success', lang('Success.shift_weeks_with_planning_generation'));
             }
 
             else
-                $this->session->setFlashData('success', lang('Helpdesk.scs_shift_weeks'));
+                $this->session->setFlashData('success', lang('Success.shift_weeks'));
 
             return redirect()->to('helpdesk/planning/nw_planning');
         }
 
         catch(\Exception)
         {
-            $this->session->setFlashdata('error', lang('Helpdesk.err_weeks_shift'));
+            $this->session->setFlashdata('error', lang('Errors.weeks_shift'));
             return redirect()->to('helpdesk/planning/cw_planning');
         }
     }
@@ -713,7 +713,7 @@ class Planning extends Home
 
             if(empty($periods))
             {
-                $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation_no_period'));
+                $this->session->setFlashdata('error', lang('Errors.planning_generation_no_period'));
                 return redirect()->to('helpdesk/planning/nw_planning');
             }
 
@@ -722,7 +722,7 @@ class Planning extends Home
 
             if(empty($users_ids))
             {
-                $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation_no_technician'));
+                $this->session->setFlashdata('error', lang('Errors.planning_generation_no_technician'));
                 return redirect()->to('helpdesk/planning/nw_planning');
             }
 
@@ -730,7 +730,7 @@ class Planning extends Home
 
             if(is_null($technicians_data))
             {
-                $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation_absent_technicians'));
+                $this->session->setFlashdata('error', lang('Errors.planning_generation_absent_technicians'));
                 return redirect()->to('helpdesk/planning/nw_planning');
             }
 
@@ -832,13 +832,13 @@ class Planning extends Home
                 $this->nw_planning_model->insert($generated_planning_entry); 
             }
 
-            $this->session->setFlashdata('success', lang('Helpdesk.scs_planning_generation'));
+            $this->session->setFlashdata('success', lang('Success.planning_generation'));
             return redirect()->to('helpdesk/planning/nw_planning');
         }
 
         catch(\Exception $e)
         {
-            $this->session->setFlashdata('error', lang('Helpdesk.err_planning_generation'));
+            $this->session->setFlashdata('error', lang('Errors.planning_generation'));
             return redirect()->to('helpdesk/planning/nw_planning');
         }
     }

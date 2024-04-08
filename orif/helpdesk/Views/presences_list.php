@@ -13,15 +13,15 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a></nav>
+<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Buttons.back')?></span></a></nav>
 
 <div class="planning-table">
 	<div class="action-menu table-top">
-		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/add_technician_presences') ?>"><span><?= lang('Helpdesk.btn_add_technician_presences') ?></span></a>
+		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/add_technician_presences') ?>"><span><?= lang('Buttons.add_technician_presences') ?></span></a>
 		<?php if(isset($_SESSION['user_id'])): ?>
-			<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Helpdesk.btn_my_presences') ?></span></a>
+			<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Buttons.my_presences') ?></span></a>
 		<?php else: ?>
-			<button disabled class="btn btn-edit"><span><?= lang('Helpdesk.btn_my_presences') ?></span></button>
+			<button disabled class="btn btn-edit"><span><?= lang('Buttons.my_presences') ?></span></button>
 		<?php endif; ?>
 	</div>
 	<table class="table-responsive
@@ -36,21 +36,21 @@
 		<thead>
 			<tr>
 				<th></th>
-				<th colspan="4"><?= lang('Helpdesk.monday')?></th>
-				<th colspan="4"><?= lang('Helpdesk.tuesday')?></th>
-				<th colspan="4"><?= lang('Helpdesk.wednesday')?></th>
-				<th colspan="4"><?= lang('Helpdesk.thursday')?></th>
-				<th colspan="4"><?= lang('Helpdesk.friday')?></th>
+				<th colspan="4"><?= lang('Time.monday')?></th>
+				<th colspan="4"><?= lang('Time.tuesday')?></th>
+				<th colspan="4"><?= lang('Time.wednesday')?></th>
+				<th colspan="4"><?= lang('Time.thursday')?></th>
+				<th colspan="4"><?= lang('Time.friday')?></th>
 				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th class="empty-cell"></th><th class="empty-cell"></th>' ?>
 			</tr>
 			<tr>
-				<th><?= lang('Helpdesk.technician')?></th>
+				<th><?= lang('MiscTexts.technician')?></th>
 
 				<?php for($i = 0; $i < 5; $i++): ?>
-					<th>8:00 10:00</th>
-					<th>10:00 12:00</th>
-					<th>12:45 15:00</th>
-					<th>15:00 16:57</th>
+					<th><?= lang('Time.08:00').' '.lang('Time.10:00') ?></th>
+					<th><?= lang('Time.10:00').' '.lang('Time.12:00') ?></th>
+					<th><?= lang('Time.12:45').' '.lang('Time.15:00') ?></th>
+					<th><?= lang('Time.15:00').' '.lang('Time.16:57') ?></th>
 				<?php endfor; ?>
 				<?php if (isset($all_users_presences) && !empty($all_users_presences)) echo '<th class="empty-cell"></th><th class="empty-cell"></th>' ?>
 			</tr>
@@ -68,15 +68,15 @@
 							switch($user_presences[$period])
 							{
 								case 1:
-									echo '<td class="present">P</td>';
+									echo '<td class="present">'.lang('HelpdeskLexicon/Presences.present_symbol').'</td>';
 									break;
 
 								case 2:
-									echo '<td class="partly-absent">I</td>';
+									echo '<td class="partly-absent">'.lang('HelpdeskLexicon/Presences.partly_absent_symbol').'</td>';
 									break;
 
 								case 3:
-									echo '<td class="absent">A</td>';
+									echo '<td class="absent">'.lang('HelpdeskLexicon/Presences.absent_symbol').'</td>';
 									break;
 							}
 						}?>
@@ -92,7 +92,7 @@
 			<?php else : ?>
 				<tr>
 					<td colspan="21">
-						<?= lang('Helpdesk.err_no_technician_presences')?>
+						<?= lang('Errors.no_technician_presences')?>
 					</td>
 				</tr>
 			<?php endif; ?>
@@ -101,8 +101,8 @@
 	<?= view('Helpdesk\Common\planning_bottom') ?>
 
 	<div class="roles roles-presences">
-		<div class="present">P - <?= lang('Helpdesk.present')?></div>
-		<div class="partly-absent">I - <?= lang('Helpdesk.partly_absent')?></div>
-		<div class="absent">A - <?= lang('Helpdesk.absent')?></div>
+		<div class="present"><?= lang('HelpdeskLexicon/Presences.present')?></div>
+		<div class="partly-absent"><?= lang('HelpdeskLexicon/Presences.partly_absent')?></div>
+		<div class="absent"><?= lang('HelpdeskLexicon/Presences.absent')?></div>
 	</div>
 </div>

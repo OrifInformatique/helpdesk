@@ -60,7 +60,7 @@ class Presences extends Home
             'messages'            => $this->getFlashdataMessages(),
             'all_users_presences' => $this->presences_model->getAllPresences(),
             'classes'             => $this->defineDaysOff($periods),
-            'title'               => lang('Helpdesk.ttl_presences_list')
+            'title'               => lang('Titles.presences_list')
         ];
 
         return $this->display_view('Helpdesk\presences_list', $data);
@@ -82,14 +82,14 @@ class Presences extends Home
             $user_id = $_POST['technician'];
 
             if(!isset($user_id) || empty($user_id) || !is_numeric($user_id))
-                $data['messages']['error'] = lang('Helpdesk.err_unvalid_technician_selected');
+                $data['messages']['error'] = lang('Errors.unvalid_technician_selected');
 
             else
                 return redirect()->to('/helpdesk/presences/technician_presences/'.$user_id);
         }
 
         $data['users'] = $this->user_data_model->getUsersWithoutPresences();
-        $data['title'] = lang('Helpdesk.ttl_add_technician_presences');
+        $data['title'] = lang('Titles.add_technician_presences');
 
         return $this->display_view('Helpdesk\add_technician_presences', $data);
     }
@@ -107,7 +107,7 @@ class Presences extends Home
 
         if(!isset($user_id) || empty($user_id) || !is_numeric($user_id))
         {
-            $this->session->setFlashdata('error', lang('Helpdesk.err_unvalid_technician_selected'));
+            $this->session->setFlashdata('error', lang('Errors.unvalid_technician_selected'));
 
             return redirect()->to('/helpdesk/presences/presences_list');
         }
@@ -158,7 +158,7 @@ class Presences extends Home
 
             $this->presences_model->save($data_to_save);
 
-            $data['messages']['success'] = lang('Helpdesk.scs_presences_updated');
+            $data['messages']['success'] = lang('Success.presences_updated');
         }
 
         $data['presences'] = $this->presences_model->getPresencesUser($user_id);
@@ -174,7 +174,7 @@ class Presences extends Home
 
         if($user_id == $_SESSION['user_id'])
         {
-            $data['title'] = lang('Helpdesk.ttl_my_presences');
+            $data['title'] = lang('Titles.my_presences');
             $data['user_id'] = $_SESSION['user_id'];
         }
 
@@ -182,7 +182,7 @@ class Presences extends Home
         {
             $technician_fullname = $this->user_data_model->getUserFullName($user_id);
             $technician_fullname = $technician_fullname['first_name_user_data'].' '.$technician_fullname['last_name_user_data'];
-            $data['title'] = sprintf(lang('Helpdesk.ttl_technician_presences'), $technician_fullname);
+            $data['title'] = sprintf(lang('Titles.technician_presences'), $technician_fullname);
             $data['user_id'] = $user_id;
         }
 
@@ -207,7 +207,7 @@ class Presences extends Home
         {
             $this->presences_model->delete($id_presence);
 
-            $this->session->setFlashdata('success', lang('Helpdesk.scs_presences_deleted'));
+            $this->session->setFlashdata('success', lang('Success.presences_deleted'));
 
             return redirect()->to('/helpdesk/presences/presences_list');
         }
@@ -218,11 +218,11 @@ class Presences extends Home
             $user_id = $this->presences_model->getUserId($id_presence);
             $user_fullname = $this->user_data_model->getUserFullName($user_id);
 
-            $presence_entry = lang('Helpdesk.technician_presences').' <strong>'.implode(' ', $user_fullname).'</strong>.';
+            $presence_entry = lang('MiscTexts.technician_presences').' <strong>'.implode(' ', $user_fullname).'</strong>.';
 
             $data = 
             [
-                'title'         => lang('Helpdesk.ttl_delete_confirmation'),
+                'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/presences/delete_presences/'.$id_presence),
                 'btn_back_url'  => base_url('/helpdesk/presences/presences_list'),
                 'entry'         => $presence_entry

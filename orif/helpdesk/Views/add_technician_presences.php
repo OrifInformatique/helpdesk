@@ -25,13 +25,13 @@ echo form_open(base_url('/helpdesk/presences/add_technician_presences'), ['id' =
 
 if(isset($users) && !empty($users))
 {
-    echo form_label(lang('Helpdesk.add_technician_presences_label'));
+    echo form_label(lang('MiscTexts.add_technician_presences_label'));
     echo form_dropdown('technician', $options, isset($old_add_tech_form['technician']) ? $old_add_tech_form['technician'] : '');
-    echo '<button type="submit" class="btn btn-continue"><span>'.lang('Helpdesk.btn_continue').'</span></button>';
+    echo '<button type="submit" class="btn btn-continue"><span>'.lang('Buttons.continue').'</span></button>';
 }
 
 else
-    echo '<p>'.lang('Helpdesk.info_all_technicians_have_presences').'</p>';
+    echo '<p>'.lang('Infos.all_technicians_have_presences').'</p>';
 ?>
-    <a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
+    <a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Buttons.back')?></span></a>
 <?= form_close() ?>

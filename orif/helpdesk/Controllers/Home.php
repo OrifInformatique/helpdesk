@@ -179,7 +179,7 @@ class Home extends BaseController
     {
         if(!in_array($planning_type, [-1,0,1]))
         {
-            $this->session->setFlashdata('error', lang('Helpdesk.err_unvalid_planning_type'));
+            $this->session->setFlashdata('error', lang('Errors.unvalid_planning_type'));
 
             return $this->index();
         }
@@ -350,7 +350,7 @@ class Home extends BaseController
                     'name' => 'shift_weeks_with_planning_generation',
                     'css' => 'shift-weeks-with-planning-generation',
                     'url' => base_url('helpdesk/planning/shift_weeks/true'),
-                    'desc' => lang('Helpdesk.generated_planning_overwrite_old_one')
+                    'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
                 ];
 
                 $alt_action = 
@@ -370,7 +370,7 @@ class Home extends BaseController
                     'name' => 'generate_planning',
                     'css' => 'generate-planning',
                     'url' => base_url('helpdesk/planning/planning_generation'),
-                    'desc' => lang('Helpdesk.generated_planning_overwrite_old_one')
+                    'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
                 ];
                 
                 $alt_action = null;
@@ -381,7 +381,7 @@ class Home extends BaseController
                 break;
 
             default:
-                $this->session->setFlashData('error', lang('Helpdesk.err_action_unvalid'));
+                $this->session->setFlashData('error', lang('Errors.action_unvalid'));
                 return redirect()->to('helpdesk/planning/cw_planning');
         }
 
@@ -391,7 +391,7 @@ class Home extends BaseController
             'alt_action' => $alt_action,
             'back_btn_url' => $back_btn_url,
             'irreversible_action' => $irreversible_action ?? false,
-            'title' => lang('Helpdesk.ttl_confirm_action')
+            'title' => lang('Titles.confirm_action')
         ];
 
         return $this->display_view('Helpdesk\confirm_action', $data);

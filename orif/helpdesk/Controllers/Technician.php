@@ -57,7 +57,7 @@ class Technician extends Home
         $data =
         [
             'user'  => $this->user_data_model->getUserData($user_id),
-            'title' => lang('Helpdesk.ttl_technician_menu')
+            'title' => lang('Titles.technician_menu')
         ];
 
         return $this->display_view('Helpdesk\dashboard', $data);

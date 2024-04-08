@@ -12,7 +12,7 @@
 ?>
 
 <div class="roles">
-    <div class="bg-green"><?= lang('Helpdesk.role_1')?></div>
-    <div class="bg-light-green"><?= lang('Helpdesk.role_2')?></div>
-    <div class="bg-orange"><?= lang('Helpdesk.role_3')?></div>
+    <div class="bg-green"><?= lang('HelpdeskLexicon/Roles.first_technician_role')?></div>
+    <div class="bg-light-green"><?= lang('HelpdeskLexicon/Roles.second_technician_role')?></div>
+    <div class="bg-orange"><?= lang('HelpdeskLexicon/Roles.third_technician_role')?></div>
 </div>
