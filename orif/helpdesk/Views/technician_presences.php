@@ -20,6 +20,18 @@
 	</div>
 <?php endif; ?>
 
+<div class="select-presence-for-all-fields">
+	<div>
+		<p><?= lang('Helpdesk.select_presence_for_all_fields') ?></p>
+	</div>
+	<div>
+		<button class="btn btn-present" onclick="ChangeAllFormValues(1)"><span><?= lang('Helpdesk.present') ?></span></button>
+		<button class="btn btn-partly-absent" onclick="ChangeAllFormValues(2)"><span><?= lang('Helpdesk.partly_absent') ?></span></button>
+		<button class="btn btn-absent" onclick="ChangeAllFormValues(3)"><span><?= lang('Helpdesk.absent') ?></span></button>
+	</div>
+
+</div>
+
 <?= form_open(base_url('/helpdesk/presences/technician_presences/'.$user_id)) ?>
 	<?php foreach($weekdays as $day => $periods): ?>
 		<h3><?= lang('Helpdesk.'.$day)?></h3>

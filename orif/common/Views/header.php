@@ -38,6 +38,7 @@
     
     <!-- Application scripts -->
     <script src="<?= base_url('Scripts/header/small_devices_header_menu.js') ?>" defer></script>
+    <script src="<?= base_url('Scripts/technician_presences/select_presence_for_all_fields.js') ?>" defer></script>
 
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">

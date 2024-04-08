@@ -234,5 +234,7 @@ return[
 
     'confirm_action'            => 'Êtes-vous sûr(e) de vouloir continuer ?',
     'irreversible_action'       => 'Cette action est irréversible.',
-    'generated_planning_overwrite_old_one' => 'Générer un nouveau planning écrasera le planning existant.'
+    'generated_planning_overwrite_old_one' => 'Générer un nouveau planning écrasera le planning existant.',
+
+    'select_presence_for_all_fields' => 'Appliquer à toutes les périodes'
 ];
