@@ -16,6 +16,6 @@
 <?php foreach($user as $user): ?>
     <h3><?= $user['last_name_user_data'].' '.$user['first_name_user_data']?></h3>
     <div>
-        <a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a>
+        <a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Buttons.back')?></span></a>
     </div>
 <?php endforeach; ?>

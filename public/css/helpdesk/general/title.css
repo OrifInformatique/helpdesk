@@ -6,7 +6,7 @@ h2
     border-radius: 5px;
     width: fit-content;
     padding: 10px calc(15px + 8%);
-    margin: 1rem auto 1rem auto;
+    margin: 0.66rem auto 0.66rem auto;
 }
 
 @media screen and (max-width: 525px) 

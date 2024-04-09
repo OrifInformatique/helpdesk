@@ -86,32 +86,32 @@ class User extends Admin
                         'rules' => 'required|cb_not_null_user_type'
                     ],
                     'email' => [
-                        'label' => lang('Helpdesk.mail'),
+                        'label' => lang('Forms/Fields.mail'),
                         'rules' => 'required|valid_email'
                     ],
                     'first_name_user_data' => [
-                        'label' => lang('Helpdesk.first_name'),
+                        'label' => lang('Forms/Fields.first_name'),
                         'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
+                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
                     ],
                     'last_name_user_data' => [
-                        'label' => lang('Helpdesk.last_name'),
+                        'label' => lang('Forms/Fields.last_name'),
                         'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
+                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
                     ],
                     'photo_user_data' => [
-                        'label' => lang('Helpdesk.photo'),
+                        'label' => lang('Forms/Fields.photo'),
                         'rules' => 'uploaded[photo_user_data]|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
                     ],
                     'user_password' => [
-                        'label' => lang('Helpdesk.password'),
+                        'label' => lang('Forms/Fields.password'),
                         'rules' => 'required|trim|'.
                                 'min_length['.config("\User\Config\UserConfig")->password_min_length.']|'.
                                 'max_length['.config("\User\Config\UserConfig")->password_max_length.']|'.
                                 'matches[user_password_again]'
                     ],
                     'user_password_again' => [
-                        'label' => lang('Helpdesk.password_confirm'),
+                        'label' => lang('Forms/Fields.password_confirm'),
                         'rules' => 'if_exist|required'
                     ]]);
             }
@@ -130,21 +130,21 @@ class User extends Admin
                         'rules' => 'required|cb_not_null_user_type'
                     ],
                     'email' => [
-                        'label' => lang('Helpdesk.mail'),
+                        'label' => lang('Forms/Fields.mail'),
                         'rules' => 'required|valid_email'
                     ],
                     'first_name_user_data' => [
-                        'label' => lang('Helpdesk.first_name'),
+                        'label' => lang('Forms/Fields.first_name'),
                         'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
+                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
                     ],
                     'last_name_user_data' => [
-                        'label' => lang('Helpdesk.last_name'),
+                        'label' => lang('Forms/Fields.last_name'),
                         'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Helpdesk.french_alpha')]
+                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
                     ],
                     'photo_user_data' => [
-                        'label' => lang('Helpdesk.photo'),
+                        'label' => lang('Forms/Fields.photo'),
                         'rules' => 'if_exist|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
                     ]]);
             }

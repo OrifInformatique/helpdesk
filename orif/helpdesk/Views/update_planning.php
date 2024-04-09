@@ -27,7 +27,7 @@
         <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
         <thead>
             <tr>
-                <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/'.$planning_type) ?>" title="<?= lang('Helpdesk.btn_add_technician') ?>"></a></th>
+                <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/'.$planning_type) ?>" title="<?= lang('Buttons.add_technician') ?>"></a></th>
                 <?= view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
                 <th class="empty-cell"></th>
             </tr>
@@ -53,7 +53,7 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>" title="<?= lang('Helpdesk.btn_delete_tech_from_planning')?>"></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>" title="<?= lang('Buttons.delete_tech_from_planning')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -75,16 +75,10 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>" title="<?= lang('Helpdesk.btn_delete_tech_from_planning')?>"></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>" title="<?= lang('Buttons.delete_tech_from_planning')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
-                <?php else: ?>
-                    <tr>
-                        <td colspan="21">
-                            <?= lang('Helpdesk.no_technician_assigned')?>
-                        </td>
-                    </tr>
                 <?php endif; ?>
             </tbody>
         </table>

@@ -17,11 +17,11 @@
 <div class="planning-table">
 
     <div class="week">
-        <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/lw_planning') ?>"><span><?= lang('Helpdesk.btn_last_week')?></span></a>
+        <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/lw_planning') ?>"><span><?= lang('Buttons.last_week')?></span></a>
 
         <?= view('Helpdesk\Common\planning_week', ['planning_type' => $planning_type]) ?>
 
-        <a class="btn btn-next-week" href="<?= base_url('/helpdesk/planning/nw_planning') ?>"><span><?= lang('Helpdesk.btn_next_week')?></span></a>
+        <a class="btn btn-next-week" href="<?= base_url('/helpdesk/planning/nw_planning') ?>"><span><?= lang('Buttons.next_week')?></span></a>
     </div>
 
     <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
@@ -29,7 +29,7 @@
             <tr>
                 <th>        
                     <?php if(!empty($planning_data)): ?>
-                        <a class="btn btn-edit" href="<?= base_url('/helpdesk/planning/update_planning/0') ?>" title="<?= lang('Helpdesk.btn_edit_planning') ?>"></a>
+                        <a class="btn btn-edit" href="<?= base_url('/helpdesk/planning/update_planning/0') ?>" title="<?= lang('Buttons.edit_planning') ?>"></a>
                     <?php else: ?>
                         <button disabled class="btn btn-edit"></button>
                     <?php endif; ?>
@@ -52,8 +52,8 @@
             <?php else: ?>
                 <tr>
                     <td colspan="21">
-                        <?= lang('Helpdesk.err_no_technician_assigned')?><br>
-                        <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/0') ?>"><span><?= lang('Helpdesk.btn_add_technician')?></span></a>
+                        <?= lang('Errors.no_technician_assigned')?><br>
+                        <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/0') ?>"><span><?= lang('Buttons.add_technician')?></span></a>
                     </td>
                 </tr>
             <?php endif; ?>

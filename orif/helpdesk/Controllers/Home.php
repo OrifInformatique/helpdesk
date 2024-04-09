@@ -84,9 +84,10 @@ class Home extends BaseController
      * @return void
      * 
      */
-    public function setSessionVariables()
+    protected function setSessionVariables()
     {
         if(!isset($_SESSION['helpdesk']['next_week']) ||
+            !isset($_SESSION['helpdesk']['lw_periods']) ||
             !isset($_SESSION['helpdesk']['cw_periods']) ||
             !isset($_SESSION['helpdesk']['nw_periods']) ||
             !isset($_SESSION['helpdesk']['presence_periods']))
@@ -102,6 +103,16 @@ class Home extends BaseController
                     'wednesday' => strtotime('+2 days', $next_monday),
                     'thursday' => strtotime('+3 days', $next_monday),
                     'friday' => strtotime('+4 days', $next_monday)
+                ],
+                
+                // SQL names of last week's planning periods (lw)
+                'lw_periods' => 
+                [
+                    'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
+                    'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
+                    'lw_planning_wed_m1', 'lw_planning_wed_m2', 'lw_planning_wed_a1', 'lw_planning_wed_a2',
+                    'lw_planning_thu_m1', 'lw_planning_thu_m2', 'lw_planning_thu_a1', 'lw_planning_thu_a2',
+                    'lw_planning_fri_m1', 'lw_planning_fri_m2', 'lw_planning_fri_a1', 'lw_planning_fri_a2',
                 ],
 
                 // SQL names of the current week's planning periods (cw)
@@ -144,7 +155,7 @@ class Home extends BaseController
      * @return view|void 
      * 
      */
-    public function isUserLogged()
+    protected function isUserLogged()
     {
         if (!isset($_SESSION['user_id']) || empty($_SESSION['user_id']))
         {
@@ -164,11 +175,11 @@ class Home extends BaseController
      * @return view|void
      * 
      */
-    public function isSetPlanningType($planning_type)
+    protected function isSetPlanningType($planning_type)
     {
         if(!in_array($planning_type, [-1,0,1]))
         {
-            $this->session->setFlashdata('error', lang('Helpdesk.err_unvalid_planning_type'));
+            $this->session->setFlashdata('error', lang('Errors.unvalid_planning_type'));
 
             return $this->index();
         }
@@ -183,7 +194,7 @@ class Home extends BaseController
      * @return array
      * 
      */
-    public function defineDaysOff($periods)
+    protected function defineDaysOff($periods)
     {
         $holidays_data = $this->holidays_model->getHolidays();
 
@@ -209,12 +220,12 @@ class Home extends BaseController
     /**
      * Get names, stard and end dates for each period of a week.
      * 
-     * @param int $planning_type ID of the edited planning
-     * 
+     * @param int $planning_type
+     *  
      * @return array
      * 
      */
-    public function choosePeriods($planning_type)
+    protected function choosePeriods($planning_type)
     {
         $periods = [];
 
@@ -273,25 +284,25 @@ class Home extends BaseController
                 break;
 
             case 1:
-                foreach($_SESSION['helpdesk']['next_week'] as $day)
+                foreach($_SESSION['helpdesk']['next_week'] as $key => $day)
                 {
                     $periods +=
                     [
-                        substr($day, 0, 3).'-m1' => [
+                        substr($key, 0, 3).'-m1' => [
                             'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
                             'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
                         ],
-                        substr($day, 0, 3).'-m2' => [
-                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
-                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        substr($key, 0, 3).'-m2' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 10:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 12:00:00')
                         ],
-                        substr($day, 0, 3).'-a1' => [
-                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
-                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        substr($key, 0, 3).'-a1' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 12:45:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 14:45:00')
                         ],
-                        substr($day, 0, 3).'-a2' => [
-                            'start' => strtotime(date('Y-m-d', $day).' 08:00:00'),
-                            'end'   => strtotime(date('Y-m-d', $day).' 10:00:00')
+                        substr($key, 0, 3).'-a2' => [
+                            'start' => strtotime(date('Y-m-d', $day).' 15:00:00'),
+                            'end'   => strtotime(date('Y-m-d', $day).' 16:57:00')
                         ]
                     ];
                 }
@@ -311,7 +322,7 @@ class Home extends BaseController
      * @return array
      * 
      */
-    public function getFlashdataMessages()
+    protected function getFlashdataMessages()
     {
         $messages['success'] = $this->session->getFlashdata('success');
         $messages['error'] = $this->session->getFlashdata('error');
@@ -319,48 +330,70 @@ class Home extends BaseController
         return $messages;
     }
 
+    /**
+     * Display a confirmation page for a specified action (no entry deletion)
+     * 
+     * @param string $action Action that we want to do
+     * 
+     * @return view
+     * 
+     */
+    public function confirm_action($action = null)
+    {
+        $this->isUserLogged();
 
-    /** ********************************************************************************************************************************* */
+        switch($action)
+        {
+            case 'shift_weeks':
+                $action =
+                [
+                    'name' => 'shift_weeks_with_planning_generation',
+                    'css' => 'shift-weeks-with-planning-generation',
+                    'url' => base_url('helpdesk/planning/shift_weeks/true'),
+                    'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
+                ];
 
+                $alt_action = 
+                [
+                    'name' => 'shift_weeks',
+                    'css' => 'shift-weeks',
+                    'url' => base_url('helpdesk/planning/shift_weeks')
+                ];
 
-    // /**
-    //  * Start the planning generation process
-    //  * 
-    //  * @return view
-    //  * 
-    //  */
-    // public function generatePlanning()
-    // {
-    //     $this->isUserLogged();
+                $irreversible_action = true;
+                $back_btn_url = base_url('helpdesk/planning/nw_planning');
+                break;
 
-    //     // Get all users data
-    //     $users = $this->user_data_model->getUsersData();
+            case 'generate_planning':
+                $action = 
+                [
+                    'name' => 'generate_planning',
+                    'css' => 'generate-planning',
+                    'url' => base_url('helpdesk/planning/planning_generation'),
+                    'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
+                ];
+                
+                $alt_action = null;
 
-    //     $data['users'] = [];
+                $irreversible_action = true;
 
-    //     // Data formatting for getting data easier with JS
-    //     foreach($users as $user)
-    //     {
-    //         // .FIX : PREVOIR QUE CETTE FONCTION PEUT RETOURNER NULL
-    //         $presences_user = $this->presences_model->getPresencesUser($user['fk_user_id']);
+                $back_btn_url = base_url('helpdesk/planning/nw_planning');
+                break;
 
-    //         $data['user-'.$user['fk_user_id']] =
-    //         [
-    //             'firstName' => $user['first_name_user_data'],
-    //             'lastName' => $user['last_name_user_data'],
-    //             'id' => $user['last_name_user_data'].substr($user['last_name_user_data'], 0, 1),
-    //             'active' => true, // .TODO : RETRIEVE AUTOMATICALLY THIS VALUE, PRESETTED FOR TESTS
-    //         ];
+            default:
+                $this->session->setFlashData('error', lang('Errors.action_unvalid'));
+                return redirect()->to('helpdesk/planning/cw_planning');
+        }
 
-    //         foreach($presences_user as $presence_name => $presence)
-    //         {
-    //             $data['user-'.$user['fk_user_id']][$presence_name] = $presence;
-    //         }
+        $data = 
+        [
+            'action' => $action,
+            'alt_action' => $alt_action,
+            'back_btn_url' => $back_btn_url,
+            'irreversible_action' => $irreversible_action ?? false,
+            'title' => lang('Titles.confirm_action')
+        ];
 
-    //         array_push($data['users'], $data['user-'.$user['fk_user_id']]);
-    //     }
-
-    //     // Displays the page of planning generation
-    //     return $this->display_view('Helpdesk\generate_planning', $data);
-    // }
+        return $this->display_view('Helpdesk\confirm_action', $data);
+    }
 }

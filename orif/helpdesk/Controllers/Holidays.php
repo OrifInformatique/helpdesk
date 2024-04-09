@@ -54,7 +54,7 @@ class Holidays extends Home
         [
             'messages'      => $this->getFlashdataMessages(),
             'holidays_data' => $this->holidays_model->getHolidays(),
-            'title'         => lang('Helpdesk.ttl_holiday')
+            'title'         => lang('Titles.holiday')
         ];
 
         return $this->display_view('Helpdesk\holidays_list', $data);
@@ -85,19 +85,19 @@ class Holidays extends Home
             [
                 'holiday_name' => 
                 [
-                    'required'    => lang('Helpdesk.required'),
-                    'french_alpha_space' => lang('Helpdesk.french_alpha_space')
+                    'required'              => lang('Forms/Errors.required'),
+                    'french_alpha_space'    => lang('Forms/Errors.french_alpha_space')
                 ],
                 'start_date' => 
                 [
-                    'required'   => lang('Helpdesk.required'),
-                    'valid_date' => lang('Helpdesk.valid_date')
+                    'required'      => lang('Forms/Errors.required'),
+                    'valid_date'    => lang('Forms/Errors.valid_date')
                 ],
                 'end_date' => 
                 [
-                    'required'       => lang('Helpdesk.required'),
-                    'valid_date'     => lang('Helpdesk.valid_date'),
-                    'coherent_dates' => lang('Helpdesk.coherent_dates')
+                    'required'          => lang('Forms/Errors.required'),
+                    'valid_date'        => lang('Forms/Errors.valid_date'),
+                    'coherent_dates'    => lang('Forms/Errors.coherent_dates')
                 ]
             ]);
 
@@ -118,7 +118,7 @@ class Holidays extends Home
 
                 $this->holidays_model->save($data_to_save);
 
-                $this->session->setFlashdata('success', lang('Helpdesk.scs_holiday_updated'));
+                $this->session->setFlashdata('success', lang('Success.holiday_updated'));
 
                 return redirect()->to('/helpdesk/holidays/holidays_list');
             }
@@ -127,12 +127,12 @@ class Holidays extends Home
         if($id_holiday != 0)
         {
             $data['holiday'] = $this->holidays_model->getHoliday($id_holiday);
-            $data['title']   = lang('Helpdesk.ttl_update_holiday');
+            $data['title']   = lang('Titles.update_holiday');
         }
 
         else
         {
-            $data['title'] = lang('Helpdesk.ttl_add_holiday');
+            $data['title'] = lang('Titles.add_holiday');
         }
 
         return $this->display_view('Helpdesk\add_holiday', $data);
@@ -156,7 +156,7 @@ class Holidays extends Home
         {
             $this->holidays_model->delete($id_holiday);
 
-            $this->session->setFlashdata('success', lang('Helpdesk.scs_holiday_deleted'));
+            $this->session->setFlashdata('success', lang('Success.holiday_deleted'));
 
             return redirect()->to('/helpdesk/holidays/holidays_list');
         }
@@ -166,11 +166,11 @@ class Holidays extends Home
         {
             $holiday_data = $this->holidays_model->getHoliday($id_holiday);
 
-            $holiday_entry = lang('Helpdesk.holiday_period').' <strong>'.$holiday_data['name_holiday'].'</strong>.';
+            $holiday_entry = lang('MiscTexts.holiday_period').' <strong>'.$holiday_data['name_holiday'].'</strong>.';
 
             $data = 
             [
-                'title'         => lang('Helpdesk.ttl_delete_confirmation'),
+                'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/holidays/delete_holiday/'.$id_holiday),
                 'btn_back_url'  => base_url('/helpdesk/holidays/save_holiday/'.$id_holiday),
                 'entry'         => $holiday_entry

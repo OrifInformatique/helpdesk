@@ -131,7 +131,7 @@ class Terminal extends Home
             }
         }
 
-        //$data['title'] = lang('Helpdesk.ttl_welcome_to_helpdesk');
+        //$data['title'] = lang('Titles.welcome_to_helpdesk');
 
         return $this->display_view('Helpdesk\terminal', $data);
     }
@@ -163,7 +163,7 @@ class Terminal extends Home
                     $index = 2;
                     break;
                 default:
-                    $this->session->setFlashdata('error', lang('Helpdesk.err_unvalid_technician_selected'));
+                    $this->session->setFlashdata('error', lang('Errors.invalid_technician_selected'));
             }
 
             $role = $index+1;
@@ -171,7 +171,7 @@ class Terminal extends Home
         }
 
         else
-            $this->session->setFlashdata('error', lang('Helpdesk.err_no_technician_selected'));
+            $this->session->setFlashdata('error', lang('Errors.no_technician_selected'));
 
         // Refreshes the terminal
         return redirect()->to('/helpdesk/terminal/display');

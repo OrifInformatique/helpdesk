@@ -90,6 +90,7 @@ label
 {
     display: flex;
     cursor: pointer;
+    user-select: none;
     font-weight: 500;
     position: relative;
     overflow: hidden;
@@ -187,6 +188,32 @@ form
 .action-menu *
 {
     margin: 0 8px;
+}
+
+.select-presence-for-all-fields
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 15px;
+    border-radius: 10px;
+    margin: auto;
+    width: fit-content;
+    background-color: var(--lighter-gray);
+    text-align: center;
+}
+
+.select-presence-for-all-fields div button, .select-presence-for-all-fields div p
+{
+    margin: 4px;
+}
+
+@media (max-width: 340px) 
+{
+    .select-presence-for-all-fields div button, .select-presence-for-all-fields div p
+    {
+        width: 100%;
+    }
 }
 
 @media screen and (max-width: 500px)

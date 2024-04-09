@@ -13,18 +13,18 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Helpdesk.btn_back')?></span></a></nav>
+<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Buttons.back')?></span></a></nav>
 
 <div class="holidays-table">
     <div class="add-holiday">
-        <a class="btn btn-add" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><span><?= lang('Helpdesk.btn_add_holiday')?></span></a>
+        <a class="btn btn-add" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><span><?= lang('Buttons.add_holiday')?></span></a>
     </div>
     <table class="table-responsive">
         <thead>
             <tr>
-                <th><?= lang('Helpdesk.holiday_name')?></th>
-                <th><?= lang('Helpdesk.start_date')?></th>
-                <th><?= lang('Helpdesk.end_date')?></th>
+                <th><?= lang('MiscTexts.holiday_name')?></th>
+                <th><?= lang('MiscTexts.start_date')?></th>
+                <th><?= lang('MiscTexts.end_date')?></th>
             </tr>
         </thead>
         <tbody>
@@ -52,7 +52,7 @@
             <?php else: ?>
                 <tr>
                     <td colspan="3">
-                        <?= lang('Helpdesk.err_no_holidays')?>
+                        <?= lang('Errors.no_holidays')?>
                     </td>
                 </tr>
             <?php endif; ?>

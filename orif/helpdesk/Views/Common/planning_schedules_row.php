@@ -12,12 +12,12 @@
 ?>
 
 <tr>
-    <th><?= lang('Helpdesk.technician')?></th>
+    <th><?= lang('MiscTexts.technician')?></th>
     <?php for($i = 0; $i < 5; $i++): ?>
-        <th>8:00 10:00</th>
-        <th>10:00 12:00</th>
-        <th>12:45 15:00</th>
-        <th>15:00 16:57</th>
+        <th><?= lang('Time.08:00').' '.lang('Time.10:00') ?></th>
+        <th><?= lang('Time.10:00').' '.lang('Time.12:00') ?></th>
+        <th><?= lang('Time.12:45').' '.lang('Time.15:00') ?></th>
+        <th><?= lang('Time.15:00').' '.lang('Time.16:57') ?></th>
     <?php endfor; ?>
     <?= $update_extra_cell ?? '' ?>
 </tr>
