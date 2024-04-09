@@ -85,7 +85,9 @@
 .role
 {
     position: absolute;
-    top: 0
+    top: 0;
+    text-align: center;
+    width: 100%;
 }
 
 .terminal-display img
