@@ -822,7 +822,8 @@ class Planning extends Home
             foreach($generated_planning as $user_id => $generated_planning_entry)
             {
                 // Prevent inserting empty rows (technicinain with no assignations).
-                if($technician_assignations_per_role[$user_id][1] === 0 &&
+                if(!isset($technician_assignations_per_role[$user_id]) ||
+                    $technician_assignations_per_role[$user_id][1] === 0 &&
                     $technician_assignations_per_role[$user_id][2] === 0 &&
                     $technician_assignations_per_role[$user_id][3] === 0)
                 {
