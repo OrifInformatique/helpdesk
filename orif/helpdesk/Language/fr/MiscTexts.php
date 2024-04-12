@@ -14,7 +14,7 @@ return[
     'select_presence_for_all_fields'    => 'Appliquer à toutes les périodes',
 
     /* Planning misc text */
-    'ignore_presences_check' => 'Ignorer la vérification des présences',
+    'ignore_presences_check'    => 'Ignorer la vérification des présences',
     'technician'                => 'Technicien', // Also used in Delete entry
 
     /* Holidays misc text */
@@ -43,5 +43,6 @@ return[
     'delete_from_planning_of_week'  => 'du planning de la semaine',
     'holiday_period'                => 'Période fériée',
     'next'                          => 'prochaine',
+    'planning'                      => 'Planning de la semaine',
     'technician_presences'          => 'Présences de'
 ];

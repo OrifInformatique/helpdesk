@@ -16,6 +16,7 @@ return[
     
     /* Planning buttons */
     'add_technician'    => 'Ajouter un technicien',
+    'delete_planning'   => 'Supprimer le planning',
     'edit_planning'     => 'Modifier le planning',
     'last_week'         => 'Semaine précédente',
     'next_week'         => 'Semaine suivante',

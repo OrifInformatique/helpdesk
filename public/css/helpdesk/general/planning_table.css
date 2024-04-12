@@ -137,6 +137,15 @@
     background-color: var(--lime);
 }
 
+.delete-planning-option
+{
+    align-items: center;
+    padding: 8px;
+    background-color: var(--table-decoration);
+    border-radius: 0;
+    border-bottom: 1px solid var(--gray);
+}
+
 @media screen and (max-width: 350px)
 {
     .ignore_presences_check_option input[type="checkbox"]

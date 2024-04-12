@@ -348,7 +348,7 @@
      * Exceptions
      *
      */
-    nav .btn-back span, #add-holiday .btn-back span, #confirm-action .btn-back span
+    nav .btn-back span, #add-holiday .btn-back span, #confirm-action .btn-back span, .delete-planning-option span
     {
         padding: 0 0 0 5px;
         display: inline;

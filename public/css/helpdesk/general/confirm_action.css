@@ -1,7 +1,8 @@
 #delete-entry, #confirm-action
 {
     min-width: 500px;
-    width: 45%;
+    width: fit-content;
+    padding: 10px;
     border-radius: 8px;
     display: flex;
     flex-direction: column;
@@ -35,7 +36,7 @@
     text-align: center;
 }
 
-#delete-entry strong
+#delete-entry strong, #confirm-action strong
 {
     color: var(--red);
 }
@@ -55,7 +56,6 @@
     #delete-entry, #confirm-action
     {
         min-width: 200px;
-        width: 80%;
         padding: 10px;
     }
 
