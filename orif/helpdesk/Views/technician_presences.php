@@ -11,8 +11,9 @@
 
 ?>
 
-<?= view('Helpdesk\Common\body_start') ?>
+<div id="technician-presences">
 
+<?= view('Helpdesk\Common\body_start') ?>
 
 <?php if(!isset($presences)): ?>
 	<div class="d-flex justify-content-center alert alert-info">
@@ -83,3 +84,5 @@
 		<a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Buttons.back')?></span></a>
 	</div>
 <?= form_close() ?>
+
+</div>

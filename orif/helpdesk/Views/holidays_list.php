@@ -11,6 +11,8 @@
 
 ?>
 
+<div id="holiday">
+
 <?= view('Helpdesk\Common\body_start') ?>
 
 <nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Buttons.back')?></span></a></nav>
@@ -32,10 +34,10 @@
                 <?php foreach ($holidays_data as $holiday) : ?>
                     <?php 
                         $start_date_holiday = new DateTime($holiday['start_date_holiday']); 
-                        $start_date_holiday = $start_date_holiday->format('d/m/Y, H:i:s');
+                        $start_date_holiday = $start_date_holiday->format('d/m/Y, H:i');
 
                         $end_date_holiday = new DateTime($holiday['end_date_holiday']); 
-                        $end_date_holiday = $end_date_holiday->format('d/m/Y, H:i:s');
+                        $end_date_holiday = $end_date_holiday->format('d/m/Y, H:i');
                     ?>
                     <tr>
                         <th>
@@ -59,4 +61,6 @@
         </tbody>
     </table>
     <div class="table-bottom"></div>
+</div>
+
 </div>

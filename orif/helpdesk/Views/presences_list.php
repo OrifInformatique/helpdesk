@@ -11,6 +11,8 @@
 
 ?>
 
+<div id="planning-table">
+
 <?= view('Helpdesk\Common\body_start') ?>
 
 <nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Buttons.back')?></span></a></nav>
@@ -105,4 +107,6 @@
 		<div class="partly-absent"><?= lang('HelpdeskLexicon/Presences.partly_absent')?></div>
 		<div class="absent"><?= lang('HelpdeskLexicon/Presences.absent')?></div>
 	</div>
+</div>
+
 </div>

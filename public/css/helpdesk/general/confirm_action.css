@@ -28,19 +28,19 @@
     flex-wrap: wrap
 }
 
-p
+#confirm-action p, #delete-entry p
 {
     font-size: 1.25em;
     margin: 15px 0 25px 0;
     text-align: center;
 }
 
-strong
+#delete-entry strong
 {
     color: var(--red);
 }
 
-p:has(em)
+#confirm-action p:has(em)
 {
     font-size: 1em;
 }
@@ -64,7 +64,7 @@ p:has(em)
         flex-direction: column;
     }
 
-    p
+    #confirm-action p, #delete-entry p
     {
         font-size: 1em;
         margin-bottom: 5px;

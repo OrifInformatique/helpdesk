@@ -4,8 +4,6 @@
     margin: auto;
 }
 
-
-
 .week
 {
     background-color: var(--table-decoration);
@@ -24,38 +22,38 @@
     background-color: var(--table-decoration);
 }
 
-th, td
+#planning-table th, #planning-table td
 {
     padding: 8px;
     text-align: center;
     border: 1px solid var(--light-gray);
 }
 
-thead tr:nth-child(1) th
+#planning-table thead tr:nth-child(1) th
 {
     font-size: 1.3em;
     height: 62px;
 }
 
-tbody tr:nth-child(even)
+#planning-table tbody tr:nth-child(even)
 {
     background-color: var(--even-line);
 }
 
-tbody tr th:first-child
+#planning-table tbody tr th:first-child
 {
     height: 75px;
     min-width: 115px;
 }
 
-tbody tr th a
+#planning-table tbody tr th a
 {
     color: var(--blue-orif);
     font-weight: 500;
     text-decoration: none;
 }
 
-tbody tr th a:hover
+#planning-table tbody tr th a:hover
 {
     color: var(--blue-orif);
     text-decoration: underline;
@@ -189,17 +187,17 @@ tbody tr th a:hover
     box-shadow: 12px 0 var(--mentor) inset;
 }
 
-.present
+#planning-table .present
 {
     background-color: var(--present);
 }
 
-.partly-absent
+#planning-table .partly-absent
 {
     background-color: var(--partly-absent);
 }
 
-.absent
+#planning-table .absent
 {
     background-color: var(--absent);
 }
@@ -212,7 +210,7 @@ tbody tr th a:hover
      * Sticks the first column to the left when scrolling
      *
      */
-    td:first-child, th:first-child
+     #planning-table td:first-child, #planning-table th:first-child
     {
         position: sticky;
         left: 0;
@@ -220,7 +218,7 @@ tbody tr th a:hover
         background-color: var(--white);
     }
 
-    th:first-child::before, th:first-child::after
+    #planning-table th:first-child::before, #planning-table th:first-child::after
     {
         content: "";
         display: block;
@@ -229,21 +227,21 @@ tbody tr th a:hover
         height: 103%;
     }
     
-    th:first-child::before
+    #planning-table th:first-child::before
     {
         width: 2px;
         background-color: var(--light-gray);
         left: -1px;
     }
     
-    th:first-child::after
+    #planning-table th:first-child::after
     {
         width: 2px;
         background-color: var(--black);
         right: 0;
     }
 
-    table
+    #planning-table table
     {
         overflow-y: hidden;
     }
@@ -256,12 +254,12 @@ tbody tr th a:hover
         display: none;
     }
 
-    td[colspan="21"]
+    #planning-table td[colspan="21"]
     {
         text-align: left;
     }
 
-    td[colspan="21"] a
+    #planning-table td[colspan="21"] a
     {
         margin-top: 5px;
     }
@@ -316,7 +314,7 @@ tbody tr th a:hover
         margin: 10px 0;
     }
 
-    select[name="technician"]
+    #planning-table select[name="technician"]
     {
         width: 80px;
     }

@@ -11,6 +11,8 @@
 
 ?>
 
+<div id="holiday">
+
 <?= view('Helpdesk\Common\body_start') ?>
 
 <div>
@@ -53,3 +55,5 @@
         <a class="btn btn-back mt-2" href="<?= base_url('/helpdesk/holidays/holidays_list') ?>"><span><?= lang('Buttons.back')?></span></a>
     </div>
 <?= form_close('</div>') ?>
+
+</div>

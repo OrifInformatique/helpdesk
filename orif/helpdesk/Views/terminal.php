@@ -11,6 +11,8 @@
 
 ?>
 
+<div id="terminal">
+
 <?= view('Helpdesk\Common\body_start') ?>
 
 <div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('/helpdesk/terminal/display/'.$preview)) ?>"></div>
@@ -77,4 +79,6 @@
 
 <div class="auto-refresh-timer">
     <p><?= lang('MiscTexts.updating_in') ?> <span class="timer"></span> <?= lang('MiscTexts.seconds') ?>.</p>
+</div>
+
 </div>

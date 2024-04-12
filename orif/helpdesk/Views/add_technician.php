@@ -11,6 +11,8 @@
 
 ?>
 
+<div id="planning-table">
+
 <?= view('Helpdesk\Common\body_start') ?>
 
 <?= view('Helpdesk\Common\planning_presences_quick_goto') ?>
@@ -69,3 +71,5 @@
         <?= view('Helpdesk\Common\planning_roles') ?>
     </div>
 <?= form_close() ?>
+
+</div>
