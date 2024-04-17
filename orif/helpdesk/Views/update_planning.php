@@ -55,7 +55,7 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>" title="<?= lang('Buttons.delete_tech_from_planning')?>"></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -77,7 +77,7 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>" title="<?= lang('Buttons.delete_tech_from_planning')?>"></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
