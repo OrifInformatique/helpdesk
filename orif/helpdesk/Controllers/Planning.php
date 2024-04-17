@@ -656,6 +656,8 @@ class Planning extends Home
      */
     public function shift_weeks($generate_planning = false)
     {
+        $this->setSessionVariables();
+
         try
         {
             // PART 1 : Last week deletion
