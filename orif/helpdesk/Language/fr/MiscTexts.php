@@ -44,5 +44,8 @@ return[
     'holiday_period'                => 'Période fériée',
     'next'                          => 'prochaine',
     'planning'                      => 'Planning de la semaine',
-    'technician_presences'          => 'Présences de'
+    'technician_presences'          => 'Présences de',
+
+    /* Assistance misc text */
+    'what_does_it_mean' => 'Que cela signifie-t-il ?'
 ];

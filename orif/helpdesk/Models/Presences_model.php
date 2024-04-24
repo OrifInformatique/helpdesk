@@ -50,6 +50,7 @@ class Presences_model extends \CodeIgniter\Model
     public function getAllPresences()
     {
         $all_presences_data = $this->join('tbl_user_data', 'tbl_presences.fk_user_id = tbl_user_data.fk_user_id')
+            ->join('user','tbl_presences.fk_user_id = user.id')
             ->orderBy('last_name_user_data', 'ASC')
             ->findAll();
 

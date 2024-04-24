@@ -36,5 +36,8 @@ return[
     'delete_confirmation' => 'Confirmation de suppression',
 
     /* Technician menu page */
-    'technician_menu' => 'Menu du technicien'
+    'technician_menu' => 'Menu du technicien',
+
+    /* Assitance page */
+    'assistance' => 'Assistance'
 ];

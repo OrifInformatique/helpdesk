@@ -1,0 +1,11 @@
+a:not(.btn), a:not(.btn):visited
+{
+    color: var(--blue-orif);
+    text-decoration: none;
+}
+
+a:not(.btn):hover
+{
+    color: var(--dark-blue-orif);
+    text-decoration: underline;
+}

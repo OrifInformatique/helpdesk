@@ -396,4 +396,42 @@ class Home extends BaseController
 
         return $this->display_view('Helpdesk\confirm_action', $data);
     }
+
+
+    /** ********************************************************************************************************************************* */
+
+
+    /**
+     * Displays the assistance page
+     * 
+     * @return view
+     * 
+     */
+    public function assistance()
+    {
+        $data['assistances'] =
+        [
+            'roles' => 
+            [
+                'summary' => lang('Assistance.roles_summary'),
+                'details' => lang('Assistance.roles_details'),
+            ],
+
+            'presences' => 
+            [
+                'summary' => lang('Assistance.presences_summary'),
+                'details' => lang('Assistance.presences_details'),
+            ],
+
+            'mentor' => 
+            [
+                'summary' => lang('Assistance.mentor_summary'),
+                'details' => lang('Assistance.mentor_details'),
+            ]
+        ];
+
+        $data['title'] = lang('Titles.assistance');
+
+        return $this->display_view('Helpdesk\assistance', $data);
+    }
 }

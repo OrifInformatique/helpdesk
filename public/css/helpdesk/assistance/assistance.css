@@ -1,0 +1,113 @@
+#assistance-container
+{
+    width: 96%;
+    height: fit-content;
+    margin: 10px auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.assistance-element
+{
+    width: 45%;
+    margin: 12px;
+}
+
+details
+{
+    background-color: var(--light-gray);
+}
+
+details p
+{
+    padding: 8px;
+    margin: 0 3px;
+    overflow-wrap: break-word;
+}
+
+details li
+{
+    list-style: none;
+}
+
+details li::before
+{
+    font: var(--fa-font-solid);
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    margin-right: 5px;
+    content: "\f058"; /* https://fontawesome.com/icons/circle-check?f=classic&s=solid */
+}
+
+summary
+{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    user-select: none;
+    font-size: 2em;
+    background-color: var(--white);
+    border-bottom: 2px solid var(--gray);
+    padding: 0 8px;
+    transition: 0.25s ease;
+}
+
+summary h3
+{
+    font-size: inherit;
+    font-weight: normal;
+    margin-bottom: 0;
+    line-height: 1.5;
+}
+
+summary:hover
+{
+    background-color: var(--lighter-gray);
+}
+
+summary::after
+{
+    font: var(--fa-font-solid);
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    content: "\f078"; /* https://fontawesome.com/icons/chevron-down?f=classic&s=solid */;
+    display: block;
+    transition: 0.25s ease;
+}
+
+details[open] summary::after
+{
+    transform: rotate(180deg);
+}
+
+@media (max-width: 800px)
+{
+    .assistance-element
+    {
+        width: 100%;
+        margin: 12px 0;
+    }
+}
+
+@media (max-width: 525px)
+{
+    summary
+    {
+        font-size: 1.5em;
+    }
+
+    details p
+    {
+        font-size: 0.9em;
+    }
+}
+
+@media (max-width: 325px)
+{
+    summary
+    {
+        font-size: 1em;
+    }
+}

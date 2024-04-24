@@ -26,15 +26,7 @@
 			<button disabled class="btn btn-edit"><span><?= lang('Buttons.my_presences') ?></span></button>
 		<?php endif; ?>
 	</div>
-	<table class="table-responsive
-	<?php if(isset($classes))
-	{
-		foreach($classes as $class)
-		{
-			echo $class;
-		}
-	}?>
-	">
+	<table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
 		<thead>
 			<tr>
 				<th></th>
@@ -61,7 +53,7 @@
 			<?php if (isset($all_users_presences) && !empty($all_users_presences)) : ?>
 				<?php foreach ($all_users_presences as $user_presences) : ?>
 					<tr>
-						<th>
+						<th <?php if($user_presences['fk_user_type'] == 4){echo 'class="mentor"';}?>>
 							<?= $user_presences['last_name_user_data'].'<br>'.$user_presences['first_name_user_data']; ?>
 						</th>
 
@@ -103,9 +95,12 @@
 	<?= view('Helpdesk\Common\planning_bottom') ?>
 
 	<div class="roles roles-presences">
-		<div class="present"><?= lang('HelpdeskLexicon/Presences.present')?></div>
-		<div class="partly-absent"><?= lang('HelpdeskLexicon/Presences.partly_absent')?></div>
-		<div class="absent"><?= lang('HelpdeskLexicon/Presences.absent')?></div>
+		<div>
+			<div class="present"><?= lang('HelpdeskLexicon/Presences.present')?></div>
+			<div class="partly-absent"><?= lang('HelpdeskLexicon/Presences.partly_absent')?></div>
+			<div class="absent"><?= lang('HelpdeskLexicon/Presences.absent')?></div>
+		</div>
+		<a href="<?= base_url('/helpdesk/home/assistance') ?>"><?= lang('MiscTexts.what_does_it_mean') ?></a>
 	</div>
 </div>
 

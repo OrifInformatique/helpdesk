@@ -170,6 +170,7 @@
 .roles
 {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     padding: 15px;
     background-color: var(--roles);
@@ -180,15 +181,28 @@
 
 .roles div
 {
+    display: flex;
+    flex-direction: row;
+}
+
+.roles div div
+{
     padding: 10px;
     height: fit-content;
     border-radius: 5px;
     border: 1px solid var(--gray);
 }
 
-.roles div:nth-child(2)
+.roles div div:nth-child(2)
 {
     margin: 0 10px;
+}
+
+.roles a
+{
+    width: fit-content;
+    height: fit-content;
+    margin: 10px auto 0 auto;
 }
 
 .mentor
@@ -196,17 +210,17 @@
     box-shadow: 12px 0 var(--mentor) inset;
 }
 
-#planning-table .present
+#planning-table .present, #assistance-container .present
 {
     background-color: var(--present);
 }
 
-#planning-table .partly-absent
+#planning-table .partly-absent, #assistance-container .partly-absent
 {
     background-color: var(--partly-absent);
 }
 
-#planning-table .absent
+#planning-table .absent, #assistance-container .absent
 {
     background-color: var(--absent);
 }
@@ -281,24 +295,24 @@
 
 @media screen and (max-width: 720px)
 {
-    .roles
+    .roles div
     {
         flex-direction: column;
     }
 
     
-    .roles div:nth-child(2)
+    .roles div div:nth-child(2)
     {
         margin: 10px 0;
 
     }
     
-    .roles.roles-presences
+    .roles .roles-presences
     {
         flex-direction: row;
     }
 
-    .roles.roles-presences div:nth-child(2)
+    .roles .roles-presences div:nth-child(2)
     {
         margin: 0 10px;
     }

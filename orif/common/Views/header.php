@@ -70,6 +70,8 @@
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/title.css") ?>">
     
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/confirm_action.css"); ?>">
+
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/general/links.css"); ?>">
     
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/planning/planning_nav.css") ?>">
     
@@ -78,6 +80,8 @@
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/presences/technician_presences.css"); ?>">
     
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/holidays/holidays.css"); ?>">
+
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/assistance/assistance.css"); ?>">
 
     <?php // This condition is necessary : we can't remove the login bar only in the terminal page otherwise
     if (strpos($_SERVER['REQUEST_URI'], 'terminal')): ?>
