@@ -98,7 +98,7 @@ details[open] summary::after
         font-size: 1.5em;
     }
 
-    details p
+    details p, details li
     {
         font-size: 0.9em;
     }
@@ -109,5 +109,10 @@ details[open] summary::after
     summary
     {
         font-size: 1em;
+    }
+
+    details li
+    {
+        margin-left: -28px;
     }
 }
