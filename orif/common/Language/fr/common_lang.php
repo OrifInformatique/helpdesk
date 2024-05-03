@@ -46,5 +46,5 @@ return[
     'initialize'                     => 'Initialiser',
     'for'                            => 'Pour',
     'click_on_the_button'            => 'Cliquez sur le bouton',
-    'above'                          => 'Ci-dessous',
+    'above'                          => 'Ci-dessus',
 ];
