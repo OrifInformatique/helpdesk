@@ -32,6 +32,7 @@ return[
     'back'      => 'Retour',
     'cancel'    => 'Annuler',
     'continue'  => 'Continuer',
+    'edit'      => 'Modifier',
     'delete'    => 'Supprimer',
     'reset'     => 'Réinitialiser',
     'save'      => 'Enregistrer',
@@ -39,5 +40,9 @@ return[
     /* Planning generation buttons */
     'generate_planning'                     => 'Générer un planning',
     'shift_weeks'                           => 'Déplacer les semaines',
-    'shift_weeks_with_planning_generation'  => 'Déplacer les semaines et générer un planning'
+    'shift_weeks_with_planning_generation'  => 'Déplacer les semaines et générer un planning',
+
+    /* Dashboard buttons */
+    'add_technician_to_planning' => 'Ajouter au planning de la semaine',
+    'delete_technician_from_planning' => 'Supprimer du planning de la semaine',
 ];

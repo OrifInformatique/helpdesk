@@ -83,6 +83,8 @@
 
     <link rel="stylesheet" href="<?= base_url("css/helpdesk/assistance/assistance.css"); ?>">
 
+    <link rel="stylesheet" href="<?= base_url("css/helpdesk/technician/dashboard.css"); ?>">
+
     <?php // This condition is necessary : we can't remove the login bar only in the terminal page otherwise
     if (strpos($_SERVER['REQUEST_URI'], 'terminal')): ?>
         <link rel="stylesheet" href="<?= base_url("css/helpdesk/terminal/terminal.css"); ?>">

@@ -397,6 +397,19 @@ class Home extends BaseController
         return $this->display_view('Helpdesk\confirm_action', $data);
     }
 
+    /**
+     * Evalautes if the user has admin rights.
+     * 
+     * @param int $user_access Acces level of the logged user (stored in session)
+     * 
+     * @return bool
+     * 
+     */
+    public function isAdmin($access_level)
+    {
+        return $access_level == 4;
+    }
+
 
     /** ********************************************************************************************************************************* */
 

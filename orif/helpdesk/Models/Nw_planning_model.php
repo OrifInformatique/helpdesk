@@ -73,6 +73,26 @@ class Nw_planning_model extends \CodeIgniter\Model
 
 
     /**
+     * Get a specific user having a role in next week planning
+     * 
+     * @param int $user_id
+     * 
+     * @return array
+     * 
+     */
+    public function getNwPlanningDataBySpecificUser($user_id)
+    {
+        $nw_planning_data_by_user = $this->join('tbl_user_data','tbl_nw_planning.fk_user_id = tbl_user_data.fk_user_id')
+                                         ->join('user','tbl_nw_planning.fk_user_id = user.id')
+                                         ->where('user.id', $user_id)
+                                         ->orderBy('last_name_user_data', 'ASC')
+                                         ->findAll();
+
+        return $nw_planning_data_by_user;
+    }
+
+
+    /**
      * Get the planning ID of a specific user planning entry
      * 
      * @param int $user_id ID of a specific user

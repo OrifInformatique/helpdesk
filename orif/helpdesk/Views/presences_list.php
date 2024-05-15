@@ -53,9 +53,7 @@
 			<?php if (isset($all_users_presences) && !empty($all_users_presences)) : ?>
 				<?php foreach ($all_users_presences as $user_presences) : ?>
 					<tr>
-						<th <?php if($user_presences['fk_user_type'] == 4){echo 'class="mentor"';}?>>
-							<?= $user_presences['last_name_user_data'].'<br>'.$user_presences['first_name_user_data']; ?>
-						</th>
+					<?= view('Helpdesk\Common\planning_technician_name_column', $user_presences) ?>
 
 						<?php foreach ($_SESSION['helpdesk']['presences_periods'] as $period)
 						{
