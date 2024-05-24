@@ -84,7 +84,7 @@ class Technician extends Home
             'user'              => $user,
             'role'              => $role,
             'isUserLoggedAdmin' => $this->isAdmin($_SESSION['user_access']),
-            'id_presence'       => $this->presences_model->getPresenceId($user_id)['id_presence'],
+            'id_presence'       => $this->presences_model->getPresenceId($user_id)['id_presence'] ?? null,
             'title'             => lang('Titles.technician_menu')
         ];
 

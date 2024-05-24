@@ -100,7 +100,7 @@
 /* *************************************************************** */
 
 /* Delete button */
-.btn-delete
+.btn-delete, .btn-delete:disabled:hover, .btn-delete:disabled:active, .btn-delete:disabled:focus
 {
     background-color: var(--red);
     border-color: var(--red);
@@ -126,7 +126,7 @@
 /* *************************************************************** */
 
 /* Save button */
-.btn-save
+.btn-save, .btn-save:disabled:hover, .btn-save:disabled:active, .btn-save:disabled:focus
 {
     background-color: var(--green);
     border-color: var(--green);
@@ -152,7 +152,7 @@
 /* *************************************************************** */
 
 /* Reset button */
-.btn-reset
+.btn-reset, .btn-reset:disabled:hover, .btn-reset:disabled:active, .btn-reset:disabled:focus
 {
     background-color: var(--yellow);
     border-color: var(--yellow);

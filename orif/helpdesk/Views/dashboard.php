@@ -65,9 +65,15 @@
             <a class="btn btn-edit" href="<?= base_url('helpdesk/presences/technician_presences/'.$user['id']) ?>">
                 <span><?= lang('Buttons.edit') ?></span>
             </a>
-            <a class="btn btn-delete" href="<?= base_url('helpdesk/presences/delete_presences/'.$id_presence) ?>">
-                <span><?= lang('Buttons.delete') ?></span>
-            </a>
+            <?php if(isset($id_presence)): ?>
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/presences/delete_presences/'.$id_presence) ?>">
+                    <span><?= lang('Buttons.delete') ?></span>
+                </a>
+            <?php else: ?>
+                <button class="btn btn-delete" disabled>
+                    <span><?= lang('Buttons.delete') ?></span>
+                </button>
+            <?php endif; ?>
         </div>
     </div>
     

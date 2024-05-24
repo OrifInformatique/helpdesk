@@ -19,7 +19,7 @@
     width: fit-content;
 }
 
-.dashboard-card a:not(:first-child)
+.dashboard-card a:not(:first-child), .dashboard-card button:disabled:not(:first-child)
 {
     margin-top: 5px;
 }
