@@ -73,6 +73,26 @@ class Planning_model extends \CodeIgniter\Model
 
 
     /**
+     * Get a specific user having a role in current week planning
+     * 
+     * @param int $user_id
+     * 
+     * @return array
+     * 
+     */
+    public function getPlanningDataBySpecificUser($user_id)
+    {
+        $planning_data_by_user = $this->join('tbl_user_data','tbl_planning.fk_user_id = tbl_user_data.fk_user_id')
+                                      ->join('user','tbl_planning.fk_user_id = user.id')
+                                      ->where('user.id', $user_id)
+                                      ->orderBy('last_name_user_data', 'ASC')
+                                      ->findAll();
+
+        return $planning_data_by_user;
+    }
+
+
+    /**
      * Get the planning ID of a specific user planning entry
      * 
      * @param int $user_id ID of a specific user

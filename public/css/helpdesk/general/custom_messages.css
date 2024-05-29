@@ -37,9 +37,9 @@
 	.custom-alert
 	{
 		flex-direction: column;
-		margin: 0 auto;
-		left: 0;
-		right: 0;
+		margin: auto;
+		left: 10px;
+		right: 10px;
 	}
 
 	.custom-alert i

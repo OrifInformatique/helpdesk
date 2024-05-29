@@ -15,6 +15,13 @@
     <?= form_label(lang('MiscTexts.ignore_presences_check'), 'ignore_presences_check') ?>
     <input type="checkbox" name="ignore_presences_check" id="ignore_presences_check">
 </div>
+
+<?php if(isset($update) && $update): ?>
+    <div class="action-menu delete-planning-option">
+        <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_planning/'.$planning_type) ?>"><span><?= lang('Buttons.delete_planning') ?></span></a>
+    </div>
+<?php endif; ?>
+
 <div class="action-menu">
     <button type="submit" class="btn btn-save"><span><?= lang('Buttons.save') ?></span></button>
     <button type="reset" class="btn btn-reset"><span><?= lang('Buttons.reset') ?></span></button>

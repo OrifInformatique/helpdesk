@@ -51,14 +51,13 @@
 .btn-add
 {
     background-color: var(--lime);
-    border: 1px solid var(--lime);
+    border-color: var(--lime);
     color: var(--white);
 }
 
 .btn-add:hover
 {
     background-color: var(--light-green);
-    border: 1px solid var(--lime);
     color: var(--lime);
 }
 
@@ -78,7 +77,7 @@
 .btn-edit, .btn-edit:disabled:hover, .btn-edit:disabled:active, .btn-edit:disabled:focus
 {
     background-color: var(--orange);
-    border: 1px solid var(--orange);
+    border-color: var(--orange);
     color: var(--white);
 }
 
@@ -93,13 +92,6 @@
     box-shadow: 0px 0px 1px 3px var(--orange);
 }
 
-.btn-edit:disabled
-{
-    box-shadow: none;
-    opacity: 33%;
-    cursor: not-allowed;
-}
-
 .btn-edit::before
 {
     content: "\f303"; /* https://fontawesome.com/icons/pencil?f=classic&s=light */
@@ -108,10 +100,10 @@
 /* *************************************************************** */
 
 /* Delete button */
-.btn-delete
+.btn-delete, .btn-delete:disabled:hover, .btn-delete:disabled:active, .btn-delete:disabled:focus
 {
     background-color: var(--red);
-    border: 1px solid var(--red);
+    border-color: var(--red);
     color: var(--white);
 }
 
@@ -134,10 +126,10 @@
 /* *************************************************************** */
 
 /* Save button */
-.btn-save
+.btn-save, .btn-save:disabled:hover, .btn-save:disabled:active, .btn-save:disabled:focus
 {
     background-color: var(--green);
-    border: 1px solid var(--green);
+    border-color: var(--green);
     color: var(--white);
 }
 
@@ -160,10 +152,10 @@
 /* *************************************************************** */
 
 /* Reset button */
-.btn-reset
+.btn-reset, .btn-reset:disabled:hover, .btn-reset:disabled:active, .btn-reset:disabled:focus
 {
     background-color: var(--yellow);
-    border: 1px solid var(--yellow);
+    border-color: var(--yellow);
     color: var(--black);
 }
 
@@ -190,7 +182,7 @@
 .btn-present
 {
     background-color: var(--present);
-    border: 1px solid var(--present);
+    border-color: var(--present);
     color: var(--black);
 }
 
@@ -213,7 +205,7 @@
 .btn-partly-absent
 {
     background-color: var(--partly-absent);
-    border: 1px solid var(--partly-absent);
+    border-color: var(--partly-absent);
     color: var(--black);
 }
 
@@ -230,7 +222,7 @@
 .btn-absent
 {
     background-color: var(--absent);
-    border: 1px solid var(--absent);
+    border-color: var(--absent);
     color: var(--black);
 }
 
@@ -348,10 +340,9 @@
      * Exceptions
      *
      */
-    nav .btn-back span, #add-holiday .btn-back span, #confirm-action .btn-back span
+    nav .btn-back span, #add-holiday .btn-back span, #confirm-action .btn-back span, .delete-planning-option span, .dashboard-card .btn span
     {
         padding: 0 0 0 5px;
         display: inline;
-        width: min-content;
     }
 }

@@ -55,12 +55,12 @@
 
 .preview-text-left 
 {
-    left: 1%;
+    left: 10px;
 }
 
 .preview-text-right 
 {
-    right: 1%;
+    right: 10px;
 }
 
 .technician-sheet, .technician-sheet:hover
@@ -73,7 +73,7 @@
     height: 530px;
     margin: 15px;
     text-decoration: none;
-    color: var(--black);
+    color: var(--black) !important;
 }
 
 .role, .identity

@@ -14,7 +14,7 @@ return[
     'select_presence_for_all_fields'    => 'Appliquer à toutes les périodes',
 
     /* Planning misc text */
-    'ignore_presences_check' => 'Ignorer la vérification des présences',
+    'ignore_presences_check'    => 'Ignorer la vérification des présences',
     'technician'                => 'Technicien', // Also used in Delete entry
 
     /* Holidays misc text */
@@ -23,7 +23,6 @@ return[
     'start_date'    => 'Date de début',
 
     /* Terminal misc text */
-    'alt_photo_technician'  => 'Photo de face du technicien',
     'preview'               => 'Aperçu',
     'unavailable'           => 'Indisponible',
     'updating_in'           => 'Actualisation dans',
@@ -38,10 +37,17 @@ return[
     'irreversible_action'                   => 'Cette action est irréversible.',
     
     /* Delete entry misc text */
-    'actual'                        => 'actuelle',
+    'actual'                        => 'actuelle', // Also used in dashboard
     'delete_confirmation'           => 'Voulez-vous vraiment supprimer cette entrée ?',
     'delete_from_planning_of_week'  => 'du planning de la semaine',
     'holiday_period'                => 'Période fériée',
-    'next'                          => 'prochaine',
-    'technician_presences'          => 'Présences de'
+    'next'                          => 'prochaine', // Also used in dashboard
+    'planning'                      => 'Planning de la semaine',
+    'technician_presences'          => 'Présences de',
+
+    /* Assistance misc text */
+    'what_does_it_mean' => 'Que cela signifie-t-il ?',
+
+    /* Dashboard misc text */
+    'role_unknown' => 'Rôle inconnu'
 ];

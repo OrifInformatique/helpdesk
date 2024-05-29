@@ -43,9 +43,9 @@ class Technician extends Home
 
 
     /**
-     * [DOES NOT HAVE AN ACTUAL USE FOR NOW] Displays the dashboard of a specific technician.
+     * Displays the dashboard of a specific technician.
      * 
-     * @param int $user_id ID of a user
+     * @param int $user_id
      * 
      * @return view
      * 
@@ -54,10 +54,38 @@ class Technician extends Home
     {
         $this->isUserLogged();
 
+        $user = $this->user_data_model->getUserData($user_id)[0];
+        $role = '';
+
+        switch($user['fk_user_type'])
+        {
+            case 1:
+                $role = lang('Technician.role_guest');
+                break;
+
+            case 2:
+                $role = lang('Technician.role_user');
+                break;
+
+            case 3:
+                $role = lang('Technician.role_admin');
+                break;
+
+            case 4:
+                $role = lang('Technician.role_mentor');
+                break;
+
+            default:
+                $role = lang('MiscTexts.role_unknown');
+        }
+
         $data =
         [
-            'user'  => $this->user_data_model->getUserData($user_id),
-            'title' => lang('Titles.technician_menu')
+            'user'              => $user,
+            'role'              => $role,
+            'isUserLoggedAdmin' => $this->isAdmin($_SESSION['user_access']),
+            'id_presence'       => $this->presences_model->getPresenceId($user_id)['id_presence'] ?? null,
+            'title'             => lang('Titles.technician_menu')
         ];
 
         return $this->display_view('Helpdesk\dashboard', $data);

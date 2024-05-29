@@ -11,6 +11,8 @@
 
 ?>
 
+<div id="planning-table">
+
 <?= view('Helpdesk\Common\body_start') ?>
 <?= view('Helpdesk\Common\planning_nav') ?>
 
@@ -62,4 +64,6 @@
     <?= view('Helpdesk\Common\planning_bottom') ?>
 
     <?= view('Helpdesk\Common\planning_roles') ?>
+</div>
+
 </div>

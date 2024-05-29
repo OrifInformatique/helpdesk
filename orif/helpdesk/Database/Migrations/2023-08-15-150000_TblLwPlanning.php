@@ -53,6 +53,10 @@ class AddLwPlanning extends Migration
 
         $this->forge->createTable('tbl_lw_planning');
 
+        $seeder=\Config\Database::seeder();
+
+        $seeder->call('\Helpdesk\Database\Seeds\InsertUserData');
+
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
