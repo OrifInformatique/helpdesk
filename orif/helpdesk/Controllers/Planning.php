@@ -520,9 +520,11 @@ class Planning extends Home
         $periods = $this->choosePeriods($planning_type);
 
         if(empty($data['messages']['success']))
-            $data['messages']         = $this->getFlashdataMessages();
+            $data['messages'] = $this->getFlashdataMessages();
+
         $data['form_fields']      = $form_fields;
         $data['classes']          = $this->defineDaysOff($periods);
+        $data['update']           = true;
 
         return $this->display_view('Helpdesk\update_planning', $data);
     }
@@ -587,6 +589,60 @@ class Planning extends Home
         }
     }
 
+
+    /**
+     * Displays the planning delete confirm page, and does the suppression of the entire planning.
+     * 
+     * @param int $planning_type ID of the edited planning
+     * 
+     * @return view
+     * 
+     */
+    public function delete_planning($planning_type)
+    {
+        $this->isUserLogged();
+
+        $this->isSetPlanningType($planning_type);
+
+        // If the users confirms the deletion
+        if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
+        {
+            $this->session->setFlashdata('success', lang('Success.planning_deleted'));
+
+            // 0 is current week, 1 is next week
+            switch($planning_type)
+            {
+                case 0:
+                    $this->planning_model->emptyTable();
+
+                    return redirect()->to('/helpdesk/planning/cw_planning');
+
+                case 1:
+                    $this->nw_planning_model->emptyTable();
+
+                    return redirect()->to('/helpdesk/planning/nw_planning');
+            }
+        }
+
+        // When the user clicks the delete button
+        else
+        {
+            $week = $planning_type == 0 ? lang('MiscTexts.actual') : lang('MiscTexts.next');
+
+            $planning_entry = lang('MiscTexts.planning').' <strong>'.$week.'</strong>.';
+
+            $data =
+            [
+                'title'         => lang('Titles.delete_confirmation'),
+                'delete_url'    => base_url('/helpdesk/planning/delete_planning/'.$planning_type),
+                'btn_back_url'  => base_url('/helpdesk/planning/update_planning/'.$planning_type),
+                'entry'         => $planning_entry
+            ];
+
+            return $this->display_view('Helpdesk\delete_entry', $data);
+        }
+    }
+
     
     /** ********************************************************************************************************************************* */
 
@@ -600,6 +656,8 @@ class Planning extends Home
      */
     public function shift_weeks($generate_planning = false)
     {
+        $this->setSessionVariables();
+
         try
         {
             // PART 1 : Last week deletion

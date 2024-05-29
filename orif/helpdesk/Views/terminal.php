@@ -11,12 +11,16 @@
 
 ?>
 
+<div id="terminal">
+
 <?= view('Helpdesk\Common\body_start') ?>
 
 <div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('/helpdesk/terminal/display/'.$preview)) ?>"></div>
 <div id="img-link-data" data-img-link="<?= htmlspecialchars(base_url('/images/helpdesk/default_technician_picture.jpg')) ?>"></div>
+<div id="alt-text-data" data-alt-text="<?= lang('Technician.alt_photo_technician') ?>"></div>
+
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
-<script src="<?= base_url('Scripts/terminal/image_error_handling.js')?>"></script>
+<script src="<?= base_url('Scripts/technician_photo/technician_photo_error_handling.js')?>"></script>
 
 <?php if($preview) :?>
     <div class="preview-filter">
@@ -58,7 +62,7 @@
                 </div>
 
                 <div>
-                    <img src="<?= $technician['photo_user_data'] ?>" alt="<?= lang('MiscTexts.alt_photo_technician') ?>" onerror="HideImage<?= $technician[$period] ?>(this)">
+                    <img src="<?= $technician['photo_user_data'] ?>" alt="<?= lang('Technician.alt_photo_technician') ?>" onerror="DisplayDefaultTechnicianPhoto(this)">
                 </div>
 
                 <div class="identity">
@@ -77,4 +81,6 @@
 
 <div class="auto-refresh-timer">
     <p><?= lang('MiscTexts.updating_in') ?> <span class="timer"></span> <?= lang('MiscTexts.seconds') ?>.</p>
+</div>
+
 </div>

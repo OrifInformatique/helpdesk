@@ -21,7 +21,7 @@
     margin: 0;
 }
 
-i
+#technician-presences i
 {
 	color: var(--black);
 	font-size: 1.5em;
@@ -30,20 +30,20 @@ i
 
 @media screen and (max-width: 600px) 
 {
-    .alert
+    #technician-presences .alert
     {
         flex-direction: column;
         text-align: center;
     }
 }
 
-form > div
+#technician-presences form > div
 {
     display: flex;
     justify-content: center;
 }
 
-h3
+#technician-presences h3
 {
     line-height: normal;
     margin: 15px auto 0 auto;
@@ -56,7 +56,7 @@ h3
     color: var(--blue-orif);
 }
 
-.table-bottom
+#technician-presences .table-bottom
 {
     background-color: var(--table-decoration);
     border-radius: 0 0 5px 5px;
@@ -66,27 +66,27 @@ h3
     margin: auto;
 }
 
-table
+#technician-presences table
 {
     width: 900px;
     margin: auto;
 }
 
-th, td
+#technician-presences th, #technician-presences td
 {
     padding: 8px;
     text-align: center;
     border: 1px solid var(--light-gray);
 }
 
-thead tr:first-child th 
+#technician-presences thead tr:first-child th 
 {
     text-align: center;
     font-size: 20px;
     font-weight: bold;
 }
 
-label
+#technician-presences label, #add-technician-presences label
 {
     display: flex;
     cursor: pointer;
@@ -97,12 +97,12 @@ label
     margin-bottom: 0.375em;
 }
 
-label input
+#technician-presences label input
 {
     display: none;
 }
 
-label span
+#technician-presences label span
 {
     display: flex;
     align-items: center;
@@ -112,12 +112,12 @@ label span
     color: var(--blue-orif);
 }
 
-label span:hover
+#technician-presences label span:hover
 {
     background-color: var(--light-blue-orif);
 }
 
-label span:before
+#technician-presences label span:before
 {
     display: flex;
     flex-shrink: 0;
@@ -131,45 +131,45 @@ label span:before
     box-shadow: inset 0 0 0 0.125em var(--dark-blue-orif);
 }
 
-label input:checked+span.present
+#technician-presences label input:checked+span.present
 {
     background-color: var(--green);
     color: var(--white);
 }
 
-label input:checked+span.present:before
+#technician-presences label input:checked+span.present:before
 {
     box-shadow: inset 0 0 0 0.4375em var(--dark-green);
 }
 
-label input:checked+span.partly-absent
+#technician-presences label input:checked+span.partly-absent
 {
     background-color: var(--orange);
     color: var(--white);
 }
 
-label input:checked+span.partly-absent:before
+#technician-presences label input:checked+span.partly-absent:before
 {
     box-shadow: inset 0 0 0 0.4375em var(--dark-orange);
 }
 
-label input:checked+span.absent
+#technician-presences label input:checked+span.absent
 {
     background-color: var(--red);
     color: var(--white);
 }
 
-label input:checked+span.absent:before
+#technician-presences label input:checked+span.absent:before
 {
     box-shadow: inset 0 0 0 0.4375em var(--dark-red);
 }
 
-form
+#technician-presences form
 {
     margin-bottom: 150px;
 }
 
-.action-menu
+#technician-presences .action-menu
 {
     display: flex;
     justify-content: center;
@@ -185,7 +185,7 @@ form
     border: 4px solid var(--light-blue-orif);
 }
 
-.action-menu *
+#technician-presences .action-menu *
 {
     margin: 0 8px;
 }
@@ -218,12 +218,12 @@ form
 
 @media screen and (max-width: 500px)
 {
-    h3
+    #technician-presences h3
     {
         font-size: 1.2em;
     }
 
-    thead tr:first-child th 
+    #technician-presences thead tr:first-child th 
     {
         font-size: 16px;
     }

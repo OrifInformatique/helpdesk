@@ -12,7 +12,7 @@ return[
     'required' => 'Le champ est requis.',
 
     /* Planning form errors */
-	'has_presences'         => 'Le technicien renseigné n\'a pas de présences.<br>Ajoutez-lui des présences dans la page des présences.',
+	'has_presences'         => 'Le technicien renseigné n\'a pas de présences.<br>Ajoutez-lui des présences via la liste des présences.',
     'is_natural_no_zero'    => 'Technicien sélectionné invalide.',
 	'not_in_planning'       => 'Le technicien renseigné figure déjà dans le planning.',
     

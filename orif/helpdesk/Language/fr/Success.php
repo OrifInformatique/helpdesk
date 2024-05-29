@@ -14,6 +14,7 @@ return[
     'presences_updated' => 'Les présences ont été modifiées.',
     
     /* Planning success messages */
+    'planning_deleted'              => 'Le planning a été supprimé.',
     'planning_updated'              => 'Le planning de la semaine a été modifié.',
     'technician_added_to_schedule'  => 'Le technicien a été ajouté au planning.',
     'technician_deleted'            => 'Le technicien a été supprimé du planning.',
