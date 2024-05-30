@@ -43,6 +43,8 @@ return[
     'shift_weeks_with_planning_generation'  => 'Déplacer les semaines et générer un planning',
 
     /* Dashboard buttons */
-    'add_technician_to_planning' => 'Ajouter au planning de la semaine',
-    'delete_technician_from_planning' => 'Supprimer du planning de la semaine',
+    'add_technician_actual_planning' => 'Ajouter au planning de la semaine <strong>actuelle</strong>.',
+    'add_technician_next_planning' => 'Ajouter au planning de la semaine <strong>prochaine</strong>.',
+    'delete_technician_actual_planning' => 'Supprimer du planning de la semaine <strong>actuelle</strong>.',
+    'delete_technician_next_planning' => 'Supprimer du planning de la semaine <strong>prochaine</strong>.',
 ];

@@ -43,16 +43,16 @@
         </div>
         <div class="dashboard-card-content">
             <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/0') ?>">
-                <span><?= lang('Buttons.add_technician_to_planning').' '.lang('MiscTexts.actual') ?></span>
+                <span><?= lang('Buttons.add_technician_actual_planning') ?></span>
             </a>
             <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/1') ?>">
-                <span><?= lang('Buttons.add_technician_to_planning').' '.lang('MiscTexts.next') ?></span>
+                <span><?= lang('Buttons.add_technician_next_planning') ?></span>
             </a>
             <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/0') ?>">
-                <span><?= lang('Buttons.delete_technician_from_planning').' '.lang('MiscTexts.actual') ?></span>
+                <span><?= lang('Buttons.delete_technician_actual_planning')?></span>
             </a>
             <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/1') ?>">
-                <span><?= lang('Buttons.delete_technician_from_planning').' '.lang('MiscTexts.next') ?></span>
+                <span><?= lang('Buttons.delete_technician_next_planning')?></span>
             </a>
         </div>
     </div>

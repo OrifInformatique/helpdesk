@@ -21,5 +21,11 @@ return[
     'role_guest'    => 'Invité',
     'role_user'     => 'Technicien',
     'role_mentor'   => 'Technicien parrain',
-    'role_admin'    => 'Administrateur'
+    'role_admin'    => 'Administrateur',
+
+    /* User types */
+    'Administrateur'    => 'Administrateur',
+    'Enregistré'        => 'Enregistré',
+    'Invité'            => 'Invité',
+    'Technicien parrain'=> 'Technicien parrain'
 ];
