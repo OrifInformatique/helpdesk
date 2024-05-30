@@ -1,8 +1,8 @@
 <?php
 /**
- * French translations for user module
+ * English translations for user module
  * 
- * @author      Orif
+ * @author      Orif (KoYo)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (http://www.orif.ch)
  */

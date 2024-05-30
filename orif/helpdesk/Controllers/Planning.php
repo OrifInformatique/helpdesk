@@ -573,9 +573,9 @@ class Planning extends Home
         else
         {
             $user_fullname = $this->user_data_model->getUserFullName($user_id);
-            $week = $planning_type == 0 ? lang('MiscTexts.actual') : lang('MiscTexts.next');
+            $week = $planning_type == 0 ? lang('Buttons.delete_technician_actual_planning') : lang('Buttons.delete_technician_next_planning');
 
-            $user_entry = lang('MiscTexts.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.lang('MiscTexts.delete_from_planning_of_week').' <strong>'.$week.'</strong>.';
+            $user_entry = lang('MiscTexts.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.$week;
 
             $data =
             [

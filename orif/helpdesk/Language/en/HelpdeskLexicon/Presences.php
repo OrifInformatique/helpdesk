@@ -1,8 +1,8 @@
 <?php
 /**
- * French translations for presences
+ * English translations for presences
  * 
- * @author      Orif (DeDy)
+ * @author      Orif (KoYo)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (http://www.orif.ch)
  */

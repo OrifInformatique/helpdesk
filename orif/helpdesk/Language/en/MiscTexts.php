@@ -1,8 +1,8 @@
 <?php
 /**
- * French translations for unclassified words/setences.
+ * English translations for unclassified words/setences.
  * 
- * @author      Orif (DeDy)
+ * @author      Orif (KoYo)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (http://www.orif.ch)
  */
@@ -23,7 +23,6 @@ return[
     'start_date'    => 'Start date',
 
     /* Terminal misc text */
-    'alt_photo_technician'  => 'Technician face picture',
     'preview'               => 'Preview',
     'unavailable'           => 'Unavailable',
     'updating_in'           => 'Updating in',
@@ -38,10 +37,17 @@ return[
     'irreversible_action'                   => 'This action is irreversible.',
     
     /* Delete entry misc text */
-    'actual'                        => 'actual',
-    'delete_confirmation'           => 'Are you sure you want to delete this entry ?',
-    'delete_from_planning_of_week'  => 'of the weeks schedule',
+    'actual'                        => 'current', // Also used in dashboard
+    'delete_confirmation'           => 'Are you sure you want to delete this entry ? ',
+    'delete_from_planning_of_week'  => 'from the week\'s schedule',
     'holiday_period'                => 'Holiday periode',
-    'next'                          => 'next',
-    'technician_presences'          => 'Availability of'
+    'next'                          => 'next', // Also used in dashboard
+    'planning'                      => 'Week\'s schedule',
+    'technician_presences'          => 'Availability of',
+
+    /* Assistance misc text */
+    'what_does_it_mean' => 'What does that mean ?',
+
+    /* Dashboard misc text */
+    'role_unknown' => 'Unknown role'
 ];

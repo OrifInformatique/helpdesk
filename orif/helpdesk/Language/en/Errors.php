@@ -1,8 +1,8 @@
 <?php
 /**
- * French translations for errors
+ * English translations for errors
  * 
- * @author      Orif (DeDy)
+ * @author      Orif (KoYo)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (http://www.orif.ch)
  * 

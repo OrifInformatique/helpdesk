@@ -1,8 +1,8 @@
 <?php
 /**
- * French translations for buttons
+ * English translations for buttons
  * 
- * @author      Orif (DeDy)
+ * @author      Orif (KoYo)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (http://www.orif.ch)
  */
@@ -16,12 +16,13 @@ return[
     
     /* Planning buttons */
     'add_technician'    => 'Add a technician',
+    'delete_planning'   => 'Delete the schedule',
     'edit_planning'     => 'Edit the schedule',
     'last_week'         => 'Last week',
     'next_week'         => 'Next week',
     
     /* Holiday buttons */
-    'add_holiday'   => 'Add holiday',
+    'add_holiday'   => 'Add holidays',
     'holiday'       => 'Holiday list',
     
     /* Terminal buttons */
@@ -31,6 +32,7 @@ return[
     'back'      => 'Return',
     'cancel'    => 'Cancel',
     'continue'  => 'Continue',
+    'edit'      => 'Edit',
     'delete'    => 'Delete',
     'reset'     => 'Reset',
     'save'      => 'Save',
@@ -38,5 +40,11 @@ return[
     /* Planning generation buttons */
     'generate_planning'                     => 'Generate schedule',
     'shift_weeks'                           => 'Shift weeks',
-    'shift_weeks_with_planning_generation'  => 'Shift weeks and generate a schedule'
+    'shift_weeks_with_planning_generation'  => 'Shift weeks and generate a schedule',
+
+    /* Dashboard buttons */
+    'add_technician_actual_planning' => 'Add to <strong>current</strong> week\'s schedule.',
+    'add_technician_next_planning' => 'Add to <strong>next</strong> week\'s schedule.',
+    'delete_technician_actual_planning' => 'Remove from <strong>current</strong> week\'s schedule.',
+    'delete_technician_next_planning' => 'Remove from <strong>next</strong> week\'s schedule.',
 ];

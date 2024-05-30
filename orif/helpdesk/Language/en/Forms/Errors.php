@@ -12,7 +12,7 @@ return[
     'required' => 'The field is required',
 
     /* Planning form errors */
-	'has_presences'         => 'The chosen technician has no availability.<br>Add him availabilites in the availability page',
+	'has_presences'         => 'The chosen technician has no availability.<br>Add him availabilites in the availability list',
     'is_natural_no_zero'    => 'Chosen technician is invalid',
 	'not_in_planning'       => 'The chosen technician is already in the schedule',
     

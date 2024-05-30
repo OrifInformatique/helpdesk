@@ -1,8 +1,8 @@
 <?php
 /**
- * French translations for pages titles
+ * English translations for pages titles
  * 
- * @author      Orif (DeDy)
+ * @author      Orif (KoYo)
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (http://www.orif.ch)
  * 
@@ -16,12 +16,12 @@ return[
     'technician_presences'      => 'Availability of %s',
 
     /* Planning pages */
-    'lw_planning'   => 'Last weeks schedule',
-    'nw_planning'   => 'Next weeks schedule',
-    'planning'      => 'This weeks schedule',
+    'lw_planning'   => 'Last week\'s schedule',
+    'nw_planning'   => 'Next week\'s schedule',
+    'planning'      => 'This week\'s schedule',
 
     'add_technician'        => 'Add a technician',
-    'update_nw_planning'    => 'update next weeks schedule',
+    'update_nw_planning'    => 'Update next week\'s schedule',
     'update_planning'       => 'Update the schedule',
 
     /* Holidays pages */
@@ -36,5 +36,8 @@ return[
     'delete_confirmation' => 'Deletion confirmation',
 
     /* Technician menu page */
-    'technician_menu' => 'Technician menu'
+    'technician_menu' => 'Technician menu',
+
+    /* Assitance page */
+    'assistance' => 'Suport'
 ];
