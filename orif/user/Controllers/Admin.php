@@ -61,7 +61,7 @@ class Admin extends BaseController
         $usertiarray=$this->db->table('user_type')->select(['id','name'],)->get()->getResultArray();
         $usertypes=[];
         foreach ($usertiarray as $row){
-            $usertypes[$row['id']]=$row['name'];
+            $usertypes[$row['id']]=lang('Technician.'.$row['name']);
         }
         $output = array(
             'title' => lang('user_lang.title_administration'),

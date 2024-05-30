@@ -60,7 +60,7 @@ class Technician extends Home
         switch($user['fk_user_type'])
         {
             case 1:
-                $role = lang('Technician.role_guest');
+                $role = lang('Technician.role_admin');
                 break;
 
             case 2:
@@ -68,7 +68,7 @@ class Technician extends Home
                 break;
 
             case 3:
-                $role = lang('Technician.role_admin');
+                $role = lang('Technician.role_guest');
                 break;
 
             case 4:
