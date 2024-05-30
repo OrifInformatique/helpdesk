@@ -190,9 +190,9 @@ class User extends Admin
 
                     else
                     {
-                        $old_image = WRITEPATH.'uploads/images/'.$this->user_data_model->getUserPhoto($user_id);
+                        $old_image = $this->user_data_model->getUserPhoto($user_id);
                         if($old_image)
-                            unlink($old_image);
+                            unlink(WRITEPATH.'uploads/images/'.$old_image);
                     }
 
                     try {
