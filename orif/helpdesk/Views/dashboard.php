@@ -14,7 +14,7 @@
 <?= view('Helpdesk\Common\body_start') ?>
 
 <div id="img-link-data" data-img-link="<?= htmlspecialchars(base_url('/images/helpdesk/default_technician_picture.jpg')) ?>"></div>
-<div id="alt-text-data" data-alt-text="<?= lang('Technician.alt_photo_technician') ?>"></div>
+<div id="alt-text-data" data-alt-text="<?= lang('Technician.alt_default_picture') ?>"></div>
 
 <script src="<?= base_url('Scripts/technician_photo/technician_photo_error_handling.js')?>"></script>
 
@@ -25,9 +25,7 @@
 <div class="dashboard-container">
     <div class="dashboard-card big" id="details-card">
         <div class="dashboard-card-header">
-            <img src="<?= $user['photo_user_data'] ?>" 
-                alt="<?= lang('Technician.alt_photo_technician').' '.$user['last_name_user_data'].' '.$user['first_name_user_data']?>"
-                onerror="DisplayDefaultTechnicianPhoto(this)">
+            <?= view('\Helpdesk\Common\technician_photo', $user) ?>
         </div>
         <div class="dashboard-card-content">
             <h3><?= $user['last_name_user_data'].' '.$user['first_name_user_data']?></h3>

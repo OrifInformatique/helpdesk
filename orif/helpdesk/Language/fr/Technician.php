@@ -15,7 +15,8 @@ return[
     'user'      => 'Utilisateur',
 
     /* Technician photo alt text */
-    'alt_photo_technician'  => 'Image par défaut de technicien',
+    'alt_technician_photo' => 'Photo du technicien',
+    'alt_default_picture'  => 'Image par défaut de technicien',
 
     /* User types */
     'role_guest'    => 'Invité',

@@ -17,7 +17,7 @@
 
 <div id="reload-page-data" data-reload-page="<?= htmlspecialchars(base_url('/helpdesk/terminal/display/'.$preview)) ?>"></div>
 <div id="img-link-data" data-img-link="<?= htmlspecialchars(base_url('/images/helpdesk/default_technician_picture.jpg')) ?>"></div>
-<div id="alt-text-data" data-alt-text="<?= lang('Technician.alt_photo_technician') ?>"></div>
+<div id="alt-text-data" data-alt-text="<?= lang('Technician.alt_default_picture') ?>"></div>
 
 <script src="<?= base_url('Scripts/terminal/terminal.js')?>" defer></script>
 <script src="<?= base_url('Scripts/technician_photo/technician_photo_error_handling.js')?>"></script>
@@ -62,7 +62,7 @@
                 </div>
 
                 <div>
-                    <img src="<?= $technician['photo_user_data'] ?>" alt="<?= lang('Technician.alt_photo_technician') ?>" onerror="DisplayDefaultTechnicianPhoto(this)">
+                    <?= view('\Helpdesk\Common\technician_photo', $technician) ?>
                 </div>
 
                 <div class="identity">

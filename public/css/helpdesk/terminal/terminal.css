@@ -72,7 +72,7 @@
     width: 350px;
     height: 530px;
     margin: 15px;
-    text-decoration: none;
+    text-decoration: none !important;
     color: var(--black) !important;
 }
 

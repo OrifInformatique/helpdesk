@@ -173,7 +173,7 @@ class User extends Admin
                     $file_name = $user_data['photo_user_data']->getRandomName();
                     $file_path = WRITEPATH.'uploads/images/';
                     $user_data['photo_user_data']->move($file_path, $file_name);
-                    $user_data['photo_user_data'] = $file_path.$file_name;
+                    $user_data['photo_user_data'] = $file_name;
                 }
 
                 if ($user_id == 0)
@@ -190,7 +190,7 @@ class User extends Admin
 
                     else
                     {
-                        $old_image = $this->user_data_model->getUserPhoto($user_id);
+                        $old_image = WRITEPATH.'uploads/images/'.$this->user_data_model->getUserPhoto($user_id);
                         if($old_image)
                             unlink($old_image);
                     }

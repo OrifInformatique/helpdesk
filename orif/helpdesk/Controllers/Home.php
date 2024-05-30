@@ -411,9 +411,6 @@ class Home extends BaseController
     }
 
 
-    /** ********************************************************************************************************************************* */
-
-
     /**
      * Displays the assistance page
      * 
@@ -446,5 +443,26 @@ class Home extends BaseController
         $data['title'] = lang('Titles.assistance');
 
         return $this->display_view('Helpdesk\assistance', $data);
+    }
+
+
+    /**
+     * Get a specified image and returns it.
+     *
+     * @param string $file_name
+     * 
+     * @return ResponseInterface Technician photo
+     * 
+     */
+    public function showTechnicianPhoto($file_name)
+    {
+        $file_path = WRITEPATH.'uploads/images/'.$file_name;
+
+        $file_info = new \finfo(FILEINFO_MIME_TYPE);
+        $mime_type = $file_info->file($file_path);
+
+        return $this->response->setHeader('Content-Type', $mime_type)
+                              ->setBody(file_get_contents($file_path))
+                              ->send();
     }
 }
