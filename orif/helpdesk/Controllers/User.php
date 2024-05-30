@@ -217,7 +217,7 @@ class User extends Admin
         $usertiarray=$this->db->table('user_type')->select(['id','name'],)->get()->getResultArray();
         $usertypes=[];
         foreach ($usertiarray as $row){
-            $usertypes[$row['id']]=$row['name'];
+            $usertypes[$row['id']]=lang('Technician.'.$row['name']);
         }
         $user_data_data = $this->user_data_model->getUserFullName($user_id);
         $data = array(
