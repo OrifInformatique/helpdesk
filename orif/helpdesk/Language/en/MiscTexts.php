@@ -33,7 +33,7 @@ return[
 
     /* Confirm action misc text */
     'confirm_action'                        => 'Are you sure you want to continue ?',
-    'generated_planning_overwrite_old_one'  => 'Generating a new Schedule will overwrite the existing one.',
+    'generated_planning_overwrite_old_one'  => 'Generating a new schedule will overwrite the existing one.',
     'irreversible_action'                   => 'This action is irreversible.',
     
     /* Delete entry misc text */

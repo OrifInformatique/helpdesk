@@ -40,7 +40,7 @@ return[
 'field_new_password'             => 'New password',
 'field_password_confirm'         => 'Confirm password',
 'field_usertype'                 => 'User type',
-'field_user_active'              => 'activated',
+'field_user_active'              => 'Activated',
 'field_deleted_users_display'    => 'Display disabled users',
 'field_login_input'              => 'Username or E-mail',
 'field_verification_code'        => 'Verification code',

@@ -11,7 +11,7 @@ return[
 
     /* Roles name */
     'first_technician_role_name'    => 'On call technician',
-    'second_technician_role_name'   => 'Back up Technician',
+    'second_technician_role_name'   => 'Back up technician',
     'third_technician_role_name'    => 'Standby technician',
     
     /* Roles numbers and names */
