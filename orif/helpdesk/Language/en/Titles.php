@@ -12,13 +12,13 @@ return[
     /* Presences pages */
     'add_technician_presences'  => 'Add availabilities to a technician',
     'my_presences'              => 'My availabilities',
-    'presences_list'            => 'Technician availability',
-    'technician_presences'      => 'Availability of %s',
+    'presences_list'            => 'Technician availabilities',
+    'technician_presences'      => 'Availabilities of %s',
 
     /* Planning pages */
     'lw_planning'   => 'Last week\'s schedule',
     'nw_planning'   => 'Next week\'s schedule',
-    'planning'      => 'This week\'s schedule',
+    'planning'      => 'Current week\'s schedule',
 
     'add_technician'        => 'Add a technician',
     'update_nw_planning'    => 'Update next week\'s schedule',
@@ -33,11 +33,11 @@ return[
     'confirm_action' => 'Confirm action',
 
     /* Delete confirm page */
-    'delete_confirmation' => 'Deletion confirmation',
+    'delete_confirmation' => 'Delete confirmation',
 
     /* Technician menu page */
     'technician_menu' => 'Technician menu',
 
     /* Assitance page */
-    'assistance' => 'Suport'
+    'assistance' => 'Support'
 ];

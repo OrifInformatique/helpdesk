@@ -33,11 +33,14 @@
             <?php if(isset($holidays_data) && !empty($holidays_data)) : ?>
                 <?php foreach ($holidays_data as $holiday) : ?>
                     <?php 
-                        $start_date_holiday = new DateTime($holiday['start_date_holiday']); 
-                        $start_date_holiday = $start_date_holiday->format('d/m/Y, H:i');
+                        $locale = service('request')->getLocale();
+                        $formatter = new \IntlDateFormatter($locale, \IntlDateFormatter::SHORT, \IntlDateFormatter::SHORT);
+
+                        $start_date_holiday = new DateTime($holiday['start_date_holiday']);
+                        $start_date_holiday = $formatter->format($start_date_holiday);
 
                         $end_date_holiday = new DateTime($holiday['end_date_holiday']); 
-                        $end_date_holiday = $end_date_holiday->format('d/m/Y, H:i');
+                        $end_date_holiday = $formatter->format($end_date_holiday);
                     ?>
                     <tr>
                         <th>

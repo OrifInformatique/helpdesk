@@ -15,12 +15,12 @@ return[
     'absent_symbol'         => 'A',
 
     /* Presences names */
-    'present_name'       => 'Available',
-    'partly_absent_name' => 'Absent in part',
+    'present_name'       => 'Present',
+    'partly_absent_name' => 'Partly absent',
     'absent_name'        => 'Absent',
 
     /* Presences symbols and names */
-    'present'       => 'P - available',
-    'partly_absent' => 'I - Absent in part',
+    'present'       => 'P - Present',
+    'partly_absent' => 'I - Partly absent',
     'absent'        => 'A - Absent'
 ];

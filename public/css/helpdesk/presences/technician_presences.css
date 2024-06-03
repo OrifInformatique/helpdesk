@@ -89,12 +89,16 @@
 #technician-presences label, #add-technician-presences label
 {
     display: flex;
-    cursor: pointer;
     user-select: none;
     font-weight: 500;
     position: relative;
     overflow: hidden;
     margin-bottom: 0.375em;
+}
+
+#technician-presences label
+{
+    cursor: pointer;
 }
 
 #technician-presences label input

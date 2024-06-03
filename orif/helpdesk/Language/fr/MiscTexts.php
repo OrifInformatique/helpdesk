@@ -37,13 +37,13 @@ return[
     'irreversible_action'                   => 'Cette action est irréversible.',
     
     /* Delete entry misc text */
-    'actual'                        => 'actuelle', // Also used in dashboard
-    'delete_confirmation'           => 'Voulez-vous vraiment supprimer cette entrée ?',
-    'delete_from_planning_of_week'  => 'du planning de la semaine',
-    'holiday_period'                => 'Période fériée',
-    'next'                          => 'prochaine', // Also used in dashboard
-    'planning'                      => 'Planning de la semaine',
-    'technician_presences'          => 'Présences de',
+    'cw_planning'                       => 'Planning de la semaine <strong>actuelle</strong>.',
+    'delete_confirmation'               => 'Voulez-vous vraiment supprimer cette entrée ?',
+    'holiday_period'                    => 'Période fériée',
+    'nw_planning'                       => 'Planning de la semaine <strong>prochaine</strong>.',
+    'presences_of'                      => 'Availabilities of',
+    'technician_from_actual_planning'   => 'de la semaine <strong>actuelle</strong>.',
+    'technician_from_next_planning'     => 'de la semaine <strong>prochaie</strong>',
 
     /* Assistance misc text */
     'what_does_it_mean' => 'Que cela signifie-t-il ?',

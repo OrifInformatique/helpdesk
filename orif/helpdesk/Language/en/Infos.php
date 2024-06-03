@@ -11,5 +11,5 @@ return[
 
     /* Presences messages */
     'all_technicians_have_presences' => 'All technicians have availabilities.',
-    'presences_fields_empty'         => 'The empty fields will be automaticaly filled with "Absent".'
+    'presences_fields_empty'         => 'The empty fields will be automatically filled with "Absent".'
 ];

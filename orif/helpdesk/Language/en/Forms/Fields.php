@@ -1,6 +1,6 @@
 <?php
 /**
- * French translations for form fields
+ * English translations for form fields
  * 
  * @author      Orif (DeDy)
  * @link        https://github.com/OrifInformatique

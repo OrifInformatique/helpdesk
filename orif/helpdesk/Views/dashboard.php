@@ -41,17 +41,31 @@
         </div>
         <div class="dashboard-card-content">
             <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/0') ?>">
-                <span><?= lang('Buttons.add_technician_actual_planning') ?></span>
+                <span><?= lang('Buttons.add_technician_in_actual_planning') ?></span>
             </a>
             <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/1') ?>">
-                <span><?= lang('Buttons.add_technician_next_planning') ?></span>
+                <span><?= lang('Buttons.add_technician_in_next_planning') ?></span>
             </a>
-            <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/0') ?>">
-                <span><?= lang('Buttons.delete_technician_actual_planning')?></span>
-            </a>
-            <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/1') ?>">
-                <span><?= lang('Buttons.delete_technician_next_planning')?></span>
-            </a>
+
+            <?php if($has_cw_planning_entry): ?>
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/0') ?>">
+                    <span><?= lang('Buttons.delete_technician_from_actual_planning')?></span>
+                </a>
+            <?php else: ?>
+                <button class="btn btn-delete" disabled>
+                    <span><?= lang('Buttons.delete_technician_from_actual_planning') ?></span>
+                </button>
+            <?php endif; ?>
+
+            <?php if($has_nw_planning_entry): ?>
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/1') ?>">
+                    <span><?= lang('Buttons.delete_technician_from_next_planning')?></span>
+                </a>
+            <?php else: ?>
+                <button class="btn btn-delete" disabled>
+                    <span><?= lang('Buttons.delete_technician_from_next_planning') ?></span>
+                </button>
+            <?php endif; ?>
         </div>
     </div>
     

@@ -10,11 +10,11 @@
 return[
 
     /* Presences misc text */
-    'add_technician_presences_label'    => 'Select a technician to assign them availabilities.',
-    'select_presence_for_all_fields'    => 'Apply to all periods.',
+    'add_technician_presences_label'    => 'Select a technician to assign availabilities.',
+    'select_presence_for_all_fields'    => 'Apply to all periods',
 
     /* Planning misc text */
-    'ignore_presences_check' => 'Ignore verification of availability',
+    'ignore_presences_check'    => 'Ignore presences check',
     'technician'                => 'Technician', // Also used in Delete entry
 
     /* Holidays misc text */
@@ -37,13 +37,13 @@ return[
     'irreversible_action'                   => 'This action is irreversible.',
     
     /* Delete entry misc text */
-    'actual'                        => 'current', // Also used in dashboard
-    'delete_confirmation'           => 'Are you sure you want to delete this entry ? ',
-    'delete_from_planning_of_week'  => 'from the week\'s schedule',
-    'holiday_period'                => 'Holiday periode',
-    'next'                          => 'next', // Also used in dashboard
-    'planning'                      => 'Week\'s schedule',
-    'technician_presences'          => 'Availability of',
+    'cw_planning'                       => '<strong>Current</strong> week schedule',
+    'nw_planning'                       => '<strong>Next</strong> week schedule',
+    'technician_from_actual_planning'   => 'from <strong>current</strong> week\'s schedule.',
+    'technician_from_next_planning'     => 'from <strong>next</strong> week\'s schedule.',
+    'delete_confirmation'               => 'Are you sure you want to delete this entry ? ',
+    'holiday_period'                    => 'Holiday period',
+    'presences_of'                      => 'Availabilities of',
 
     /* Assistance misc text */
     'what_does_it_mean' => 'What does that mean ?',

@@ -10,9 +10,9 @@
 return[
 
     /* Presences buttons */
-    'add_technician_presences'  => 'Add availability',
-    'my_presences'              => 'Edit my availability',
-    'presences_list'            => 'Technicians availability',
+    'add_technician_presences'  => 'Add availabilities',
+    'my_presences'              => 'Edit my availabilities',
+    'presences_list'            => 'Technicians availabilities',
     
     /* Planning buttons */
     'add_technician'    => 'Add a technician',
@@ -22,11 +22,11 @@ return[
     'next_week'         => 'Next week',
     
     /* Holiday buttons */
-    'add_holiday'   => 'Add holidays',
-    'holiday'       => 'Holiday list',
+    'add_holiday'   => 'Add holiday',
+    'holiday'       => 'Holidays list',
     
     /* Terminal buttons */
-    'terminal' => 'View terminal',
+    'terminal' => 'Terminal preview',
     
     /* Actions buttons */
     'back'      => 'Return',
@@ -43,8 +43,8 @@ return[
     'shift_weeks_with_planning_generation'  => 'Shift weeks and generate a schedule',
 
     /* Dashboard buttons */
-    'add_technician_actual_planning' => 'Add to <strong>current</strong> week\'s schedule.',
-    'add_technician_next_planning' => 'Add to <strong>next</strong> week\'s schedule.',
-    'delete_technician_actual_planning' => 'Remove from <strong>current</strong> week\'s schedule.',
-    'delete_technician_next_planning' => 'Remove from <strong>next</strong> week\'s schedule.',
+    'add_technician_in_actual_planning' => 'Add to <strong>current</strong> week\'s schedule.',
+    'add_technician_in_next_planning' => 'Add to <strong>next</strong> week\'s schedule.',
+    'delete_technician_from_actual_planning' => 'Remove from <strong>current</strong> week\'s schedule.',
+    'delete_technician_from_next_planning' => 'Remove from <strong>next</strong> week\'s schedule.',
 ];

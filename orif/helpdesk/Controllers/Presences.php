@@ -23,7 +23,7 @@ class Presences extends Home
     {
         parent::initController($request, $response, $logger);
     }
-
+        
 
     /**
      * Default function, displays the presences of all technicians.
@@ -218,7 +218,7 @@ class Presences extends Home
             $user_id = $this->presences_model->getUserId($id_presence);
             $user_fullname = $this->user_data_model->getUserFullName($user_id);
 
-            $presence_entry = lang('MiscTexts.technician_presences').' <strong>'.implode(' ', $user_fullname).'</strong>.';
+            $presence_entry = lang('MiscTexts.presences_of').' <strong>'.implode(' ', $user_fullname).'</strong>.';
 
             $data = 
             [

@@ -573,7 +573,7 @@ class Planning extends Home
         else
         {
             $user_fullname = $this->user_data_model->getUserFullName($user_id);
-            $week = $planning_type == 0 ? lang('Buttons.delete_technician_actual_planning') : lang('Buttons.delete_technician_next_planning');
+            $week = $planning_type == 0 ? lang('MiscTexts.technician_from_actual_planning') : lang('MiscTexts.technician_from_next_planning');
 
             $user_entry = lang('MiscTexts.technician').' <strong>'.implode(' ', $user_fullname).'</strong>, '.$week;
 
@@ -627,9 +627,7 @@ class Planning extends Home
         // When the user clicks the delete button
         else
         {
-            $week = $planning_type == 0 ? lang('MiscTexts.actual') : lang('MiscTexts.next');
-
-            $planning_entry = lang('MiscTexts.planning').' <strong>'.$week.'</strong>.';
+            $planning_entry = $planning_type == 0 ? lang('MiscTexts.cw_planning') : lang('MiscTexts.nw_planning');
 
             $data =
             [

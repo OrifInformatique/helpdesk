@@ -19,7 +19,7 @@
     box-shadow: 0px 0px 1px 3px var(--dark-blue-orif);
 }
 
-.btn:disabled
+.btn:disabled, .btn:disabled:hover, .btn:disabled:active, .btn:disabled:focus
 {
     box-shadow: none;
     opacity: 33%;

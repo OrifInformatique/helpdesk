@@ -11,11 +11,11 @@ return[
 
     /* Presences errors */
     'no_technician_presences'       => 'No technician have availability.',
-    'invalid_technician_selected'   => 'The chosen technician is not valid', // Also a terminal error
+    'invalid_technician_selected'   => 'The chosen technician is not valid.', // Also a terminal error
     
     /* Planning errors */
     'no_technician_assigned'                    => 'No technician is assigned on schedule.',
-    'role_duplicates_on_periods'                => 'Multiple technicians are assigned the same role during those periods :<br>',
+    'role_duplicates_on_periods'                => 'Multiple technicians are assigned with the same role during those periods :<br>',
     'technician_is_absent_on_periods'           => 'The technician %s is unavailable during those periods :<br>',
     'technician_must_be_assigned_to_schedule'   => 'Every technician must be assigned at minimum one role during a period.',
     'unvalid_planning_type'                     => 'Schedule error.',
