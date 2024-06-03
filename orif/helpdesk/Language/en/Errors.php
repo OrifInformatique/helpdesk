@@ -8,6 +8,8 @@
  * 
  */
 return[
+    /* User errors */
+    'unauthorized' => 'You do not have the authorizations to perform this action.',
 
     /* Presences errors */
     'no_technician_presences'       => 'No technician have availability.',

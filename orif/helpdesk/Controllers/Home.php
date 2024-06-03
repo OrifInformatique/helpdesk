@@ -166,6 +166,40 @@ class Home extends BaseController
         }
     }
 
+    /**
+     * Evalautes if the user logged is a technician, in order to prevent guests from altering the data.
+     * 
+     * @return bool
+     * 
+     */
+    public function isTechnician()
+    {
+        $access_level = $_SESSION['user_access'];
+
+        // 1 corresponds to the guest user type access level
+        if($access_level == 1)
+        {
+            $this->session->setFlashdata('error', lang('Errors.unauthorized'));
+            return false;
+        }
+
+        return true;
+    }
+    
+    
+    /**
+     * Evalautes if the user logged has admin rights.
+     * 
+     * @return bool
+     * 
+     */
+    public function isAdmin()
+    {
+        $access_level = $_SESSION['user_access'];
+
+        return $access_level == 4;
+    }
+
 
     /**
      * Checks if the planning edited is correct.
@@ -330,6 +364,7 @@ class Home extends BaseController
         return $messages;
     }
 
+
     /**
      * Display a confirmation page for a specified action (no entry deletion)
      * 
@@ -345,6 +380,9 @@ class Home extends BaseController
         switch($action)
         {
             case 'shift_weeks':
+                if(!$this->isTechnician())
+                    return redirect()->to('/helpdesk/planning/nw_planning');
+                
                 $action =
                 [
                     'name' => 'shift_weeks_with_planning_generation',
@@ -365,6 +403,9 @@ class Home extends BaseController
                 break;
 
             case 'generate_planning':
+                if(!$this->isTechnician())
+                    return redirect()->to('/helpdesk/planning/nw_planning');
+
                 $action = 
                 [
                     'name' => 'generate_planning',
@@ -395,19 +436,6 @@ class Home extends BaseController
         ];
 
         return $this->display_view('Helpdesk\confirm_action', $data);
-    }
-
-    /**
-     * Evalautes if the user has admin rights.
-     * 
-     * @param int $user_access Acces level of the logged user (stored in session)
-     * 
-     * @return bool
-     * 
-     */
-    public function isAdmin($access_level)
-    {
-        return $access_level == 4;
     }
 
 

@@ -74,11 +74,15 @@ class Presences extends Home
      */
     public function add_technician_presences()
     {
-        $this->isUserLogged();
         $this->setSessionVariables();
+        $this->isUserLogged();
+
+        if(!$this->isTechnician())
+            return redirect()->to('/helpdesk/presences/presences_list');
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
+            
             $user_id = $_POST['technician'];
 
             if(!isset($user_id) || empty($user_id) || !is_numeric($user_id))
@@ -114,6 +118,9 @@ class Presences extends Home
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
         {
+            if(!$this->isTechnician())
+                return redirect()->to(uri_string());
+
             $id_presence = $this->presences_model->getPresenceId($user_id);
 
             foreach ($_SESSION['helpdesk']['presences_periods'] as $field)
@@ -186,6 +193,8 @@ class Presences extends Home
             $data['user_id'] = $user_id;
         }
 
+        $data['messages'] = $this->getFlashdataMessages();
+
         return $this->display_view('Helpdesk\technician_presences', $data);
     }
 
@@ -201,6 +210,9 @@ class Presences extends Home
     public function delete_presences($id_presence)
     {
         $this->isUserLogged();
+
+        if(!$this->isTechnician())
+            return redirect()->to('/helpdesk/presences/presences_list');
 
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'])

@@ -142,13 +142,17 @@ class Planning extends Home
             'planning_type' => $planning_type,
             'classes'       => $this->defineDaysOff($periods),
             'users'         => $this->user_data_model->getUsersData(),
-            'title'         => lang('Titles.add_technician')
+            'title'         => lang('Titles.add_technician'),
+            'messages'      => $this->getFlashdataMessages()
         ];
 
         if($_SERVER["REQUEST_METHOD"] != "POST")
         {
             return $this->display_view('Helpdesk\add_technician', $data);
         }
+
+        if(!$this->isTechnician())
+            return redirect()->to(uri_string());
 
         $validation = \Config\Services::validation();
         $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']|has_presences', 
@@ -346,6 +350,7 @@ class Planning extends Home
         $this->isSetPlanningType($planning_type);
 
         $data['planning_type'] = $planning_type;
+        $data['messages'] = $this->getFlashdataMessages();
 
         $technicians_updated_planning = [];
         $form_fields = [];
@@ -362,8 +367,11 @@ class Planning extends Home
                 break;
         }
 
-        if ($_POST)
+        if($_POST)
         {
+            if(!$this->isTechnician())
+                return redirect()->to(uri_string());
+
             // 0 is current week, 1 is next week
             switch($planning_type)
             {
@@ -543,6 +551,9 @@ class Planning extends Home
     {
         $this->isUserLogged();
 
+        if(!$this->isTechnician())
+            return redirect()->to('helpdesk/planning/update_planning/'.$planning_type);
+
         $this->isSetPlanningType($planning_type);
 
         // If the users confirms the deletion
@@ -601,6 +612,9 @@ class Planning extends Home
     public function delete_planning($planning_type)
     {
         $this->isUserLogged();
+
+        if(!$this->isTechnician())
+            return redirect()->to('helpdesk/planning/update_planning/'.$planning_type);
 
         $this->isSetPlanningType($planning_type);
 
@@ -864,7 +878,7 @@ class Planning extends Home
                                 break;
                             }
                         }
-                    }                    
+                    }
                 }
             }
 

@@ -69,12 +69,15 @@ class Holidays extends Home
      * @return view
      * 
      */
-    public function save_holiday($id_holiday = 0)
+    public function save_holiday($id_holiday = NULL)
     {
         $this->isUserLogged();
 
         if($_POST)
         {
+            if(!$this->isTechnician())
+                return redirect()->to(uri_string());
+
             $validation = \Config\Services::validation();
             $validation->setRules(
             [
@@ -124,7 +127,7 @@ class Holidays extends Home
             }
         }
 
-        if($id_holiday != 0)
+        if($id_holiday)
         {
             $data['holiday'] = $this->holidays_model->getHoliday($id_holiday);
             $data['title']   = lang('Titles.update_holiday');
@@ -134,6 +137,8 @@ class Holidays extends Home
         {
             $data['title'] = lang('Titles.add_holiday');
         }
+
+        $data['messages'] = $this->getFlashdataMessages();
 
         return $this->display_view('Helpdesk\add_holiday', $data);
     }
@@ -150,6 +155,9 @@ class Holidays extends Home
     public function delete_holiday($id_holiday)
     {
         $this->isUserLogged();
+
+        if(!$this->isTechnician())
+            return redirect()->to('/helpdesk/holidays/save_holiday/'.$id_holiday);
 
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
@@ -173,7 +181,8 @@ class Holidays extends Home
                 'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/holidays/delete_holiday/'.$id_holiday),
                 'btn_back_url'  => base_url('/helpdesk/holidays/save_holiday/'.$id_holiday),
-                'entry'         => $holiday_entry
+                'entry'         => $holiday_entry,
+                'messages'      => $this->getFlashdataMessages()
             ];
 
             return $this->display_view('Helpdesk\delete_entry', $data);
