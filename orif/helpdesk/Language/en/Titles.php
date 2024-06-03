@@ -25,9 +25,9 @@ return[
     'update_planning'       => 'Update the schedule',
 
     /* Holidays pages */
-    'add_holiday'       => 'Add a holiday period',
+    'add_holiday'       => 'Add holiday period',
     'holiday'           => 'Holidays',
-    'update_holiday'    => 'Update a holiday period',
+    'update_holiday'    => 'Update holiday period',
 
     /* Confirm action page */
     'confirm_action' => 'Confirm action',

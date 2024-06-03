@@ -159,6 +159,10 @@ class User extends Admin
                     'password'      => $post_data['user_password'],
                     'email'         => $post_data['email'],
                 ];
+
+                if(is_null($user['password']) || empty($user['password']))
+                    unset($user['password']);
+
                 $user_data = [
                     'id_user_data'          => $post_data['id_user_data'] ?? null,
                     'fk_user_id'            => $post_data['fk_user_id'],
