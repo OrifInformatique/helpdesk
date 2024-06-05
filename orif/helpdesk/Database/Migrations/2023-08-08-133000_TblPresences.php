@@ -10,7 +10,8 @@ class AddPresences extends Migration
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 
-        $fields = [
+        $fields = 
+        [
             'presence_mon_m1', 'presence_mon_m2', 'presence_mon_a1', 'presence_mon_a2',
             'presence_tue_m1', 'presence_tue_m2', 'presence_tue_a1', 'presence_tue_a2',
             'presence_wed_m1', 'presence_wed_m2', 'presence_wed_a1', 'presence_wed_a2',
@@ -18,15 +19,18 @@ class AddPresences extends Migration
             'presence_fri_m1', 'presence_fri_m2', 'presence_fri_a1', 'presence_fri_a2'
         ];
 
-        $this->forge->addField([
-            'id_presence' => [
+        $this->forge->addField(
+        [
+            'id_presence' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             
-            'fk_user_id' => [
+            'fk_user_id' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
@@ -39,15 +43,18 @@ class AddPresences extends Migration
 
         foreach($fields as $field)
         {
-            $this->forge->addField([
-                $field => [
+            $this->forge->addField(
+            [
+                $field =>
+                [
                     'type'       => 'INT',
                     'constraint' => 11,
                     'unsigned'   => true,
                     'null'       => true,
-            ]]);
+                ]
+            ]);
 
-            $this->forge->addForeignKey($field, 'tbl_etats', 'id_etat');
+            $this->forge->addForeignKey($field, 'tbl_statuses', 'id_status');
         }
 
         $this->forge->createTable('tbl_presences');

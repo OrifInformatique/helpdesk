@@ -10,8 +10,8 @@ class AddLwPlanning extends Migration
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 
-        // Fields table for foreach loop
-        $fields = [
+        $fields =
+        [
             'lw_planning_mon_m1', 'lw_planning_mon_m2', 'lw_planning_mon_a1', 'lw_planning_mon_a2',
             'lw_planning_tue_m1', 'lw_planning_tue_m2', 'lw_planning_tue_a1', 'lw_planning_tue_a2',
             'lw_planning_wed_m1', 'lw_planning_wed_m2', 'lw_planning_wed_a1', 'lw_planning_wed_a2',
@@ -19,15 +19,18 @@ class AddLwPlanning extends Migration
             'lw_planning_fri_m1', 'lw_planning_fri_m2', 'lw_planning_fri_a1', 'lw_planning_fri_a2'
         ];
 
-        $this->forge->addField([
-            'id_lw_planning' => [
+        $this->forge->addField(
+        [
+            'id_lw_planning' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
 
-            'fk_user_id' => [
+            'fk_user_id' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
@@ -40,22 +43,21 @@ class AddLwPlanning extends Migration
 
         foreach($fields as $field)
         {
-            $this->forge->addField([
-                $field => [
+            $this->forge->addField(
+            [
+                $field =>
+                [
                     'type'       => 'INT',
                     'constraint' => 11,
                     'unsigned'   => true,
                     'null'       => true,
-            ]]);
+                ]
+            ]);
 
             $this->forge->addForeignKey($field, 'tbl_roles', 'id_role');
         }
 
         $this->forge->createTable('tbl_lw_planning');
-
-        $seeder=\Config\Database::seeder();
-
-        $seeder->call('\Helpdesk\Database\Seeds\InsertUserData');
 
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }

@@ -10,7 +10,8 @@ class AddTerminal extends Migration
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 
-        $this->forge->addField([
+        $this->forge->addField(
+        [
             'id_terminal' => 
             [
                 'type'          => 'INT',
@@ -29,9 +30,8 @@ class AddTerminal extends Migration
 
             'tech_available_terminal' => 
             [
-                'type'          => 'VARCHAR',
-                'constraint'    => 16,
-                'default'       => 'true',
+                'type'          => 'BOOLEAN',
+                'default'       => 1,
             ],
         ]);
 

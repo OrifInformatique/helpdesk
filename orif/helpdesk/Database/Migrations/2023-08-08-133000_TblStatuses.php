@@ -10,15 +10,18 @@ class AddStatuses extends Migration
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 
-        $this->forge->addField([
-            'id_status' => [
+        $this->forge->addField(
+        [
+            'id_status' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
 
-            'title_status' => [
+            'title_status' =>
+            [
                 'type'          => 'VARCHAR',
                 'constraint'    => 50,
                 'null'          => true,

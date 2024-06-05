@@ -10,26 +10,31 @@ class AddHolidays extends Migration
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 
-        $this->forge->addField([
-            'id_holiday' => [
+        $this->forge->addField(
+        [
+            'id_holiday' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
 
-            'name_holiday' => [
+            'name_holiday' =>
+            [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
                 'null'           => true,
             ],
 
-            'start_date_holiday' => [
+            'start_date_holiday' =>
+            [
                 'type'           => 'DATETIME',
                 'null'           => true,
             ],
 
-            'end_date_holiday' => [
+            'end_date_holiday' =>
+            [
                 'type'           => 'DATETIME',
                 'null'           => true,
             ],

@@ -10,7 +10,8 @@ class AddPlanning extends Migration
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 
-        $fields = [
+        $fields = 
+        [
             'planning_mon_m1', 'planning_mon_m2', 'planning_mon_a1', 'planning_mon_a2',
             'planning_tue_m1', 'planning_tue_m2', 'planning_tue_a1', 'planning_tue_a2',
             'planning_wed_m1', 'planning_wed_m2', 'planning_wed_a1', 'planning_wed_a2',
@@ -18,15 +19,18 @@ class AddPlanning extends Migration
             'planning_fri_m1', 'planning_fri_m2', 'planning_fri_a1', 'planning_fri_a2'
         ];
 
-        $this->forge->addField([
-            'id_planning' => [
+        $this->forge->addField(
+        [
+            'id_planning' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
 
-            'fk_user_id' => [
+            'fk_user_id' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
@@ -39,13 +43,16 @@ class AddPlanning extends Migration
 
         foreach($fields as $field)
         {
-            $this->forge->addField([
-                $field => [
+            $this->forge->addField(
+            [
+                $field =>
+                [
                     'type'       => 'INT',
                     'constraint' => 11,
                     'unsigned'   => true,
                     'null'       => true,
-            ]]);
+                ]
+            ]);
 
             $this->forge->addForeignKey($field, 'tbl_roles', 'id_role');
         }

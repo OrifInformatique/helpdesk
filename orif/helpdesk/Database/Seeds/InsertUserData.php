@@ -4,7 +4,7 @@ namespace Helpdesk\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class InsertUsersData extends Seeder
+class InsertUserData extends Seeder
 {
     public function run()
     {

@@ -10,18 +10,21 @@ class AddRoles extends Migration
     {
         $this->db->query('SET FOREIGN_KEY_CHECKS=0');
 
-        $this->forge->addField([
-            'id_role' => [
+        $this->forge->addField(
+        [
+            'id_role' =>
+            [
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             
-            'title_role' => [
+            'title_role' =>
+            [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
-                'null'       => true,
+                'null'           => true,
             ],
         ]);
 
