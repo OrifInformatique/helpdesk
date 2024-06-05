@@ -128,7 +128,10 @@ class User_Data_model extends \CodeIgniter\Model
     public function getUsersWithoutPresences()
     {
         $users_presences_ids = $this->presences_model->getUsersIdsInPresences();
-        
+
+        if(empty($users_presences_ids))
+            $users_presences_ids = [''];
+
         $result = $this
             ->whereNotIn('tbl_user_data.fk_user_id', $users_presences_ids)
             ->orderBy('last_name_user_data', 'ASC')

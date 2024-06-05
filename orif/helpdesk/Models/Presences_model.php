@@ -167,7 +167,7 @@ class Presences_model extends \CodeIgniter\Model
     {
         $users_presences_ids = $this->select('fk_user_id')->get()->getResultArray();
         $users_presences_ids = array_column($users_presences_ids, 'fk_user_id');
-    
+        
         return $users_presences_ids;
     }
 }
