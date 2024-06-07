@@ -101,7 +101,7 @@ class User extends Admin
                     ],
                     'photo_user_data' => [
                         'label' => lang('Forms/Fields.photo'),
-                        'rules' => 'uploaded[photo_user_data]|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
+                        'rules' => 'if_exist|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
                     ],
                     'user_password' => [
                         'label' => lang('Forms/Fields.password'),
