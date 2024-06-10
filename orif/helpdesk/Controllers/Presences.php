@@ -193,7 +193,8 @@ class Presences extends Home
             $data['user_id'] = $user_id;
         }
 
-        $data['messages'] = $this->getFlashdataMessages();
+        if(!isset($data['messages']))
+            $data['messages'] = $this->getFlashdataMessages();
 
         return $this->display_view('Helpdesk\technician_presences', $data);
     }
