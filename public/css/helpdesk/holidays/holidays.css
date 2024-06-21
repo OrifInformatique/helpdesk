@@ -85,7 +85,14 @@
 
 #holiday input
 {
-    width: 160px;
+    width: 180px;
+}
+
+@-moz-document url-prefix(){
+      #holiday input
+    {
+         width: 215px;
+    }
 }
 
 .buttons-area
