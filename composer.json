@@ -5,8 +5,8 @@
     "homepage": "https://codeigniter.com",
     "license": "MIT",
     "require": {
-        "php": "^8.0",
-        "codeigniter4/framework": "^4.0",
+        "php": "^8.0 <8.2",
+        "codeigniter4/framework": "4.3.7",
         "codeigniter4/translations": "^4.3"
     },
     "require-dev": {
@@ -38,3 +38,5 @@
         "slack": "https://codeigniterchat.slack.com"
     }
 }
+ 
+ 
