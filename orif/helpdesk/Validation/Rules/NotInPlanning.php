@@ -17,12 +17,12 @@ use Helpdesk\Models\Nw_planning_model;
 class NotInPlanning
 {
     protected $planning_model;
-    protected $nw_planning_model;
+    protected $next_week_planning_model;
 
     public function __construct()
     {
         $this->planning_model = new Planning_model();
-        $this->nw_planning_model = new Nw_planning_model();
+        $this->next_week_planning_model = new Nw_planning_model();
     }
 
     /**
@@ -43,7 +43,7 @@ class NotInPlanning
                 break;
                 
             case 1:
-                $planning_data = $this->nw_planning_model->where('fk_user_id', $user_id)->findAll();
+                $planning_data = $this->next_week_planning_model->where('fk_user_id', $user_id)->findAll();
                 break;
         }
 

@@ -29,7 +29,7 @@ return[
     'seconds'               => 'seconds',
 
     /* Planning generation misc text */
-    'planning_generation' => 'Generating schedule',
+    'generatePlanning' => 'Generating schedule',
 
     /* Confirm action misc text */
     'confirm_action'                        => 'Are you sure you want to continue ?',

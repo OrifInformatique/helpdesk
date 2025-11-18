@@ -29,7 +29,7 @@ return[
     'seconds'               => 'seconde·s',
 
     /* Planning generation misc text */
-    'planning_generation' => 'Génération du planning',
+    'generatePlanning' => 'Génération du planning',
 
     /* Confirm action misc text */
     'confirm_action'                        => 'Êtes-vous sûr(e) de vouloir continuer ?',

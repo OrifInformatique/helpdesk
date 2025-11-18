@@ -24,7 +24,7 @@ return[
     'holiday_updated'   => 'La période de vacances a été modifiée.',
     
     /* Planning generation success messages */
-    'planning_generation'                   => 'Le planning a été généré.',
-    'shift_weeks'                           => 'Les semaines ont été déplacées.',
-    'shift_weeks_with_planning_generation'  => 'Les semaines ont été déplacées et le planning a été généré.'
+    'generatePlanning'                   => 'Le planning a été généré.',
+    'shiftWeeks'                           => 'Les semaines ont été déplacées.',
+    'shiftWeeks_with_generatePlanning'  => 'Les semaines ont été déplacées et le planning a été généré.'
 ];

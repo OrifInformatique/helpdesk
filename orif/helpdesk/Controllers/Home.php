@@ -31,9 +31,9 @@ class Home extends BaseController
 {
     protected $session;
 
-    protected $lw_planning_model;
-    protected $planning_model;
-    protected $nw_planning_model;
+    protected $last_week_planning_model;
+    protected $current_week_planning_model;
+    protected $next_week_planning_model;
 
     protected $holidays_model;
     protected $presences_model;
@@ -47,9 +47,9 @@ class Home extends BaseController
 
         $this->session = \Config\Services::session();
 
-        $this->lw_planning_model = new lw_planning_model();
-        $this->planning_model = new planning_model();
-        $this->nw_planning_model = new nw_planning_model();
+        $this->last_week_planning_model = new Lw_planning_model();
+        $this->current_week_planning_model = new planning_model();
+        $this->next_week_planning_model = new nw_planning_model();
 
         $this->holidays_model = new holidays_model();
         $this->presences_model = new presences_model();
@@ -379,23 +379,23 @@ class Home extends BaseController
 
         switch($action)
         {
-            case 'shift_weeks':
+            case 'shiftWeeks':
                 if(!$this->isTechnician())
                     return redirect()->to('/helpdesk/planning/nw_planning');
                 
                 $action =
                 [
-                    'name' => 'shift_weeks_with_planning_generation',
+                    'name' => 'shiftWeeks_with_generatePlanning',
                     'css' => 'shift-weeks-with-planning-generation',
-                    'url' => base_url('helpdesk/planning/shift_weeks/true'),
+                    'url' => base_url('helpdesk/planning/shiftWeeks/true'),
                     'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
                 ];
 
                 $alt_action = 
                 [
-                    'name' => 'shift_weeks',
+                    'name' => 'shiftWeeks',
                     'css' => 'shift-weeks',
-                    'url' => base_url('helpdesk/planning/shift_weeks')
+                    'url' => base_url('helpdesk/planning/shiftWeeks')
                 ];
 
                 $irreversible_action = true;
@@ -410,7 +410,7 @@ class Home extends BaseController
                 [
                     'name' => 'generate_planning',
                     'css' => 'generate-planning',
-                    'url' => base_url('helpdesk/planning/planning_generation'),
+                    'url' => base_url('helpdesk/planning/generatePlanning'),
                     'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
                 ];
                 

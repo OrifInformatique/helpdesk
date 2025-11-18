@@ -30,10 +30,10 @@ return[
     'no_technician_selected'    => 'Aucun technicien n\'a été sélectionné.',
 
     /* Planning generation errors */
-    'planning_generation'                       => 'Une erreur est survenue lors de la génération du planning.',
-    'planning_generation_absent_technicians'    => 'Génération du planning impossible : Tous les techniciens sont absents durant toute la semaine.',
-    'planning_generation_no_period'             => 'Génération du planning impossible : Aucune période de travail dans la semaine.',
-    'planning_generation_no_technician'         => 'Génération du planning impossible : Aucun technicien n\'a de présences.',    
+    'generatePlanning'                       => 'Une erreur est survenue lors de la génération du planning.',
+    'generatePlanning_absent_technicians'    => 'Génération du planning impossible : Tous les techniciens sont absents durant toute la semaine.',
+    'generatePlanning_no_period'             => 'Génération du planning impossible : Aucune période de travail dans la semaine.',
+    'generatePlanning_no_technician'         => 'Génération du planning impossible : Aucun technicien n\'a de présences.',    
     'weeks_shift'                               => 'Une erreur est survenue lors du déplacement des semaines.',
     
     /* Confirm action errors */

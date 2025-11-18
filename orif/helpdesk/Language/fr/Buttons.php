@@ -39,8 +39,8 @@ return[
     
     /* Planning generation buttons */
     'generate_planning'                     => 'Générer un planning',
-    'shift_weeks'                           => 'Déplacer les semaines',
-    'shift_weeks_with_planning_generation'  => 'Déplacer les semaines et générer un planning',
+    'shiftWeeks'                           => 'Déplacer les semaines',
+    'shiftWeeks_with_generatePlanning'  => 'Déplacer les semaines et générer un planning',
 
     /* Dashboard buttons */
     'add_technician_in_actual_planning' => 'Ajouter au planning de la semaine <strong>actuelle</strong>.',

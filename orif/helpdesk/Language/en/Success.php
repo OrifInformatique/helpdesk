@@ -24,7 +24,7 @@ return[
     'holiday_updated'   => 'The holiday period has been updated.',
     
     /* Planning generation success messages */
-    'planning_generation'                   => 'The schedule has been generated.',
-    'shift_weeks'                           => 'The week\'s have been shifted.',
-    'shift_weeks_with_planning_generation'  => 'The week\'s have been shifted and the schedule has been generated.'
+    'generatePlanning'                   => 'The schedule has been generated.',
+    'shiftWeeks'                           => 'The week\'s have been shifted.',
+    'shiftWeeks_with_generatePlanning'  => 'The week\'s have been shifted and the schedule has been generated.'
 ];

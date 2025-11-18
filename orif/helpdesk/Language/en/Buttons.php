@@ -39,8 +39,8 @@ return[
     
     /* Planning generation buttons */
     'generate_planning'                     => 'Generate schedule',
-    'shift_weeks'                           => 'Shift weeks',
-    'shift_weeks_with_planning_generation'  => 'Shift weeks and generate a schedule',
+    'shiftWeeks'                           => 'Shift weeks',
+    'shiftWeeks_with_generatePlanning'  => 'Shift weeks and generate a schedule',
 
     /* Dashboard buttons */
     'add_technician_in_actual_planning' => 'Add to <strong>current</strong> week\'s schedule.',

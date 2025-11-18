@@ -84,8 +84,8 @@ class Technician extends Home
             'user'                  => $user,
             'role'                  => $role,
             'isUserLoggedAdmin'     => $this->isAdmin(),
-            'has_cw_planning_entry' => $this->planning_model->getPlanning($user_id) ? true : false,
-            'has_nw_planning_entry' => $this->nw_planning_model->getNwPlanning($user_id) ? true : false,
+            'has_cw_planning_entry' => $this->current_week_planning_model->getPlanning($user_id) ? true : false,
+            'has_nw_planning_entry' => $this->next_week_planning_model->getNwPlanning($user_id) ? true : false,
             'id_presence'           => $this->presences_model->getPresenceId($user_id)['id_presence'] ?? null,
             'title'                 => lang('Titles.technician_menu')
         ];

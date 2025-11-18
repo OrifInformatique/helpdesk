@@ -30,10 +30,10 @@ return[
     'no_technician_selected'    => 'No technician has been selected.',
 
     /* Planning generation errors */
-    'planning_generation'                       => 'An arror occured while generating the schedule.',
-    'planning_generation_absent_technicians'    => 'Schedule generation impossible : All technicians absent during the whole week.',
-    'planning_generation_no_period'             => 'Schedule generation impossible : No work period during the week.',
-    'planning_generation_no_technician'         => 'Schedule generation impossible : No technician available.',    
+    'generatePlanning'                       => 'An arror occured while generating the schedule.',
+    'generatePlanning_absent_technicians'    => 'Schedule generation impossible : All technicians absent during the whole week.',
+    'generatePlanning_no_period'             => 'Schedule generation impossible : No work period during the week.',
+    'generatePlanning_no_technician'         => 'Schedule generation impossible : No technician available.',    
     'weeks_shift'                               => 'An error occured while shifting weeks.',
     
     /* Confirm action errors */

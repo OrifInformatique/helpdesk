@@ -55,7 +55,7 @@ class Planning extends Home
 
         $data = 
         [
-            'lw_planning_data' => $this->lw_planning_model->getPlanningDataByUser(),
+            'lw_planning_data' => $this->last_week_planning_model->getPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
             'planning_type'    => -1,
             'title'            => lang('Titles.lw_planning')
@@ -81,7 +81,7 @@ class Planning extends Home
         $data =
         [
             'messages'      => $this->getFlashdataMessages(),
-            'planning_data' => $this->planning_model->getPlanningDataByUser(),
+            'planning_data' => $this->current_week_planning_model->getPlanningDataByUser(),
             'classes'       => $this->defineDaysOff($periods),
             'planning_type' => 0,
             'title'         => lang('Titles.planning')
@@ -107,7 +107,7 @@ class Planning extends Home
         $data = 
         [
             'messages'         => $this->getFlashdataMessages(),
-            'nw_planning_data' => $this->nw_planning_model->getNwPlanningDataByUser(),
+            'nw_planning_data' => $this->next_week_planning_model->getNwPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
             'planning_type'    => 1,
             'title'            => lang('Titles.nw_planning')
@@ -192,10 +192,10 @@ class Planning extends Home
         switch($planning_type)
         {
             case 0:
-                $planning_data = $this->planning_model->getPlanningData();
+                $planning_data = $this->current_week_planning_model->getPlanningData();
                 break;
             case 1:
-                $planning_data = $this->nw_planning_model->getNwPlanningData();
+                $planning_data = $this->next_week_planning_model->getNwPlanningData();
                 break;
         }
 
@@ -292,7 +292,7 @@ class Planning extends Home
                     'planning_fri_a2' => $_POST['planning_fri_a2'],
                 ];
 
-                $this->planning_model->insert($data_to_insert);
+                $this->current_week_planning_model->insert($data_to_insert);
 
                 return redirect()->to('/helpdesk/planning/cw_planning');
 
@@ -327,7 +327,7 @@ class Planning extends Home
                     'nw_planning_fri_a2' => $_POST['nw_planning_fri_a2'],
                 ];
 
-                $this->nw_planning_model->insert($data_to_insert);
+                $this->next_week_planning_model->insert($data_to_insert);
 
                 return redirect()->to('/helpdesk/planning/nw_planning');
         }
@@ -492,11 +492,11 @@ class Planning extends Home
                 switch($planning_type)
                 {
                     case 0:
-                        $this->planning_model->update($id_planning, $technician_updated_planning);
+                        $this->current_week_planning_model->update($id_planning, $technician_updated_planning);
                         break;
             
                     case 1:
-                        $this->nw_planning_model->update($id_planning, $technician_updated_planning);
+                        $this->next_week_planning_model->update($id_planning, $technician_updated_planning);
                         break;
                 }
 
@@ -508,14 +508,14 @@ class Planning extends Home
         switch($planning_type)
         {
             case 0:
-                $planning_data = $this->planning_model->getPlanningDataByUser();
+                $planning_data = $this->current_week_planning_model->getPlanningDataByUser();
 
                 $data['planning_data'] = $planning_data;
                 $data['title']         = lang('Titles.update_planning');
                 break;
 
             case 1:
-                $nw_planning_data = $this->nw_planning_model->getNwPlanningDataByUser();
+                $nw_planning_data = $this->next_week_planning_model->getNwPlanningDataByUser();
 
                 $data['nw_planning_data'] = $nw_planning_data;
                 $data['title']            = lang('Titles.update_nw_planning');
@@ -565,16 +565,16 @@ class Planning extends Home
             switch($planning_type)
             {
                 case 0:
-                    $planning_data = $this->planning_model->getPlanning($user_id);
+                    $planning_data = $this->current_week_planning_model->getPlanning($user_id);
 
-                    $this->planning_model->delete($planning_data['id_planning']);
+                    $this->current_week_planning_model->delete($planning_data['id_planning']);
 
                     return redirect()->to('/helpdesk/planning/cw_planning');
 
                 case 1:
-                    $id_planning = $this->nw_planning_model->getNwPlanning($user_id);
+                    $id_planning = $this->next_week_planning_model->getNwPlanning($user_id);
 
-                    $this->nw_planning_model->delete($id_planning);
+                    $this->next_week_planning_model->delete($id_planning);
 
                     return redirect()->to('/helpdesk/planning/nw_planning');
             }
@@ -627,12 +627,12 @@ class Planning extends Home
             switch($planning_type)
             {
                 case 0:
-                    $this->planning_model->emptyTable();
+                    $this->current_week_planning_model->emptyTable();
 
                     return redirect()->to('/helpdesk/planning/cw_planning');
 
                 case 1:
-                    $this->nw_planning_model->emptyTable();
+                    $this->next_week_planning_model->emptyTable();
 
                     return redirect()->to('/helpdesk/planning/nw_planning');
             }
@@ -666,44 +666,44 @@ class Planning extends Home
      * @return view|void
      * 
      */
-    public function shift_weeks($generate_planning = false)
+    public function shiftWeeks($generate_planning = false)
     {
         $this->setSessionVariables();
 
         try
         {
             // PART 1 : Last week deletion
-            $this->lw_planning_model->emptyTable();
+            $this->last_week_planning_model->emptyTable();
 
             // PART 2 : Current week to last week transfer
-            $cw_planning = $this->planning_model->getPlanningData();
+            $current_week_planning = $this->current_week_planning_model->getPlanningData();
             
-            if($cw_planning)
+            if($current_week_planning)
             {
-                $lw_planning = $this->duplicate_planning($cw_planning, -1);
-                $this->lw_planning_model->insertBatch($lw_planning);
-                $this->planning_model->emptyTable();
+                $last_week_planning = $this->duplicate_planning($current_week_planning, -1);
+                $this->last_week_planning_model->insertBatch($last_week_planning);
+                $this->current_week_planning_model->emptyTable();
             }
 
             // PART 3 : Next week to current week transfer
-            $nw_planning = $this->nw_planning_model->getNwPlanningData();
+            $nw_planning = $this->next_week_planning_model->getNwPlanningData();
 
             if($nw_planning)
             {
-                $cw_planning = $this->duplicate_planning($nw_planning, 0);
-                $this->planning_model->insertBatch($cw_planning);
-                $this->nw_planning_model->emptyTable();
+                $current_week_planning = $this->duplicate_planning($nw_planning, 0);
+                $this->current_week_planning_model->insertBatch($current_week_planning);
+                $this->next_week_planning_model->emptyTable();
             }
 
             // PART 4 : Next week generation
             if($generate_planning)
             {
-                $this->planning_generation();
-                $this->session->setFlashData('success', lang('Success.shift_weeks_with_planning_generation'));
+                $this->generatePlanning();
+                $this->session->setFlashData('success', lang('Success.shiftWeeks_with_generatePlanning'));
             }
 
             else
-                $this->session->setFlashData('success', lang('Success.shift_weeks'));
+                $this->session->setFlashData('success', lang('Success.shiftWeeks'));
 
             return redirect()->to('helpdesk/planning/nw_planning');
         }
@@ -771,7 +771,7 @@ class Planning extends Home
      * @return view|void
      * 
      */
-    public function planning_generation()
+    public function generatePlanning()
     {
         $this->setSessionVariables();
 
@@ -783,7 +783,7 @@ class Planning extends Home
 
             if(empty($periods))
             {
-                $this->session->setFlashdata('error', lang('Errors.planning_generation_no_period'));
+                $this->session->setFlashdata('error', lang('Errors.generatePlanning_no_period'));
                 return redirect()->to('helpdesk/planning/nw_planning');
             }
 
@@ -792,7 +792,7 @@ class Planning extends Home
 
             if(empty($users_ids))
             {
-                $this->session->setFlashdata('error', lang('Errors.planning_generation_no_technician'));
+                $this->session->setFlashdata('error', lang('Errors.generatePlanning_no_technician'));
                 return redirect()->to('helpdesk/planning/nw_planning');
             }
 
@@ -800,7 +800,7 @@ class Planning extends Home
 
             if(is_null($technicians_data))
             {
-                $this->session->setFlashdata('error', lang('Errors.planning_generation_absent_technicians'));
+                $this->session->setFlashdata('error', lang('Errors.generatePlanning_absent_technicians'));
                 return redirect()->to('helpdesk/planning/nw_planning');
             }
 
@@ -814,7 +814,7 @@ class Planning extends Home
             
             $periods_assignations_count = $this->shuffleRowsWithSameValueInArray($periods_assignations_count);
             
-            $cw_planning = $this->getAndArrangeCwPlanning();
+            $current_week_planning = $this->getAndArrangeCurrentWeekPlanning();
 
             // 1 => Present, 2 => Partly absent
             $presences = [1, 2];
@@ -825,8 +825,8 @@ class Planning extends Home
              */
             foreach($periods_assignations_count as $period_name => $possible_assignations_count)
             {
-                $sql_nw_period = 'nw_planning_'.str_replace('-', '_', $period_name);
-                $sql_cw_period = 'planning_'.str_replace('-', '_', $period_name);
+                $sql_next_week_period = 'nw_planning_'.str_replace('-', '_', $period_name);
+                $sql_current_week_period = 'planning_'.str_replace('-', '_', $period_name);
                 $sql_presence = 'presence_'.str_replace('-', '_', $period_name);
                 
                 $roles_assigned_in_period = [];
@@ -850,7 +850,7 @@ class Planning extends Home
                         // he will be assigned as first tech in that period, despite the max assignations limit exceeded.
                         if($possible_assignations_count == 1)
                         {
-                            $generated_planning[$user_id][$sql_nw_period] = 1;
+                            $generated_planning[$user_id][$sql_next_week_period] = 1;
                             $technician_assignations_per_role[$user_id][1]++;
                             break;
                         }
@@ -862,17 +862,17 @@ class Planning extends Home
 
                             if(!in_array($role, $roles_assigned_in_period))
                             {
-                                if(isset($cw_planning[$user_id]))
+                                if(isset($current_week_planning[$user_id]))
                                 {
                                     // Prevents a technician to have the same role in the same period 2 weeks in a row.
-                                    if($cw_planning[$user_id][$sql_cw_period] == $role)
+                                    if($current_week_planning[$user_id][$sql_current_week_period] == $role)
                                     {
                                         $possible_assignations_count--;
                                         continue;
                                     }
                                 }
                                     
-                                $generated_planning[$user_id][$sql_nw_period] = $role;
+                                $generated_planning[$user_id][$sql_next_week_period] = $role;
                                 array_push($roles_assigned_in_period, $role);
                                 $technician_assignations_per_role[$user_id][$role]++;
                                 break;
@@ -884,10 +884,10 @@ class Planning extends Home
 
             asort($generated_planning);
 
-            $nw_planning = $this->nw_planning_model->getNwPlanningData();
+            $nw_planning = $this->next_week_planning_model->getNwPlanningData();
 
             if($nw_planning)
-                $this->nw_planning_model->emptyTable();
+                $this->next_week_planning_model->emptyTable();
 
             foreach($generated_planning as $user_id => $generated_planning_entry)
             {
@@ -900,16 +900,16 @@ class Planning extends Home
                     continue;
                 }
 
-                $this->nw_planning_model->insert($generated_planning_entry); 
+                $this->next_week_planning_model->insert($generated_planning_entry); 
             }
 
-            $this->session->setFlashdata('success', lang('Success.planning_generation'));
+            $this->session->setFlashdata('success', lang('Success.generatePlanning'));
             return redirect()->to('helpdesk/planning/nw_planning');
         }
 
         catch(\Exception $e)
         {
-            $this->session->setFlashdata('error', lang('Errors.planning_generation'));
+            $this->session->setFlashdata('error', lang('Errors.generatePlanning'));
             return redirect()->to('helpdesk/planning/nw_planning');
         }
     }
@@ -1004,9 +1004,9 @@ class Planning extends Home
             // Generated planning array preperation
             $generated_planning[$user_id]['fk_user_id'] = $user_id;
 
-            foreach($_SESSION['helpdesk']['nw_periods'] as $sql_nw_period)
+            foreach($_SESSION['helpdesk']['nw_periods'] as $sql_next_week_period)
             {
-                $generated_planning[$user_id][$sql_nw_period] = null;
+                $generated_planning[$user_id][$sql_next_week_period] = null;
             }
         }
         
@@ -1145,25 +1145,25 @@ class Planning extends Home
      * @return array
      * 
      */
-    private function getAndArrangeCwPlanning()
+    private function getAndArrangeCurrentWeekPlanning()
     {
-        $cw_planning = $this->planning_model->getPlanningData();
-        $arranged_cw_planning = [];
+        $current_week_planning = $this->current_week_planning_model->getPlanningData();
+        $arranged_current_week_planning = [];
 
-        foreach($cw_planning as $cw_planning_entry)
+        foreach($current_week_planning as $current_week_planning_entry)
         {
-            $cw_user_planning = [];
+            $current_week_user_planning = [];
 
-            foreach($cw_planning_entry as $cw_planning_cell_name => $cw_planning_cell_value)
+            foreach($current_week_planning_entry as $current_week_planning_cell_name => $current_week_planning_cell_value)
             {
-                if(!in_array($cw_planning_cell_name, ['id_planning','fk_user_id']))
-                    $cw_user_planning[$cw_planning_cell_name] = $cw_planning_cell_value;
+                if(!in_array($current_week_planning_cell_name, ['id_planning','fk_user_id']))
+                    $current_week_user_planning[$current_week_planning_cell_name] = $current_week_planning_cell_value;
             }
 
-            $arranged_cw_planning[$cw_planning_entry['fk_user_id']] = $cw_user_planning;
+            $arranged_current_week_planning[$current_week_planning_entry['fk_user_id']] = $current_week_user_planning;
         }
 
-        return $arranged_cw_planning;
+        return $arranged_current_week_planning;
     }
 
 
