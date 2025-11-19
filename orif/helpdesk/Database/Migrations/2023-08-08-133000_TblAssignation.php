@@ -4,7 +4,7 @@ namespace App\Database\Migrations;
 
 use CodeIgniter\Database\Migration;
 
-class AddRoles extends Migration
+class AddAssignation extends Migration
 {
     public function up()
     {
@@ -12,42 +12,35 @@ class AddRoles extends Migration
 
         $this->forge->addField(
         [
-            'id_role' =>
+            'id_assignation' =>
             [
                 'type'           => 'INT',
-                'constraint'     =>11,
+                'constraint'     => 11,
                 'unsigned'       => true,
                 'auto_increment' => true,
             ],
             
-            'name_role' =>
+            'title_assignation' =>
             [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
                 'null'           => true,
             ],
-
-            'priority_role' =>
-            [
-                'type'           => 'INT',
-                'constraint'     => 11,
-                'unsigned'       => true,
-            ],
         ]);
 
-        $this->forge->addKey('id_role', true);
+        $this->forge->addKey('id_assignation', true);
 
-        $this->forge->createTable('tbl_roles');
+        $this->forge->createTable('tbl_assignation');
 
         $seeder=\Config\Database::seeder();
 
-        $seeder->call('\Helpdesk\Database\Seeds\InsertRolesData');
+        $seeder->call('\Helpdesk\Database\Seeds\InsertAssignationData');
 
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
 
     public function down()
     {
-        $this->forge->dropTable('tbl_roles');
+        $this->forge->dropTable('tbl_assignation');
     }
 }
