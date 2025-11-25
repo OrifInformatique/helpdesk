@@ -26,10 +26,10 @@ class Database extends Config
      */
     public array $default = [
         'DSN'      => '',
-        'hostname' => 'localhost',
-        'username' => '',
-        'password' => '',
-        'database' => '',
+        'hostname' => 'mariadb',
+        'username' => 'ci4_user',
+        'password' => 'ci4_password',
+        'database' => 'ci4',
         'DBDriver' => 'MySQLi',
         'DBPrefix' => '',
         'pConnect' => false,
@@ -51,9 +51,9 @@ class Database extends Config
     public array $tests = [
         'DSN'         => '',
         'hostname'    => '127.0.0.1',
-        'username'    => '',
-        'password'    => '',
-        'database'    => ':memory:',
+        'username'    => 'ci4_user_test',
+        'password'    => 'ci4_password_test',
+        'database'    => 'ci4_test',
         'DBDriver'    => 'SQLite3',
         'DBPrefix'    => 'db_',  // Needed to ensure we're working correctly with prefixes live. DO NOT REMOVE FOR CI DEVS
         'pConnect'    => false,
