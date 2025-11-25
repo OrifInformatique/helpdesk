@@ -49,10 +49,11 @@
 #--------------------------------------------------------------------
 # Docker environment variables
 #--------------------------------------------------------------------
-# DB_ROOT_PASSWORD = 
-# DB_NAME = 
-# DB_USER = 
-# DB_PASSWORD = 
+
+# DB_ROOT_PASSWORD = root_password
+# DB_NAME = ci4
+# DB_USER = ci4_user
+# DB_PASSWORD = ci4_password
 
 #--------------------------------------------------------------------
 # CONTENT SECURITY POLICY
