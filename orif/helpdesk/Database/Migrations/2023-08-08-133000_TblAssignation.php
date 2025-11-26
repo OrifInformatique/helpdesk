@@ -34,7 +34,7 @@ class AddAssignation extends Migration
 
         $seeder=\Config\Database::seeder();
 
-        $seeder->call('\Helpdesk\Database\Seeds\InsertAssignationData');
+        $seeder->call('\Helpdesk\Database\Seeds\InsertAssignationsData');
 
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }

@@ -244,7 +244,7 @@ docker compose logs -f mariadb
 
 ```bash
 # Run migrations
-docker compose exec apache php spark migrate
+docker compose exec apache php spark migrate --all
 
 # Other spark commands
 docker compose exec apache php spark [command]
