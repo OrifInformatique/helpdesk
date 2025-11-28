@@ -34,53 +34,48 @@ class AddRoles extends Migration
                 'unsigned'       => true,
             ],
 
-            'min_assignation_first_technician_role' =>
+            'min_assignation_first_technician_role ' =>
             [
                 'type'           => 'INT',
-                'constraint'     => 11,
+                'constraint'     => 3,
                 'unsigned'       => true,
-                'null'           => true,
             ],
 
             'max_assignation_first_technician_role' =>
             [
                 'type'           => 'INT',
-                'constraint'     => 11,
+                'constraint'     => 3,
                 'unsigned'       => true,
-                'null'           => true,
             ],
 
             'min_assignation_second_technician_role' =>
             [
                 'type'           => 'INT',
-                'constraint'     => 11,
+                'constraint'     => 3,
                 'unsigned'       => true,
-                'null'           => true,
             ],
 
             'max_assignation_second_technician_role' =>
             [
                 'type'           => 'INT',
-                'constraint'     => 11,
+                'constraint'     => 3,
                 'unsigned'       => true,
-                'null'           => true,
             ],
 
             'min_assignation_third_technician_role' =>
             [
                 'type'           => 'INT',
-                'constraint'     => 11,
+                'constraint'     => 3,
                 'unsigned'       => true,
-                'null'           => true,
             ],
 
             'max_assignation_third_technician_role' =>
             [
                 'type'           => 'INT',
-                'constraint'     => 11,
+                'constraint'     => 3,
                 'unsigned'       => true,
-                'null'           => true,
-            ]
+            ],
+
         ]);
 
         $this->forge->addKey('id_role', true);
