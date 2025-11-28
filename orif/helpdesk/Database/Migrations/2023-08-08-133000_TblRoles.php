@@ -33,6 +33,49 @@ class AddRoles extends Migration
                 'constraint'     => 11,
                 'unsigned'       => true,
             ],
+
+            'min_assignation_first_technician_role ' =>
+            [
+                'type'           => 'INT',
+                'constraint'     => 3,
+                'unsigned'       => true,
+            ],
+
+            'max_assignation_first_technician_role' =>
+            [
+                'type'           => 'INT',
+                'constraint'     => 3,
+                'unsigned'       => true,
+            ],
+
+            'min_assignation_second_technician_role' =>
+            [
+                'type'           => 'INT',
+                'constraint'     => 3,
+                'unsigned'       => true,
+            ],
+
+            'max_assignation_second_technician_role' =>
+            [
+                'type'           => 'INT',
+                'constraint'     => 3,
+                'unsigned'       => true,
+            ],
+
+            'min_assignation_third_technician_role' =>
+            [
+                'type'           => 'INT',
+                'constraint'     => 3,
+                'unsigned'       => true,
+            ],
+
+            'max_assignation_third_technician_role' =>
+            [
+                'type'           => 'INT',
+                'constraint'     => 3,
+                'unsigned'       => true,
+            ],
+
         ]);
 
         $this->forge->addKey('id_role', true);
