@@ -24,7 +24,7 @@ class AddRoles extends Migration
             [
                 'type'           => 'VARCHAR',
                 'constraint'     => 50,
-                'null'           => true,
+                'null'           => false,
             ],
 
             'priority_role' =>
@@ -32,13 +32,15 @@ class AddRoles extends Migration
                 'type'           => 'INT',
                 'constraint'     => 11,
                 'unsigned'       => true,
+                'null'           => false,
             ],
 
-            'min_assignation_first_technician_role ' =>
+            'min_assignation_first_technician_role' =>
             [
                 'type'           => 'INT',
                 'constraint'     => 3,
                 'unsigned'       => true,
+                'null'           => false,
             ],
 
             'max_assignation_first_technician_role' =>
@@ -46,6 +48,7 @@ class AddRoles extends Migration
                 'type'           => 'INT',
                 'constraint'     => 3,
                 'unsigned'       => true,
+                'null'           => false,
             ],
 
             'min_assignation_second_technician_role' =>
@@ -53,6 +56,7 @@ class AddRoles extends Migration
                 'type'           => 'INT',
                 'constraint'     => 3,
                 'unsigned'       => true,
+                'null'           => false,
             ],
 
             'max_assignation_second_technician_role' =>
@@ -60,6 +64,7 @@ class AddRoles extends Migration
                 'type'           => 'INT',
                 'constraint'     => 3,
                 'unsigned'       => true,
+                'null'           => false,
             ],
 
             'min_assignation_third_technician_role' =>
@@ -67,6 +72,7 @@ class AddRoles extends Migration
                 'type'           => 'INT',
                 'constraint'     => 3,
                 'unsigned'       => true,
+                'null'           => false,
             ],
 
             'max_assignation_third_technician_role' =>
@@ -74,6 +80,7 @@ class AddRoles extends Migration
                 'type'           => 'INT',
                 'constraint'     => 3,
                 'unsigned'       => true,
+                'null'           => false,
             ],
 
         ]);
