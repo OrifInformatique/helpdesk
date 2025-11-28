@@ -28,6 +28,14 @@ class AddUserData extends Migration
                 'null'           => true,
             ],
 
+            'fk_role_id' =>
+            [
+                'type'           => 'INT',
+                'constraint'     => 11,
+                'unsigned'       => true,
+                'null'           => true,
+            ],
+
             'last_name_user_data' =>
             [
                 'type'           => 'VARCHAR',
@@ -60,12 +68,9 @@ class AddUserData extends Migration
         $this->forge->addKey('id_user_data', true);
 
         $this->forge->addForeignKey('fk_user_id', 'user', 'id');
+        $this->forge->addForeignKey('fk_role_id', 'tbl_roles', 'id_role', 'CASCADE', 'CASCADE');
 
         $this->forge->createTable('tbl_user_data');
-
-        $seeder=\Config\Database::seeder();
-
-        $seeder->call('\Helpdesk\Database\Seeds\InsertUserData');
         
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }
