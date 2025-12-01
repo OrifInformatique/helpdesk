@@ -66,6 +66,7 @@ class Nw_planning_model extends \CodeIgniter\Model
         $nw_planning_data_by_user = $this->join('tbl_user_data','tbl_nw_planning.fk_user_id = tbl_user_data.fk_user_id')
                                          ->join('user','tbl_nw_planning.fk_user_id = user.id')
                                          ->orderBy('last_name_user_data', 'ASC')
+                                         ->orderBy('first_name_user_data', 'ASC')
                                          ->findAll();
 
         return $nw_planning_data_by_user;
@@ -86,6 +87,7 @@ class Nw_planning_model extends \CodeIgniter\Model
                                          ->join('user','tbl_nw_planning.fk_user_id = user.id')
                                          ->where('user.id', $user_id)
                                          ->orderBy('last_name_user_data', 'ASC')
+                                         ->orderBy('first_name_user_data', 'ASC')
                                          ->findAll();
 
         return $nw_planning_data_by_user;
