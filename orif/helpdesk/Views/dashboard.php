@@ -89,7 +89,7 @@
         </div>
     </div>
     
-    <?php if($isUserLoggedAdmin): ?>
+    <?php if($is_user_logged_admin): ?>
         <div class="dashboard-card small" id="user-card">
             <div class="dashboard-card-header">
                 <h3><?= lang('Technician.user') ?></h3>

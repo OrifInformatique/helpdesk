@@ -220,7 +220,7 @@ class Auth extends BaseController {
         $client_id = getenv('CLIENT_ID');
         $client_secret = getenv('CLIENT_SECRET');
         $ad_tenant = getenv('TENANT_ID');
-        $graphUserScopes = getenv('GRAPH_USER_SCOPES');
+        $graph_user_scopes = getenv('GRAPH_USER_SCOPES');
         $redirect_uri = getenv('REDIRECT_URI');
         
         // Authentication part begins
@@ -229,7 +229,7 @@ class Auth extends BaseController {
             // First stage of the authentication process
             $url = "https://login.microsoftonline.com/" . $ad_tenant . "/oauth2/v2.0/authorize?";
             $url .= "state=" . session_id();
-            $url .= "&scope=" . $graphUserScopes;
+            $url .= "&scope=" . $graph_user_scopes;
             $url .= "&response_type=code";
             $url .= "&approval_prompt=auto";
             $url .= "&client_id=" . $client_id;
@@ -318,7 +318,7 @@ class Auth extends BaseController {
             $ci_user_azure = $this->user_model->where('azure_mail', $user_azure_mail)->first();
 
             // Seperate name and lastname from email for mail correspondances
-            $nameAndLastname = strstr($user_azure_mail, '@', true); // True = before '@' and without '@'
+            $name_and_lastname = strstr($user_azure_mail, '@', true); // True = before '@' and without '@'
 
             // Azure mail not found in DB
             if (empty($ci_user_azure)){
@@ -328,7 +328,7 @@ class Auth extends BaseController {
                 $_SESSION['user_access'] = config("\User\Config\UserConfig")->azure_default_access_lvl;
                 $_SESSION['azure_mail'] = $user_azure_mail;
 
-                $corresponding_user = $this->user_model->where('email LIKE', $nameAndLastname . '%')->first();
+                $corresponding_user = $this->user_model->where('email LIKE', $name_and_lastname . '%')->first();
 
                 if ($corresponding_user == NULL){
                     $corresponding_email = '';

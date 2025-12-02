@@ -58,9 +58,9 @@ class Terminal extends Home
 
         $data['preview'] = $preview;
 
-        $isDayOff = $this->holidays_model->areWeInHolidays();
+        $is_day_off = $this->holidays_model->areWeInHolidays();
 
-        if($isDayOff)
+        if($is_day_off)
             $data['day_off'] = true;
 
         else
