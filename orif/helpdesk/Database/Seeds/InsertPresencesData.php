@@ -108,8 +108,8 @@ class InsertPresencesData extends Seeder
         }
         
         // Créer les présences pour les 12 utilisateurs réalistes (IDs 10 à 21)
-        foreach ($realisticUsers as $userId => $presences) {
-            $this->createPresences($userId, $presences);
+        foreach ($realisticUsers as $user_id => $presences) {
+            $this->createPresences($user_id, $presences);
         }
     }
     
@@ -117,11 +117,11 @@ class InsertPresencesData extends Seeder
      * Crée les presences pour un utilisateur existant
      * Vérifie si les présences existent déjà avant d'insérer
      */
-    private function createPresences($userId, $presences)
+    private function createPresences($user_id, $presences)
     {
         // Vérifier si les présences existent déjà pour cet utilisateur
         $existing = $this->db->table('tbl_presences')
-            ->where('fk_user_id', $userId)
+            ->where('fk_user_id', $user_id)
             ->get()
             ->getRowArray();
         
@@ -130,7 +130,7 @@ class InsertPresencesData extends Seeder
             return;
         }
         
-        $presenceData = array_merge(['fk_user_id' => $userId], $presences);
+        $presenceData = array_merge(['fk_user_id' => $user_id], $presences);
         $this->db->table('tbl_presences')->insert($presenceData);
     }
 }

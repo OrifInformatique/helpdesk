@@ -46,15 +46,15 @@ class User extends Admin
     public function helpdesk_save_user(?int $user_id = 0)
     {
         //store the user name and user type to display them again in the form
-        $oldName = NULL;
-        $oldUsertype = NULL;
+        $old_name = NULL;
+        $old_usertype = NULL;
         //added user in current scope to manage its datas
         $user=null;
         if (count($_POST) > 0) {
             $user_id = $this->request->getPost('id');
-            $oldName = $this->request->getPost('user_name');
+            $old_name = $this->request->getPost('user_name');
             if($_SESSION['user_id'] != $user_id) {
-                $oldUsertype = $this->request->getPost('user_usertype');
+                $old_usertype = $this->request->getPost('user_usertype');
             }
             $post_data = array(
                 'id'                    => $user_id ?: null,
@@ -228,8 +228,8 @@ class User extends Admin
             'title'         => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
             'user'          => $this->user_model->withDeleted()->find($user_id),
             'user_types'    => $usertypes,
-            'user_name'     => $oldName,
-            'user_usertype' => $oldUsertype,
+            'user_name'     => $old_name,
+            'user_usertype' => $old_usertype,
             'email'         => $post_data['email'] ?? null,
             'first_name_user_data' => $post_data['first_name_user_data'] ?? $user_data_data['first_name_user_data'] ?? null,
             'last_name_user_data' => $post_data['last_name_user_data'] ?? $user_data_data['last_name_user_data'] ?? null,

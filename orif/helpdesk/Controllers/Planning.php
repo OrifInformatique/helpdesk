@@ -400,7 +400,7 @@ class Planning extends Home
                     
                 $data_to_update['fk_user_id'] = $technician_planning_row['fk_user_id'];
                     
-                $emptyFieldsCount = 0;
+                $empty_fields_count = 0;
                 $user_id = $technician_planning_row['fk_user_id'];
                 $technician_absent = false;
                 $role_duplicated =  false;
@@ -416,7 +416,7 @@ class Planning extends Home
                     if(!$technician_absent && (!in_array($field_value, ["", 1, 2, 3]) || empty($field_value)))
                     {
                         $field_value = NULL; // Required for database insertion
-                        $emptyFieldsCount++;
+                        $empty_fields_count++;
                     }
 
                     if($presences_check && $technician_presence === 3 && in_array($field_value, [1, 2, 3]))
@@ -459,7 +459,7 @@ class Planning extends Home
                 }
 
                 // If all fields are empty, prevent having a technician without any role at any period
-                if($emptyFieldsCount === 20)
+                if($empty_fields_count === 20)
                 {
                     $this->session->setFlashdata('error', lang('Errors.technician_must_be_assigned_to_schedule'));
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);

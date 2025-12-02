@@ -81,15 +81,15 @@ class Admin extends BaseController
     public function save_user(?int $user_id = 0): string|Response
     {
         //store the user name and user type to display them again in the form
-        $oldName = NULL;
-        $oldUsertype = NULL;
+        $old_name = NULL;
+        $old_usertype = NULL;
         //added user in current scope to manage its datas
         $user=null;
         if (count($_POST) > 0) {
             $user_id = $this->request->getPost('id');
-            $oldName = $this->request->getPost('user_name');
+            $old_name = $this->request->getPost('user_name');
             if($_SESSION['user_id'] != $user_id) {
-                $oldUsertype = $this->request->getPost('user_usertype');
+                $old_usertype = $this->request->getPost('user_usertype');
             }
             $user = array(
                 'id'    => $user_id,
@@ -125,8 +125,8 @@ class Admin extends BaseController
             'title'         => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
             'user'          => $this->user_model->withDeleted()->find($user_id),
             'user_types'    => $usertypes,
-            'user_name'     => $oldName,
-            'user_usertype' => $oldUsertype,
+            'user_name'     => $old_name,
+            'user_usertype' => $old_usertype,
             'email'         => $user['email']??null,
             'errors'        => $this->user_model->errors()==null?[]:$this->user_model->errors()
         );

@@ -10,7 +10,7 @@ class InsertUserData extends Seeder
     {
         // Vérifier si la colonne fk_role_id existe
         $query = $this->db->query("SHOW COLUMNS FROM `tbl_user_data` LIKE 'fk_role_id'");
-        $columnExists = $query->getNumRows() > 0;
+        $column_exists = $query->getNumRows() > 0;
 
         $data = 
         [
@@ -219,9 +219,9 @@ class InsertUserData extends Seeder
             }
             
             // Ajouter fk_role_id seulement si la colonne existe
-            if ($columnExists && !isset($row['fk_role_id'])) {
+            if ($column_exists && !isset($row['fk_role_id'])) {
                 $row['fk_role_id'] = 1; // Valeur par défaut
-            } elseif (!$columnExists && isset($row['fk_role_id'])) {
+            } elseif (!$column_exists && isset($row['fk_role_id'])) {
                 // Retirer fk_role_id si la colonne n'existe pas
                 unset($row['fk_role_id']);
             }

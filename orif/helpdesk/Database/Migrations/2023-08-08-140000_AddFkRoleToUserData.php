@@ -12,10 +12,10 @@ class AddFkRoleToUserData extends Migration
 
         // Vérifier si la colonne existe déjà (pour les installations existantes)
         $query = $this->db->query("SHOW COLUMNS FROM `tbl_user_data` LIKE 'fk_role_id'");
-        $columnExists = $query->getNumRows() > 0;
+        $column_exists = $query->getNumRows() > 0;
 
         // Si la colonne n'existe pas, l'ajouter (cas d'une base existante)
-        if (!$columnExists) {
+        if (!$column_exists) {
             $fields = [
                 'fk_role_id' =>
                 [
@@ -45,9 +45,9 @@ class AddFkRoleToUserData extends Migration
         
         // Vérifier si la colonne existe avant de la supprimer
         $query = $this->db->query("SHOW COLUMNS FROM `tbl_user_data` LIKE 'fk_role_id'");
-        $columnExists = $query->getNumRows() > 0;
+        $column_exists = $query->getNumRows() > 0;
 
-        if ($columnExists) {
+        if ($column_exists) {
             $this->forge->dropForeignKey('tbl_user_data', 'tbl_user_data_fk_role_id_foreign');
             $this->forge->dropColumn('tbl_user_data', 'fk_role_id');
         }
