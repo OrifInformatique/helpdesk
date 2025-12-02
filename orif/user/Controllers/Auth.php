@@ -155,7 +155,7 @@ class Auth extends BaseController {
         // setup
         $email = \Config\Services::email();
                 
-        $emailConfig = [
+        $email_config = [
             'protocol' => getenv('PROTOCOL'),
             'SMTPHost' => getenv('SMTP_HOST'),
             'SMTPUser' => getenv('SMTP_ID'),
@@ -163,7 +163,7 @@ class Auth extends BaseController {
             'SMTPPort' => getenv('SMTP_PORT'),
         ];
 
-        $email->initialize($emailConfig);
+        $email->initialize($email_config);
 
         // Sending code to user's  mail
         $email->setFrom('smtp@sectioninformatique.ch', 'packbase'); 
@@ -190,11 +190,11 @@ class Auth extends BaseController {
         $new_username = substr($new_username[0], 0, $username_max_length);
 
         // Generating a random password
-        $password_max_lenght = $user_config->password_max_length;
+        $password_max_length = $user_config->password_max_length;
         $new_password = '';
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-={}[]|:;"<>,.?/~`';
 
-        for ($i = 0; $i < $password_max_lenght; $i++) {
+        for ($i = 0; $i < $password_max_length; $i++) {
             $new_password .= $characters[rand(0, strlen($characters) - 1)];
         }
 
@@ -328,17 +328,17 @@ class Auth extends BaseController {
                 $_SESSION['user_access'] = config("\User\Config\UserConfig")->azure_default_access_lvl;
                 $_SESSION['azure_mail'] = $user_azure_mail;
 
-                $correspondingUser = $this->user_model->where('email LIKE', $nameAndLastname . '%')->first();
+                $corresponding_user = $this->user_model->where('email LIKE', $nameAndLastname . '%')->first();
 
-                if ($correspondingUser == NULL){
-                    $correspondingEmail = '';
+                if ($corresponding_user == NULL){
+                    $corresponding_email = '';
                 } else {
-                    $correspondingEmail = $correspondingUser['email'];
+                    $corresponding_email = $corresponding_user['email'];
                 }
 
                 $output = array(
                     'title' => lang('user_lang.title_page_login'),
-                    'correspondingEmail' => $correspondingEmail,
+                    'corresponding_email' => $corresponding_email,
                     'ci_user' => $ci_user_azure,
                     'userdata' => $userdata);
                     

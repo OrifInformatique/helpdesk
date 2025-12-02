@@ -28,7 +28,7 @@
                 </div>
                 <div class="form-group">
                     <?= form_label(lang('user_lang.field_email'), 'user_email', ['class' => 'form-label']); ?>
-                    <?= form_input('user_email', $correspondingEmail ?? $user_email ?? '', [
+                    <?= form_input('user_email', $corresponding_email ?? $user_email ?? '', [
                         'maxlength' => config('\User\Config\UserConfig')->email_max_length,
                         'class' => 'form-control',
                         'id' => 'user_email'
