@@ -811,20 +811,22 @@
 
 ---
 
-### 41. `cb_not_null_user_type()` → `cbNotNullUserType()`
+### 41. `cb_not_null_user_type()` → `cbNotNullUserType()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 6** (définition + utilisation + commentaires)
+**Nombre total d'occurrences : 6** (définition + utilisation + commentaires) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Validation/CustomRules.php` (ligne 51)
+  - `orif/user/Validation/CustomRules.php` (ligne 51) ✅
 
 - **Utilisation dans les règles de validation** :
-  - `orif/helpdesk/Controllers/User.php` (lignes 86, 130)
+  - `orif/helpdesk/Controllers/User.php` (lignes 86, 130) ✅
 
 - **Commentaires (code commenté)** :
-  - `orif/user/Models/User_model.php` (lignes 41, 60)
+  - `orif/user/Models/User_model.php` (lignes 41, 60) ✅
+
+**Statut** : Fonction, utilisations et commentaires mis à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

@@ -48,7 +48,7 @@ class CustomRules
      * @param integer $user_type_id = Id of the user type to check
      * @return boolean = TRUE if the user type exists, FALSE otherwise
      */
-    public function cb_not_null_user_type($user_type_id) : bool
+    public function cbNotNullUserType($user_type_id) : bool
     {
         return !is_null((new User_type_model())->find($user_type_id));
     }

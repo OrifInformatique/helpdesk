@@ -83,7 +83,7 @@ class User extends Admin
                     ],
                     'fk_user_type' => [
                         'label' => lang('user_lang.field_usertype'),
-                        'rules' => 'required|cb_not_null_user_type'
+                        'rules' => 'required|cbNotNullUserType'
                     ],
                     'email' => [
                         'label' => lang('Forms/Fields.mail'),
@@ -127,7 +127,7 @@ class User extends Admin
                     ],
                     'fk_user_type' => [
                         'label' => lang('user_lang.field_usertype'),
-                        'rules' => 'required|cb_not_null_user_type'
+                        'rules' => 'required|cbNotNullUserType'
                     ],
                     'email' => [
                         'label' => lang('Forms/Fields.mail'),
