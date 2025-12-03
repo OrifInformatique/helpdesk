@@ -653,17 +653,19 @@
 
 ---
 
-### 32. `check_password_email()` → `checkPasswordEmail()`
+### 32. `check_password_email()` → `checkPasswordEmail()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 3** (définition + appel)
+**Nombre total d'occurrences : 3** (définition + appel) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Models/User_model.php` (ligne 104)
+  - `orif/user/Models/User_model.php` (ligne 104) ✅
 
 - **Appel** :
-  - `orif/user/Controllers/Auth.php` (ligne 403)
+  - `orif/user/Controllers/Auth.php` (ligne 403) ✅
+
+**Statut** : Fonction et appel mis à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

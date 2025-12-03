@@ -400,7 +400,7 @@ class Auth extends BaseController {
                 if ($this->validation->withRequest($this->request)->run() == true) {
                     $input = $this->request->getVar('username');
                     $password = $this->request->getvar('password');
-                    $ismail = $this->user_model->check_password_email($input, $password);
+                    $ismail = $this->user_model->checkPasswordEmail($input, $password);
                     if ($ismail || $this->user_model->checkPasswordName($input, $password)) {
                         // Login success
                         $user = NULL;

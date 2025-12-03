@@ -101,7 +101,7 @@ class User_model extends \CodeIgniter\Model{
      * @param string $password
      * @return bool true on success false otherwise
      */
-    public function check_password_email($email,$password){
+    public function checkPasswordEmail($email,$password){
         if (!filter_var($email,FILTER_VALIDATE_EMAIL)){
             return false;
         }
