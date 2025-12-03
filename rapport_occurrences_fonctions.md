@@ -613,20 +613,22 @@
 
 ## Contrôleurs - Module Welcome
 
-### 30. `display_items()` → `displayItems()`
+### 30. `display_items()` → `displayItems()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 5** (définition + appels + routes + documentation)
+**Nombre total d'occurrences : 5** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/welcome/Controllers/Home.php` (ligne 26)
+  - `orif/welcome/Controllers/Home.php` (ligne 26) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/welcome/Controllers/Home.php` (ligne 59)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/welcome/Controllers/Home.php` (ligne 59) ✅
 
-- **Routes/URLs** :
-  - `orif/welcome/Views/welcome_message.php` (ligne 234)
+- **Routes/URLs dans les vues** :
+  - `orif/welcome/Views/welcome_message.php` (ligne 234) ✅
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 - **Documentation** :
   - `orif/common/Views/items_list.php` (ligne 47)
