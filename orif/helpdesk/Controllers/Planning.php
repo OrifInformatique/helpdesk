@@ -680,7 +680,7 @@ class Planning extends Home
             
             if($cw_planning)
             {
-                $lw_planning = $this->duplicate_planning($cw_planning, -1);
+                $lw_planning = $this->duplicatePlanning($cw_planning, -1);
                 $this->lw_planning_model->insertBatch($lw_planning);
                 $this->planning_model->emptyTable();
             }
@@ -690,7 +690,7 @@ class Planning extends Home
 
             if($nw_planning)
             {
-                $cw_planning = $this->duplicate_planning($nw_planning, 0);
+                $cw_planning = $this->duplicatePlanning($nw_planning, 0);
                 $this->planning_model->insertBatch($cw_planning);
                 $this->nw_planning_model->emptyTable();
             }
@@ -725,7 +725,7 @@ class Planning extends Home
      * @return array
      * 
      */
-    private function duplicate_planning($planning, $planning_type)
+    private function duplicatePlanning($planning, $planning_type)
     {
         $duplicated_planning = [];
         $periods = [];

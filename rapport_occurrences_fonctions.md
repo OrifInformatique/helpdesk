@@ -404,17 +404,19 @@
 
 ---
 
-### 20. `duplicate_planning()` → `duplicatePlanning()`
+### 20. `duplicate_planning()` → `duplicatePlanning()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 4** (définition + appels)
+**Nombre total d'occurrences : 4** (définition + appels) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 728)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 728) ✅
 
 - **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 683, 693)
+  - `orif/helpdesk/Controllers/Planning.php` (lignes 683, 693) ✅
+
+**Statut** : Fonction et tous les appels mis à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
