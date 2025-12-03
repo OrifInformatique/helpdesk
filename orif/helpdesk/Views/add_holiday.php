@@ -17,10 +17,10 @@
 
 <div>
     <?php if(isset($holiday['id_holiday'])): ?>
-        <?= form_open(base_url('/helpdesk/holidays/save_holiday/'.$holiday['id_holiday'])) ?>
+        <?= form_open(base_url('/helpdesk/holidays/saveHoliday/'.$holiday['id_holiday'])) ?>
         <?= form_hidden('id_holiday', esc($holiday['id_holiday'])) ?>
     <?php else: ?>
-        <?= form_open(base_url('/helpdesk/holidays/save_holiday/0')) ?>
+        <?= form_open(base_url('/helpdesk/holidays/saveHoliday/0')) ?>
         <?= form_hidden('id_holiday', 0) ?>
     <?php endif; ?>
 

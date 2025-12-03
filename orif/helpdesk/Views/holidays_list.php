@@ -19,7 +19,7 @@
 
 <div class="holidays-table">
     <div class="add-holiday">
-        <a class="btn btn-add" href="<?= base_url('/helpdesk/holidays/save_holiday') ?>"><span><?= lang('Buttons.add_holiday')?></span></a>
+        <a class="btn btn-add" href="<?= base_url('/helpdesk/holidays/saveHoliday') ?>"><span><?= lang('Buttons.add_holiday')?></span></a>
     </div>
     <table class="table-responsive">
         <thead>
@@ -44,7 +44,7 @@
                     ?>
                     <tr>
                         <th>
-                            <a href="<?= base_url('/helpdesk/holidays/save_holiday/'.$holiday['id_holiday']);?>"><?= htmlentities($holiday['name_holiday']); ?></a>
+                            <a href="<?= base_url('/helpdesk/holidays/saveHoliday/'.$holiday['id_holiday']);?>"><?= htmlentities($holiday['name_holiday']); ?></a>
                         </th>
                         <td>
                             <?= $start_date_holiday; ?>

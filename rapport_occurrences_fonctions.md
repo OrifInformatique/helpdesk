@@ -548,21 +548,23 @@
 
 ---
 
-### 27. `save_holiday()` → `saveHoliday()`
+### 27. `save_holiday()` → `saveHoliday()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 8** (définition + appels + routes + vues)
+**Nombre total d'occurrences : 8** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Holidays.php` (ligne 72)
+  - `orif/helpdesk/Controllers/Holidays.php` (ligne 72) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Holidays.php` (lignes 160, 183)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Holidays.php` (lignes 160, 183) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/holidays_list.php` (lignes 22, 47)
-  - `orif/helpdesk/Views/add_holiday.php` (lignes 20, 23)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/holidays_list.php` (lignes 22, 47) ✅
+  - `orif/helpdesk/Views/add_holiday.php` (lignes 20, 23) ✅
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

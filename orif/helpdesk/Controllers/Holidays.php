@@ -69,7 +69,7 @@ class Holidays extends Home
      * @return view
      * 
      */
-    public function save_holiday($id_holiday = NULL)
+    public function saveHoliday($id_holiday = NULL)
     {
         $this->isUserLogged();
 
@@ -157,7 +157,7 @@ class Holidays extends Home
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('/helpdesk/holidays/save_holiday/'.$id_holiday);
+            return redirect()->to('/helpdesk/holidays/saveHoliday/'.$id_holiday);
 
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
@@ -180,7 +180,7 @@ class Holidays extends Home
             [
                 'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/holidays/delete_holiday/'.$id_holiday),
-                'btn_back_url'  => base_url('/helpdesk/holidays/save_holiday/'.$id_holiday),
+                'btn_back_url'  => base_url('/helpdesk/holidays/saveHoliday/'.$id_holiday),
                 'entry'         => $holiday_entry,
                 'messages'      => $this->getFlashdataMessages()
             ];
