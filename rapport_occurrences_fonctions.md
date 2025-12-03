@@ -209,17 +209,19 @@
 
 ---
 
-### 11. `update_technician_availability()` → `updateTechnicianAvailability()`
+### 11. `update_technician_availability()` → `updateTechnicianAvailability()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 3** (définition + route + vue)
+**Nombre total d'occurrences : 3** (définition + route) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Terminal.php` (ligne 148)
+  - `orif/helpdesk/Controllers/Terminal.php` (ligne 148) ✅
 
 - **Routes/URLs** :
-  - `orif/helpdesk/Views/terminal.php` (ligne 45)
+  - `orif/helpdesk/Views/terminal.php` (ligne 45) ✅
+
+**Statut** : Fonction et route mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

@@ -42,7 +42,7 @@
 <?php if($day_off === false && isset($technicians) && !empty($technicians) ): ?>
     <div class="terminal-display">
         <?php foreach($technicians as $technician): ?>
-            <a class="technician-sheet d-flex justify-content-center <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?> <?= $preview ? 'no-click' : '' ?>" href="<?= base_url('/helpdesk/terminal/update_technician_availability/'.$technician[$period]) ?>">
+            <a class="technician-sheet d-flex justify-content-center <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? '' : 'unavailable'; ?> <?= $preview ? 'no-click' : '' ?>" href="<?= base_url('/helpdesk/terminal/updateTechnicianAvailability/'.$technician[$period]) ?>">
                 <p class="technician-<?= $technician[$period] ?>-unavailable-text unavailable-text <?= $technicians_availability[$technician[$period] -1]['tech_available_terminal'] == true ? 'hidden' : ''; ?>"><?= lang('MiscTexts.unavailable')?></p>
                 <div class="role">
                     <p>

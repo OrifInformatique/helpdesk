@@ -145,7 +145,7 @@ class Terminal extends Home
      * @return view
      * 
      */
-    public function update_technician_availability($technician_type)
+    public function updateTechnicianAvailability($technician_type)
     {
         if(isset($technician_type) && !empty($technician_type))
         {
