@@ -33,5 +33,5 @@ if(isset($users) && !empty($users))
 else
     echo '<p>'.lang('Infos.all_technicians_have_presences').'</p>';
 ?>
-    <a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Buttons.back')?></span></a>
+    <a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presencesList') ?>"><span><?= lang('Buttons.back')?></span></a>
 <?= form_close() ?>

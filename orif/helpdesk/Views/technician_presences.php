@@ -81,7 +81,7 @@
 	<div class="action-menu">
 		<button type="submit" class="btn btn-save"><span><?= lang('Buttons.save') ?></span></button>
 		<button type="reset" class="btn btn-reset"><span><?= lang('Buttons.reset') ?></span></button>
-		<a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Buttons.back')?></span></a>
+		<a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presencesList') ?>"><span><?= lang('Buttons.back')?></span></a>
 	</div>
 <?= form_close() ?>
 

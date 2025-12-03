@@ -35,7 +35,7 @@ class Presences extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/presences/presences_list');
+        return redirect()->to('/helpdesk/presences/presencesList');
     }
 
 
@@ -48,7 +48,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function presences_list()
+    public function presencesList()
     {
         $this->setSessionVariables();
 
@@ -78,7 +78,7 @@ class Presences extends Home
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
@@ -113,7 +113,7 @@ class Presences extends Home
         {
             $this->session->setFlashdata('error', lang('Errors.invalid_technician_selected'));
 
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
         }
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
@@ -213,7 +213,7 @@ class Presences extends Home
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
 
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'])
@@ -222,7 +222,7 @@ class Presences extends Home
 
             $this->session->setFlashdata('success', lang('Success.presences_deleted'));
 
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
         }
 
         // When the user clicks the delete button
@@ -237,7 +237,7 @@ class Presences extends Home
             [
                 'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/presences/delete_presences/'.$id_presence),
-                'btn_back_url'  => base_url('/helpdesk/presences/presences_list'),
+                'btn_back_url'  => base_url('/helpdesk/presences/presencesList'),
                 'entry'         => $presence_entry
             ];
 

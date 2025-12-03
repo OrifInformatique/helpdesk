@@ -441,32 +441,27 @@
 
 ---
 
-### 22. `presences_list()` → `presencesList()`
+### 22. `presences_list()` → `presencesList()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 21** (définition + appels + routes + vues + lang)
+**Nombre total d'occurrences : 21** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Presences.php` (ligne 51)
+  - `orif/helpdesk/Controllers/Presences.php` (ligne 51) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Presences.php` (lignes 38, 63, 66, 81, 116, 216, 225, 240)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Presences.php` (lignes 38, 81, 116, 216, 225, 240) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/technician_presences.php` (ligne 84)
-  - `orif/helpdesk/Views/add_technician_presences.php` (ligne 36)
-  - `orif/helpdesk/Views/Common/planning_presences_quick_goto.php` (ligne 15)
-  - `orif/helpdesk/Views/Common/planning_nav.php` (ligne 15)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/technician_presences.php` (ligne 84) ✅
+  - `orif/helpdesk/Views/add_technician_presences.php` (ligne 36) ✅
+  - `orif/helpdesk/Views/Common/planning_presences_quick_goto.php` (ligne 15) ✅
+  - `orif/helpdesk/Views/Common/planning_nav.php` (ligne 15) ✅
 
-- **Vues** :
-  - `orif/helpdesk/Views/presences_list.php` (ligne 4)
+- **Note** : Les clés de langue (`Buttons.presences_list`, `Titles.presences_list`) et les noms de vues (`presences_list.php`) restent inchangés.
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Buttons.php` (ligne 15)
-  - `orif/helpdesk/Language/fr/Titles.php` (ligne 15)
-  - `orif/helpdesk/Language/en/Buttons.php` (ligne 15)
-  - `orif/helpdesk/Language/en/Titles.php` (ligne 15)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
