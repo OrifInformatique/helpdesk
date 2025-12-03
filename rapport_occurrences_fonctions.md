@@ -587,26 +587,21 @@
 
 ---
 
-### 29. `confirm_action()` → `confirmAction()`
+### 29. `confirm_action()` → `confirmAction()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 13** (définition + appels + routes + vues + lang + CSS)
+**Nombre total d'occurrences : 13** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Home.php` (ligne 376)
+  - `orif/helpdesk/Controllers/Home.php` (ligne 376) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Home.php` (lignes 435, 438)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/nw_planning.php` (lignes 20, 21) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/nw_planning.php` (lignes 20, 21)
+- **Note** : Les clés de langue (`Titles.confirm_action`) et les noms de vues (`confirm_action.php`) restent inchangés.
 
-- **Vues** :
-  - `orif/helpdesk/Views/confirm_action.php` (ligne 4)
-
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/MiscTexts.php` (ligne 35)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
   - `orif/helpdesk/Language/fr/Titles.php` (ligne 33)
   - `orif/helpdesk/Language/en/MiscTexts.php` (ligne 35)
   - `orif/helpdesk/Language/en/Titles.php` (ligne 33)
