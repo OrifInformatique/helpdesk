@@ -155,7 +155,7 @@ class Planning extends Home
             return redirect()->to(uri_string());
 
         $validation = \Config\Services::validation();
-        $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']|has_presences', 
+        $validation->setRule('technician', '', 'is_natural_no_zero|notInPlanning['.$planning_type.']|has_presences', 
         ['is_natural_no_zero' => lang('Forms/Errors.is_natural_no_zero'),
          'not_in_planning'    => lang('Forms/Errors.not_in_planning'),
          'has_presences'      => lang('Forms/Errors.has_presences')]);

@@ -687,21 +687,21 @@
 
 ## Validation Rules - Module Helpdesk
 
-### 34. `not_in_planning()` → `notInPlanning()`
+### 34. `not_in_planning()` → `notInPlanning()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 6** (définition + utilisation + lang)
+**Nombre total d'occurrences : 6** (définition + utilisation) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Validation/Rules/NotInPlanning.php` (ligne 37)
+  - `orif/helpdesk/Validation/Rules/NotInPlanning.php` (ligne 37) ✅
 
 - **Utilisation dans les règles de validation** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 158, 160)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 158) ✅
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Forms/Errors.php` (ligne 17)
-  - `orif/helpdesk/Language/en/Forms/Errors.php` (ligne 17)
+- **Note** : Les clés de langue (`Forms/Errors.not_in_planning`) restent inchangées.
+
+**Statut** : Fonction et utilisation dans les règles de validation mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
