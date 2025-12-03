@@ -35,7 +35,7 @@ class Holidays extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/holidays/holidays_list');
+        return redirect()->to('/helpdesk/holidays/holidaysList');
     }
 
 
@@ -48,7 +48,7 @@ class Holidays extends Home
      * @return view
      * 
      */
-    public function holidays_list()
+    public function holidaysList()
     {
         $data = 
         [
@@ -123,7 +123,7 @@ class Holidays extends Home
 
                 $this->session->setFlashdata('success', lang('Success.holiday_updated'));
 
-                return redirect()->to('/helpdesk/holidays/holidays_list');
+                return redirect()->to('/helpdesk/holidays/holidaysList');
             }
         }
 
@@ -166,7 +166,7 @@ class Holidays extends Home
 
             $this->session->setFlashdata('success', lang('Success.holiday_deleted'));
 
-            return redirect()->to('/helpdesk/holidays/holidays_list');
+            return redirect()->to('/helpdesk/holidays/holidaysList');
         }
 
         // When the user clicks the delete button

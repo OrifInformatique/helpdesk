@@ -52,7 +52,7 @@
             <?php endif; ?>
     </div>
     <div class="buttons-area">
-        <a class="btn btn-back mt-2" href="<?= base_url('/helpdesk/holidays/holidays_list') ?>"><span><?= lang('Buttons.back')?></span></a>
+        <a class="btn btn-back mt-2" href="<?= base_url('/helpdesk/holidays/holidaysList') ?>"><span><?= lang('Buttons.back')?></span></a>
     </div>
 <?= form_close('</div>') ?>
 

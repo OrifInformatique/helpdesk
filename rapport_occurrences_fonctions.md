@@ -528,21 +528,23 @@
 
 ---
 
-### 26. `holidays_list()` → `holidaysList()`
+### 26. `holidays_list()` → `holidaysList()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 8** (définition + appels + routes)
+**Nombre total d'occurrences : 8** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Holidays.php` (ligne 51)
+  - `orif/helpdesk/Controllers/Holidays.php` (ligne 51) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Holidays.php` (lignes 38, 60, 126, 169)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Holidays.php` (lignes 38, 126, 169) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/add_holiday.php` (ligne 55)
-  - `orif/helpdesk/Views/Common/planning_nav.php` (ligne 16)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/add_holiday.php` (ligne 55) ✅
+  - `orif/helpdesk/Views/Common/planning_nav.php` (ligne 16) ✅
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
