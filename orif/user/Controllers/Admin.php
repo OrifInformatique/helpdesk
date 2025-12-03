@@ -180,7 +180,7 @@ class Admin extends BaseController
      * @param integer $user_id = ID of the user to affect
      * @return void
      */
-    public function reactivate_user(int $user_id): Response
+    public function reactivateUser(int $user_id): Response
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {

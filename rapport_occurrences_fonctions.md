@@ -94,7 +94,7 @@
 - **Routes/URLs** :
   - `orif/user/Views/admin/form_user.php` (ligne 33) ✅
 
-- **Note** : 
+- **Note** :
   - La ligne 190 de Admin.php redirige vers `helpdesk_save_user` (fonction 9, à modifier séparément)
   - Les lignes dans list_user.php, dashboard.php et form_user.php (helpdesk) concernent `helpdesk_save_user` (fonction 9)
   - Les commentaires dans les vues (ligne 3) restent inchangés
@@ -126,18 +126,20 @@
 
 ---
 
-### 7. `reactivate_user()` → `reactivateUser()`
+### 7. `reactivate_user()` → `reactivateUser()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 4** (définition + routes)
+**Nombre total d'occurrences : 4** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Controllers/Admin.php` (ligne 183)
+  - `orif/user/Controllers/Admin.php` (ligne 183) ✅
 
 - **Routes/URLs** :
-  - `orif/user/Views/admin/form_user.php` (ligne 116)
-  - `orif/helpdesk/Views/form_user.php` (ligne 137)
+  - `orif/user/Views/admin/form_user.php` (ligne 116) ✅
+  - `orif/helpdesk/Views/form_user.php` (ligne 137) ✅
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

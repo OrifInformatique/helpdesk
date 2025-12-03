@@ -113,7 +113,7 @@ $validation=\Config\Services::validation();
                 <!-- ACTIVATE / DISABLE EXISTING USER -->
                 <?php if ($user['archive']) { ?>
                     <div class="col-12">
-                        <a href="<?= base_url('user/admin/reactivate_user/'.$user['id']); ?>" >
+                        <a href="<?= base_url('user/admin/reactivateUser/'.$user['id']); ?>" >
                             <?= lang("user_lang.user_reactivate"); ?>
                         </a>
                     </div>
