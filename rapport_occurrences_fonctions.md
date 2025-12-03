@@ -705,24 +705,21 @@
 
 ---
 
-### 35. `has_presences()` → `hasPresences()`
+### 35. `has_presences()` → `hasPresences()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 8** (définition + utilisation + lang + variables)
+**Nombre total d'occurrences : 8** (définition + utilisation) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Validation/Rules/HasPresences.php` (ligne 33)
+  - `orif/helpdesk/Validation/Rules/HasPresences.php` (ligne 33) ✅
 
 - **Utilisation dans les règles de validation** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 158, 161)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 158) ✅
 
-- **Variables dans les contrôleurs** :
-  - `orif/helpdesk/Controllers/User.php` (ligne 260)
+- **Note** : Les variables (`$user_has_presences`) et les clés de langue (`Forms/Errors.has_presences`) restent inchangées.
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Forms/Errors.php` (ligne 15)
-  - `orif/helpdesk/Language/en/Forms/Errors.php` (ligne 15)
+**Statut** : Fonction et utilisation dans les règles de validation mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
