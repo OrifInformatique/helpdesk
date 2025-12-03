@@ -568,20 +568,22 @@
 
 ---
 
-### 28. `delete_holiday()` → `deleteHoliday()`
+### 28. `delete_holiday()` → `deleteHoliday()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 4** (définition + appels + routes)
+**Nombre total d'occurrences : 4** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Holidays.php` (ligne 155)
+  - `orif/helpdesk/Controllers/Holidays.php` (ligne 155) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Holidays.php` (ligne 182)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Holidays.php` (ligne 182) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/add_holiday.php` (ligne 51)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/add_holiday.php` (ligne 51) ✅
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

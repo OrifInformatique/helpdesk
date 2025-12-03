@@ -152,7 +152,7 @@ class Holidays extends Home
      * @return view
      * 
      */
-    public function delete_holiday($id_holiday)
+    public function deleteHoliday($id_holiday)
     {
         $this->isUserLogged();
 
@@ -179,7 +179,7 @@ class Holidays extends Home
             $data = 
             [
                 'title'         => lang('Titles.delete_confirmation'),
-                'delete_url'    => base_url('/helpdesk/holidays/delete_holiday/'.$id_holiday),
+                'delete_url'    => base_url('/helpdesk/holidays/deleteHoliday/'.$id_holiday),
                 'btn_back_url'  => base_url('/helpdesk/holidays/saveHoliday/'.$id_holiday),
                 'entry'         => $holiday_entry,
                 'messages'      => $this->getFlashdataMessages()

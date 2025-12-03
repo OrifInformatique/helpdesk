@@ -48,7 +48,7 @@
         <button type="submit" class="btn btn-save"><span><?= lang('Buttons.save') ?></span></button>
         <button type="reset" class="btn btn-reset"><span><?= lang('Buttons.reset') ?></span></button>
         <?php if(isset($holiday['id_holiday'])): ?>
-            <a class="btn btn-delete" href="<?= base_url('/helpdesk/holidays/delete_holiday/'.$holiday['id_holiday']) ?>"><span><?= lang('Buttons.delete')?></span></a>
+            <a class="btn btn-delete" href="<?= base_url('/helpdesk/holidays/deleteHoliday/'.$holiday['id_holiday']) ?>"><span><?= lang('Buttons.delete')?></span></a>
             <?php endif; ?>
     </div>
     <div class="buttons-area">
