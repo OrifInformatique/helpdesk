@@ -759,21 +759,21 @@
 
 ---
 
-### 38. `french_alpha_space()` → `frenchAlphaSpace()`
+### 38. `french_alpha_space()` → `frenchAlphaSpace()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 6** (définition + utilisation + lang)
+**Nombre total d'occurrences : 6** (définition + utilisation) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Validation/Rules/FrenchAlphaSpace.php` (ligne 24)
+  - `orif/helpdesk/Validation/Rules/FrenchAlphaSpace.php` (ligne 24) ✅
 
 - **Utilisation dans les règles de validation** :
-  - `orif/helpdesk/Controllers/Holidays.php` (lignes 84, 92)
+  - `orif/helpdesk/Controllers/Holidays.php` (lignes 84, 92) ✅
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Forms/Errors.php` (ligne 21)
-  - `orif/helpdesk/Language/en/Forms/Errors.php` (ligne 21)
+- **Note** : Les clés de langue (`Forms/Errors.french_alpha_space`) restent inchangées.
+
+**Statut** : Fonction et utilisation dans les règles de validation mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

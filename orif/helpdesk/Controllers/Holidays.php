@@ -81,7 +81,7 @@ class Holidays extends Home
             $validation = \Config\Services::validation();
             $validation->setRules(
             [
-                'holiday_name'  => 'required|french_alpha_space',
+                'holiday_name'  => 'required|frenchAlphaSpace',
                 'start_date'    => 'required|valid_date[Y-m-d\TH:i]',
                 'end_date'      => 'required|valid_date[Y-m-d\TH:i]|coherentDates['.$_POST['start_date'].']'
             ],
@@ -89,7 +89,7 @@ class Holidays extends Home
                 'holiday_name' => 
                 [
                     'required'              => lang('Forms/Errors.required'),
-                    'french_alpha_space'    => lang('Forms/Errors.french_alpha_space')
+                    'frenchAlphaSpace'    => lang('Forms/Errors.french_alpha_space')
                 ],
                 'start_date' => 
                 [
