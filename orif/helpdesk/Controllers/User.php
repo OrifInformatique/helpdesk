@@ -249,7 +249,7 @@ class User extends Admin
      *  - 2 for deleting (hard delete)
      * @return void
      */
-    public function helpdesk_delete_user(int $user_id, ?int $action = 0)
+    public function deleteUser(int $user_id, ?int $action = 0)
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {

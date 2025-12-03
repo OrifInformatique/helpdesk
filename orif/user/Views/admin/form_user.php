@@ -124,7 +124,7 @@ $validation=\Config\Services::validation();
                     </div>
                 <?php } else { ?>
                     <div class="col-12">
-                        <a href="<?= base_url('helpdesk/user/helpdesk_delete_user/'.$user['id']); ?>" class="text-danger" >
+                        <a href="<?= base_url('helpdesk/user/deleteUser/'.$user['id']); ?>" class="text-danger" >
                             <?= lang("user_lang.user_delete"); ?>
                         </a>
                     </div>

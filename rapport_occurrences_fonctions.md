@@ -188,23 +188,24 @@
 
 ---
 
-### 10. `helpdesk_delete_user()` → `deleteUser()`
+### 10. `helpdesk_delete_user()` → `deleteUser()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 7** (définition + appels + routes)
+**Nombre total d'occurrences : 7** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/User.php` (ligne 252)
-
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/User.php` (ligne 269)
+  - `orif/helpdesk/Controllers/User.php` (ligne 252) ✅
 
 - **Routes/URLs** :
-  - `orif/user/Views/admin/list_user.php` (ligne 50)
-  - `orif/user/Views/admin/form_user.php` (ligne 127)
-  - `orif/helpdesk/Views/dashboard.php` (ligne 101)
-  - `orif/helpdesk/Views/form_user.php` (lignes 142, 148)
+  - `orif/user/Views/admin/list_user.php` (ligne 50) ✅
+  - `orif/user/Views/admin/form_user.php` (ligne 127) ✅
+  - `orif/helpdesk/Views/dashboard.php` (ligne 101) ✅
+  - `orif/helpdesk/Views/form_user.php` (lignes 142, 148) ✅
+
+- **Note** : La ligne 269 de User.php utilise `display_view('\User\admin\delete_user', ...)` - c'est le nom de la vue qui reste en snake_case.
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
