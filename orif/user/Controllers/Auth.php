@@ -101,7 +101,7 @@ class Auth extends BaseController {
                 $ci_user = $this->user_model->where('email', $_SESSION['form_email'])->first();
                 
                 // Verification code matches
-                $_SESSION['user_access'] = (int)$this->user_model->get_access_level($ci_user);
+                $_SESSION['user_access'] = (int)$this->user_model->getAccessLevel($ci_user);
                 $_SESSION['user_id'] = (int)$ci_user['id'];
                 $_SESSION['username'] = $ci_user['username'];
     
@@ -348,7 +348,7 @@ class Auth extends BaseController {
             } else {
                 $_SESSION['user_id'] = $ci_user_azure['id'];
                 $_SESSION['username'] = $ci_user_azure['username'];
-                $_SESSION['user_access'] = (int)$this->user_model->get_access_level($ci_user_azure);
+                $_SESSION['user_access'] = (int)$this->user_model->getAccessLevel($ci_user_azure);
 
                 return redirect()->to($_SESSION['after_login_redirect']);
             };
@@ -414,7 +414,7 @@ class Auth extends BaseController {
                 
                         $_SESSION['user_id'] = (int)$user->id;
                         $_SESSION['username'] = (string)$user->username;
-                        $_SESSION['user_access'] = (int)$this->user_model->get_access_level($user);
+                        $_SESSION['user_access'] = (int)$this->user_model->getAccessLevel($user);
                         $_SESSION['logged_in'] = (bool)true;
 
                         // Send the user to the redirection URL

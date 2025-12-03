@@ -669,17 +669,19 @@
 
 ---
 
-### 33. `get_access_level()` → `getAccessLevel()`
+### 33. `get_access_level()` → `getAccessLevel()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 5** (définition + appels)
+**Nombre total d'occurrences : 5** (définition + appels) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Models/User_model.php` (ligne 122)
+  - `orif/user/Models/User_model.php` (ligne 122) ✅
 
 - **Appels** :
-  - `orif/user/Controllers/Auth.php` (lignes 104, 351, 417)
+  - `orif/user/Controllers/Auth.php` (lignes 104, 351, 417) ✅
+
+**Statut** : Fonction et tous les appels mis à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

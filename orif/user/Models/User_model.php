@@ -119,7 +119,7 @@ class User_model extends \CodeIgniter\Model{
      * @param $user
      * @return mixed
      */
-    public function get_access_level($user){
+    public function getAccessLevel($user){
         if ($this->user_type_model==null){
             $this->user_type_model=new User_type_model();
 
