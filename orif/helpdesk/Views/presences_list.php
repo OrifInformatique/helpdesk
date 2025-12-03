@@ -15,7 +15,7 @@
 
 <?= view('Helpdesk\Common\body_start') ?>
 
-<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Buttons.back')?></span></a></nav>
+<nav><a class="btn btn-back" href="<?= base_url('/helpdesk/planning/currentWeekPlanning') ?>"><span><?= lang('Buttons.back')?></span></a></nav>
 
 <div class="planning-table">
 	<div class="action-menu table-top">

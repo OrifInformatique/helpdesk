@@ -35,7 +35,7 @@ class Planning extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/planning/cw_planning');
+        return redirect()->to('/helpdesk/planning/currentWeekPlanning');
     }
 
 
@@ -71,7 +71,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function cw_planning()
+    public function currentWeekPlanning()
     {
         $this->setSessionVariables();
 
@@ -294,7 +294,7 @@ class Planning extends Home
 
                 $this->planning_model->insert($data_to_insert);
 
-                return redirect()->to('/helpdesk/planning/cw_planning');
+                return redirect()->to('/helpdesk/planning/currentWeekPlanning');
 
             case 1:
                 $data_to_insert =
@@ -569,7 +569,7 @@ class Planning extends Home
 
                     $this->planning_model->delete($planning_data['id_planning']);
 
-                    return redirect()->to('/helpdesk/planning/cw_planning');
+                    return redirect()->to('/helpdesk/planning/currentWeekPlanning');
 
                 case 1:
                     $id_planning = $this->nw_planning_model->getNwPlanning($user_id);
@@ -629,7 +629,7 @@ class Planning extends Home
                 case 0:
                     $this->planning_model->emptyTable();
 
-                    return redirect()->to('/helpdesk/planning/cw_planning');
+                    return redirect()->to('/helpdesk/planning/currentWeekPlanning');
 
                 case 1:
                     $this->nw_planning_model->emptyTable();

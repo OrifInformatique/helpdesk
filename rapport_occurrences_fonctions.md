@@ -243,35 +243,29 @@
 
 ---
 
-### 13. `cw_planning()` → `currentWeekPlanning()`
+### 13. `cw_planning()` → `currentWeekPlanning()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 35** (définition + appels + routes + variables + lang)
+**Nombre total d'occurrences : 35** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 74)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 74) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 38, 297, 572, 632, 644, 679, 681, 683, 693, 694, 714, 817, 865, 868, 1150, 1151, 1153, 1157, 1159, 1160, 1163, 1166)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Planning.php` (lignes 38, 297, 572, 632) ✅
+  - `orif/helpdesk/Controllers/Home.php` (ligne 74) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/holidays_list.php` (ligne 18)
-  - `orif/helpdesk/Views/nw_planning.php` (ligne 27)
-  - `orif/helpdesk/Views/presences_list.php` (ligne 18)
-  - `orif/helpdesk/Views/lw_planning.php` (ligne 26)
-  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 32)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/holidays_list.php` (ligne 18) ✅
+  - `orif/helpdesk/Views/nw_planning.php` (ligne 27) ✅
+  - `orif/helpdesk/Views/presences_list.php` (ligne 18) ✅
+  - `orif/helpdesk/Views/lw_planning.php` (ligne 26) ✅
+  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 32) ✅
 
-- **Variables dans les vues** :
-  - `orif/helpdesk/Views/dashboard.php` (ligne 50)
+- **Note** : Les occurrences restantes sont des variables (`$cw_planning`, `cw_planning_data`), des clés de langue (`MiscTexts.cw_planning`), et d'autres références qui restent en snake_case selon les conventions.
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/MiscTexts.php` (ligne 40)
-  - `orif/helpdesk/Language/en/MiscTexts.php` (ligne 40)
-
-- **Autres** :
-  - `orif/helpdesk/Controllers/Home.php` (lignes 74, 426)
-  - `orif/helpdesk/Controllers/Technician.php` (ligne 87)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

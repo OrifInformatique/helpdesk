@@ -29,7 +29,7 @@
     <?php switch($planning_type)
     {
         case 0:
-            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/cw_planning').'"><span>'.lang('Buttons.back').'</span></a>';
+            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/currentWeekPlanning').'"><span>'.lang('Buttons.back').'</span></a>';
             break;
 
         case 1:

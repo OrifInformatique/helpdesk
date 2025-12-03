@@ -23,7 +23,7 @@
 
         <?= view('Helpdesk\Common\planning_week', ['planning_type' => $planning_type]) ?>
 
-        <a class="btn btn-next-week" href="<?= base_url('/helpdesk/planning/cw_planning') ?>"><span><?= lang('Buttons.next_week') ?></span></a>
+        <a class="btn btn-next-week" href="<?= base_url('/helpdesk/planning/currentWeekPlanning') ?>"><span><?= lang('Buttons.next_week') ?></span></a>
     </div>
 
     <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
