@@ -118,7 +118,7 @@ $validation=\Config\Services::validation();
                         </a>
                     </div>
                     <div class="col-12">
-                        <a href="<?= base_url('user/admin/delete_user/'.$user['id']); ?>" class="text-danger" >
+                        <a href="<?= base_url('user/admin/deleteUser/'.$user['id']); ?>" class="text-danger" >
                             <?= lang("user_lang.btn_hard_delete_user"); ?>
                         </a>
                     </div>

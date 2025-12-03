@@ -144,7 +144,7 @@ class Admin extends BaseController
      *  - 2 for deleting (hard delete)
      * @return void
      */
-    public function delete_user(int $user_id, ?int $action = 0): string|Response
+    public function deleteUser(int $user_id, ?int $action = 0): string|Response
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {

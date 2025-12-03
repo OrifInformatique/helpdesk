@@ -104,31 +104,25 @@
 
 ---
 
-### 6. `delete_user()` → `deleteUser()`
+### 6. `delete_user()` → `deleteUser()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 18** (définition + appels + routes + vues + lang)
+**Nombre total d'occurrences : 18** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Controllers/Admin.php` (ligne 147)
-
-- **Appels dans les contrôleurs** :
-  - `orif/user/Controllers/Admin.php` (ligne 160)
-  - `orif/helpdesk/Controllers/User.php` (ligne 269)
+  - `orif/user/Controllers/Admin.php` (ligne 147) ✅
 
 - **Routes/URLs** :
-  - `orif/user/Views/admin/list_user.php` (ligne 50)
-  - `orif/user/Views/admin/form_user.php` (lignes 121, 122, 127)
-  - `orif/helpdesk/Views/dashboard.php` (ligne 101)
-  - `orif/helpdesk/Views/form_user.php` (lignes 142, 143, 148)
+  - `orif/user/Views/admin/form_user.php` (ligne 121) ✅
 
-- **Vues** :
-  - `orif/user/Views/admin/delete_user.php` (ligne 3)
+- **Note** :
+  - La ligne 160 de Admin.php et ligne 269 de User.php utilisent `display_view('\User\admin\delete_user', ...)` - c'est le nom de la vue qui reste en snake_case
+  - Les lignes dans list_user.php, dashboard.php et form_user.php (helpdesk) concernent `helpdesk_delete_user` (fonction 10, à modifier séparément)
+  - Les fichiers de langue (`btn_hard_delete_user`) sont des clés de langue, pas des noms de fonctions
+  - Les commentaires dans delete_user.php restent inchangés
 
-- **Fichiers de langue** :
-  - `orif/user/Language/fr/user_lang.php` (ligne 31)
-  - `orif/user/Language/en/user_lang.php` (ligne 31)
+**Statut** : Fonction et route principale mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
