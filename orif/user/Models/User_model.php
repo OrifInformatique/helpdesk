@@ -55,7 +55,7 @@ class User_model extends \CodeIgniter\Model{
         //     'username' =>
         //         ['cbUniqueUsername' => lang('user_lang.msg_err_username_not_unique')],
         //     'email'=>
-        //         ['cb_unique_useremail' => lang('user_lang.msg_err_useremail_not_unique')],
+        //         ['cbUniqueUseremail' => lang('user_lang.msg_err_useremail_not_unique')],
         //     'fk_user_type' =>
         //         ['cb_not_null_user_type' => lang('user_lang.msg_err_user_type_not_exist')],
         //     'password' =>

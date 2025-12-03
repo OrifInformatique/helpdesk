@@ -795,17 +795,19 @@
 
 ---
 
-### 40. `cb_unique_useremail()` → `cbUniqueUseremail()`
+### 40. `cb_unique_useremail()` → `cbUniqueUseremail()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 3** (définition + commentaires)
+**Nombre total d'occurrences : 3** (définition + commentaires) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Validation/CustomRules.php` (ligne 39)
+  - `orif/user/Validation/CustomRules.php` (ligne 39) ✅
 
 - **Commentaires (code commenté)** :
-  - `orif/user/Models/User_model.php` (ligne 58)
+  - `orif/user/Models/User_model.php` (ligne 58) ✅
+
+**Statut** : Fonction et commentaire mis à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

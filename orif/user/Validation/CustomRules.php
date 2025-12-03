@@ -36,7 +36,7 @@ class CustomRules
      * @param int $user_id = ID of the user if it is an update
      * @return boolean = TRUE if the user email is unique, FALSE otherwise
      */
-    public function cb_unique_useremail($useremail, $user_id) : bool
+    public function cbUniqueUseremail($useremail, $user_id) : bool
     {
         $user = (new User_model())->withDeleted()->where('email', [$useremail])->first();
         return is_null($user) || $user['id']==$user_id;
