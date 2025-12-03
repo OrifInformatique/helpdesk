@@ -34,25 +34,22 @@
 
 ---
 
-### 3. `change_password()` → `changePassword()`
+### 3. `change_password()` → `changePassword()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 12** (définition + appels + routes + vues)
+**Nombre total d'occurrences : 12** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Controllers/Auth.php` (ligne 463)
-
-- **Appels dans le contrôleur** :
-  - `orif/user/Controllers/Auth.php` (lignes 476, 501)
+  - `orif/user/Controllers/Auth.php` (ligne 463) ✅
 
 - **Routes/URLs** :
-  - `orif/user/Views/auth/change_password.php` (ligne 20)
-  - `orif/common/Views/login_bar.php` (ligne 35)
+  - `orif/user/Views/auth/change_password.php` (ligne 20) ✅
+  - `orif/common/Views/login_bar.php` (ligne 35) ✅
 
-- **Vues** :
-  - `orif/user/Views/auth/change_password.php` (lignes 3, 18, 19, 65)
-  - `orif/user/Views/admin/password_change_user.php` (lignes 15, 16)
+- **Note** : Les occurrences dans les vues (lignes 3, 18, 19, 65) et password_change_user.php sont des attributs HTML (IDs, noms de formulaires) qui restent en snake_case selon les conventions HTML.
+
+**Statut** : Fonction et routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

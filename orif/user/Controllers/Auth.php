@@ -460,7 +460,7 @@ class Auth extends BaseController {
      *
      * @return void
      */
-    public function change_password(): Response|string 
+    public function changePassword(): Response|string 
     {
         // Check if access is allowed
         if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
