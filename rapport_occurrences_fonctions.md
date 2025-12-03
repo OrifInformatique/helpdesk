@@ -383,27 +383,24 @@
 
 ---
 
-### 19. `shift_weeks()` → `shiftWeeks()`
+### 19. `shift_weeks()` → `shiftWeeks()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 18** (définition + appels + routes + lang)
+**Nombre total d'occurrences : 18** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 669)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 669) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 702, 706)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Home.php` (lignes 382, 390, 398) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/nw_planning.php` (ligne 20)
-  - `orif/helpdesk/Controllers/Home.php` (lignes 382, 388, 390, 396, 398)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/nw_planning.php` (ligne 20) ✅
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Success.php` (lignes 28, 29)
-  - `orif/helpdesk/Language/fr/Buttons.php` (lignes 42, 43)
-  - `orif/helpdesk/Language/en/Success.php` (lignes 28, 29)
-  - `orif/helpdesk/Language/en/Buttons.php` (lignes 42, 43)
+- **Note** : Les clés de langue (`Success.shift_weeks`, `Buttons.shift_weeks`, `'name' => 'shift_weeks'`) restent inchangées car ce sont des identifiants de messages, pas des noms de fonctions.
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

@@ -666,7 +666,7 @@ class Planning extends Home
      * @return view|void
      * 
      */
-    public function shift_weeks($generate_planning = false)
+    public function shiftWeeks($generate_planning = false)
     {
         $this->setSessionVariables();
 
