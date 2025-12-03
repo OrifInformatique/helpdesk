@@ -18,17 +18,19 @@
 
 ---
 
-### 2. `azure_login()` → `azureLogin()`
+### 2. `azure_login()` → `azureLogin()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 2** (définition + appel)
+**Nombre total d'occurrences : 2** (définition + appel) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Controllers/Auth.php` (ligne 218)
+  - `orif/user/Controllers/Auth.php` (ligne 218) ✅
 
 - **Appel** :
-  - `orif/user/Controllers/Auth.php` (ligne 432)
+  - `orif/user/Controllers/Auth.php` (ligne 432) ✅
+
+**Statut** : Toutes les occurrences ont été mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

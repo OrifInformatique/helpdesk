@@ -215,7 +215,7 @@ class Auth extends BaseController {
      *
      * @return void
      */
-    public function azure_login() {
+    public function azureLogin() {
 
         $client_id = getenv('CLIENT_ID');
         $client_secret = getenv('CLIENT_SECRET');
@@ -429,7 +429,7 @@ class Auth extends BaseController {
 
             // Check if microsoft login button submitted, else, display login page
             } else if (!is_null($this->request->getPost('btn_login_microsoft'))) {
-                $this->azure_login();
+                $this->azureLogin();
                 exit();
             }
             //Display login page
