@@ -19,7 +19,7 @@
 
 <div class="planning-table">
 	<div class="action-menu table-top">
-		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/add_technician_presences') ?>"><span><?= lang('Buttons.add_technician_presences') ?></span></a>
+		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/addTechnicianPresences') ?>"><span><?= lang('Buttons.add_technician_presences') ?></span></a>
 		<?php if(isset($_SESSION['user_id'])): ?>
 			<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Buttons.my_presences') ?></span></a>
 		<?php else: ?>

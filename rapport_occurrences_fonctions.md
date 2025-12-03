@@ -465,32 +465,22 @@
 
 ---
 
-### 23. `add_technician_presences()` → `addTechnicianPresences()`
+### 23. `add_technician_presences()` → `addTechnicianPresences()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 14** (définition + appels + routes + vues + lang)
+**Nombre total d'occurrences : 14** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Presences.php` (ligne 75)
+  - `orif/helpdesk/Controllers/Presences.php` (ligne 75) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Presences.php` (lignes 92, 96, 98)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/presences_list.php` (ligne 22) ✅
+  - `orif/helpdesk/Views/add_technician_presences.php` (ligne 24) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/presences_list.php` (ligne 22)
-  - `orif/helpdesk/Views/add_technician_presences.php` (ligne 24)
+- **Note** : Les clés de langue (`Buttons.add_technician_presences`, `Titles.add_technician_presences`, etc.) et les commentaires dans les vues restent inchangés.
 
-- **Vues** :
-  - `orif/helpdesk/Views/add_technician_presences.php` (ligne 4)
-
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/MiscTexts.php` (ligne 13)
-  - `orif/helpdesk/Language/fr/Buttons.php` (ligne 13)
-  - `orif/helpdesk/Language/fr/Titles.php` (ligne 13)
-  - `orif/helpdesk/Language/en/MiscTexts.php` (ligne 13)
-  - `orif/helpdesk/Language/en/Buttons.php` (ligne 13)
-  - `orif/helpdesk/Language/en/Titles.php` (ligne 13)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

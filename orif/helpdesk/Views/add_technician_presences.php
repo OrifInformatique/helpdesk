@@ -21,7 +21,7 @@ if(isset($users) && !empty($users))
 
 echo view('Helpdesk\Common\body_start');
 
-echo form_open(base_url('/helpdesk/presences/add_technician_presences'), ['id' => 'add-technician-presences']);
+echo form_open(base_url('/helpdesk/presences/addTechnicianPresences'), ['id' => 'add-technician-presences']);
 
 if(isset($users) && !empty($users))
 {

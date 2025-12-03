@@ -72,7 +72,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function add_technician_presences()
+    public function addTechnicianPresences()
     {
         $this->setSessionVariables();
         $this->isUserLogged();
