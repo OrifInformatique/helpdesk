@@ -19,7 +19,7 @@
 <div class="planning-table">
 
     <div class="week">
-        <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/lw_planning') ?>"><span><?= lang('Buttons.last_week')?></span></a>
+        <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/lastWeekPlanning') ?>"><span><?= lang('Buttons.last_week')?></span></a>
 
         <?= view('Helpdesk\Common\planning_week', ['planning_type' => $planning_type]) ?>
 

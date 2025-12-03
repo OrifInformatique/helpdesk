@@ -225,36 +225,21 @@
 
 ---
 
-### 12. `lw_planning()` → `lastWeekPlanning()`
+### 12. `lw_planning()` → `lastWeekPlanning()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 44** (définition + appels + routes + modèles + migrations + lang)
+**Nombre total d'occurrences : 44** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 51)
-
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 58, 61, 64, 676, 683, 684)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 51) ✅
 
 - **Routes/URLs** :
-  - `orif/helpdesk/Views/planning.php` (ligne 22)
+  - `orif/helpdesk/Views/planning.php` (ligne 22) ✅
 
-- **Modèles** :
-  - `orif/helpdesk/Models/Lw_planning_model.php` (lignes 4, 17, 19, 20, 24-28, 52, 54, 66, 67, 72)
+- **Note** : Les occurrences restantes sont des variables (`lw_planning_data`, `$lw_planning`), des noms de modèles (`lw_planning_model`), des noms de vues (`lw_planning.php`), des clés de langue (`Titles.lw_planning`), et des migrations qui restent en snake_case selon les conventions.
 
-- **Migrations** :
-  - `orif/helpdesk/Database/Migrations/2023-08-15-150000_TblLwPlanning.php` (lignes 15-19, 24, 40, 60, 67)
-
-- **Vues** :
-  - `orif/helpdesk/Views/lw_planning.php` (lignes 38, 39)
-
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Titles.php` (ligne 19)
-  - `orif/helpdesk/Language/en/Titles.php` (ligne 19)
-
-- **Autres** :
-  - `orif/helpdesk/Controllers/Home.php` (lignes 20, 34, 50, 111-115)
+**Statut** : Fonction et route mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

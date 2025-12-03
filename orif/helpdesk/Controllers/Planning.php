@@ -48,7 +48,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function lw_planning()
+    public function lastWeekPlanning()
     {
         // -1 stands for last week
         $periods = $this->choosePeriods(-1);
