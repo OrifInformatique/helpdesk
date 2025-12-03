@@ -362,24 +362,24 @@
 
 ---
 
-### 18. `delete_planning()` → `deletePlanning()`
+### 18. `delete_planning()` → `deletePlanning()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 6** (définition + appels + routes + lang)
+**Nombre total d'occurrences : 6** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 612)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 612) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 649)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 649) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 21)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 21) ✅
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Buttons.php` (ligne 19)
-  - `orif/helpdesk/Language/en/Buttons.php` (ligne 19)
+- **Note** : Les clés de langue (`Buttons.delete_planning`) restent inchangées.
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

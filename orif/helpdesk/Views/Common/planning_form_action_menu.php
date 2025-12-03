@@ -18,7 +18,7 @@
 
 <?php if(isset($update) && $update): ?>
     <div class="action-menu delete-planning-option">
-        <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_planning/'.$planning_type) ?>"><span><?= lang('Buttons.delete_planning') ?></span></a>
+        <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/deletePlanning/'.$planning_type) ?>"><span><?= lang('Buttons.delete_planning') ?></span></a>
     </div>
 <?php endif; ?>
 
