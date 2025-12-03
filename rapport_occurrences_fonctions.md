@@ -317,35 +317,26 @@
 
 ---
 
-### 16. `update_planning()` → `updatePlanning()`
+### 16. `update_planning()` → `updatePlanning()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 19** (définition + appels + routes + vues + lang)
+**Nombre total d'occurrences : 19** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 345)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 345) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 458, 467, 475, 514, 537, 555, 595, 617, 650)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Planning.php` (lignes 458, 467, 475, 595, 650) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/nw_planning.php` (ligne 39)
-  - `orif/helpdesk/Views/planning.php` (ligne 34)
-  - `orif/helpdesk/Views/update_planning.php` (ligne 20)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/nw_planning.php` (ligne 39) ✅
+  - `orif/helpdesk/Views/planning.php` (ligne 34) ✅
+  - `orif/helpdesk/Views/update_planning.php` (ligne 20) ✅
 
-- **Vues** :
-  - `orif/helpdesk/Views/update_planning.php` (ligne 4)
+- **Note** : Les clés de langue (`Titles.update_planning`) restent inchangées. Les commentaires dans les vues restent inchangés. La documentation (GUIDE_TEST_REFACTORING.md) sera mise à jour ultérieurement.
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Titles.php` (ligne 25)
-  - `orif/helpdesk/Language/en/Titles.php` (ligne 25)
-
-- **Documentation** :
-  - `GUIDE_TEST_REFACTORING.md` (ligne 117)
-
-- **Autres** :
-  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 4)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

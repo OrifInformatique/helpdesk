@@ -342,7 +342,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function update_planning($planning_type)
+    public function updatePlanning($planning_type)
     {
         $this->isUserLogged();
         $this->setSessionVariables();
@@ -455,7 +455,7 @@ class Planning extends Home
                     $this->session->setFlashdata('error', sprintf(lang('Errors.technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.');
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
                     
-                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
+                    return redirect()->to('/helpdesk/planning/updatePlanning/'.$planning_type);
                 }
 
                 // If all fields are empty, prevent having a technician without any role at any period
@@ -464,7 +464,7 @@ class Planning extends Home
                     $this->session->setFlashdata('error', lang('Errors.technician_must_be_assigned_to_schedule'));
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
 
-                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
+                    return redirect()->to('/helpdesk/planning/updatePlanning/'.$planning_type);
                 }
 
                 if($role_duplicated) 
@@ -472,7 +472,7 @@ class Planning extends Home
                     $this->session->setFlashdata('error', lang('Errors.role_duplicates_on_periods').implode(',<br>', $roles_duplicated_periods).'.');
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
         
-                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
+                    return redirect()->to('/helpdesk/planning/updatePlanning/'.$planning_type);
                 }
 
                 switch($planning_type)
@@ -592,7 +592,7 @@ class Planning extends Home
             [
                 'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/planning/delete_technician/'.$user_id.'/'.$planning_type),
-                'btn_back_url'  => base_url('/helpdesk/planning/update_planning/'.$planning_type),
+                'btn_back_url'  => base_url('/helpdesk/planning/updatePlanning/'.$planning_type),
                 'entry'         => $user_entry
             ];
 
@@ -647,7 +647,7 @@ class Planning extends Home
             [
                 'title'         => lang('Titles.delete_confirmation'),
                 'delete_url'    => base_url('/helpdesk/planning/delete_planning/'.$planning_type),
-                'btn_back_url'  => base_url('/helpdesk/planning/update_planning/'.$planning_type),
+                'btn_back_url'  => base_url('/helpdesk/planning/updatePlanning/'.$planning_type),
                 'entry'         => $planning_entry
             ];
 

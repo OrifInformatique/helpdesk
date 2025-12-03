@@ -17,7 +17,7 @@
 
 <?= view('Helpdesk\Common\planning_presences_quick_goto') ?>
 
-<?= form_open(base_url('/helpdesk/planning/update_planning/'.$planning_type)) ?>
+<?= form_open(base_url('/helpdesk/planning/updatePlanning/'.$planning_type)) ?>
     <div class="planning-table">
 
         <div class="week">

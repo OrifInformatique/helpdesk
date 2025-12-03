@@ -36,7 +36,7 @@
             <tr>
                 <th>
                     <?php if(!empty($nw_planning_data)): ?>
-                        <a class="btn btn-edit" href="<?= base_url('/helpdesk/planning/update_planning/1') ?>" title="<?= lang('Buttons.edit_planning') ?>"></a>
+                        <a class="btn btn-edit" href="<?= base_url('/helpdesk/planning/updatePlanning/1') ?>" title="<?= lang('Buttons.edit_planning') ?>"></a>
                     <?php else: ?>
                         <button disabled class="btn btn-edit"></button>
                     <?php endif; ?>
