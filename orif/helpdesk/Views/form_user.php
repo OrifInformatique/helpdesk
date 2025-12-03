@@ -126,7 +126,7 @@ $validation=\Config\Services::validation();
             <div class="row">
                 <!-- RESET PASSWORD FOR EXISTING USER -->
                 <div class="col-12">
-                    <a href="<?= base_url('user/admin/password_change_user/'.$user['id']); ?>" >
+                    <a href="<?= base_url('user/admin/passwordChangeUser/'.$user['id']); ?>" >
                         <?= lang("user_lang.title_user_password_reset"); ?>
                     </a>
                 </div>

@@ -197,7 +197,7 @@ class Admin extends BaseController
      * @param integer $user_id = ID of the user to update
      * @return void
      */
-    public function password_change_user(int $user_id)
+    public function passwordChangeUser(int $user_id)
     {
         // Get user from DB, redirect if user doesn't exist
         $user = $this->user_model->withDeleted()->find($user_id);

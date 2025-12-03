@@ -143,25 +143,23 @@
 
 ---
 
-### 8. `password_change_user()` → `passwordChangeUser()`
+### 8. `password_change_user()` → `passwordChangeUser()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 7** (définition + appels + routes + vues)
+**Nombre total d'occurrences : 7** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Controllers/Admin.php` (ligne 200)
-
-- **Appels dans le contrôleur** :
-  - `orif/user/Controllers/Admin.php` (ligne 224)
+  - `orif/user/Controllers/Admin.php` (ligne 200) ✅
 
 - **Routes/URLs** :
-  - `orif/user/Views/admin/password_change_user.php` (ligne 18)
-  - `orif/user/Views/admin/form_user.php` (ligne 108)
-  - `orif/helpdesk/Views/form_user.php` (ligne 129)
+  - `orif/user/Views/admin/password_change_user.php` (ligne 18) ✅
+  - `orif/user/Views/admin/form_user.php` (ligne 108) ✅
+  - `orif/helpdesk/Views/form_user.php` (ligne 129) ✅
 
-- **Vues** :
-  - `orif/user/Views/admin/password_change_user.php` (ligne 3)
+- **Note** : La ligne 224 de Admin.php utilise `display_view('\User\admin\password_change_user', ...)` - c'est le nom de la vue qui reste en snake_case. Les commentaires restent inchangés.
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
