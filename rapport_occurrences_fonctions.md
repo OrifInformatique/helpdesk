@@ -741,21 +741,21 @@
 
 ---
 
-### 37. `french_alpha()` → `frenchAlpha()`
+### 37. `french_alpha()` → `frenchAlpha()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 18** (définition + utilisation + lang)
+**Nombre total d'occurrences : 18** (définition + utilisation) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Validation/Rules/FrenchAlpha.php` (ligne 24)
+  - `orif/helpdesk/Validation/Rules/FrenchAlpha.php` (ligne 24) ✅
 
 - **Utilisation dans les règles de validation** :
-  - `orif/helpdesk/Controllers/User.php` (lignes 94, 95, 99, 100, 138, 139, 143, 144)
+  - `orif/helpdesk/Controllers/User.php` (lignes 94, 95, 99, 100, 138, 139, 143, 144) ✅
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Forms/Errors.php` (ligne 25)
-  - `orif/helpdesk/Language/en/Forms/Errors.php` (ligne 25)
+- **Note** : Les clés de langue (`Forms/Errors.french_alpha`) restent inchangées.
+
+**Statut** : Fonction et toutes les utilisations dans les règles de validation mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

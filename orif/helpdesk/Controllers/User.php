@@ -91,13 +91,13 @@ class User extends Admin
                     ],
                     'first_name_user_data' => [
                         'label' => lang('Forms/Fields.first_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'last_name_user_data' => [
                         'label' => lang('Forms/Fields.last_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'photo_user_data' => [
                         'label' => lang('Forms/Fields.photo'),
@@ -135,13 +135,13 @@ class User extends Admin
                     ],
                     'first_name_user_data' => [
                         'label' => lang('Forms/Fields.first_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'last_name_user_data' => [
                         'label' => lang('Forms/Fields.last_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'photo_user_data' => [
                         'label' => lang('Forms/Fields.photo'),

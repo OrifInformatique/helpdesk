@@ -21,7 +21,7 @@ class FrenchAlpha
      * @return bool
      * 
      */
-    public function french_alpha($field)
+    public function frenchAlpha($field)
     {
         /* Regex rule matches if the string contains Unicode chars (\p{L}) */
         if(preg_match("/^[\p{L}]+$/u", trim($field)))
