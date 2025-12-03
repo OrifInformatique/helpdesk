@@ -44,7 +44,7 @@ class Auth extends BaseController {
         
     }
 
-    function errorhandler($data) {
+    function errorHandler($data) {
         $data['title'] = 'Azure error';
         echo $this->display_view('\User\errors\azureErrors', $data);
         exit();
@@ -240,7 +240,7 @@ class Auth extends BaseController {
         } elseif (isset($_GET["error"])) {
 
             $data['Exception'] = null;
-            $this->errorhandler($data);
+            $this->errorHandler($data);
 
         //Checking that the session_id matches to the state for security reasons
         } elseif (strcmp(session_id(), $_GET["state"]) == 0) {
@@ -274,13 +274,13 @@ class Auth extends BaseController {
             if ($json === false){
                 //Error received during Bearer token fetch
                 $data['Exception'] = lang('user_lang.msg_err_azure_no_token').'.';
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
             $authdata = json_decode($json, true);
             if (isset($authdata["error"])){
                 //Bearer token fetch contained an error
                 $data['Exception'] = null;
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
             
             //Fetching user information
@@ -296,7 +296,7 @@ class Auth extends BaseController {
             if ($json === false) {
                 // Error received during user data fetch.
                 $data['Exception'] = null;
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
 
             $userdata = json_decode($json, true);
@@ -304,7 +304,7 @@ class Auth extends BaseController {
             if (isset($userdata["error"])) {
                 // User data fetch contained an error.
                 $data['Exception'] = null;
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
 
             // Setting up the session
@@ -356,7 +356,7 @@ class Auth extends BaseController {
         } else {
             // Returned states mismatch and no $_GET["error"] received.
             $data['Exception'] = lang('user_lang.msg_err_azure_mismatch').'.';
-            $this->errorhandler($data);
+            $this->errorHandler($data);
         }
     }
 
