@@ -340,25 +340,25 @@
 
 ---
 
-### 17. `delete_technician()` → `deleteTechnician()`
+### 17. `delete_technician()` → `deleteTechnician()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 15** (définition + appels + routes + lang)
+**Nombre total d'occurrences : 15** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 550)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 550) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 594)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 594) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/dashboard.php` (lignes 51, 52, 56, 61, 62, 66)
-  - `orif/helpdesk/Views/update_planning.php` (lignes 58, 80)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/dashboard.php` (lignes 51, 52, 56, 61, 62, 66) ✅
+  - `orif/helpdesk/Views/update_planning.php` (lignes 58, 80) ✅
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Buttons.php` (lignes 48, 49)
-  - `orif/helpdesk/Language/en/Buttons.php` (lignes 48, 49)
+- **Note** : Les clés de langue (`Buttons.delete_technician_from_actual_planning`, etc.) restent inchangées.
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

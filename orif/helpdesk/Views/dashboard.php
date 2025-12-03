@@ -48,7 +48,7 @@
             </a>
 
             <?php if($has_cw_planning_entry): ?>
-                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/0') ?>">
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/deleteTechnician/'.$user['id'].'/0') ?>">
                     <span><?= lang('Buttons.delete_technician_from_actual_planning')?></span>
                 </a>
             <?php else: ?>
@@ -58,7 +58,7 @@
             <?php endif; ?>
 
             <?php if($has_nw_planning_entry): ?>
-                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/1') ?>">
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/deleteTechnician/'.$user['id'].'/1') ?>">
                     <span><?= lang('Buttons.delete_technician_from_next_planning')?></span>
                 </a>
             <?php else: ?>

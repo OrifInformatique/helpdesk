@@ -547,7 +547,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function delete_technician($user_id, $planning_type)
+    public function deleteTechnician($user_id, $planning_type)
     {
         $this->isUserLogged();
 
@@ -591,7 +591,7 @@ class Planning extends Home
             $data =
             [
                 'title'         => lang('Titles.delete_confirmation'),
-                'delete_url'    => base_url('/helpdesk/planning/delete_technician/'.$user_id.'/'.$planning_type),
+                'delete_url'    => base_url('/helpdesk/planning/deleteTechnician/'.$user_id.'/'.$planning_type),
                 'btn_back_url'  => base_url('/helpdesk/planning/updatePlanning/'.$planning_type),
                 'entry'         => $user_entry
             ];
