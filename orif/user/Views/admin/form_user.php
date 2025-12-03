@@ -30,7 +30,7 @@ $validation=\Config\Services::validation();
         'id' => 'user_form',
         'name' => 'user_form'
     );
-    echo form_open('user/admin/save_user', $attributes, [
+    echo form_open('user/admin/saveUser', $attributes, [
         'id' => $user['id'] ?? 0
     ]);
     ?>

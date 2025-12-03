@@ -78,7 +78,7 @@ class Admin extends BaseController
      * @param integer $user_id = The id of the user to modify, leave blank to create a new one
      * @return void
      */
-    public function save_user(?int $user_id = 0): string|Response
+    public function saveUser(?int $user_id = 0): string|Response
     {
         //store the user name and user type to display them again in the form
         $old_name = NULL;

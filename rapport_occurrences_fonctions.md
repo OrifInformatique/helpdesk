@@ -82,29 +82,25 @@
 
 ---
 
-### 5. `save_user()` → `saveUser()`
+### 5. `save_user()` → `saveUser()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 16** (définition + appels + routes + vues)
+**Nombre total d'occurrences : 16** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Controllers/Admin.php` (ligne 81)
-
-- **Appels dans le contrôleur** :
-  - `orif/user/Controllers/Admin.php` (ligne 190)
+  - `orif/user/Controllers/Admin.php` (ligne 81) ✅
 
 - **Routes/URLs** :
-  - `orif/user/Views/admin/list_user.php` (ligne 19)
-  - `orif/user/Views/admin/form_user.php` (ligne 33)
-  - `orif/helpdesk/Views/dashboard.php` (ligne 98)
-  - `orif/helpdesk/Views/form_user.php` (ligne 33)
+  - `orif/user/Views/admin/form_user.php` (ligne 33) ✅
 
-- **Documentation** :
-  - `GUIDE_TEST_REFACTORING.md` (lignes 70, 77)
+- **Note** : 
+  - La ligne 190 de Admin.php redirige vers `helpdesk_save_user` (fonction 9, à modifier séparément)
+  - Les lignes dans list_user.php, dashboard.php et form_user.php (helpdesk) concernent `helpdesk_save_user` (fonction 9)
+  - Les commentaires dans les vues (ligne 3) restent inchangés
+  - La documentation (GUIDE_TEST_REFACTORING.md) sera mise à jour ultérieurement
 
-- **Vues** :
-  - `orif/user/Views/admin/form_user.php` (ligne 3)
+**Statut** : Fonction et route principale mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
