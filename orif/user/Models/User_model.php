@@ -53,7 +53,7 @@ class User_model extends \CodeIgniter\Model{
 
         // $this->validationMessages=[
         //     'username' =>
-        //         ['cb_unique_username' => lang('user_lang.msg_err_username_not_unique')],
+        //         ['cbUniqueUsername' => lang('user_lang.msg_err_username_not_unique')],
         //     'email'=>
         //         ['cb_unique_useremail' => lang('user_lang.msg_err_useremail_not_unique')],
         //     'fk_user_type' =>

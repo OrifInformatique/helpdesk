@@ -779,17 +779,19 @@
 
 ## Validation Rules - Module User
 
-### 39. `cb_unique_username()` → `cbUniqueUsername()`
+### 39. `cb_unique_username()` → `cbUniqueUsername()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 3** (définition + commentaires)
+**Nombre total d'occurrences : 3** (définition + commentaires) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Validation/CustomRules.php` (ligne 26)
+  - `orif/user/Validation/CustomRules.php` (ligne 26) ✅
 
 - **Commentaires (code commenté)** :
-  - `orif/user/Models/User_model.php` (ligne 56)
+  - `orif/user/Models/User_model.php` (ligne 56) ✅
+
+**Statut** : Fonction et commentaire mis à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 
