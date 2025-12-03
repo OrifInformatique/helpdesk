@@ -373,7 +373,7 @@ class Home extends BaseController
      * @return view
      * 
      */
-    public function confirm_action($action = null)
+    public function confirmAction($action = null)
     {
         $this->isUserLogged();
 
