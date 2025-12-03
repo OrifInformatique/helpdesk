@@ -212,7 +212,7 @@ class User extends Admin
 
                 //In the case of errors
                 if ($this->user_model->errors()==null){
-                    return redirect()->to('/user/admin/list_user');
+                    return redirect()->to('/user/admin/listUser');
                 }
             }
         }
@@ -253,7 +253,7 @@ class User extends Admin
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {
-            return redirect()->to('/user/admin/list_user');
+            return redirect()->to('/user/admin/listUser');
         }
         $id_user_data =  $this->user_data_model->withDeleted()->getUserDataId($user_id);
 
@@ -272,7 +272,7 @@ class User extends Admin
                 if ($_SESSION['user_id'] != $user['id']) {
                     $this->user_model->delete($user_id, FALSE);
                 }
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             case 2: // Delete user
                 if ($_SESSION['user_id'] != $user['id'] && !$user_has_presences && !$user_is_in_planning) {
                     $old_image = $this->user_data_model->getUserPhoto($user_id);
@@ -281,9 +281,9 @@ class User extends Admin
                     $this->user_data_model->delete($id_user_data, TRUE);
                     $this->user_model->delete($user_id, TRUE);
                 }
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             default: // Do nothing
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
         }
     }
 }

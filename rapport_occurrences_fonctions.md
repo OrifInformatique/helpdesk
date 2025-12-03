@@ -53,32 +53,32 @@
 
 ---
 
-### 4. `list_user()` → `listUser()`
+### 4. `list_user()` → `listUser()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 26** (définition + appels + routes + vues + config)
+**Nombre total d'occurrences : 26** (définition + routes + config) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Controllers/Admin.php` (ligne 51)
+  - `orif/user/Controllers/Admin.php` (ligne 51) ✅
 
-- **Appels dans les contrôleurs** :
-  - `orif/user/Controllers/Admin.php` (lignes 72, 114, 151, 166, 171, 173, 187, 204, 214)
-  - `orif/helpdesk/Controllers/User.php` (lignes 215, 256, 275, 284, 286)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/user/Controllers/Admin.php` (lignes 114, 151, 166, 171, 173, 187, 204, 214) ✅
+  - `orif/helpdesk/Controllers/User.php` (lignes 215, 256, 275, 284, 286) ✅
 
-- **Routes/URLs** :
-  - `orif/user/Views/admin/list_user.php` (ligne 62)
-  - `orif/user/Views/admin/password_change_user.php` (ligne 61)
-  - `orif/user/Views/admin/form_user.php` (ligne 138)
-  - `orif/user/Views/admin/delete_user.php` (lignes 24, 42)
-  - `orif/helpdesk/Views/form_user.php` (ligne 159)
+- **Routes/URLs dans les vues** :
+  - `orif/user/Views/admin/list_user.php` (ligne 62) ✅
+  - `orif/user/Views/admin/password_change_user.php` (ligne 61) ✅
+  - `orif/user/Views/admin/form_user.php` (ligne 138) ✅
+  - `orif/user/Views/admin/delete_user.php` (lignes 24, 42) ✅
+  - `orif/helpdesk/Views/form_user.php` (ligne 159) ✅
 
 - **Configuration** :
-  - `orif/common/Config/AdminPanelConfig.php` (ligne 21)
+  - `orif/common/Config/AdminPanelConfig.php` (ligne 21) ✅
 
-- **Documentation** :
-  - `GUIDE_TEST_REFACTORING.md` (ligne 84)
-  - `conventions.md` (lignes 57, 73)
+- **Note** : La ligne 72 de Admin.php (`display_view('\User\admin\list_user', $output)`) est le nom de la vue qui reste en snake_case selon les conventions. La documentation (GUIDE_TEST_REFACTORING.md, conventions.md) sera mise à jour ultérieurement.
+
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

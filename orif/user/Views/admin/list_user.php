@@ -59,7 +59,7 @@ helper("form");
 $(document).ready(function(){
     $('#toggle_deleted').change(e => {
         let checked = e.currentTarget.checked;
-        $.post('<?=base_url();?>/user/admin/list_user/'+(+checked), {}, data => {
+        $.post('<?=base_url();?>/user/admin/listUser/'+(+checked), {}, data => {
             $('#userslist').empty();
             $('#userslist')[0].innerHTML = $(data).find('#userslist')[0].innerHTML;
         });
