@@ -30,7 +30,7 @@ $validation=\Config\Services::validation();
         'id' => 'user_form',
         'name' => 'user_form'
     );
-    echo form_open_multipart('helpdesk/user/helpdesk_save_user', $attributes, [
+    echo form_open_multipart('helpdesk/user/saveUser', $attributes, [
         'id' => $user['id'] ?? 0
     ]);
     ?>

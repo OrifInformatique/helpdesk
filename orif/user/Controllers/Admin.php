@@ -187,7 +187,7 @@ class Admin extends BaseController
             return redirect()->to('/user/admin/listUser');
         } else {
             $this->user_model->withDeleted()->update($user_id,['archive'=>null]);
-            return redirect()->to('/helpdesk/user/helpdesk_save_user/'.$user_id);
+            return redirect()->to('/helpdesk/user/saveUser/'.$user_id);
         }
     }
 

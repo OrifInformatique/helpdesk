@@ -43,7 +43,7 @@ class User extends Admin
      * @param integer $user_id = The id of the user to modify, leave blank to create a new one
      * @return void
      */
-    public function helpdesk_save_user(?int $user_id = 0)
+    public function saveUser(?int $user_id = 0)
     {
         //store the user name and user type to display them again in the form
         $old_name = NULL;

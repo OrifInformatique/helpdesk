@@ -95,7 +95,7 @@
                 <h3><?= lang('Technician.user') ?></h3>
             </div>
             <div class="dashboard-card-content">
-                <a class="btn btn-edit" href="<?= base_url('helpdesk/user/helpdesk_save_user/'.$user['id']) ?>">
+                <a class="btn btn-edit" href="<?= base_url('helpdesk/user/saveUser/'.$user['id']) ?>">
                     <span><?= lang('Buttons.edit') ?></span>
                 </a>
                 <a class="btn btn-delete" href="<?= base_url('helpdesk/user/helpdesk_delete_user/'.$user['id']) ?>">
