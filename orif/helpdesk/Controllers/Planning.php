@@ -698,7 +698,7 @@ class Planning extends Home
             // PART 4 : Next week generation
             if($generate_planning)
             {
-                $this->planning_generation();
+                $this->planningGeneration();
                 $this->session->setFlashData('success', lang('Success.shift_weeks_with_planning_generation'));
             }
 
@@ -771,7 +771,7 @@ class Planning extends Home
      * @return view|void
      * 
      */
-    public function planning_generation()
+    public function planningGeneration()
     {
         $this->setSessionVariables();
 

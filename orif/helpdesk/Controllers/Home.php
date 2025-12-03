@@ -410,7 +410,7 @@ class Home extends BaseController
                 [
                     'name' => 'generate_planning',
                     'css' => 'generate-planning',
-                    'url' => base_url('helpdesk/planning/planning_generation'),
+                    'url' => base_url('helpdesk/planning/planningGeneration'),
                     'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
                 ];
                 
