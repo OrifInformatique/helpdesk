@@ -84,7 +84,7 @@ class User_model extends \CodeIgniter\Model{
      * @param string $password
      * @return boolean true on success false otherwise
      */
-    public function check_password_name($username, $password){
+    public function checkPasswordName($username, $password){
         $user=$this->where("username",$username)->first();
         //If a user is found we can verify his password because if his archive is not empty, he is not in the array
         if (!is_null($user)){

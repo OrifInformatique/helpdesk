@@ -637,17 +637,19 @@
 
 ## Models - Module User
 
-### 31. `check_password_name()` → `checkPasswordName()`
+### 31. `check_password_name()` → `checkPasswordName()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 4** (définition + appels)
+**Nombre total d'occurrences : 4** (définition + appels) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/user/Models/User_model.php` (ligne 87)
+  - `orif/user/Models/User_model.php` (ligne 87) ✅
 
 - **Appels** :
-  - `orif/user/Controllers/Auth.php` (lignes 404, 479)
+  - `orif/user/Controllers/Auth.php` (lignes 404, 479) ✅
+
+**Statut** : Fonction et tous les appels mis à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

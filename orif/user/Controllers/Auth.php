@@ -401,7 +401,7 @@ class Auth extends BaseController {
                     $input = $this->request->getVar('username');
                     $password = $this->request->getvar('password');
                     $ismail = $this->user_model->check_password_email($input, $password);
-                    if ($ismail || $this->user_model->check_password_name($input, $password)) {
+                    if ($ismail || $this->user_model->checkPasswordName($input, $password)) {
                         // Login success
                         $user = NULL;
                         // User is either logging in through an email or an username
@@ -476,7 +476,7 @@ class Auth extends BaseController {
             if (!is_null($this->request->getVar('btn_change_password'))) {
                 $old_password = $this->request->getVar('old_password');
 
-                if($this->user_model->check_password_name($user['username'], $old_password)) {
+                if($this->user_model->checkPasswordName($user['username'], $old_password)) {
                     $user['password'] = $this->request->getVar('new_password');
                     $user['password_confirm'] = $this->request->getVar('confirm_password');
 
