@@ -381,7 +381,7 @@ class Home extends BaseController
         {
             case 'shift_weeks':
                 if(!$this->isTechnician())
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
                 
                 $action =
                 [
@@ -404,7 +404,7 @@ class Home extends BaseController
 
             case 'generate_planning':
                 if(!$this->isTechnician())
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
 
                 $action = 
                 [

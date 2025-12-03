@@ -97,7 +97,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function nw_planning()
+    public function nextWeekPlanning()
     {
         $this->setSessionVariables();
 
@@ -329,7 +329,7 @@ class Planning extends Home
 
                 $this->nw_planning_model->insert($data_to_insert);
 
-                return redirect()->to('/helpdesk/planning/nw_planning');
+                return redirect()->to('/helpdesk/planning/nextWeekPlanning');
         }
     }
 
@@ -576,7 +576,7 @@ class Planning extends Home
 
                     $this->nw_planning_model->delete($id_planning);
 
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
             }
         }
 
@@ -634,7 +634,7 @@ class Planning extends Home
                 case 1:
                     $this->nw_planning_model->emptyTable();
 
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
             }
         }
 

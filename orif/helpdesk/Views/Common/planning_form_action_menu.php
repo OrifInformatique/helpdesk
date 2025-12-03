@@ -33,7 +33,7 @@
             break;
 
         case 1:
-            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/nw_planning').'"><span>'.lang('Buttons.back').'</span></a>';
+            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/nextWeekPlanning').'"><span>'.lang('Buttons.back').'</span></a>';
             break;
     } ?>
 </div>

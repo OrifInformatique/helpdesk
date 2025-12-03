@@ -269,43 +269,29 @@
 
 ---
 
-### 14. `nw_planning()` → `nextWeekPlanning()`
+### 14. `nw_planning()` → `nextWeekPlanning()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 122** (définition + appels + routes + modèles + migrations + lang + variables)
+**Nombre total d'occurrences : 122** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 100)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 100) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 110, 113, 116, 198, 304-327, 330, 332, 383, 397, 485, 499, 518, 520, 521, 575, 577, 579, 635, 637, 644, 689, 691, 693, 695, 708, 751, 787, 796, 804, 828, 887, 889, 890, 903, 907, 913)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Planning.php` (lignes 332, 579, 637) ✅
+  - `orif/helpdesk/Controllers/Home.php` (lignes 384, 407) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/planning.php` (ligne 26)
-  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 36)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/planning.php` (ligne 26) ✅
+  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 36) ✅
 
-- **Modèles** :
-  - `orif/helpdesk/Models/Nw_planning_model.php` (lignes 4, 17, 19, 20, 24-28, 52, 54, 66, 67, 72, 86, 87, 93, 107, 109)
+- **Documentation** :
+  - `README.md` (ligne 203) ✅
 
-- **Migrations** :
-  - `orif/helpdesk/Database/Migrations/2023-08-15-150000_TblNwPlanning.php` (plusieurs occurrences)
+- **Note** : Les occurrences restantes sont des variables (`$nw_planning`, `nw_planning_data`), des noms de modèles (`nw_planning_model`), des noms de vues (`nw_planning.php`), des clés de langue (`Titles.nw_planning`), et des migrations qui restent en snake_case selon les conventions.
 
-- **Vues** :
-  - `orif/helpdesk/Views/nw_planning.php` (lignes 38, 49, 50)
-  - `orif/helpdesk/Views/update_planning.php` (lignes 62-65, 68, 75, 80)
-
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/MiscTexts.php` (ligne 43)
-  - `orif/helpdesk/Language/fr/Titles.php` (lignes 20, 24)
-  - `orif/helpdesk/Language/en/MiscTexts.php` (ligne 41)
-  - `orif/helpdesk/Language/en/Titles.php` (lignes 20, 24)
-
-- **Autres** :
-  - `orif/helpdesk/Controllers/Home.php` (lignes 22, 36, 52, 131-135, 384, 402, 407, 421)
-  - `orif/helpdesk/Controllers/Technician.php` (ligne 88)
-  - `orif/helpdesk/Validation/Rules/NotInPlanning.php` (lignes 15, 20, 25, 46)
-  - `README.md` (ligne 203)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

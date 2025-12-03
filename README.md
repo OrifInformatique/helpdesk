@@ -200,7 +200,7 @@ In `app/Config/Database.php`, the default values are:
 #### Web application
 
 - **Main URL**: `http://localhost/helpdesk/public/`
-- **Example route**: `http://localhost/helpdesk/public/helpdesk/planning/nw_planning`
+- **Example route**: `http://localhost/helpdesk/public/helpdesk/planning/nextWeekPlanning`
 
 #### phpMyAdmin
 
