@@ -77,7 +77,7 @@
 							<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technicianPresences/'.$user_presences['fk_user_id'])?>"></a>
 						</td>
 						<td>
-							<a class="btn btn-delete" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>"></a>
+							<a class="btn btn-delete" href="<?= base_url('/helpdesk/presences/deletePresences/'.$user_presences['id_presence'])?>"></a>
 						</td>
 					</tr>
 				<?php endforeach; ?>

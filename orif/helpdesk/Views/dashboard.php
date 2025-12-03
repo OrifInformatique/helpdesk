@@ -78,7 +78,7 @@
                 <span><?= lang('Buttons.edit') ?></span>
             </a>
             <?php if(isset($id_presence)): ?>
-                <a class="btn btn-delete" href="<?= base_url('helpdesk/presences/delete_presences/'.$id_presence) ?>">
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/presences/deletePresences/'.$id_presence) ?>">
                     <span><?= lang('Buttons.delete') ?></span>
                 </a>
             <?php else: ?>

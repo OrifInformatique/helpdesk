@@ -208,7 +208,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function delete_presences($id_presence)
+    public function deletePresences($id_presence)
     {
         $this->isUserLogged();
 
@@ -236,7 +236,7 @@ class Presences extends Home
             $data = 
             [
                 'title'         => lang('Titles.delete_confirmation'),
-                'delete_url'    => base_url('/helpdesk/presences/delete_presences/'.$id_presence),
+                'delete_url'    => base_url('/helpdesk/presences/deletePresences/'.$id_presence),
                 'btn_back_url'  => base_url('/helpdesk/presences/presencesList'),
                 'entry'         => $presence_entry
             ];
