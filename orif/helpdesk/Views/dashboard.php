@@ -40,10 +40,10 @@
             <h3><?= lang('Technician.plannings') ?></h3>
         </div>
         <div class="dashboard-card-content">
-            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/0') ?>">
+            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/addTechnician/0') ?>">
                 <span><?= lang('Buttons.add_technician_in_actual_planning') ?></span>
             </a>
-            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/1') ?>">
+            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/addTechnician/1') ?>">
                 <span><?= lang('Buttons.add_technician_in_next_planning') ?></span>
             </a>
 

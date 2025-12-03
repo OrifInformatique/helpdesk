@@ -128,7 +128,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function add_technician($planning_type)
+    public function addTechnician($planning_type)
     {
         $this->isUserLogged();
         $this->setSessionVariables();

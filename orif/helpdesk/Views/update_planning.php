@@ -29,7 +29,7 @@
         <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
         <thead>
             <tr>
-                <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/'.$planning_type) ?>" title="<?= lang('Buttons.add_technician') ?>"></a></th>
+                <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/addTechnician/'.$planning_type) ?>" title="<?= lang('Buttons.add_technician') ?>"></a></th>
                 <?= view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
                 <th class="empty-cell"></th>
             </tr>

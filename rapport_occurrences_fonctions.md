@@ -295,39 +295,25 @@
 
 ---
 
-### 15. `add_technician()` → `addTechnician()`
+### 15. `add_technician()` → `addTechnician()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 42** (définition + appels + routes + vues + lang)
+**Nombre total d'occurrences : 42** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Planning.php` (ligne 131)
+  - `orif/helpdesk/Controllers/Planning.php` (ligne 131) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Planning.php` (lignes 145, 151, 168, 240, 248, 256)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/dashboard.php` (lignes 43, 44, 46, 47) ✅
+  - `orif/helpdesk/Views/nw_planning.php` (ligne 63) ✅
+  - `orif/helpdesk/Views/planning.php` (ligne 58) ✅
+  - `orif/helpdesk/Views/update_planning.php` (ligne 32) ✅
+  - `orif/helpdesk/Views/add_technician.php` (ligne 20) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/dashboard.php` (lignes 43, 44, 46, 47)
-  - `orif/helpdesk/Views/nw_planning.php` (ligne 63)
-  - `orif/helpdesk/Views/planning.php` (ligne 58)
-  - `orif/helpdesk/Views/update_planning.php` (ligne 32)
-  - `orif/helpdesk/Views/add_technician.php` (ligne 20)
+- **Note** : Les clés de langue (`Buttons.add_technician`, `Titles.add_technician`) restent inchangées. Les commentaires dans les vues restent inchangés. La documentation (GUIDE_TEST_REFACTORING.md) sera mise à jour ultérieurement.
 
-- **Vues** :
-  - `orif/helpdesk/Views/add_technician.php` (ligne 4)
-
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Buttons.php` (lignes 18, 46, 47)
-  - `orif/helpdesk/Language/fr/Titles.php` (ligne 23)
-  - `orif/helpdesk/Language/en/Buttons.php` (lignes 18, 46, 47)
-  - `orif/helpdesk/Language/en/Titles.php` (ligne 23)
-
-- **Documentation** :
-  - `GUIDE_TEST_REFACTORING.md` (ligne 109)
-
-- **Autres** :
-  - `orif/helpdesk/Views/Common/planning_form_action_menu.php` (ligne 4)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

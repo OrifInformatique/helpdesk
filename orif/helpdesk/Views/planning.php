@@ -55,7 +55,7 @@
                 <tr>
                     <td colspan="21">
                         <?= lang('Errors.no_technician_assigned')?><br>
-                        <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/0') ?>"><span><?= lang('Buttons.add_technician')?></span></a>
+                        <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/addTechnician/0') ?>"><span><?= lang('Buttons.add_technician')?></span></a>
                     </td>
                 </tr>
             <?php endif; ?>
