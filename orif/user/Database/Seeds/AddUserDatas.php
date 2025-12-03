@@ -8,7 +8,8 @@ class AddUserDatas extends \CodeIgniter\Database\Seeder
 {
     public function run()
     {
-        $defaultPassword = '$2y$10$11wIuR3FnfWwTpfyJ9WCz.E3KErvb.i.Q2Wef6XMUZHTXUlW0FhJm';
+        // password
+        $defaultPassword = '$2y$10$6udFYIjZkuCZshN.h2RlKuF.UeELiKFm7SmFM9Omgoh0HPdmsS2Xy';
 
         $data = [
             ['fk_user_type' => 1, 'username' => 'admin', 'password' =>  '$2y$10$84r63xo.M4LVcIi8IvT8cO0qYxyglPshY1jJmKLedRMcaTcxhcVYO'],
