@@ -121,7 +121,40 @@ class Presences extends Home
             if(!$this->isTechnician())
                 return redirect()->to(uri_string());
 
-            $id_presence = $this->presences_model->getPresenceId($user_id);
+            // Récupérer l'enregistrement de présence existant
+            $presence_record = $this->presences_model->getPresenceId($user_id);
+            
+            // Extraire l'ID de présence si l'enregistrement existe
+            $id_presence = null;
+            if ($presence_record !== null) {
+                // Si c'est un objet, extraire l'ID
+                if (is_object($presence_record)) {
+                    $id_presence = $presence_record->id_presence ?? null;
+                } 
+                // Si c'est un tableau, extraire l'ID
+                elseif (is_array($presence_record)) {
+                    $id_presence = $presence_record['id_presence'] ?? null;
+                }
+            }
+
+            // Supprimer les doublons existants pour cet utilisateur avant la mise à jour
+            if ($id_presence !== null) {
+                // Supprimer toutes les autres entrées pour cet utilisateur (garder seulement celle avec l'ID récupéré)
+                $this->presences_model->where('fk_user_id', $user_id)
+                                      ->where('id_presence !=', $id_presence)
+                                      ->delete();
+            } else {
+                // S'il n'y a pas d'enregistrement, supprimer tous les doublons potentiels
+                $existing_presences = $this->presences_model->where('fk_user_id', $user_id)->findAll();
+                if (count($existing_presences) > 0) {
+                    // Garder seulement le premier et supprimer les autres
+                    $first_id = is_object($existing_presences[0]) ? $existing_presences[0]->id_presence : $existing_presences[0]['id_presence'];
+                    $this->presences_model->where('fk_user_id', $user_id)
+                                          ->where('id_presence !=', $first_id)
+                                          ->delete();
+                    $id_presence = $first_id;
+                }
+            }
 
             foreach ($_SESSION['helpdesk']['presences_periods'] as $field)
             {
@@ -134,7 +167,6 @@ class Presences extends Home
 
             $data_to_save =
             [
-                'id_presence' => $id_presence,
                 'fk_user_id' => $user_id,
 
                 'presence_mon_m1' => $_POST['presence_mon_m1'],
@@ -162,6 +194,11 @@ class Presences extends Home
                 'presence_fri_a1' => $_POST['presence_fri_a1'],
                 'presence_fri_a2' => $_POST['presence_fri_a2']
             ];
+
+            // Ajouter l'ID seulement si on met à jour un enregistrement existant
+            if ($id_presence !== null) {
+                $data_to_save['id_presence'] = $id_presence;
+            }
 
             $this->presences_model->save($data_to_save);
 

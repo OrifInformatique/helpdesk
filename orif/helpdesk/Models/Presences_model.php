@@ -64,7 +64,7 @@ class Presences_model extends \CodeIgniter\Model
      * 
      * @param int $user_id ID of a specific user
      * 
-     * @return int
+     * @return array|object|null The presence record or null if not found
      * 
      */
     public function getPresenceId($user_id)
