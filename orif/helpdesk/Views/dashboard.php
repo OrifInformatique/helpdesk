@@ -74,7 +74,7 @@
             <h3><?= lang('Technician.presences') ?></h3>
         </div>
         <div class="dashboard-card-content">
-            <a class="btn btn-edit" href="<?= base_url('helpdesk/presences/technician_presences/'.$user['id']) ?>">
+            <a class="btn btn-edit" href="<?= base_url('helpdesk/presences/technicianPresences/'.$user['id']) ?>">
                 <span><?= lang('Buttons.edit') ?></span>
             </a>
             <?php if(isset($id_presence)): ?>

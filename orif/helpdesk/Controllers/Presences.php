@@ -89,7 +89,7 @@ class Presences extends Home
                 $data['messages']['error'] = lang('Errors.invalid_technician_selected');
 
             else
-                return redirect()->to('/helpdesk/presences/technician_presences/'.$user_id);
+                return redirect()->to('/helpdesk/presences/technicianPresences/'.$user_id);
         }
 
         $data['users'] = $this->user_data_model->getUsersWithoutPresences();
@@ -104,7 +104,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function technician_presences($user_id = NULL)
+    public function technicianPresences($user_id = NULL)
     {
         $this->isUserLogged();
         $this->setSessionVariables();

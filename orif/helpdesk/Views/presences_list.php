@@ -21,7 +21,7 @@
 	<div class="action-menu table-top">
 		<a class="btn btn-add" href="<?= base_url('/helpdesk/presences/addTechnicianPresences') ?>"><span><?= lang('Buttons.add_technician_presences') ?></span></a>
 		<?php if(isset($_SESSION['user_id'])): ?>
-			<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$_SESSION['user_id']) ?>"><span><?= lang('Buttons.my_presences') ?></span></a>
+			<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technicianPresences/'.$_SESSION['user_id']) ?>"><span><?= lang('Buttons.my_presences') ?></span></a>
 		<?php else: ?>
 			<button disabled class="btn btn-edit"><span><?= lang('Buttons.my_presences') ?></span></button>
 		<?php endif; ?>
@@ -74,7 +74,7 @@
 						}?>
 
 						<td>
-							<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technician_presences/'.$user_presences['fk_user_id'])?>"></a>
+							<a class="btn btn-edit" href="<?= base_url('/helpdesk/presences/technicianPresences/'.$user_presences['fk_user_id'])?>"></a>
 						</td>
 						<td>
 							<a class="btn btn-delete" href="<?= base_url('/helpdesk/presences/delete_presences/'.$user_presences['id_presence'])?>"></a>

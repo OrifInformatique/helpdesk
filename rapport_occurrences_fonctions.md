@@ -484,36 +484,26 @@
 
 ---
 
-### 24. `technician_presences()` → `technicianPresences()`
+### 24. `technician_presences()` → `technicianPresences()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 31** (définition + appels + routes + vues + lang + CSS/JS)
+**Nombre total d'occurrences : 31** (définition + routes) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Controllers/Presences.php` (ligne 107)
+  - `orif/helpdesk/Controllers/Presences.php` (ligne 107) ✅
 
-- **Appels dans le contrôleur** :
-  - `orif/helpdesk/Controllers/Presences.php` (ligne 192, 199)
+- **Routes/URLs dans les contrôleurs** :
+  - `orif/helpdesk/Controllers/Presences.php` (ligne 92) ✅
 
-- **Routes/URLs** :
-  - `orif/helpdesk/Views/dashboard.php` (ligne 77)
-  - `orif/helpdesk/Views/presences_list.php` (lignes 24, 77)
-  - `orif/helpdesk/Views/technician_presences.php` (ligne 36)
+- **Routes/URLs dans les vues** :
+  - `orif/helpdesk/Views/dashboard.php` (ligne 77) ✅
+  - `orif/helpdesk/Views/presences_list.php` (lignes 24, 77) ✅
+  - `orif/helpdesk/Views/technician_presences.php` (ligne 36) ✅
 
-- **Vues** :
-  - `orif/helpdesk/Views/technician_presences.php` (ligne 4)
+- **Note** : Les clés de langue (`Titles.technician_presences`, etc.) et les noms de fichiers CSS/JS (`technician_presences.css`) restent inchangés.
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Titles.php` (ligne 16)
-  - `orif/helpdesk/Language/en/Titles.php` (ligne 16)
-  - `orif/helpdesk/Language/fr/Errors.php` (ligne 15)
-  - `orif/helpdesk/Language/en/Errors.php` (ligne 15)
-  - `orif/helpdesk/Language/fr/MiscTexts.php` (ligne 13)
-  - `orif/helpdesk/Language/en/MiscTexts.php` (ligne 13)
-
-- **Fichiers statiques** :
-  - `orif/common/Views/header.php` (lignes 41, 80)
+**Statut** : Fonction et toutes les routes mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

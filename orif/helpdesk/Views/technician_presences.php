@@ -33,7 +33,7 @@
 
 </div>
 
-<?= form_open(base_url('/helpdesk/presences/technician_presences/'.$user_id)) ?>
+<?= form_open(base_url('/helpdesk/presences/technicianPresences/'.$user_id)) ?>
 	<?php foreach($weekdays as $day => $periods): ?>
 		<h3><?= lang('Time.'.$day)?></h3>
 		<div>
