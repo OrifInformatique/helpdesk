@@ -723,21 +723,21 @@
 
 ---
 
-### 36. `coherent_dates()` → `coherentDates()`
+### 36. `coherent_dates()` → `coherentDates()` ✅ **TERMINÉ**
 
-**Nombre total d'occurrences : 6** (définition + utilisation + lang)
+**Nombre total d'occurrences : 6** (définition + utilisation) - **Toutes modifiées**
 
 #### Localisation
 
 - **Définition** :
-  - `orif/helpdesk/Validation/Rules/CoherentDates.php` (ligne 25)
+  - `orif/helpdesk/Validation/Rules/CoherentDates.php` (ligne 25) ✅
 
 - **Utilisation dans les règles de validation** :
-  - `orif/helpdesk/Controllers/Holidays.php` (lignes 86, 103)
+  - `orif/helpdesk/Controllers/Holidays.php` (ligne 86) ✅
 
-- **Fichiers de langue** :
-  - `orif/helpdesk/Language/fr/Forms/Errors.php` (ligne 20)
-  - `orif/helpdesk/Language/en/Forms/Errors.php` (ligne 20)
+- **Note** : Les clés de langue (`Forms/Errors.coherent_dates`) restent inchangées.
+
+**Statut** : Fonction et utilisation dans les règles de validation mises à jour. Aucune nouvelle erreur de linting détectée.
 
 ---
 

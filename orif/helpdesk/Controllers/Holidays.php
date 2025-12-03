@@ -83,7 +83,7 @@ class Holidays extends Home
             [
                 'holiday_name'  => 'required|french_alpha_space',
                 'start_date'    => 'required|valid_date[Y-m-d\TH:i]',
-                'end_date'      => 'required|valid_date[Y-m-d\TH:i]|coherent_dates['.$_POST['start_date'].']'
+                'end_date'      => 'required|valid_date[Y-m-d\TH:i]|coherentDates['.$_POST['start_date'].']'
             ],
             [
                 'holiday_name' => 
