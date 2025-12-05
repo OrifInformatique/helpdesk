@@ -20,6 +20,7 @@ use User\Models\User_model;
 use Helpdesk\Models\User_data_model;
 use Helpdesk\Models\Presences_model;
 use Helpdesk\Models\Planning_model;
+use CodeIgniter\HTTP\Response;
 
 class User extends Admin
 {
@@ -43,7 +44,7 @@ class User extends Admin
      * @param integer $user_id = The id of the user to modify, leave blank to create a new one
      * @return void
      */
-    public function saveUser(?int $user_id = 0)
+    public function saveUser(?int $user_id = 0): string|Response
     {
         //store the user name and user type to display them again in the form
         $old_name = NULL;
@@ -249,7 +250,7 @@ class User extends Admin
      *  - 2 for deleting (hard delete)
      * @return void
      */
-    public function deleteUser(int $user_id, ?int $action = 0)
+    public function deleteUser(int $user_id, ?int $action = 0): string|Response
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {
