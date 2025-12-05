@@ -17,7 +17,7 @@
 
 <?= view('Helpdesk\Common\planning_presences_quick_goto') ?>
 
-<?= form_open(base_url('/helpdesk/planning/update_planning/'.$planning_type)) ?>
+<?= form_open(base_url('/helpdesk/planning/updatePlanning/'.$planning_type)) ?>
     <div class="planning-table">
 
         <div class="week">
@@ -29,7 +29,7 @@
         <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
         <thead>
             <tr>
-                <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/'.$planning_type) ?>" title="<?= lang('Buttons.add_technician') ?>"></a></th>
+                <th><a class="btn btn-add" href="<?= base_url('/helpdesk/planning/addTechnician/'.$planning_type) ?>" title="<?= lang('Buttons.add_technician') ?>"></a></th>
                 <?= view('Helpdesk\Common\planning_weekdays_row', ['planning_type' => $planning_type]) ?>
                 <th class="empty-cell"></th>
             </tr>
@@ -55,7 +55,7 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$planning['fk_user_id'].'/0')?>"></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/deleteTechnician/'.$planning['fk_user_id'].'/0')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>
@@ -77,7 +77,7 @@
                                 </td>
                             <?php endforeach; ?>
                             <td>
-                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_technician/'.$nw_planning['fk_user_id'].'/1')?>"></a>
+                                <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/deleteTechnician/'.$nw_planning['fk_user_id'].'/1')?>"></a>
                             </td>
                         </tr>
                     <?php endforeach; ?>

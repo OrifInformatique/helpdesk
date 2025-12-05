@@ -19,11 +19,11 @@
 <div class="planning-table">
 
     <div class="week">
-        <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/lw_planning') ?>"><span><?= lang('Buttons.last_week')?></span></a>
+        <a class="btn btn-last-week" href="<?= base_url('/helpdesk/planning/lastWeekPlanning') ?>"><span><?= lang('Buttons.last_week')?></span></a>
 
         <?= view('Helpdesk\Common\planning_week', ['planning_type' => $planning_type]) ?>
 
-        <a class="btn btn-next-week" href="<?= base_url('/helpdesk/planning/nw_planning') ?>"><span><?= lang('Buttons.next_week')?></span></a>
+        <a class="btn btn-next-week" href="<?= base_url('/helpdesk/planning/nextWeekPlanning') ?>"><span><?= lang('Buttons.next_week')?></span></a>
     </div>
 
     <table class="table-responsive<?= isset($classes) ? implode($classes) : ''?>">
@@ -31,7 +31,7 @@
             <tr>
                 <th>        
                     <?php if(!empty($planning_data)): ?>
-                        <a class="btn btn-edit" href="<?= base_url('/helpdesk/planning/update_planning/0') ?>" title="<?= lang('Buttons.edit_planning') ?>"></a>
+                        <a class="btn btn-edit" href="<?= base_url('/helpdesk/planning/updatePlanning/0') ?>" title="<?= lang('Buttons.edit_planning') ?>"></a>
                     <?php else: ?>
                         <button disabled class="btn btn-edit"></button>
                     <?php endif; ?>
@@ -55,7 +55,7 @@
                 <tr>
                     <td colspan="21">
                         <?= lang('Errors.no_technician_assigned')?><br>
-                        <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/add_technician/0') ?>"><span><?= lang('Buttons.add_technician')?></span></a>
+                        <a class="btn btn-add" href="<?= base_url('/helpdesk/planning/addTechnician/0') ?>"><span><?= lang('Buttons.add_technician')?></span></a>
                     </td>
                 </tr>
             <?php endif; ?>

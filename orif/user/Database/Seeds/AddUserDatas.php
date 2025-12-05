@@ -8,30 +8,31 @@ class AddUserDatas extends \CodeIgniter\Database\Seeder
 {
     public function run()
     {
-        $defaultPassword = '$2y$10$11wIuR3FnfWwTpfyJ9WCz.E3KErvb.i.Q2Wef6XMUZHTXUlW0FhJm';
+        // password
+        $defaultPassword = '$2y$10$6udFYIjZkuCZshN.h2RlKuF.UeELiKFm7SmFM9Omgoh0HPdmsS2Xy';
 
         $data = [
             ['fk_user_type' => 1, 'username' => 'admin', 'password' =>  '$2y$10$84r63xo.M4LVcIi8IvT8cO0qYxyglPshY1jJmKLedRMcaTcxhcVYO'],
-            ['fk_user_type' => 2, 'username' => 'first_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'second_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'third_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'fourth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'fifth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'sixth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'seventh_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'eighth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'ninth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'tenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'eleventh_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'twelfth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'thirteenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'fourteenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'fifteenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'sixteenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'seventeenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'eighteenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'nineteenth_user', 'password' => $defaultPassword],
-            ['fk_user_type' => 2, 'username' => 'twentieth_user', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'A_Operator_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'A_Infrastructure_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'A_Developer_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'A_Observation_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'A_Pre-apprentissage_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'B_Present_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'B_Partially_Absent_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'B_Absent_User', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Alpha', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Bravo', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Charlie', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Delta', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Echo', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Foxtrot', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Golf', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Hotel', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_India', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Juliet', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Kilo', 'password' => $defaultPassword],
+            ['fk_user_type' => 2, 'username' => 'Realistic_Lima', 'password' => $defaultPassword],
         ];
 
         foreach ($data as $row) {

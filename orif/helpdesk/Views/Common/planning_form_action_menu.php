@@ -18,7 +18,7 @@
 
 <?php if(isset($update) && $update): ?>
     <div class="action-menu delete-planning-option">
-        <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/delete_planning/'.$planning_type) ?>"><span><?= lang('Buttons.delete_planning') ?></span></a>
+        <a class="btn btn-delete" href="<?= base_url('/helpdesk/planning/deletePlanning/'.$planning_type) ?>"><span><?= lang('Buttons.delete_planning') ?></span></a>
     </div>
 <?php endif; ?>
 
@@ -29,11 +29,11 @@
     <?php switch($planning_type)
     {
         case 0:
-            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/cw_planning').'"><span>'.lang('Buttons.back').'</span></a>';
+            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/currentWeekPlanning').'"><span>'.lang('Buttons.back').'</span></a>';
             break;
 
         case 1:
-            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/nw_planning').'"><span>'.lang('Buttons.back').'</span></a>';
+            echo '<a class="btn btn-back" href="'.base_url('/helpdesk/planning/nextWeekPlanning').'"><span>'.lang('Buttons.back').'</span></a>';
             break;
     } ?>
 </div>

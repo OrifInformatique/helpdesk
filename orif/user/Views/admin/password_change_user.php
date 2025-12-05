@@ -15,7 +15,7 @@ $validation=\Config\Services::validation();
             'id' => 'user_change_password_form',
             'name' => 'user_change_password_form'
         );
-        echo form_open('user/admin/password_change_user/'.$user['id'], $attributes);
+        echo form_open('user/admin/passwordChangeUser/'.$user['id'], $attributes);
     ?>
     
     <!-- TITLE -->
@@ -58,7 +58,7 @@ $validation=\Config\Services::validation();
     <!-- SUBMIT / CANCEL -->
     <div class="row">
         <div class="col-12 text-right">
-            <a name="cancel" class="btn btn-secondary" href="<?= base_url('user/admin/list_user'); ?>"><?= lang('common_lang.btn_cancel'); ?></a>
+            <a name="cancel" class="btn btn-secondary" href="<?= base_url('user/admin/listUser'); ?>"><?= lang('common_lang.btn_cancel'); ?></a>
             &nbsp;
             <?= form_submit('save', lang('common_lang.btn_save'), ['class' => 'btn btn-primary']); ?>
         </div>

@@ -231,7 +231,7 @@
 
 <section>
 	<!-- Link to generic items list demo -->
-	<a href="<?= base_url("welcome/home/display_items") ?>">Afficher une démonstration de la liste générique "items_list"</a>
+	<a href="<?= base_url("welcome/home/displayItems") ?>">Afficher une démonstration de la liste générique "items_list"</a>
 </section>
 
 <section>

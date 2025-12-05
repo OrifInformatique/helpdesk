@@ -71,7 +71,7 @@ class Home extends BaseController
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/planning/cw_planning');
+        return redirect()->to('/helpdesk/planning/currentWeekPlanning');
     }
 
 
@@ -373,21 +373,21 @@ class Home extends BaseController
      * @return view
      * 
      */
-    public function confirm_action($action = null)
+    public function confirmAction($action = null)
     {
         $this->isUserLogged();
 
         switch($action)
         {
-            case 'shift_weeks':
+            case 'shiftWeeks':
                 if(!$this->isTechnician())
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
                 
                 $action =
                 [
                     'name' => 'shift_weeks_with_planning_generation',
                     'css' => 'shift-weeks-with-planning-generation',
-                    'url' => base_url('helpdesk/planning/shift_weeks/true'),
+                    'url' => base_url('helpdesk/planning/shiftWeeks/true'),
                     'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
                 ];
 
@@ -395,7 +395,7 @@ class Home extends BaseController
                 [
                     'name' => 'shift_weeks',
                     'css' => 'shift-weeks',
-                    'url' => base_url('helpdesk/planning/shift_weeks')
+                    'url' => base_url('helpdesk/planning/shiftWeeks')
                 ];
 
                 $irreversible_action = true;
@@ -404,13 +404,13 @@ class Home extends BaseController
 
             case 'generate_planning':
                 if(!$this->isTechnician())
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
 
                 $action = 
                 [
                     'name' => 'generate_planning',
                     'css' => 'generate-planning',
-                    'url' => base_url('helpdesk/planning/planning_generation'),
+                    'url' => base_url('helpdesk/planning/planningGeneration'),
                     'desc' => lang('MiscTexts.generated_planning_overwrite_old_one')
                 ];
                 

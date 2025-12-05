@@ -16,7 +16,7 @@ helper("form");
     </div>
     <div class="row">
         <div class="col-sm-3 text-left">
-            <a href="<?= base_url('helpdesk/user/helpdesk_save_user'); ?>" class="btn btn-primary">
+            <a href="<?= base_url('helpdesk/user/saveUser'); ?>" class="btn btn-primary">
                 <?= lang('common_lang.btn_new_m'); ?>
             </a>
         </div>
@@ -43,11 +43,11 @@ helper("form");
         <tbody id="userslist">
             <?php foreach($users as $user) { ?>
                 <tr>
-                    <td><a href="<?= base_url('helpdesk/user/helpdesk_save_user/'.$user['id']); ?>"><?= esc($user['username']); ?></td>
+                    <td><a href="<?= base_url('helpdesk/user/saveUser/'.$user['id']); ?>"><?= esc($user['username']); ?></td>
                     <td><?= esc($user['email']); ?></td>
                     <td><?= $user_types[$user['fk_user_type']]; ?></td>
                     <td><?= lang($user['archive'] ? 'common_lang.no' : 'common_lang.yes'); ?></td>
-                    <td><a href="<?= base_url('helpdesk/user/helpdesk_delete_user/'.$user['id']); ?>" class="close">×</td>
+                    <td><a href="<?= base_url('helpdesk/user/deleteUser/'.$user['id']); ?>" class="close">×</td>
                 </tr>
             <?php } ?>
         </tbody>
@@ -59,7 +59,7 @@ helper("form");
 $(document).ready(function(){
     $('#toggle_deleted').change(e => {
         let checked = e.currentTarget.checked;
-        $.post('<?=base_url();?>/user/admin/list_user/'+(+checked), {}, data => {
+        $.post('<?=base_url();?>/user/admin/listUser/'+(+checked), {}, data => {
             $('#userslist').empty();
             $('#userslist')[0].innerHTML = $(data).find('#userslist')[0].innerHTML;
         });

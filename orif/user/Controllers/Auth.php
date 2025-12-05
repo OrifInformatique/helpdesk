@@ -44,7 +44,7 @@ class Auth extends BaseController {
         
     }
 
-    function errorhandler($data) {
+    function errorHandler($data) {
         $data['title'] = 'Azure error';
         echo $this->display_view('\User\errors\azureErrors', $data);
         exit();
@@ -101,7 +101,7 @@ class Auth extends BaseController {
                 $ci_user = $this->user_model->where('email', $_SESSION['form_email'])->first();
                 
                 // Verification code matches
-                $_SESSION['user_access'] = (int)$this->user_model->get_access_level($ci_user);
+                $_SESSION['user_access'] = (int)$this->user_model->getAccessLevel($ci_user);
                 $_SESSION['user_id'] = (int)$ci_user['id'];
                 $_SESSION['username'] = $ci_user['username'];
     
@@ -155,7 +155,7 @@ class Auth extends BaseController {
         // setup
         $email = \Config\Services::email();
                 
-        $emailConfig = [
+        $email_config = [
             'protocol' => getenv('PROTOCOL'),
             'SMTPHost' => getenv('SMTP_HOST'),
             'SMTPUser' => getenv('SMTP_ID'),
@@ -163,7 +163,7 @@ class Auth extends BaseController {
             'SMTPPort' => getenv('SMTP_PORT'),
         ];
 
-        $email->initialize($emailConfig);
+        $email->initialize($email_config);
 
         // Sending code to user's  mail
         $email->setFrom('smtp@sectioninformatique.ch', 'packbase'); 
@@ -190,11 +190,11 @@ class Auth extends BaseController {
         $new_username = substr($new_username[0], 0, $username_max_length);
 
         // Generating a random password
-        $password_max_lenght = $user_config->password_max_length;
+        $password_max_length = $user_config->password_max_length;
         $new_password = '';
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-={}[]|:;"<>,.?/~`';
 
-        for ($i = 0; $i < $password_max_lenght; $i++) {
+        for ($i = 0; $i < $password_max_length; $i++) {
             $new_password .= $characters[rand(0, strlen($characters) - 1)];
         }
 
@@ -215,12 +215,12 @@ class Auth extends BaseController {
      *
      * @return void
      */
-    public function azure_login() {
+    public function azureLogin() {
 
         $client_id = getenv('CLIENT_ID');
         $client_secret = getenv('CLIENT_SECRET');
         $ad_tenant = getenv('TENANT_ID');
-        $graphUserScopes = getenv('GRAPH_USER_SCOPES');
+        $graph_user_scopes = getenv('GRAPH_USER_SCOPES');
         $redirect_uri = getenv('REDIRECT_URI');
         
         // Authentication part begins
@@ -229,7 +229,7 @@ class Auth extends BaseController {
             // First stage of the authentication process
             $url = "https://login.microsoftonline.com/" . $ad_tenant . "/oauth2/v2.0/authorize?";
             $url .= "state=" . session_id();
-            $url .= "&scope=" . $graphUserScopes;
+            $url .= "&scope=" . $graph_user_scopes;
             $url .= "&response_type=code";
             $url .= "&approval_prompt=auto";
             $url .= "&client_id=" . $client_id;
@@ -240,7 +240,7 @@ class Auth extends BaseController {
         } elseif (isset($_GET["error"])) {
 
             $data['Exception'] = null;
-            $this->errorhandler($data);
+            $this->errorHandler($data);
 
         //Checking that the session_id matches to the state for security reasons
         } elseif (strcmp(session_id(), $_GET["state"]) == 0) {
@@ -274,13 +274,13 @@ class Auth extends BaseController {
             if ($json === false){
                 //Error received during Bearer token fetch
                 $data['Exception'] = lang('user_lang.msg_err_azure_no_token').'.';
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
             $authdata = json_decode($json, true);
             if (isset($authdata["error"])){
                 //Bearer token fetch contained an error
                 $data['Exception'] = null;
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
             
             //Fetching user information
@@ -296,7 +296,7 @@ class Auth extends BaseController {
             if ($json === false) {
                 // Error received during user data fetch.
                 $data['Exception'] = null;
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
 
             $userdata = json_decode($json, true);
@@ -304,7 +304,7 @@ class Auth extends BaseController {
             if (isset($userdata["error"])) {
                 // User data fetch contained an error.
                 $data['Exception'] = null;
-                $this->errorhandler($data);
+                $this->errorHandler($data);
             };
 
             // Setting up the session
@@ -318,7 +318,7 @@ class Auth extends BaseController {
             $ci_user_azure = $this->user_model->where('azure_mail', $user_azure_mail)->first();
 
             // Seperate name and lastname from email for mail correspondances
-            $nameAndLastname = strstr($user_azure_mail, '@', true); // True = before '@' and without '@'
+            $name_and_lastname = strstr($user_azure_mail, '@', true); // True = before '@' and without '@'
 
             // Azure mail not found in DB
             if (empty($ci_user_azure)){
@@ -328,17 +328,17 @@ class Auth extends BaseController {
                 $_SESSION['user_access'] = config("\User\Config\UserConfig")->azure_default_access_lvl;
                 $_SESSION['azure_mail'] = $user_azure_mail;
 
-                $correspondingUser = $this->user_model->where('email LIKE', $nameAndLastname . '%')->first();
+                $corresponding_user = $this->user_model->where('email LIKE', $name_and_lastname . '%')->first();
 
-                if ($correspondingUser == NULL){
-                    $correspondingEmail = '';
+                if ($corresponding_user == NULL){
+                    $corresponding_email = '';
                 } else {
-                    $correspondingEmail = $correspondingUser['email'];
+                    $corresponding_email = $corresponding_user['email'];
                 }
 
                 $output = array(
                     'title' => lang('user_lang.title_page_login'),
-                    'correspondingEmail' => $correspondingEmail,
+                    'corresponding_email' => $corresponding_email,
                     'ci_user' => $ci_user_azure,
                     'userdata' => $userdata);
                     
@@ -348,7 +348,7 @@ class Auth extends BaseController {
             } else {
                 $_SESSION['user_id'] = $ci_user_azure['id'];
                 $_SESSION['username'] = $ci_user_azure['username'];
-                $_SESSION['user_access'] = (int)$this->user_model->get_access_level($ci_user_azure);
+                $_SESSION['user_access'] = (int)$this->user_model->getAccessLevel($ci_user_azure);
 
                 return redirect()->to($_SESSION['after_login_redirect']);
             };
@@ -356,7 +356,7 @@ class Auth extends BaseController {
         } else {
             // Returned states mismatch and no $_GET["error"] received.
             $data['Exception'] = lang('user_lang.msg_err_azure_mismatch').'.';
-            $this->errorhandler($data);
+            $this->errorHandler($data);
         }
     }
 
@@ -400,8 +400,8 @@ class Auth extends BaseController {
                 if ($this->validation->withRequest($this->request)->run() == true) {
                     $input = $this->request->getVar('username');
                     $password = $this->request->getvar('password');
-                    $ismail = $this->user_model->check_password_email($input, $password);
-                    if ($ismail || $this->user_model->check_password_name($input, $password)) {
+                    $ismail = $this->user_model->checkPasswordEmail($input, $password);
+                    if ($ismail || $this->user_model->checkPasswordName($input, $password)) {
                         // Login success
                         $user = NULL;
                         // User is either logging in through an email or an username
@@ -414,7 +414,7 @@ class Auth extends BaseController {
                 
                         $_SESSION['user_id'] = (int)$user->id;
                         $_SESSION['username'] = (string)$user->username;
-                        $_SESSION['user_access'] = (int)$this->user_model->get_access_level($user);
+                        $_SESSION['user_access'] = (int)$this->user_model->getAccessLevel($user);
                         $_SESSION['logged_in'] = (bool)true;
 
                         // Send the user to the redirection URL
@@ -429,7 +429,7 @@ class Auth extends BaseController {
 
             // Check if microsoft login button submitted, else, display login page
             } else if (!is_null($this->request->getPost('btn_login_microsoft'))) {
-                $this->azure_login();
+                $this->azureLogin();
                 exit();
             }
             //Display login page
@@ -460,7 +460,7 @@ class Auth extends BaseController {
      *
      * @return void
      */
-    public function change_password(): Response|string 
+    public function changePassword(): Response|string 
     {
         // Check if access is allowed
         if(isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == true) {
@@ -476,7 +476,7 @@ class Auth extends BaseController {
             if (!is_null($this->request->getVar('btn_change_password'))) {
                 $old_password = $this->request->getVar('old_password');
 
-                if($this->user_model->check_password_name($user['username'], $old_password)) {
+                if($this->user_model->checkPasswordName($user['username'], $old_password)) {
                     $user['password'] = $this->request->getVar('new_password');
                     $user['password_confirm'] = $this->request->getVar('confirm_password');
 

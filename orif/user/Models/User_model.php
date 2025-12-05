@@ -38,7 +38,7 @@ class User_model extends \CodeIgniter\Model{
         //                     'max_length['.config('\User\Config\UserConfig')->username_max_length.']'],
         //     'fk_user_type' =>
         //         ['label' => lang('user_lang.field_usertype'),
-        //          'rules' => 'required|cb_not_null_user_type'],
+        //          'rules' => 'required|cbNotNullUserType'],
         //     'password' =>
         //         ['label' => lang('user_lang.field_password'),
         //          'rules' => 'required|trim|'.
@@ -53,11 +53,11 @@ class User_model extends \CodeIgniter\Model{
 
         // $this->validationMessages=[
         //     'username' =>
-        //         ['cb_unique_username' => lang('user_lang.msg_err_username_not_unique')],
+        //         ['cbUniqueUsername' => lang('user_lang.msg_err_username_not_unique')],
         //     'email'=>
-        //         ['cb_unique_useremail' => lang('user_lang.msg_err_useremail_not_unique')],
+        //         ['cbUniqueUseremail' => lang('user_lang.msg_err_useremail_not_unique')],
         //     'fk_user_type' =>
-        //         ['cb_not_null_user_type' => lang('user_lang.msg_err_user_type_not_exist')],
+        //         ['cbNotNullUserType' => lang('user_lang.msg_err_user_type_not_exist')],
         //     'password' =>
         //         ['matches' => lang('user_lang.msg_err_password_not_matches')],
         ];
@@ -84,7 +84,7 @@ class User_model extends \CodeIgniter\Model{
      * @param string $password
      * @return boolean true on success false otherwise
      */
-    public function check_password_name($username, $password){
+    public function checkPasswordName($username, $password){
         $user=$this->where("username",$username)->first();
         //If a user is found we can verify his password because if his archive is not empty, he is not in the array
         if (!is_null($user)){
@@ -101,7 +101,7 @@ class User_model extends \CodeIgniter\Model{
      * @param string $password
      * @return bool true on success false otherwise
      */
-    public function check_password_email($email,$password){
+    public function checkPasswordEmail($email,$password){
         if (!filter_var($email,FILTER_VALIDATE_EMAIL)){
             return false;
         }
@@ -119,7 +119,7 @@ class User_model extends \CodeIgniter\Model{
      * @param $user
      * @return mixed
      */
-    public function get_access_level($user){
+    public function getAccessLevel($user){
         if ($this->user_type_model==null){
             $this->user_type_model=new User_type_model();
 

@@ -43,18 +43,18 @@ class User extends Admin
      * @param integer $user_id = The id of the user to modify, leave blank to create a new one
      * @return void
      */
-    public function helpdesk_save_user(?int $user_id = 0)
+    public function saveUser(?int $user_id = 0)
     {
         //store the user name and user type to display them again in the form
-        $oldName = NULL;
-        $oldUsertype = NULL;
+        $old_name = NULL;
+        $old_usertype = NULL;
         //added user in current scope to manage its datas
         $user=null;
         if (count($_POST) > 0) {
             $user_id = $this->request->getPost('id');
-            $oldName = $this->request->getPost('user_name');
+            $old_name = $this->request->getPost('user_name');
             if($_SESSION['user_id'] != $user_id) {
-                $oldUsertype = $this->request->getPost('user_usertype');
+                $old_usertype = $this->request->getPost('user_usertype');
             }
             $post_data = array(
                 'id'                    => $user_id ?: null,
@@ -83,7 +83,7 @@ class User extends Admin
                     ],
                     'fk_user_type' => [
                         'label' => lang('user_lang.field_usertype'),
-                        'rules' => 'required|cb_not_null_user_type'
+                        'rules' => 'required|cbNotNullUserType'
                     ],
                     'email' => [
                         'label' => lang('Forms/Fields.mail'),
@@ -91,13 +91,13 @@ class User extends Admin
                     ],
                     'first_name_user_data' => [
                         'label' => lang('Forms/Fields.first_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'last_name_user_data' => [
                         'label' => lang('Forms/Fields.last_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'photo_user_data' => [
                         'label' => lang('Forms/Fields.photo'),
@@ -127,7 +127,7 @@ class User extends Admin
                     ],
                     'fk_user_type' => [
                         'label' => lang('user_lang.field_usertype'),
-                        'rules' => 'required|cb_not_null_user_type'
+                        'rules' => 'required|cbNotNullUserType'
                     ],
                     'email' => [
                         'label' => lang('Forms/Fields.mail'),
@@ -135,13 +135,13 @@ class User extends Admin
                     ],
                     'first_name_user_data' => [
                         'label' => lang('Forms/Fields.first_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'last_name_user_data' => [
                         'label' => lang('Forms/Fields.last_name'),
-                        'rules' => 'required|min_length[3]|max_length[50]|french_alpha',
-                        'errors' => ['french_alpha' => lang('Forms/Errors.french_alpha')]
+                        'rules' => 'required|min_length[3]|max_length[50]|frenchAlpha',
+                        'errors' => ['frenchAlpha' => lang('Forms/Errors.frenchAlpha')]
                     ],
                     'photo_user_data' => [
                         'label' => lang('Forms/Fields.photo'),
@@ -212,7 +212,7 @@ class User extends Admin
 
                 //In the case of errors
                 if ($this->user_model->errors()==null){
-                    return redirect()->to('/user/admin/list_user');
+                    return redirect()->to('/user/admin/listUser');
                 }
             }
         }
@@ -228,8 +228,8 @@ class User extends Admin
             'title'         => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
             'user'          => $this->user_model->withDeleted()->find($user_id),
             'user_types'    => $usertypes,
-            'user_name'     => $oldName,
-            'user_usertype' => $oldUsertype,
+            'user_name'     => $old_name,
+            'user_usertype' => $old_usertype,
             'email'         => $post_data['email'] ?? null,
             'first_name_user_data' => $post_data['first_name_user_data'] ?? $user_data_data['first_name_user_data'] ?? null,
             'last_name_user_data' => $post_data['last_name_user_data'] ?? $user_data_data['last_name_user_data'] ?? null,
@@ -249,11 +249,11 @@ class User extends Admin
      *  - 2 for deleting (hard delete)
      * @return void
      */
-    public function helpdesk_delete_user(int $user_id, ?int $action = 0)
+    public function deleteUser(int $user_id, ?int $action = 0)
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {
-            return redirect()->to('/user/admin/list_user');
+            return redirect()->to('/user/admin/listUser');
         }
         $id_user_data =  $this->user_data_model->withDeleted()->getUserDataId($user_id);
 
@@ -272,7 +272,7 @@ class User extends Admin
                 if ($_SESSION['user_id'] != $user['id']) {
                     $this->user_model->delete($user_id, FALSE);
                 }
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             case 2: // Delete user
                 if ($_SESSION['user_id'] != $user['id'] && !$user_has_presences && !$user_is_in_planning) {
                     $old_image = $this->user_data_model->getUserPhoto($user_id);
@@ -281,9 +281,9 @@ class User extends Admin
                     $this->user_data_model->delete($id_user_data, TRUE);
                     $this->user_model->delete($user_id, TRUE);
                 }
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             default: // Do nothing
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
         }
     }
 }

@@ -58,9 +58,9 @@ class Terminal extends Home
 
         $data['preview'] = $preview;
 
-        $isDayOff = $this->holidays_model->areWeInHolidays();
+        $is_day_off = $this->holidays_model->areWeInHolidays();
 
-        if($isDayOff)
+        if($is_day_off)
             $data['day_off'] = true;
 
         else
@@ -145,7 +145,7 @@ class Terminal extends Home
      * @return view
      * 
      */
-    public function update_technician_availability($technician_type)
+    public function updateTechnicianAvailability($technician_type)
     {
         if(isset($technician_type) && !empty($technician_type))
         {

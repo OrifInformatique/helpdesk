@@ -40,15 +40,15 @@
             <h3><?= lang('Technician.plannings') ?></h3>
         </div>
         <div class="dashboard-card-content">
-            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/0') ?>">
+            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/addTechnician/0') ?>">
                 <span><?= lang('Buttons.add_technician_in_actual_planning') ?></span>
             </a>
-            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/add_technician/1') ?>">
+            <a class="btn btn-add" href="<?= base_url('helpdesk/planning/addTechnician/1') ?>">
                 <span><?= lang('Buttons.add_technician_in_next_planning') ?></span>
             </a>
 
             <?php if($has_cw_planning_entry): ?>
-                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/0') ?>">
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/deleteTechnician/'.$user['id'].'/0') ?>">
                     <span><?= lang('Buttons.delete_technician_from_actual_planning')?></span>
                 </a>
             <?php else: ?>
@@ -58,7 +58,7 @@
             <?php endif; ?>
 
             <?php if($has_nw_planning_entry): ?>
-                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/delete_technician/'.$user['id'].'/1') ?>">
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/planning/deleteTechnician/'.$user['id'].'/1') ?>">
                     <span><?= lang('Buttons.delete_technician_from_next_planning')?></span>
                 </a>
             <?php else: ?>
@@ -74,11 +74,11 @@
             <h3><?= lang('Technician.presences') ?></h3>
         </div>
         <div class="dashboard-card-content">
-            <a class="btn btn-edit" href="<?= base_url('helpdesk/presences/technician_presences/'.$user['id']) ?>">
+            <a class="btn btn-edit" href="<?= base_url('helpdesk/presences/technicianPresences/'.$user['id']) ?>">
                 <span><?= lang('Buttons.edit') ?></span>
             </a>
             <?php if(isset($id_presence)): ?>
-                <a class="btn btn-delete" href="<?= base_url('helpdesk/presences/delete_presences/'.$id_presence) ?>">
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/presences/deletePresences/'.$id_presence) ?>">
                     <span><?= lang('Buttons.delete') ?></span>
                 </a>
             <?php else: ?>
@@ -89,16 +89,16 @@
         </div>
     </div>
     
-    <?php if($isUserLoggedAdmin): ?>
+    <?php if($is_user_logged_admin): ?>
         <div class="dashboard-card small" id="user-card">
             <div class="dashboard-card-header">
                 <h3><?= lang('Technician.user') ?></h3>
             </div>
             <div class="dashboard-card-content">
-                <a class="btn btn-edit" href="<?= base_url('helpdesk/user/helpdesk_save_user/'.$user['id']) ?>">
+                <a class="btn btn-edit" href="<?= base_url('helpdesk/user/saveUser/'.$user['id']) ?>">
                     <span><?= lang('Buttons.edit') ?></span>
                 </a>
-                <a class="btn btn-delete" href="<?= base_url('helpdesk/user/helpdesk_delete_user/'.$user['id']) ?>">
+                <a class="btn btn-delete" href="<?= base_url('helpdesk/user/deleteUser/'.$user['id']) ?>">
                     <span><?= lang('Buttons.delete') ?></span>
                 </a>
             </div>

@@ -48,7 +48,7 @@ class Admin extends BaseController
      * @param boolean $with_deleted : Display archived users or not
      * @return void
      */
-    public function list_user(?bool $with_deleted = FALSE): string
+    public function listUser(?bool $with_deleted = FALSE): string
     {
         if ($with_deleted) {
             $users = $this->user_model->orderBy('username')->withDeleted()
@@ -78,18 +78,18 @@ class Admin extends BaseController
      * @param integer $user_id = The id of the user to modify, leave blank to create a new one
      * @return void
      */
-    public function save_user(?int $user_id = 0): string|Response
+    public function saveUser(?int $user_id = 0): string|Response
     {
         //store the user name and user type to display them again in the form
-        $oldName = NULL;
-        $oldUsertype = NULL;
+        $old_name = NULL;
+        $old_usertype = NULL;
         //added user in current scope to manage its datas
         $user=null;
         if (count($_POST) > 0) {
             $user_id = $this->request->getPost('id');
-            $oldName = $this->request->getPost('user_name');
+            $old_name = $this->request->getPost('user_name');
             if($_SESSION['user_id'] != $user_id) {
-                $oldUsertype = $this->request->getPost('user_usertype');
+                $old_usertype = $this->request->getPost('user_usertype');
             }
             $user = array(
                 'id'    => $user_id,
@@ -111,7 +111,7 @@ class Admin extends BaseController
             }
             //In the case of errors
             if ($this->user_model->errors()==null){
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             }
         }
 
@@ -125,8 +125,8 @@ class Admin extends BaseController
             'title'         => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
             'user'          => $this->user_model->withDeleted()->find($user_id),
             'user_types'    => $usertypes,
-            'user_name'     => $oldName,
-            'user_usertype' => $oldUsertype,
+            'user_name'     => $old_name,
+            'user_usertype' => $old_usertype,
             'email'         => $user['email']??null,
             'errors'        => $this->user_model->errors()==null?[]:$this->user_model->errors()
         );
@@ -144,11 +144,11 @@ class Admin extends BaseController
      *  - 2 for deleting (hard delete)
      * @return void
      */
-    public function delete_user(int $user_id, ?int $action = 0): string|Response
+    public function deleteUser(int $user_id, ?int $action = 0): string|Response
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {
-            return redirect()->to('/user/admin/list_user');
+            return redirect()->to('/user/admin/listUser');
         }
 
         switch($action) {
@@ -163,14 +163,14 @@ class Admin extends BaseController
                 if ($_SESSION['user_id'] != $user['id']) {
                     $this->user_model->delete($user_id, FALSE);
                 }
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             case 2: // Delete user
                 if ($_SESSION['user_id'] != $user['id']) {
                     $this->user_model->delete($user_id, TRUE);
                 }
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             default: // Do nothing
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
         }
     }
 
@@ -180,14 +180,14 @@ class Admin extends BaseController
      * @param integer $user_id = ID of the user to affect
      * @return void
      */
-    public function reactivate_user(int $user_id): Response
+    public function reactivateUser(int $user_id): Response
     {
         $user = $this->user_model->withDeleted()->find($user_id);
         if (is_null($user)) {
-            return redirect()->to('/user/admin/list_user');
+            return redirect()->to('/user/admin/listUser');
         } else {
             $this->user_model->withDeleted()->update($user_id,['archive'=>null]);
-            return redirect()->to('/helpdesk/user/helpdesk_save_user/'.$user_id);
+            return redirect()->to('/helpdesk/user/saveUser/'.$user_id);
         }
     }
 
@@ -197,11 +197,11 @@ class Admin extends BaseController
      * @param integer $user_id = ID of the user to update
      * @return void
      */
-    public function password_change_user(int $user_id)
+    public function passwordChangeUser(int $user_id)
     {
         // Get user from DB, redirect if user doesn't exist
         $user = $this->user_model->withDeleted()->find($user_id);
-        if (is_null($user)) return redirect()->to('/user/admin/list_user');
+        if (is_null($user)) return redirect()->to('/user/admin/listUser');
 
         if ($this->request->getPost('password_new') !== null) {
             // Save new password
@@ -211,7 +211,7 @@ class Admin extends BaseController
 
             // If no error happened, redirect
             if ($this->user_model->errors()==null) {
-                return redirect()->to('/user/admin/list_user');
+                return redirect()->to('/user/admin/listUser');
             }
         }
 

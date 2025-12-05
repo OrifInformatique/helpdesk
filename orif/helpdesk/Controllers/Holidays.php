@@ -35,7 +35,7 @@ class Holidays extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/holidays/holidays_list');
+        return redirect()->to('/helpdesk/holidays/holidaysList');
     }
 
 
@@ -48,7 +48,7 @@ class Holidays extends Home
      * @return view
      * 
      */
-    public function holidays_list()
+    public function holidaysList()
     {
         $data = 
         [
@@ -69,7 +69,7 @@ class Holidays extends Home
      * @return view
      * 
      */
-    public function save_holiday($id_holiday = NULL)
+    public function saveHoliday($id_holiday = NULL)
     {
         $this->isUserLogged();
 
@@ -81,15 +81,15 @@ class Holidays extends Home
             $validation = \Config\Services::validation();
             $validation->setRules(
             [
-                'holiday_name'  => 'required|french_alpha_space',
+                'holiday_name'  => 'required|frenchAlphaSpace',
                 'start_date'    => 'required|valid_date[Y-m-d\TH:i]',
-                'end_date'      => 'required|valid_date[Y-m-d\TH:i]|coherent_dates['.$_POST['start_date'].']'
+                'end_date'      => 'required|valid_date[Y-m-d\TH:i]|coherentDates['.$_POST['start_date'].']'
             ],
             [
                 'holiday_name' => 
                 [
                     'required'              => lang('Forms/Errors.required'),
-                    'french_alpha_space'    => lang('Forms/Errors.french_alpha_space')
+                    'frenchAlphaSpace'    => lang('Forms/Errors.french_alpha_space')
                 ],
                 'start_date' => 
                 [
@@ -123,7 +123,7 @@ class Holidays extends Home
 
                 $this->session->setFlashdata('success', lang('Success.holiday_updated'));
 
-                return redirect()->to('/helpdesk/holidays/holidays_list');
+                return redirect()->to('/helpdesk/holidays/holidaysList');
             }
         }
 
@@ -152,12 +152,12 @@ class Holidays extends Home
      * @return view
      * 
      */
-    public function delete_holiday($id_holiday)
+    public function deleteHoliday($id_holiday)
     {
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('/helpdesk/holidays/save_holiday/'.$id_holiday);
+            return redirect()->to('/helpdesk/holidays/saveHoliday/'.$id_holiday);
 
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'] == true)
@@ -166,7 +166,7 @@ class Holidays extends Home
 
             $this->session->setFlashdata('success', lang('Success.holiday_deleted'));
 
-            return redirect()->to('/helpdesk/holidays/holidays_list');
+            return redirect()->to('/helpdesk/holidays/holidaysList');
         }
 
         // When the user clicks the delete button
@@ -179,8 +179,8 @@ class Holidays extends Home
             $data = 
             [
                 'title'         => lang('Titles.delete_confirmation'),
-                'delete_url'    => base_url('/helpdesk/holidays/delete_holiday/'.$id_holiday),
-                'btn_back_url'  => base_url('/helpdesk/holidays/save_holiday/'.$id_holiday),
+                'delete_url'    => base_url('/helpdesk/holidays/deleteHoliday/'.$id_holiday),
+                'btn_back_url'  => base_url('/helpdesk/holidays/saveHoliday/'.$id_holiday),
                 'entry'         => $holiday_entry,
                 'messages'      => $this->getFlashdataMessages()
             ];

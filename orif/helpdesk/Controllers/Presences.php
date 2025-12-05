@@ -35,7 +35,7 @@ class Presences extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/presences/presences_list');
+        return redirect()->to('/helpdesk/presences/presencesList');
     }
 
 
@@ -48,7 +48,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function presences_list()
+    public function presencesList()
     {
         $this->setSessionVariables();
 
@@ -72,13 +72,13 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function add_technician_presences()
+    public function addTechnicianPresences()
     {
         $this->setSessionVariables();
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
 
         if($_SERVER['REQUEST_METHOD'] == 'POST')
         {
@@ -89,7 +89,7 @@ class Presences extends Home
                 $data['messages']['error'] = lang('Errors.invalid_technician_selected');
 
             else
-                return redirect()->to('/helpdesk/presences/technician_presences/'.$user_id);
+                return redirect()->to('/helpdesk/presences/technicianPresences/'.$user_id);
         }
 
         $data['users'] = $this->user_data_model->getUsersWithoutPresences();
@@ -104,7 +104,7 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function technician_presences($user_id = NULL)
+    public function technicianPresences($user_id = NULL)
     {
         $this->isUserLogged();
         $this->setSessionVariables();
@@ -113,7 +113,7 @@ class Presences extends Home
         {
             $this->session->setFlashdata('error', lang('Errors.invalid_technician_selected'));
 
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
         }
 
         if($_SERVER["REQUEST_METHOD"] == "POST")
@@ -121,7 +121,40 @@ class Presences extends Home
             if(!$this->isTechnician())
                 return redirect()->to(uri_string());
 
-            $id_presence = $this->presences_model->getPresenceId($user_id);
+            // Récupérer l'enregistrement de présence existant
+            $presence_record = $this->presences_model->getPresenceId($user_id);
+            
+            // Extraire l'ID de présence si l'enregistrement existe
+            $id_presence = null;
+            if ($presence_record !== null) {
+                // Si c'est un objet, extraire l'ID
+                if (is_object($presence_record)) {
+                    $id_presence = $presence_record->id_presence ?? null;
+                } 
+                // Si c'est un tableau, extraire l'ID
+                elseif (is_array($presence_record)) {
+                    $id_presence = $presence_record['id_presence'] ?? null;
+                }
+            }
+
+            // Supprimer les doublons existants pour cet utilisateur avant la mise à jour
+            if ($id_presence !== null) {
+                // Supprimer toutes les autres entrées pour cet utilisateur (garder seulement celle avec l'ID récupéré)
+                $this->presences_model->where('fk_user_id', $user_id)
+                                      ->where('id_presence !=', $id_presence)
+                                      ->delete();
+            } else {
+                // S'il n'y a pas d'enregistrement, supprimer tous les doublons potentiels
+                $existing_presences = $this->presences_model->where('fk_user_id', $user_id)->findAll();
+                if (count($existing_presences) > 0) {
+                    // Garder seulement le premier et supprimer les autres
+                    $first_id = is_object($existing_presences[0]) ? $existing_presences[0]->id_presence : $existing_presences[0]['id_presence'];
+                    $this->presences_model->where('fk_user_id', $user_id)
+                                          ->where('id_presence !=', $first_id)
+                                          ->delete();
+                    $id_presence = $first_id;
+                }
+            }
 
             foreach ($_SESSION['helpdesk']['presences_periods'] as $field)
             {
@@ -134,7 +167,6 @@ class Presences extends Home
 
             $data_to_save =
             [
-                'id_presence' => $id_presence,
                 'fk_user_id' => $user_id,
 
                 'presence_mon_m1' => $_POST['presence_mon_m1'],
@@ -162,6 +194,11 @@ class Presences extends Home
                 'presence_fri_a1' => $_POST['presence_fri_a1'],
                 'presence_fri_a2' => $_POST['presence_fri_a2']
             ];
+
+            // Ajouter l'ID seulement si on met à jour un enregistrement existant
+            if ($id_presence !== null) {
+                $data_to_save['id_presence'] = $id_presence;
+            }
 
             $this->presences_model->save($data_to_save);
 
@@ -208,12 +245,12 @@ class Presences extends Home
      * @return view
      * 
      */
-    public function delete_presences($id_presence)
+    public function deletePresences($id_presence)
     {
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
 
         // If the users confirms the deletion
         if(isset($_POST['delete_confirmation']) && $_POST['delete_confirmation'])
@@ -222,7 +259,7 @@ class Presences extends Home
 
             $this->session->setFlashdata('success', lang('Success.presences_deleted'));
 
-            return redirect()->to('/helpdesk/presences/presences_list');
+            return redirect()->to('/helpdesk/presences/presencesList');
         }
 
         // When the user clicks the delete button
@@ -236,8 +273,8 @@ class Presences extends Home
             $data = 
             [
                 'title'         => lang('Titles.delete_confirmation'),
-                'delete_url'    => base_url('/helpdesk/presences/delete_presences/'.$id_presence),
-                'btn_back_url'  => base_url('/helpdesk/presences/presences_list'),
+                'delete_url'    => base_url('/helpdesk/presences/deletePresences/'.$id_presence),
+                'btn_back_url'  => base_url('/helpdesk/presences/presencesList'),
                 'entry'         => $presence_entry
             ];
 

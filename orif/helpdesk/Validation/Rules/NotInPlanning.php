@@ -34,7 +34,7 @@ class NotInPlanning
      * @return bool
      * 
      */
-    public function not_in_planning($user_id, $planning_type)
+    public function notInPlanning($user_id, $planning_type)
     {
         switch($planning_type)
         {

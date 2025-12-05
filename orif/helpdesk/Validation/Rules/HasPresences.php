@@ -30,7 +30,7 @@ class HasPresences
      * @return bool
      * 
      */
-    public function has_presences($user_id)
+    public function hasPresences($user_id)
     {
         $user_presences = $this->presences_model->getPresencesUser($user_id);
 

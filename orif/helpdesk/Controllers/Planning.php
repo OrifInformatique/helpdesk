@@ -35,7 +35,7 @@ class Planning extends Home
     {
         $this->setSessionVariables();
 
-        return redirect()->to('/helpdesk/planning/cw_planning');
+        return redirect()->to('/helpdesk/planning/currentWeekPlanning');
     }
 
 
@@ -48,7 +48,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function lw_planning()
+    public function lastWeekPlanning()
     {
         // -1 stands for last week
         $periods = $this->choosePeriods(-1);
@@ -71,7 +71,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function cw_planning()
+    public function currentWeekPlanning()
     {
         $this->setSessionVariables();
 
@@ -97,7 +97,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function nw_planning()
+    public function nextWeekPlanning()
     {
         $this->setSessionVariables();
 
@@ -128,7 +128,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function add_technician($planning_type)
+    public function addTechnician($planning_type)
     {
         $this->isUserLogged();
         $this->setSessionVariables();
@@ -155,7 +155,7 @@ class Planning extends Home
             return redirect()->to(uri_string());
 
         $validation = \Config\Services::validation();
-        $validation->setRule('technician', '', 'is_natural_no_zero|not_in_planning['.$planning_type.']|has_presences', 
+        $validation->setRule('technician', '', 'is_natural_no_zero|notInPlanning['.$planning_type.']|hasPresences', 
         ['is_natural_no_zero' => lang('Forms/Errors.is_natural_no_zero'),
          'not_in_planning'    => lang('Forms/Errors.not_in_planning'),
          'has_presences'      => lang('Forms/Errors.has_presences')]);
@@ -294,7 +294,7 @@ class Planning extends Home
 
                 $this->planning_model->insert($data_to_insert);
 
-                return redirect()->to('/helpdesk/planning/cw_planning');
+                return redirect()->to('/helpdesk/planning/currentWeekPlanning');
 
             case 1:
                 $data_to_insert =
@@ -329,7 +329,7 @@ class Planning extends Home
 
                 $this->nw_planning_model->insert($data_to_insert);
 
-                return redirect()->to('/helpdesk/planning/nw_planning');
+                return redirect()->to('/helpdesk/planning/nextWeekPlanning');
         }
     }
 
@@ -342,7 +342,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function update_planning($planning_type)
+    public function updatePlanning($planning_type)
     {
         $this->isUserLogged();
         $this->setSessionVariables();
@@ -400,7 +400,7 @@ class Planning extends Home
                     
                 $data_to_update['fk_user_id'] = $technician_planning_row['fk_user_id'];
                     
-                $emptyFieldsCount = 0;
+                $empty_fields_count = 0;
                 $user_id = $technician_planning_row['fk_user_id'];
                 $technician_absent = false;
                 $role_duplicated =  false;
@@ -416,7 +416,7 @@ class Planning extends Home
                     if(!$technician_absent && (!in_array($field_value, ["", 1, 2, 3]) || empty($field_value)))
                     {
                         $field_value = NULL; // Required for database insertion
-                        $emptyFieldsCount++;
+                        $empty_fields_count++;
                     }
 
                     if($presences_check && $technician_presence === 3 && in_array($field_value, [1, 2, 3]))
@@ -455,16 +455,16 @@ class Planning extends Home
                     $this->session->setFlashdata('error', sprintf(lang('Errors.technician_is_absent_on_periods'), $technician_fullname).implode(',<br>', $technician_absent_periods).'.');
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
                     
-                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
+                    return redirect()->to('/helpdesk/planning/updatePlanning/'.$planning_type);
                 }
 
                 // If all fields are empty, prevent having a technician without any role at any period
-                if($emptyFieldsCount === 20)
+                if($empty_fields_count === 20)
                 {
                     $this->session->setFlashdata('error', lang('Errors.technician_must_be_assigned_to_schedule'));
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
 
-                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
+                    return redirect()->to('/helpdesk/planning/updatePlanning/'.$planning_type);
                 }
 
                 if($role_duplicated) 
@@ -472,7 +472,7 @@ class Planning extends Home
                     $this->session->setFlashdata('error', lang('Errors.role_duplicates_on_periods').implode(',<br>', $roles_duplicated_periods).'.');
                     $this->session->setFlashdata('old_edit_plan_form', $_POST);
         
-                    return redirect()->to('/helpdesk/planning/update_planning/'.$planning_type);
+                    return redirect()->to('/helpdesk/planning/updatePlanning/'.$planning_type);
                 }
 
                 switch($planning_type)
@@ -547,7 +547,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function delete_technician($user_id, $planning_type)
+    public function deleteTechnician($user_id, $planning_type)
     {
         $this->isUserLogged();
 
@@ -569,14 +569,14 @@ class Planning extends Home
 
                     $this->planning_model->delete($planning_data['id_planning']);
 
-                    return redirect()->to('/helpdesk/planning/cw_planning');
+                    return redirect()->to('/helpdesk/planning/currentWeekPlanning');
 
                 case 1:
                     $id_planning = $this->nw_planning_model->getNwPlanning($user_id);
 
                     $this->nw_planning_model->delete($id_planning);
 
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
             }
         }
 
@@ -591,8 +591,8 @@ class Planning extends Home
             $data =
             [
                 'title'         => lang('Titles.delete_confirmation'),
-                'delete_url'    => base_url('/helpdesk/planning/delete_technician/'.$user_id.'/'.$planning_type),
-                'btn_back_url'  => base_url('/helpdesk/planning/update_planning/'.$planning_type),
+                'delete_url'    => base_url('/helpdesk/planning/deleteTechnician/'.$user_id.'/'.$planning_type),
+                'btn_back_url'  => base_url('/helpdesk/planning/updatePlanning/'.$planning_type),
                 'entry'         => $user_entry
             ];
 
@@ -609,7 +609,7 @@ class Planning extends Home
      * @return view
      * 
      */
-    public function delete_planning($planning_type)
+    public function deletePlanning($planning_type)
     {
         $this->isUserLogged();
 
@@ -629,12 +629,12 @@ class Planning extends Home
                 case 0:
                     $this->planning_model->emptyTable();
 
-                    return redirect()->to('/helpdesk/planning/cw_planning');
+                    return redirect()->to('/helpdesk/planning/currentWeekPlanning');
 
                 case 1:
                     $this->nw_planning_model->emptyTable();
 
-                    return redirect()->to('/helpdesk/planning/nw_planning');
+                    return redirect()->to('/helpdesk/planning/nextWeekPlanning');
             }
         }
 
@@ -646,8 +646,8 @@ class Planning extends Home
             $data =
             [
                 'title'         => lang('Titles.delete_confirmation'),
-                'delete_url'    => base_url('/helpdesk/planning/delete_planning/'.$planning_type),
-                'btn_back_url'  => base_url('/helpdesk/planning/update_planning/'.$planning_type),
+                'delete_url'    => base_url('/helpdesk/planning/deletePlanning/'.$planning_type),
+                'btn_back_url'  => base_url('/helpdesk/planning/updatePlanning/'.$planning_type),
                 'entry'         => $planning_entry
             ];
 
@@ -666,7 +666,7 @@ class Planning extends Home
      * @return view|void
      * 
      */
-    public function shift_weeks($generate_planning = false)
+    public function shiftWeeks($generate_planning = false)
     {
         $this->setSessionVariables();
 
@@ -680,7 +680,7 @@ class Planning extends Home
             
             if($cw_planning)
             {
-                $lw_planning = $this->duplicate_planning($cw_planning, -1);
+                $lw_planning = $this->duplicatePlanning($cw_planning, -1);
                 $this->lw_planning_model->insertBatch($lw_planning);
                 $this->planning_model->emptyTable();
             }
@@ -690,7 +690,7 @@ class Planning extends Home
 
             if($nw_planning)
             {
-                $cw_planning = $this->duplicate_planning($nw_planning, 0);
+                $cw_planning = $this->duplicatePlanning($nw_planning, 0);
                 $this->planning_model->insertBatch($cw_planning);
                 $this->nw_planning_model->emptyTable();
             }
@@ -698,7 +698,7 @@ class Planning extends Home
             // PART 4 : Next week generation
             if($generate_planning)
             {
-                $this->planning_generation();
+                $this->planningGeneration();
                 $this->session->setFlashData('success', lang('Success.shift_weeks_with_planning_generation'));
             }
 
@@ -725,7 +725,7 @@ class Planning extends Home
      * @return array
      * 
      */
-    private function duplicate_planning($planning, $planning_type)
+    private function duplicatePlanning($planning, $planning_type)
     {
         $duplicated_planning = [];
         $periods = [];
@@ -771,7 +771,7 @@ class Planning extends Home
      * @return view|void
      * 
      */
-    public function planning_generation()
+    public function planningGeneration()
     {
         $this->setSessionVariables();
 

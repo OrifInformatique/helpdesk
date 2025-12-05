@@ -21,7 +21,7 @@ if(isset($users) && !empty($users))
 
 echo view('Helpdesk\Common\body_start');
 
-echo form_open(base_url('/helpdesk/presences/add_technician_presences'), ['id' => 'add-technician-presences']);
+echo form_open(base_url('/helpdesk/presences/addTechnicianPresences'), ['id' => 'add-technician-presences']);
 
 if(isset($users) && !empty($users))
 {
@@ -33,5 +33,5 @@ if(isset($users) && !empty($users))
 else
     echo '<p>'.lang('Infos.all_technicians_have_presences').'</p>';
 ?>
-    <a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presences_list') ?>"><span><?= lang('Buttons.back')?></span></a>
+    <a class="btn btn-back" href="<?= base_url('/helpdesk/presences/presencesList') ?>"><span><?= lang('Buttons.back')?></span></a>
 <?= form_close() ?>

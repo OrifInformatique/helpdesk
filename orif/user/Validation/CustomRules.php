@@ -23,7 +23,7 @@ class CustomRules
      * @param int $user_id = ID of the user if it is an update
      * @return boolean = TRUE if the username is unique, FALSE otherwise
      */
-    public function cb_unique_username($username, $user_id) : bool
+    public function cbUniqueUsername($username, $user_id) : bool
     {
         $user = (new User_model())->withDeleted()->where('username', [$username])->first();
         return is_null($user) || $user['id']==$user_id;
@@ -36,7 +36,7 @@ class CustomRules
      * @param int $user_id = ID of the user if it is an update
      * @return boolean = TRUE if the user email is unique, FALSE otherwise
      */
-    public function cb_unique_useremail($useremail, $user_id) : bool
+    public function cbUniqueUseremail($useremail, $user_id) : bool
     {
         $user = (new User_model())->withDeleted()->where('email', [$useremail])->first();
         return is_null($user) || $user['id']==$user_id;
@@ -48,7 +48,7 @@ class CustomRules
      * @param integer $user_type_id = Id of the user type to check
      * @return boolean = TRUE if the user type exists, FALSE otherwise
      */
-    public function cb_not_null_user_type($user_type_id) : bool
+    public function cbNotNullUserType($user_type_id) : bool
     {
         return !is_null((new User_type_model())->find($user_type_id));
     }

@@ -21,7 +21,7 @@
                         <?php } ?>
                     </div>
                     <div class="text-right">
-                        <a href="<?= base_url('user/admin/list_user'); ?>" class="btn btn-secondary">
+                        <a href="<?= base_url('user/admin/listUser'); ?>" class="btn btn-secondary">
                             <?= lang('common_lang.btn_cancel'); ?>
                         </a>
                         <?php if (!$user['archive']) { ?>
@@ -39,7 +39,7 @@
                         <div class = "alert alert-danger" ><?= lang('user_lang.user_delete_himself')?></div>
                     </div>
                     <div class="text-right">
-                        <a href="<?= base_url('user/admin/list_user'); ?>" class="btn btn-secondary">
+                        <a href="<?= base_url('user/admin/listUser'); ?>" class="btn btn-secondary">
                             <?= lang('common_lang.btn_back'); ?>
                         </a>
                     </div>

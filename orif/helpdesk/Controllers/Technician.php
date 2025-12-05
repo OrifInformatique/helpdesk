@@ -79,14 +79,25 @@ class Technician extends Home
                 $role = lang('MiscTexts.role_unknown');
         }
 
+        // Récupérer l'ID de présence de manière sécurisée
+        $presence_record = $this->presences_model->getPresenceId($user_id);
+        $id_presence = null;
+        if ($presence_record !== null) {
+            if (is_object($presence_record)) {
+                $id_presence = $presence_record->id_presence ?? null;
+            } elseif (is_array($presence_record)) {
+                $id_presence = $presence_record['id_presence'] ?? null;
+            }
+        }
+
         $data =
         [
             'user'                  => $user,
             'role'                  => $role,
-            'isUserLoggedAdmin'     => $this->isAdmin(),
+            'is_user_logged_admin'     => $this->isAdmin(),
             'has_cw_planning_entry' => $this->planning_model->getPlanning($user_id) ? true : false,
             'has_nw_planning_entry' => $this->nw_planning_model->getNwPlanning($user_id) ? true : false,
-            'id_presence'           => $this->presences_model->getPresenceId($user_id)['id_presence'] ?? null,
+            'id_presence'           => $id_presence,
             'title'                 => lang('Titles.technician_menu')
         ];
 

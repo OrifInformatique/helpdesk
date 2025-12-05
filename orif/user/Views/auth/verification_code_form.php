@@ -11,10 +11,10 @@
     <div class="row">
         <div class="col-md-6 col-sm-10 well">
             <legend><?=$title;?></legend>
-            <?php if(isset($errorMsg)): ?>
+            <?php if(isset($error_msg)): ?>
                 <div class="alert alert-danger">
-                    <?= $errorMsg; ?>
-                    <?php if($attemptsLeft = 2): ?>
+                    <?= $error_msg; ?>
+                    <?php if($attempts_left = 2): ?>
                         <div>
                             <?= $msg_attemptsLeft;?>
                         </div>

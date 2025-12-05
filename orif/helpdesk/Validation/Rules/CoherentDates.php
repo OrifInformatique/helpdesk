@@ -22,7 +22,7 @@ class CoherentDates
      * @return bool
      * 
      */
-    public function coherent_dates($end_date, $start_date)
+    public function coherentDates($end_date, $start_date)
     {
         return strtotime($end_date) >= strtotime($start_date);
     }

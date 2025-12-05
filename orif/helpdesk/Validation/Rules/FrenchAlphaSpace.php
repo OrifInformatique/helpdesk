@@ -21,7 +21,7 @@ class FrenchAlphaSpace
      * @return bool
      * 
      */
-    public function french_alpha_space($field)
+    public function frenchAlphaSpace($field)
     {
         /* Regex rule matches if the string contains Unicode chars (\p{L}) or/and spaces (\s) */
         if(preg_match("/^[\p{L}\s]+$/u", trim($field)))

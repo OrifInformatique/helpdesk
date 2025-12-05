@@ -32,7 +32,7 @@
           <!-- END OF ADMIN ACCESS -->
           <!-- Logged in, display a "change password" button -->
           <?php if (!isset($_SESSION['azure_identification'])) { ?>
-            <a href="<?php echo base_url("user/auth/change_password"); ?>" ><?php echo lang('common_lang.btn_change_my_password'); ?></a>
+            <a href="<?php echo base_url("user/auth/changePassword"); ?>" ><?php echo lang('common_lang.btn_change_my_password'); ?></a>
           <?php } ?>
           <!-- and a "logout" button -->
           <a href="<?php echo base_url("user/auth/logout"); ?>" ><?php echo lang('common_lang.btn_logout'); ?></a>

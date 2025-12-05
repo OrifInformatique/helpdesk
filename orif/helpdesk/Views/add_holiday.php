@@ -17,10 +17,10 @@
 
 <div>
     <?php if(isset($holiday['id_holiday'])): ?>
-        <?= form_open(base_url('/helpdesk/holidays/save_holiday/'.$holiday['id_holiday'])) ?>
+        <?= form_open(base_url('/helpdesk/holidays/saveHoliday/'.$holiday['id_holiday'])) ?>
         <?= form_hidden('id_holiday', esc($holiday['id_holiday'])) ?>
     <?php else: ?>
-        <?= form_open(base_url('/helpdesk/holidays/save_holiday/0')) ?>
+        <?= form_open(base_url('/helpdesk/holidays/saveHoliday/0')) ?>
         <?= form_hidden('id_holiday', 0) ?>
     <?php endif; ?>
 
@@ -48,11 +48,11 @@
         <button type="submit" class="btn btn-save"><span><?= lang('Buttons.save') ?></span></button>
         <button type="reset" class="btn btn-reset"><span><?= lang('Buttons.reset') ?></span></button>
         <?php if(isset($holiday['id_holiday'])): ?>
-            <a class="btn btn-delete" href="<?= base_url('/helpdesk/holidays/delete_holiday/'.$holiday['id_holiday']) ?>"><span><?= lang('Buttons.delete')?></span></a>
+            <a class="btn btn-delete" href="<?= base_url('/helpdesk/holidays/deleteHoliday/'.$holiday['id_holiday']) ?>"><span><?= lang('Buttons.delete')?></span></a>
             <?php endif; ?>
     </div>
     <div class="buttons-area">
-        <a class="btn btn-back mt-2" href="<?= base_url('/helpdesk/holidays/holidays_list') ?>"><span><?= lang('Buttons.back')?></span></a>
+        <a class="btn btn-back mt-2" href="<?= base_url('/helpdesk/holidays/holidaysList') ?>"><span><?= lang('Buttons.back')?></span></a>
     </div>
 <?= form_close('</div>') ?>
 
