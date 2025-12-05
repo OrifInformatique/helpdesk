@@ -269,7 +269,7 @@
 
 ---
 
-### 14. `nw_planning()` → `nextWeekPlanning()` ✅ **TERMINÉ**
+### 14. `nw_planning()` → `nw_planning()` ✅ **TERMINÉ**
 
 **Nombre total d'occurrences : 122** (définition + routes) - **Toutes modifiées**
 

@@ -705,13 +705,13 @@ class Planning extends Home
             else
                 $this->session->setFlashData('success', lang('Success.shift_weeks'));
 
-            return redirect()->to('helpdesk/planning/nw_planning');
+            return redirect()->to('helpdesk/planning/nextWeekPlanning');
         }
 
         catch(\Exception)
         {
             $this->session->setFlashdata('error', lang('Errors.weeks_shift'));
-            return redirect()->to('helpdesk/planning/cw_planning');
+            return redirect()->to('helpdesk/planning/currentWeekPlanning');
         }
     }
     
@@ -784,7 +784,7 @@ class Planning extends Home
             if(empty($periods))
             {
                 $this->session->setFlashdata('error', lang('Errors.planning_generation_no_period'));
-                return redirect()->to('helpdesk/planning/nw_planning');
+                return redirect()->to('helpdesk/planning/nextWeekPlanning');
             }
 
             // Get all users that have presences
@@ -793,7 +793,7 @@ class Planning extends Home
             if(empty($users_ids))
             {
                 $this->session->setFlashdata('error', lang('Errors.planning_generation_no_technician'));
-                return redirect()->to('helpdesk/planning/nw_planning');
+                return redirect()->to('helpdesk/planning/nextWeekPlanning');
             }
 
             $technicians_data = $this->prepareTechniciansData($periods, $users_ids);
@@ -801,7 +801,7 @@ class Planning extends Home
             if(is_null($technicians_data))
             {
                 $this->session->setFlashdata('error', lang('Errors.planning_generation_absent_technicians'));
-                return redirect()->to('helpdesk/planning/nw_planning');
+                return redirect()->to('helpdesk/planning/nextWeekPlanning');
             }
 
             $generated_planning = $technicians_data['generated_planning'];
@@ -904,13 +904,13 @@ class Planning extends Home
             }
 
             $this->session->setFlashdata('success', lang('Success.planning_generation'));
-            return redirect()->to('helpdesk/planning/nw_planning');
+            return redirect()->to('helpdesk/planning/nextWeekPlanning');
         }
 
         catch(\Exception $e)
         {
             $this->session->setFlashdata('error', lang('Errors.planning_generation'));
-            return redirect()->to('helpdesk/planning/nw_planning');
+            return redirect()->to('helpdesk/planning/nextWeekPlanning');
         }
     }
 

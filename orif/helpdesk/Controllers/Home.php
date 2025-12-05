@@ -399,7 +399,7 @@ class Home extends BaseController
                 ];
 
                 $irreversible_action = true;
-                $back_btn_url = base_url('helpdesk/planning/nw_planning');
+                $back_btn_url = base_url('helpdesk/planning/nextWeekPlanning');
                 break;
 
             case 'generate_planning':
@@ -418,12 +418,12 @@ class Home extends BaseController
 
                 $irreversible_action = true;
 
-                $back_btn_url = base_url('helpdesk/planning/nw_planning');
+                $back_btn_url = base_url('helpdesk/planning/nextWeekPlanning');
                 break;
 
             default:
                 $this->session->setFlashData('error', lang('Errors.action_unvalid'));
-                return redirect()->to('helpdesk/planning/cw_planning');
+                return redirect()->to('helpdesk/planning/currentWeekPlanning');
         }
 
         $data = 
