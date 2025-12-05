@@ -47,7 +47,7 @@ class User_Data_model extends \CodeIgniter\Model
      */
     public function getUsersData()
     {
-        $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('user.archive', NULL)->orderBy('last_name_user_data', 'ASC')->findAll();
+        $users_data = $this->join('user', 'user.id = tbl_user_data.fk_user_id')->where('user.archive', NULL)->orderBy('last_name_user_data', 'ASC')->orderBy('first_name_user_data', 'ASC')->findAll();
 
         return $users_data;
     }
@@ -135,6 +135,7 @@ class User_Data_model extends \CodeIgniter\Model
         $result = $this
             ->whereNotIn('tbl_user_data.fk_user_id', $users_presences_ids)
             ->orderBy('last_name_user_data', 'ASC')
+            ->orderBy('first_name_user_data', 'ASC')
             ->get()
             ->getResultArray();
 

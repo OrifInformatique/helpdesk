@@ -11,13 +11,13 @@ class InsertPresencesData extends Seeder
         // Utiliser les utilisateurs existants avec les IDs 2 à 21 (20 utilisateurs)
         
         // 1. Créer 5 utilisateurs avec les mêmes presences mais différents rôles
-        // Presences: Présent toute la semaine (tous les champs = 1)
+        // Presences: Présence réaliste
         // Utilisation des IDs 2 à 6
         $samePresences = [
-            'presence_mon_m1' => 1, 'presence_mon_m2' => 1, 'presence_mon_a1' => 1, 'presence_mon_a2' => 1,
-            'presence_tue_m1' => 1, 'presence_tue_m2' => 1, 'presence_tue_a1' => 1, 'presence_tue_a2' => 1,
-            'presence_wed_m1' => 1, 'presence_wed_m2' => 1, 'presence_wed_a1' => 1, 'presence_wed_a2' => 1,
-            'presence_thu_m1' => 1, 'presence_thu_m2' => 1, 'presence_thu_a1' => 1, 'presence_thu_a2' => 1,
+            'presence_mon_m1' => 3, 'presence_mon_m2' => 2, 'presence_mon_a1' => 1, 'presence_mon_a2' => 1,
+            'presence_tue_m1' => 3, 'presence_tue_m2' => 1, 'presence_tue_a1' => 1, 'presence_tue_a2' => 1,
+            'presence_wed_m1' => 3, 'presence_wed_m2' => 3, 'presence_wed_a1' => 3, 'presence_wed_a2' => 3,
+            'presence_thu_m1' => 3, 'presence_thu_m2' => 3, 'presence_thu_a1' => 3, 'presence_thu_a2' => 3,
             'presence_fri_m1' => 1, 'presence_fri_m2' => 1, 'presence_fri_a1' => 1, 'presence_fri_a2' => 1,
         ];
         
@@ -27,8 +27,16 @@ class InsertPresencesData extends Seeder
         
         // 2. Créer 3 utilisateurs avec la même présence pour toutes les périodes, pour chaque présence
         // ID 7 : utilisateur avec "Présent" partout
-        $this->createPresences(7, $samePresences);
-        
+        $PresentPresences = [
+            'presence_mon_m1' => 1, 'presence_mon_m2' => 1, 'presence_mon_a1' => 1, 'presence_mon_a2' => 1,
+            'presence_tue_m1' => 1, 'presence_tue_m2' => 1, 'presence_tue_a1' => 1, 'presence_tue_a2' => 1,
+            'presence_wed_m1' => 1, 'presence_wed_m2' => 1, 'presence_wed_a1' => 1, 'presence_wed_a2' => 1,
+            'presence_thu_m1' => 1, 'presence_thu_m2' => 1, 'presence_thu_a1' => 1, 'presence_thu_a2' => 1,
+            'presence_fri_m1' => 1, 'presence_fri_m2' => 1, 'presence_fri_a1' => 1, 'presence_fri_a2' => 1,
+        ];
+
+        $this->createPresences(7, $PresentPresences);
+
         // ID 8 : utilisateur avec "Absent en partie" partout
         $partlyAbsentPresences = [
             'presence_mon_m1' => 2, 'presence_mon_m2' => 2, 'presence_mon_a1' => 2, 'presence_mon_a2' => 2,
@@ -37,17 +45,19 @@ class InsertPresencesData extends Seeder
             'presence_thu_m1' => 2, 'presence_thu_m2' => 2, 'presence_thu_a1' => 2, 'presence_thu_a2' => 2,
             'presence_fri_m1' => 2, 'presence_fri_m2' => 2, 'presence_fri_a1' => 2, 'presence_fri_a2' => 2,
         ];
+
         $this->createPresences(8, $partlyAbsentPresences);
-        
+
         // ID 9 : utilisateur avec "Absent" partout
-        $absentPresences = [
+        $allAbsentPresences = [
             'presence_mon_m1' => 3, 'presence_mon_m2' => 3, 'presence_mon_a1' => 3, 'presence_mon_a2' => 3,
             'presence_tue_m1' => 3, 'presence_tue_m2' => 3, 'presence_tue_a1' => 3, 'presence_tue_a2' => 3,
             'presence_wed_m1' => 3, 'presence_wed_m2' => 3, 'presence_wed_a1' => 3, 'presence_wed_a2' => 3,
             'presence_thu_m1' => 3, 'presence_thu_m2' => 3, 'presence_thu_a1' => 3, 'presence_thu_a2' => 3,
             'presence_fri_m1' => 3, 'presence_fri_m2' => 3, 'presence_fri_a1' => 3, 'presence_fri_a2' => 3,
         ];
-        $this->createPresences(9, $absentPresences);
+
+        $this->createPresences(9, $allAbsentPresences);
         
         // 3. Créer 12 utilisateurs avec des presences réalistes (IDs 10 à 21)
         // Configuration pour garantir les contraintes :
@@ -60,39 +70,40 @@ class InsertPresencesData extends Seeder
         
         // User 10 (index 1) : Disponible à mon_m1, tue_m1, wed_m1, thu_m1 (pour les contraintes)
         $realisticUsers[10] = [
-            'presence_mon_m1' => 1, 'presence_mon_m2' => 1, 'presence_mon_a1' => 2, 'presence_mon_a2' => 1,
-            'presence_tue_m1' => 1, 'presence_tue_m2' => 1, 'presence_tue_a1' => 1, 'presence_tue_a2' => 1,
-            'presence_wed_m1' => 1, 'presence_wed_m2' => 2, 'presence_wed_a1' => 1, 'presence_wed_a2' => 1,
-            'presence_thu_m1' => 1, 'presence_thu_m2' => 1, 'presence_thu_a1' => 1, 'presence_thu_a2' => 1,
-            'presence_fri_m1' => 1, 'presence_fri_m2' => 1, 'presence_fri_a1' => 1, 'presence_fri_a2' => 1,
+            'presence_mon_m1' => 1, 'presence_mon_m2' => 3, 'presence_mon_a1' => 3, 'presence_mon_a2' => 3,
+            'presence_tue_m1' => 1, 'presence_tue_m2' => 3, 'presence_tue_a1' => 3, 'presence_tue_a2' => 3,
+            'presence_wed_m1' => 1, 'presence_wed_m2' => 3, 'presence_wed_a1' => 3, 'presence_wed_a2' => 3,
+            'presence_thu_m1' => 1, 'presence_thu_m2' => 3, 'presence_thu_a1' => 3, 'presence_thu_a2' => 3,
+            'presence_fri_m1' => 3, 'presence_fri_m2' => 3, 'presence_fri_a1' => 3, 'presence_fri_a2' => 3,
         ];
         
         // User 11 (index 2) : Disponible à tue_m1, wed_m1, thu_m1 (mais PAS mon_m1)
         $realisticUsers[11] = [
-            'presence_mon_m1' => 3, 'presence_mon_m2' => 1, 'presence_mon_a1' => 1, 'presence_mon_a2' => 1,
-            'presence_tue_m1' => 1, 'presence_tue_m2' => 1, 'presence_tue_a1' => 1, 'presence_tue_a2' => 1,
-            'presence_wed_m1' => 1, 'presence_wed_m2' => 1, 'presence_wed_a1' => 2, 'presence_wed_a2' => 1,
-            'presence_thu_m1' => 1, 'presence_thu_m2' => 1, 'presence_thu_a1' => 1, 'presence_thu_a2' => 1,
-            'presence_fri_m1' => 1, 'presence_fri_m2' => 1, 'presence_fri_a1' => 1, 'presence_fri_a2' => 1,
+            'presence_mon_m1' => 3, 'presence_mon_m2' => 3, 'presence_mon_a1' => 3, 'presence_mon_a2' => 3,
+            'presence_tue_m1' => 1, 'presence_tue_m2' => 3, 'presence_tue_a1' => 3, 'presence_tue_a2' => 3,
+            'presence_wed_m1' => 1, 'presence_wed_m2' => 3, 'presence_wed_a1' => 3, 'presence_wed_a2' => 3,
+            'presence_thu_m1' => 1, 'presence_thu_m2' => 3, 'presence_thu_a1' => 3, 'presence_thu_a2' => 3,
+            'presence_fri_m1' => 3, 'presence_fri_m2' => 3, 'presence_fri_a1' => 3, 'presence_fri_a2' => 3,
         ];
         
         // User 12 (index 3) : Disponible à wed_m1, thu_m1 (mais PAS mon_m1, tue_m1)
         $realisticUsers[12] = [
-            'presence_mon_m1' => 3, 'presence_mon_m2' => 1, 'presence_mon_a1' => 1, 'presence_mon_a2' => 1,
-            'presence_tue_m1' => 3, 'presence_tue_m2' => 1, 'presence_tue_a1' => 1, 'presence_tue_a2' => 1,
-            'presence_wed_m1' => 1, 'presence_wed_m2' => 1, 'presence_wed_a1' => 1, 'presence_wed_a2' => 1,
-            'presence_thu_m1' => 1, 'presence_thu_m2' => 1, 'presence_thu_a1' => 1, 'presence_thu_a2' => 1,
-            'presence_fri_m1' => 1, 'presence_fri_m2' => 1, 'presence_fri_a1' => 1, 'presence_fri_a2' => 1,
+            'presence_mon_m1' => 3, 'presence_mon_m2' => 3, 'presence_mon_a1' => 3, 'presence_mon_a2' => 3,
+            'presence_tue_m1' => 3, 'presence_tue_m2' => 3, 'presence_tue_a1' => 3, 'presence_tue_a2' => 3,
+            'presence_wed_m1' => 1, 'presence_wed_m2' => 3, 'presence_wed_a1' => 3, 'presence_wed_a2' => 3,
+            'presence_thu_m1' => 1, 'presence_thu_m2' => 3, 'presence_thu_a1' => 3, 'presence_thu_a2' => 3,
+            'presence_fri_m1' => 3, 'presence_fri_m2' => 3, 'presence_fri_a1' => 3, 'presence_fri_a2' => 3,
         ];
         
-        // Users 13-21 : Disponibles à thu_m1 (mais PAS mon_m1, tue_m1, wed_m1)
+        // Users 13-21 : planning réaliste avec attribution randomisée
         for ($i = 13; $i <= 21; $i++) {
+            // Générer une valeur aléatoire entre 1, 2 ou 3 pour chaque période
             $realisticUsers[$i] = [
-                'presence_mon_m1' => 3, 'presence_mon_m2' => 1, 'presence_mon_a1' => 1, 'presence_mon_a2' => 1,
-                'presence_tue_m1' => 3, 'presence_tue_m2' => 1, 'presence_tue_a1' => 1, 'presence_tue_a2' => 1,
-                'presence_wed_m1' => 3, 'presence_wed_m2' => 1, 'presence_wed_a1' => 1, 'presence_wed_a2' => 1,
-                'presence_thu_m1' => 1, 'presence_thu_m2' => 1, 'presence_thu_a1' => 1, 'presence_thu_a2' => 1,
-                'presence_fri_m1' => 1, 'presence_fri_m2' => 1, 'presence_fri_a1' => 1, 'presence_fri_a2' => 1,
+                'presence_mon_m1' => 3, 'presence_mon_m2' => rand(1, 3), 'presence_mon_a1' => rand(1, 3), 'presence_mon_a2' => rand(1, 3),
+                'presence_tue_m1' => 3, 'presence_tue_m2' => rand(1, 3), 'presence_tue_a1' => rand(1, 3), 'presence_tue_a2' => rand(1, 3),
+                'presence_wed_m1' => 3, 'presence_wed_m2' => rand(1, 3), 'presence_wed_a1' => rand(1, 3), 'presence_wed_a2' => rand(1, 3),
+                'presence_thu_m1' => 1, 'presence_thu_m2' => rand(1, 3), 'presence_thu_a1' => rand(1, 3), 'presence_thu_a2' => rand(1, 3),
+                'presence_fri_m1' => rand(1, 3), 'presence_fri_m2' => rand(1, 3), 'presence_fri_a1' => rand(1, 3), 'presence_fri_a2' => rand(1, 3), 
             ];
         }
         

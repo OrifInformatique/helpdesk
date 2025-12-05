@@ -66,6 +66,7 @@ class Lw_planning_model extends \CodeIgniter\Model
         $lw_planning_data_by_user = $this->join('tbl_user_data','tbl_lw_planning.fk_user_id = tbl_user_data.fk_user_id')
                                          ->join('user','tbl_lw_planning.fk_user_id = user.id')
                                          ->orderBy('last_name_user_data', 'ASC')
+                                         ->orderBy('first_name_user_data', 'ASC')
                                          ->findAll();
 
         return $lw_planning_data_by_user;
