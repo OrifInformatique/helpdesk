@@ -7,6 +7,7 @@
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  * @uses        Controller: <Controllers\Planning.php>
+ *              Controller: <Controllers\Presences.php>
  */
 
 namespace Helpdesk\Enums;
