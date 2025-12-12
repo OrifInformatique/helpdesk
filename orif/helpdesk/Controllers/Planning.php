@@ -557,7 +557,7 @@ class Planning extends Home
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('helpdesk/planning/update_planning/'.$planning_type);
+            return redirect()->to('helpdesk/planning/updatePlanning/'.$planning_type);
 
         $this->isSetPlanningType($planning_type);
 
@@ -619,7 +619,7 @@ class Planning extends Home
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('helpdesk/planning/update_planning/'.$planning_type);
+            return redirect()->to('helpdesk/planning/updatePlanning/'.$planning_type);
 
         $this->isSetPlanningType($planning_type);
 
