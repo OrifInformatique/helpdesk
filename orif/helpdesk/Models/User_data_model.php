@@ -15,16 +15,25 @@ use CodeIgniter\Database\ConnectionInterface;
 use CodeIgniter\Validation\ValidationInterface;
 
 use Helpdesk\Models\Presences_model;
+use Helpdesk\Models\Roles_model;
 
 class User_Data_model extends \CodeIgniter\Model
 {
     protected $table = 'tbl_user_data';
     protected $primaryKey = 'id_user_data';
-    protected $allowedFields = ['fk_user_id','fk_role_id','last_name_user_data','first_name_user_data','initials_user_data','photo_user_data'];
+    protected $allowedFields = [
+        'fk_user_id',
+        'fk_role_id',
+        'last_name_user_data',
+        'first_name_user_data',
+        'initials_user_data',
+        'photo_user_data'
+    ];
     protected $validationRules;
     protected $validationMessages;
 
     protected $presences_model;
+    protected $roles_model;
 
 
     public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
@@ -34,6 +43,7 @@ class User_Data_model extends \CodeIgniter\Model
         $this->validationMessages = [];
 
         $this->presences_model = new presences_model();
+        $this->roles_model = new Roles_model();
 
         parent::__construct($db, $validation);
     }
@@ -146,5 +156,56 @@ class User_Data_model extends \CodeIgniter\Model
             $users_without_presences[] = $row;
     
         return $users_without_presences;
+    }
+
+
+    /**
+     * Get the role of a specific user
+     * 
+     * @param int $user_id ID of the user
+     * 
+     * @return array|null Role data or null if user has no role or doesn't exist
+     * 
+     */
+    public function getUserRole($user_id)
+    {
+        $user_data = $this->where('fk_user_id', $user_id)->first();
+
+        if(empty($user_data) || empty($user_data->fk_role_id))
+            return null;
+
+        $role = $this->roles_model->getRoleByID($user_data->fk_role_id);
+
+        return $role;
+    }
+
+
+    /**
+     * Associate or update a role for a specific user
+     * 
+     * @param int $user_id ID of the user
+     * @param int $role_id ID of the role to associate
+     * 
+     * @return bool True on success, false otherwise
+     * 
+     */
+    public function setUserRole($user_id, $role_id)
+    {
+        // Vérifier que le rôle existe
+        $role = $this->roles_model->getRoleByID($role_id);
+        if(empty($role))
+            return false;
+
+        // Vérifier que l'utilisateur existe dans tbl_user_data
+        $user_data = $this->where('fk_user_id', $user_id)->first();
+
+        if(empty($user_data))
+            return false;
+
+        // Mettre à jour le rôle de l'utilisateur
+        $data = ['fk_role_id' => $role_id];
+        $result = $this->update($user_data->id_user_data, $data);
+
+        return $result;
     }
 }
