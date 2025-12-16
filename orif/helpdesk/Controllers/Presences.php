@@ -16,6 +16,7 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 use Helpdesk\Controllers\Home;
+use Helpdesk\Enums\TechnicianPresence;
 
 class Presences extends Home
 {
@@ -158,10 +159,10 @@ class Presences extends Home
 
             foreach ($_SESSION['helpdesk']['presences_periods'] as $field)
             {
-                if (!isset($_POST[$field]) || empty($_POST[$field]) || !in_array($_POST[$field], [1, 2, 3]))
+                if (!isset($_POST[$field]) || empty($_POST[$field]) || !in_array($_POST[$field], [TechnicianPresence::PRESENT->value, TechnicianPresence::PARTLY_ABSENT->value, TechnicianPresence::ABSENT->value]))
                 {
                     // Default value is set to "Absent"
-                    $_POST[$field] = 3;
+                    $_POST[$field] = TechnicianPresence::ABSENT->value;
                 }
             }
 

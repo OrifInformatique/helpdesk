@@ -16,6 +16,9 @@ use CodeIgniter\HTTP\ResponseInterface;
 use Psr\Log\LoggerInterface;
 
 use Helpdesk\Controllers\Home;
+use Helpdesk\Enums\PlanningPeriod;
+use Helpdesk\Enums\TechnicianAssignment;
+use Helpdesk\Enums\TechnicianPresence;
 
 class Planning extends Home
 {
@@ -51,13 +54,13 @@ class Planning extends Home
     public function lastWeekPlanning()
     {
         // -1 stands for last week
-        $periods = $this->choosePeriods(-1);
+        $periods = $this->choosePeriods(PlanningPeriod::LAST_WEEK->value);
 
         $data = 
         [
             'lw_planning_data' => $this->lw_planning_model->getPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
-            'planning_type'    => -1,
+            'planning_type'    => PlanningPeriod::LAST_WEEK->value,
             'title'            => lang('Titles.lw_planning')
         ];
 
@@ -76,14 +79,14 @@ class Planning extends Home
         $this->setSessionVariables();
 
         // 0 stands for current week
-        $periods = $this->choosePeriods(0);
+        $periods = $this->choosePeriods(PlanningPeriod::CURRENT_WEEK->value);
 
         $data =
         [
             'messages'      => $this->getFlashdataMessages(),
             'planning_data' => $this->planning_model->getPlanningDataByUser(),
             'classes'       => $this->defineDaysOff($periods),
-            'planning_type' => 0,
+            'planning_type' => PlanningPeriod::CURRENT_WEEK->value,
             'title'         => lang('Titles.planning')
         ];
 
@@ -102,14 +105,14 @@ class Planning extends Home
         $this->setSessionVariables();
 
         // 1 stands for next week
-        $periods = $this->choosePeriods(1);
+        $periods = $this->choosePeriods(PlanningPeriod::NEXT_WEEK->value);
 
         $data = 
         [
             'messages'         => $this->getFlashdataMessages(),
             'nw_planning_data' => $this->nw_planning_model->getNwPlanningDataByUser(),
             'classes'          => $this->defineDaysOff($periods),
-            'planning_type'    => 1,
+            'planning_type'    => PlanningPeriod::NEXT_WEEK->value,
             'title'            => lang('Titles.nw_planning')
         ];
 
@@ -203,13 +206,13 @@ class Planning extends Home
         {
             $technician_presence = $this->presences_model->getTechnicianPresenceInSpecificPeriod($user_id, $field);
 
-            if (!isset($_POST[$field]) || empty($_POST[$field]) || !in_array($_POST[$field], [1, 2, 3]))
+            if (!isset($_POST[$field]) || empty($_POST[$field]) || !in_array($_POST[$field], [TechnicianAssignment::FIRST_TECHNICIAN->value, TechnicianAssignment::SECOND_TECHNICIAN->value, TechnicianAssignment::THIRD_TECHNICIAN->value]))
             {
                 $_POST[$field] = NULL;
                 $empty_fields++;
             }
             
-            if($presences_check && $technician_presence === 3 && in_array($_POST[$field], [1, 2, 3]))
+            if($presences_check && $technician_presence === TechnicianPresence::ABSENT->value && in_array($_POST[$field], [TechnicianAssignment::FIRST_TECHNICIAN->value, TechnicianAssignment::SECOND_TECHNICIAN->value, TechnicianAssignment::THIRD_TECHNICIAN->value]))
             {
                 $technician_absent = true;
                 array_push($technician_absent_periods, lang('Time.'.substr($field, -6)));
@@ -319,7 +322,7 @@ class Planning extends Home
                     'nw_planning_thu_m1' => $_POST['nw_planning_thu_m1'],
                     'nw_planning_thu_m2' => $_POST['nw_planning_thu_m2'],
                     'nw_planning_thu_a1' => $_POST['nw_planning_thu_a1'],
-                    'nw_planning_thu_a2' => $_POST['nw_planning_thu_a1'],
+                    'nw_planning_thu_a2' => $_POST['nw_planning_thu_a2'],
 
                     'nw_planning_fri_m1' => $_POST['nw_planning_fri_m1'],
                     'nw_planning_fri_m2' => $_POST['nw_planning_fri_m2'],
@@ -386,6 +389,8 @@ class Planning extends Home
 
             foreach($planning_data as $id_planning => $technician_planning_row) // Row => all periods in a technician row
             {
+                $data_to_update = [];
+                
                 // 0 is current week, 1 is next week
                 switch($planning_type)
                 {
@@ -413,13 +418,13 @@ class Planning extends Home
                     $technician_presence = $this->presences_model->getTechnicianPresenceInSpecificPeriod($user_id, $field);
                     $field_value = $technician_planning_row[$field];
 
-                    if(!$technician_absent && (!in_array($field_value, ["", 1, 2, 3]) || empty($field_value)))
+                    if(!$technician_absent && (!in_array($field_value, ["", TechnicianAssignment::FIRST_TECHNICIAN->value, TechnicianAssignment::SECOND_TECHNICIAN->value, TechnicianAssignment::THIRD_TECHNICIAN->value]) || empty($field_value)))
                     {
                         $field_value = NULL; // Required for database insertion
                         $empty_fields_count++;
                     }
 
-                    if($presences_check && $technician_presence === 3 && in_array($field_value, [1, 2, 3]))
+                    if($presences_check && $technician_presence === TechnicianPresence::ABSENT->value && in_array($field_value, [TechnicianAssignment::FIRST_TECHNICIAN->value, TechnicianAssignment::SECOND_TECHNICIAN->value, TechnicianAssignment::THIRD_TECHNICIAN->value]))
                     {
                         $technician_absent = true;
                         array_push($technician_absent_periods, lang('Time.'.substr($field, -6)));
@@ -552,7 +557,7 @@ class Planning extends Home
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('helpdesk/planning/update_planning/'.$planning_type);
+            return redirect()->to('helpdesk/planning/updatePlanning/'.$planning_type);
 
         $this->isSetPlanningType($planning_type);
 
@@ -614,7 +619,7 @@ class Planning extends Home
         $this->isUserLogged();
 
         if(!$this->isTechnician())
-            return redirect()->to('helpdesk/planning/update_planning/'.$planning_type);
+            return redirect()->to('helpdesk/planning/updatePlanning/'.$planning_type);
 
         $this->isSetPlanningType($planning_type);
 
@@ -680,7 +685,7 @@ class Planning extends Home
             
             if($cw_planning)
             {
-                $lw_planning = $this->duplicatePlanning($cw_planning, -1);
+                $lw_planning = $this->duplicatePlanning($cw_planning, PlanningPeriod::LAST_WEEK->value);
                 $this->lw_planning_model->insertBatch($lw_planning);
                 $this->planning_model->emptyTable();
             }
@@ -690,7 +695,7 @@ class Planning extends Home
 
             if($nw_planning)
             {
-                $cw_planning = $this->duplicatePlanning($nw_planning, 0);
+                $cw_planning = $this->duplicatePlanning($nw_planning, PlanningPeriod::CURRENT_WEEK->value);
                 $this->planning_model->insertBatch($cw_planning);
                 $this->nw_planning_model->emptyTable();
             }
@@ -732,11 +737,11 @@ class Planning extends Home
 
         switch($planning_type)
         {
-            case -1:
+            case PlanningPeriod::LAST_WEEK->value:
                 $periods = $_SESSION['helpdesk']['lw_periods'];
                 break;
 
-            case 0:
+            case PlanningPeriod::CURRENT_WEEK->value:
                 $periods = $_SESSION['helpdesk']['cw_periods'];
                 break;
         }
@@ -778,7 +783,7 @@ class Planning extends Home
         try
         {
             // Get the periods
-            $periods = $this->choosePeriods(1);
+            $periods = $this->choosePeriods(PlanningPeriod::NEXT_WEEK->value);
             $periods = $this->removePeriodsOff($periods);
 
             if(empty($periods))
@@ -816,8 +821,7 @@ class Planning extends Home
             
             $cw_planning = $this->getAndArrangeCwPlanning();
 
-            // 1 => Present, 2 => Partly absent
-            $presences = [1, 2];
+            $presences = [TechnicianPresence::PRESENT->value, TechnicianPresence::PARTLY_ABSENT->value];
 
             /*
              * Planning generation algorithm
@@ -850,8 +854,8 @@ class Planning extends Home
                         // he will be assigned as first tech in that period, despite the max assignations limit exceeded.
                         if($possible_assignations_count == 1)
                         {
-                            $generated_planning[$user_id][$sql_nw_period] = 1;
-                            $technician_assignations_per_role[$user_id][1]++;
+                            $generated_planning[$user_id][$sql_nw_period] = TechnicianAssignment::FIRST_TECHNICIAN->value;
+                            $technician_assignations_per_role[$user_id][TechnicianAssignment::FIRST_TECHNICIAN->value]++;
                             break;
                         }
 
@@ -893,9 +897,9 @@ class Planning extends Home
             {
                 // Prevent inserting empty rows (technicinain with no assignations).
                 if(!isset($technician_assignations_per_role[$user_id]) ||
-                    $technician_assignations_per_role[$user_id][1] === 0 &&
-                    $technician_assignations_per_role[$user_id][2] === 0 &&
-                    $technician_assignations_per_role[$user_id][3] === 0)
+                    $technician_assignations_per_role[$user_id][TechnicianAssignment::FIRST_TECHNICIAN->value] === 0 &&
+                    $technician_assignations_per_role[$user_id][TechnicianAssignment::SECOND_TECHNICIAN->value] === 0 &&
+                    $technician_assignations_per_role[$user_id][TechnicianAssignment::THIRD_TECHNICIAN->value] === 0)
                 {
                     continue;
                 }
@@ -971,7 +975,7 @@ class Planning extends Home
             foreach($user_presences as $presence_name => $presence_value)
             {
                 $period_name = str_replace('_', '-', substr($presence_name, -6));
-                if(!isset($periods[$period_name]) || $presence_value == 3)
+                if(!isset($periods[$period_name]) || $presence_value == TechnicianPresence::ABSENT->value)
                     unset($user_presences[$presence_name]);
             }
 
@@ -988,9 +992,9 @@ class Planning extends Home
                 // Setting array to count the number of times a technician is assigned to each role
                 $technician_assignations_per_role[$user_id] = 
                 [
-                    1 => 0,
-                    2 => 0,
-                    3 => 0
+                    TechnicianAssignment::FIRST_TECHNICIAN->value => 0,
+                    TechnicianAssignment::SECOND_TECHNICIAN->value => 0,
+                    TechnicianAssignment::THIRD_TECHNICIAN->value => 0
                 ];
             }
 
@@ -1093,15 +1097,15 @@ class Planning extends Home
                 break;
 
             case 1:
-                $roles_available_in_period = [1];
+                $roles_available_in_period = [TechnicianAssignment::FIRST_TECHNICIAN->value];
                 break;
 
             case 2:
-                $roles_available_in_period = [1, 2];
+                $roles_available_in_period = [TechnicianAssignment::FIRST_TECHNICIAN->value, TechnicianAssignment::SECOND_TECHNICIAN->value];
                 break;
 
             default: // 3 or more technicians
-                $roles_available_in_period = [1, 2, 3];
+                $roles_available_in_period = [TechnicianAssignment::FIRST_TECHNICIAN->value, TechnicianAssignment::SECOND_TECHNICIAN->value, TechnicianAssignment::THIRD_TECHNICIAN->value];
         }
 
         return $roles_available_in_period;
@@ -1119,7 +1123,9 @@ class Planning extends Home
      */
     private function orderPeriodsByAssignationsCount($periods, $technicians_presences)
     {
-        foreach($periods as $period_name => $period_name)
+        $periods_assignations_count = [];
+        
+        foreach($periods as $period_name => $period)
         {
             $periods_assignations_count[$period_name] = 0;
             $sql_presence = 'presence_'.str_replace('-', '_', $period_name);
@@ -1196,5 +1202,5 @@ class Planning extends Home
         }
 
         return $shuffled_array;
-    }
+    }   
 }
