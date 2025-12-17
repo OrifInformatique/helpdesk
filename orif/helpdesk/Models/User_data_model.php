@@ -208,4 +208,28 @@ class User_Data_model extends \CodeIgniter\Model
 
         return $result;
     }
+
+    /**
+     * Get all users with their roles (join user, tbl_user_data, and tbl_roles)
+     * 
+     * @param bool $with_deleted Include archived users or not
+     * @return array Users with role information
+     * 
+     */
+    public function getUsersWithRoles(?bool $with_deleted = false)
+    {
+        $builder = $this->db->table('user')
+            ->select('user.*, tbl_user_data.fk_role_id, tbl_roles.name_role')
+            ->join('tbl_user_data', 'tbl_user_data.fk_user_id = user.id', 'left')
+            ->join('tbl_roles', 'tbl_roles.id_role = tbl_user_data.fk_role_id', 'left')
+            ->orderBy('user.username', 'ASC');
+
+        if (!$with_deleted) {
+            $builder->where('user.archive', NULL);
+        }
+
+        $users = $builder->get()->getResultArray();
+
+        return $users;
+    }
 }

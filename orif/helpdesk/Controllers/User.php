@@ -241,6 +241,32 @@ class User extends Admin
     }
 
     /**
+     * Displays the list of users with their roles
+     *
+     * @param boolean $with_deleted : Display archived users or not
+     * @return string
+     */
+    public function listUser(?bool $with_deleted = FALSE): string
+    {
+        // Get users with their roles using the new method
+        $users = $this->user_data_model->getUsersWithRoles($with_deleted);
+
+        //usertiarray is an array contained all usertype name and id
+        $usertiarray=$this->db->table('user_type')->select(['id','name'],)->get()->getResultArray();
+        $usertypes=[];
+        foreach ($usertiarray as $row){
+            $usertypes[$row['id']]=lang('Technician.'.$row['name']);
+        }
+        $output = array(
+            'title' => lang('user_lang.title_administration'),
+            'users' => $users,
+            'user_types' => $usertypes,
+            'with_deleted' => $with_deleted
+        );
+        return $this->display_view('\User\admin\list_user', $output);
+    }
+
+    /**
      * Delete or deactivate a user depending on $action
      *
      * @param integer $user_id = ID of the user to affect

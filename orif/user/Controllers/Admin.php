@@ -50,12 +50,18 @@ class Admin extends BaseController
      */
     public function listUser(?bool $with_deleted = FALSE): string
     {
-        if ($with_deleted) {
-            $users = $this->user_model->orderBy('username')->withDeleted()
-                   ->findAll();
-        } else {
-            $users = $this->user_model->orderBy('username')->findAll();
+        // Get users with their roles using JOIN
+        $builder = $this->db->table('user')
+            ->select('user.*, tbl_user_data.fk_role_id, tbl_roles.name_role')
+            ->join('tbl_user_data', 'tbl_user_data.fk_user_id = user.id', 'left')
+            ->join('tbl_roles', 'tbl_roles.id_role = tbl_user_data.fk_role_id', 'left')
+            ->orderBy('user.username', 'ASC');
+
+        if (!$with_deleted) {
+            $builder->where('user.archive', NULL);
         }
+
+        $users = $builder->get()->getResultArray();
 
         //usertiarray is an array contained all usertype name and id
         $usertiarray=$this->db->table('user_type')->select(['id','name'],)->get()->getResultArray();
