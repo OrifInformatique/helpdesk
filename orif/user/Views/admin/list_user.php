@@ -24,7 +24,7 @@ helper("form");
             <label class="form-check-label" for="toggle_deleted">
                 <?= lang('user_lang.field_deleted_users_display'); ?>
             </label>
-            <?= form_checkbox('toggle_deleted', '', $with_deleted, [
+            <?= form_checkbox('toggle_deleted', '', (bool)$with_deleted, [
                 'id' => 'toggle_deleted'
             ]); ?>
         </div>
@@ -36,6 +36,7 @@ helper("form");
                 <th><?= lang('user_lang.field_username'); ?></th>
                 <th><?= lang('user_lang.field_email'); ?></th>
                 <th><?= lang('user_lang.field_usertype'); ?></th>
+                <th><?= lang('user_lang.field_role'); ?></th>
                 <th><?= lang('user_lang.field_user_active'); ?></th>
                 <th></th>
             </tr>
@@ -46,6 +47,7 @@ helper("form");
                     <td><a href="<?= base_url('helpdesk/user/saveUser/'.$user['id']); ?>"><?= esc($user['username']); ?></td>
                     <td><?= esc($user['email']); ?></td>
                     <td><?= $user_types[$user['fk_user_type']]; ?></td>
+                    <td><?= esc($user['name_role'] ?? '-'); ?></td>
                     <td><?= lang($user['archive'] ? 'common_lang.no' : 'common_lang.yes'); ?></td>
                     <td><a href="<?= base_url('helpdesk/user/deleteUser/'.$user['id']); ?>" class="close">×</td>
                 </tr>

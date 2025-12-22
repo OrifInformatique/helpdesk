@@ -29,6 +29,9 @@ $routes->group('helpdesk',function($routes)
     $routes->add('technician/(:any)','\Helpdesk\Controllers\Technician::$1');
 
     $routes->add('user/(:any)', '\Helpdesk\Controllers\User::$1');
+
+    $routes->add('role/', '\Helpdesk\Controllers\Role::index');
+    $routes->add('role/(:any)', '\Helpdesk\Controllers\Role::$1');
 });
 
 ?>

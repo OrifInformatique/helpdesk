@@ -44,6 +44,7 @@ return[
 'field_deleted_users_display'    => 'Afficher les utilisateurs désactivés',
 'field_login_input'              => 'Identifiant ou e-mail',
 'field_verification_code'        => 'Code de vérification',
+'field_role'                     => 'Rôle',
 
 // Error messages
 'msg_err_user_not_exist'         => 'L\'utilisateur sélectionné n\'existe pas',
