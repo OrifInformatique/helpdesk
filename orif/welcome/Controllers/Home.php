@@ -23,7 +23,7 @@ class Home extends BaseController
         return view('Welcome\welcome_message');
 	}
 
-    public function display_items($with_deleted = false): string
+    public function displayItems($with_deleted = false): string
     {
         $data['list_title'] = "Test de la liste items_list";
 
@@ -56,7 +56,7 @@ class Home extends BaseController
         $data['url_update'] = "items_list/update/";
         $data['url_delete'] = "items_list/delete/";
         $data['url_create'] = "items_list/create/";
-        $data['url_getView'] = "welcome/home/display_items";
+        $data['url_getView'] = "welcome/home/displayItems";
         $data['url_restore'] = "items_list/restore_item/";
         $data['url_duplicate'] = "items_list/duplicate_item/";
         

@@ -30,7 +30,7 @@ $validation=\Config\Services::validation();
         'id' => 'user_form',
         'name' => 'user_form'
     );
-    echo form_open('user/admin/save_user', $attributes, [
+    echo form_open('user/admin/saveUser', $attributes, [
         'id' => $user['id'] ?? 0
     ]);
     ?>
@@ -105,7 +105,7 @@ $validation=\Config\Services::validation();
             <div class="row">
                 <!-- RESET PASSWORD FOR EXISTING USER -->
                 <div class="col-12">
-                    <a href="<?= base_url('user/admin/password_change_user/'.$user['id']); ?>" >
+                    <a href="<?= base_url('user/admin/passwordChangeUser/'.$user['id']); ?>" >
                         <?= lang("user_lang.title_user_password_reset"); ?>
                     </a>
                 </div>
@@ -113,18 +113,18 @@ $validation=\Config\Services::validation();
                 <!-- ACTIVATE / DISABLE EXISTING USER -->
                 <?php if ($user['archive']) { ?>
                     <div class="col-12">
-                        <a href="<?= base_url('user/admin/reactivate_user/'.$user['id']); ?>" >
+                        <a href="<?= base_url('user/admin/reactivateUser/'.$user['id']); ?>" >
                             <?= lang("user_lang.user_reactivate"); ?>
                         </a>
                     </div>
                     <div class="col-12">
-                        <a href="<?= base_url('user/admin/delete_user/'.$user['id']); ?>" class="text-danger" >
+                        <a href="<?= base_url('user/admin/deleteUser/'.$user['id']); ?>" class="text-danger" >
                             <?= lang("user_lang.btn_hard_delete_user"); ?>
                         </a>
                     </div>
                 <?php } else { ?>
                     <div class="col-12">
-                        <a href="<?= base_url('helpdesk/user/helpdesk_delete_user/'.$user['id']); ?>" class="text-danger" >
+                        <a href="<?= base_url('helpdesk/user/deleteUser/'.$user['id']); ?>" class="text-danger" >
                             <?= lang("user_lang.user_delete"); ?>
                         </a>
                     </div>
@@ -135,7 +135,7 @@ $validation=\Config\Services::validation();
         <!-- FORM BUTTONS -->
         <div class="row">
             <div class="col text-right">
-                <a class="btn" href="<?= base_url('user/admin/list_user'); ?>"><?= lang('common_lang.btn_cancel'); ?></a>
+                <a class="btn" href="<?= base_url('user/admin/listUser'); ?>"><?= lang('common_lang.btn_cancel'); ?></a>
                 <?= form_submit('save', lang('common_lang.btn_save'), ['class' => 'btn']); ?>
             </div>
         </div>

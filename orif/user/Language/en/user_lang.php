@@ -44,6 +44,7 @@ return[
 'field_deleted_users_display'    => 'Display disabled users',
 'field_login_input'              => 'Username or E-mail',
 'field_verification_code'        => 'Verification code',
+'field_role'                     => 'Role',
 
 // Error messages
 'msg_err_user_not_exist'         => 'Selected user doesn\'t exist',
