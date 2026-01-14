@@ -1,0 +1,45 @@
+---
+config:
+  theme: redux-dark
+  layout: dagre
+---
+flowchart TD
+    p1[["→ Overview"]]
+    subgraph s3["getUsersPresencesPerPeriods(periods[], users[])"]
+        n1["Initialize an array of presences[] who is a copy of the periods[]"]
+        n2["Initialize arrays in each presences[]<br>available_first_technicians[]<br>available_second_technicians[]<br>available_third_technicians[]<br>all_available_technicians[]"]
+        n3["Foreach user"]
+        n4["SQL - Get User_presences for this user"]
+        n5["Foreach presence"]
+        n6["Compare User_presence for this presence<br>SWITCH(presence)"]
+        n7["CASE Absent: CONTINUE"]
+        n8["CASE Present:"]
+        n9["CASE Partially Absent:"]
+        n10["Add this user to<br>available_first_technicians[]<br>available_second_technicians[]<br>available_third_technicians[]<br>for this presence"]
+        n11["Add this user to<br>available_third_technicians[]<br>for this presence"]
+        n12["Add this user to<br>all_available_technicians[]<br>for this presence"]
+        n13["Increment for this user available_periods_counter"]
+        n14["RETURN: presences[]"]
+  end
+    back1[["← Overview"]]
+
+    p1 --> s3
+    n1 --> n2
+    n2 --> n3
+    n3 --> n4
+    n4 --> n5
+    n5 --> n6
+    n6 --> n7 & n8 & n9
+    n7 -.-> n5
+    n8 --> n10
+    n9 --> n11
+    n10 --> n12
+    n11 --> n12
+    n12 --> n13
+    n13 -.-> n5 & n3
+    n13 --> n14
+    n14 --> back1
+
+%% Lien de retour vers le fichier parent
+click back1 "01_overview.mmd" "Retour à la vue d'ensemble"
+

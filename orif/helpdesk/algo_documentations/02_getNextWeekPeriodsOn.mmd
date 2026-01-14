@@ -1,0 +1,22 @@
+---
+config:
+  theme: redux-dark
+  layout: dagre
+---
+flowchart TD
+    p1[["→ Overview"]]
+    subgraph s1["getNextWeekPeriodsOn()"]
+        n1["Initialize an array periods[]"]
+        n2["SQL - Remove next week Periods Off"]
+        n3["RETURN: periods[]"]
+  end
+  back1[["← Overview"]]
+
+    p1 --> s1
+    n1 --> n2
+    n2 --> n3
+    n3 --> back1
+
+%% Lien de retour vers le fichier parent
+click back1 "01_overview.mmd" "Retour à la vue d'ensemble"
+

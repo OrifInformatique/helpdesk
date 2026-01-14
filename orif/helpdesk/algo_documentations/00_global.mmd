@@ -1,0 +1,176 @@
+flowchart TD
+    subgraph s1["getNextWeekPeriodsOn()"]
+        n1["Initialize an array periods[]"]
+        n2["SQL - Remove next week Periods Off"]
+        n14["RETURN: periods[]"]
+    end
+    subgraph s2["generateNextWeekPlanning()"]
+        n5["Get next week Periods On"]
+        n10["Get Presences"]
+        n31["Initialize arrays\nperiods[]\nusers[]\npresences[]"]
+        n23["Get Users"]
+        n37["IF current week period count is the same as next week period count"]
+        n38["YES:"]
+        n39["NO:"]
+        n42["Sort users_ids[] with the least assignation possible, then the role priority on start of the array"]
+        n43["Foreach presence"]
+        n44["SWITCH(all_available_technicians) count"]
+        n45["CASE 0: CONTINUE"]
+        n46["CASE 1 to 3:"]
+        n47["CASE 4 or more:"]
+        n48["Foreach available_first_technician"]
+        n49["IF user_id max_assignation as first_technician is reached:"]
+        n50["YES: CONTINUE"]
+        n51["NO:"]
+        n52["Assign this user_id to this period as first_technician"]
+        n53["Increment this user_id assigned_first_technician with +1"]
+        n54["IF available_second_technician is more or equal to 2"]
+        n55["NO: CONTINUE"]
+        n56["YES:"]
+        n57["IF user_id is equal to first_technician in this period:"]
+        n58["YES: CONTINUE"]
+        n59["Foreach available_second_technician"]
+        n60["NO:"]
+        n61["IF user_id max_assign_second_technician is reached:"]
+        n62["YES: CONTINUE"]
+        n63["NO:"]
+        n64["Assign this user_id to this period as second_technician"]
+        n65["Increment this user_id assigned_second_technician with +1"]
+        n66["IF available_third_technician is more or equal to 3"]
+        n67["NO: CONTINUE"]
+        n68["YES:"]
+        n69["Foreach available_third_technician"]
+        n70["Foreach user_id"]
+        n71["IF user_id is equal to first_technician or second_technician in this period:"]
+        n72["YES: CONTINUE"]
+        n73["NO:"]
+        n74["IF user_id max_assign_third_technician is reached:"]
+        n75["YES: CONTINUE"]
+        n76["NO:"]
+        n77["Assign this user_id to this period as third_technician"]
+        n78["Increment this user_id assigned_third_technician with +1"]
+        n79["Sort presences[] with the least all_available_technician on the start of the array"]
+        n80["IF user_id max_assignation as first_technician is reached:"]
+        n81["Compare current week and next week"]
+        n82["YES: CONTINUE"]
+        n83["NO:"]
+        n84["Assign this user_id to this period as first_technician"]
+        n85["Increment this user_id assigned_first_technician with +1"]
+        n86["Repeat for second_technician and third_technician"]
+        n88["RETURN: periods[]"]
+    end
+    subgraph s3["getUsersPresencesPerPeriods(periods[], users[])"]
+        n4["Foreach user"]
+        n6["Foreach presence"]
+        n7["Compare User_presence for this presence\nSWITCH(presence)"]
+        n9["CASE Present:"]
+        n8["CASE Absent: CONTINUE"]
+        n11["CASE Partially Absent:"]
+        n12["Add this user to\navailable_first_technicians[]\navailable_second_technicians[]\navailable_third_technicians[]\nfor this presence"]
+        n13["Add this user to\navailable_third_technicians[]\nfor this presence"]
+        n15["SQL - Get User_presences for this user"]
+        n16["Add this user to\nall_available_technicians[]\nfor this presence"]
+        n17["RETURN: presences[]"]
+        n19["Initialize arrays in each presences[]\navailable_first_technicians[]\navailable_second_technicians[]\navailable_third_technicians[]\nall_available_technicians[]"]
+        n20["Initialize an array of presences[] who is a copy of the periods[]"]
+        n33["Increment for this user available_periods_counter"]
+    end
+    subgraph s5["getUsersPresentNextWeekWithTheirRoles()"]
+        n24["RETURN: An array of users[]"]
+        n35["SQL - Get all users_ids with at least 1 PRESENT or PARTIALLY_ABSENT who have this role"]
+        n29["Initialize an array roles[]"]
+        n26["SQL - Get all roles where priority_role isn't 0"]
+        n30["Foreach Role"]
+        n27["Add to this user the arrays:\nrole_priority,\ntechnician_1_assignation[0,0,0],\ntechnician_2_assignation[0,0,0],\ntechnician_3_assignation[0,0,0],\navailable_periods_counter"]
+        n90["Foreach user"]
+        n91["Initialize an array users[]"]
+    end
+    subgraph s7["canPlanningBeCopiedFromCurrentWeek"]
+        n40["SQL - Get current week presences"]
+        n41["TODO: check if possible to copy the current week to the next week"]
+    end
+    n1 --> n2
+    n2 --> n14
+    n5 --> n1
+    n4 --> n15
+    n6 --> n7
+    n7 --> n8 & n9 & n11
+    n8 -.-> n6
+    n9 --> n12
+    n11 --> n13
+    n12 --> n16
+    n16 --> n33
+    n13 --> n16
+    n20 --> n19
+    n15 --> n6
+    n10 --> n20
+    n26 --> n30
+    n29 --> n91
+    n31 --> n5
+    n19 --> n4
+    n33 --> n17
+    n33 -.-> n6 & n4
+    n24 --> n10
+    n35 --> n90
+    A(["Start"]) --> n31
+    n37 --> n38 & n39
+    n38 --> n81
+    n17 --> n37
+    n40 --> n41
+    n39 --> n42
+    n42 --> n79
+    n43 --> n44
+    n44 --> n45 & n46 & n47
+    n45 -.-> n43
+    n46 --> n48
+    n48 --> n49
+    n49 --> n50 & n51
+    n50 -.-> n48
+    n51 --> n52
+    n52 --> n53
+    n53 --> n54
+    n54 --> n55 & n56
+    n55 -.-> n43
+    n56 --> n59
+    n57 --> n58 & n60
+    n59 --> n57
+    n58 -.-> n59
+    n60 --> n61
+    n61 --> n62 & n63
+    n62 -.-> n59
+    n63 --> n64
+    n64 --> n65
+    n65 --> n66
+    n66 --> n67 & n68
+    n67 -.-> n43
+    n68 --> n69
+    n47 --> n70
+    n69 --> n71
+    n71 --> n72 & n73
+    n72 -.-> n69
+    n73 --> n74
+    n74 --> n75 & n76
+    n75 -.-> n69
+    n76 --> n77
+    n77 --> n78
+    n78 -.-> n43
+    n79 --> n43
+    n70 --> n80
+    n81 --> n40
+    n80 --> n82 & n83
+    n82 -.-> n70
+    n83 --> n84
+    n84 --> n85
+    n85 --> n86
+    n14 --> n23
+    n23 --> n29
+    n30 --> n35
+    n27 -.-> n30 & n90
+    n86 --> n88
+    n88 --> n89(["End"])
+    n90 --> n27
+    n27 --> n24
+    n91 --> n26
+
+    %% change s1 with red background color
+    %% style s1 fill:#ff0000
