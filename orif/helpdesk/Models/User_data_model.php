@@ -191,18 +191,18 @@ class User_Data_model extends \CodeIgniter\Model
      */
     public function setUserRole($user_id, $role_id)
     {
-        // Vérifier que le rôle existe
+        // Check that the role exists
         $role = $this->roles_model->getRoleByID($role_id);
         if(empty($role))
             return false;
 
-        // Vérifier que l'utilisateur existe dans tbl_user_data
+        // Check that the user exists in tbl_user_data
         $user_data = $this->where('fk_user_id', $user_id)->first();
 
         if(empty($user_data))
             return false;
 
-        // Mettre à jour le rôle de l'utilisateur
+        // Update user's role
         $data = ['fk_role_id' => $role_id];
         $result = $this->update($user_data->id_user_data, $data);
 

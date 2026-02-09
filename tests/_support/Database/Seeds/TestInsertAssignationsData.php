@@ -1,10 +1,16 @@
 <?php
 
-namespace Helpdesk\Database\Seeds;
+namespace Tests\Support\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class InsertAssignationsData extends Seeder
+/**
+ * Test seeder for assignations
+ * 
+ * TEST DATABASE : ci4_test
+ * This seeder is used exclusively for unit and integration tests.
+ */
+class TestInsertAssignationsData extends Seeder
 {
     public function run()
     {

@@ -1,26 +1,28 @@
 <?php
 
-namespace Helpdesk\Database\Seeds;
+namespace Tests\Support\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
 /**
- * Seeder pour les rôles du système
+ * Test seeder for system roles
+ * 
+ * TEST DATABASE : ci4_test
+ * This seeder is used exclusively for unit and integration tests.
  * 
  * Napw = Number of assignations per week
  * 
- * Rôles par défaut :
+ * Default roles :
  * - No Role: Napw Tech 1=0, Tech 2=0, Tech 3=0, Priority=0
  * - Operator: Napw Tech 1=20, Tech 2=20, Tech 3=20, Priority=1
  * - Infrastructure: Napw Tech 1=2, Tech 2=2, Tech 3=2, Priority=2
  * - Developer: Napw Tech 1=2, Tech 2=2, Tech 3=2, Priority=2
  * 
- * Rôles personnalisés :
+ * Custom roles :
  * - Observation: Napw Tech 1=0, Tech 2=2, Tech 3=2, Priority=2
  * - Pré-apprentissage: Napw Tech 1=2, Tech 2=4, Tech 3=4, Priority=1
  */
-
-class InsertRolesData extends Seeder
+class TestInsertRolesData extends Seeder
 {
     public function run()
     {

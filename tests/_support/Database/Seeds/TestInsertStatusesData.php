@@ -1,10 +1,16 @@
 <?php
 
-namespace Helpdesk\Database\Seeds;
+namespace Tests\Support\Database\Seeds;
 
 use CodeIgniter\Database\Seeder;
 
-class InsertStatusesData extends Seeder
+/**
+ * Test seeder for statuses
+ * 
+ * TEST DATABASE : ci4_test
+ * This seeder is used exclusively for unit and integration tests.
+ */
+class TestInsertStatusesData extends Seeder
 {
     public function run()
     {

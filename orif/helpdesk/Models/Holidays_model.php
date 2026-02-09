@@ -85,4 +85,42 @@ class Holidays_model extends \CodeIgniter\Model
 
         return false;
     }
+
+    /**
+     * Removes duplicate holidays (same name and same dates)
+     * Keeps only the first occurrence of each unique combination
+     * 
+     * @return array Statistics : ['deleted' => number of duplicates deleted, 'kept' => number of holidays kept]
+     * 
+     */
+    public function removeDuplicates()
+    {
+        $allHolidays = $this->findAll();
+        $seen = [];
+        $toDelete = [];
+        $kept = 0;
+
+        foreach ($allHolidays as $holiday) {
+            $key = $holiday['name_holiday'] . '|' . $holiday['start_date_holiday'] . '|' . $holiday['end_date_holiday'];
+            
+            if (isset($seen[$key])) {
+                // This is a duplicate, mark for deletion
+                $toDelete[] = $holiday['id_holiday'];
+            } else {
+                // First occurrence, keep
+                $seen[$key] = true;
+                $kept++;
+            }
+        }
+
+        // Delete duplicates
+        foreach ($toDelete as $id) {
+            $this->delete($id);
+        }
+
+        return [
+            'deleted' => count($toDelete),
+            'kept' => $kept
+        ];
+    }
 }

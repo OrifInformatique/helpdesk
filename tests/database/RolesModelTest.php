@@ -5,7 +5,7 @@ use CodeIgniter\Test\DatabaseTestTrait;
 use Helpdesk\Models\Roles_model;
 
 /**
- * Test pour le modèle Roles_model
+ * Test for Roles_model
  * 
  * @internal
  */
@@ -14,48 +14,48 @@ final class RolesModelTest extends CIUnitTestCase
     use DatabaseTestTrait;
 
     /**
-     * Test de la méthode getRoles()
+     * Test for getRoles() method
      */
     public function testGetRoles()
     {
         $model = new Roles_model();
 
-        // Récupérer tous les rôles
+        // Get all roles
         $roles = $model->getRoles();
 
-        // Vérifier que le résultat est un tableau
+        // Check that the result is an array
         $this->assertIsArray($roles);
 
-        // Vérifier qu'il y a au moins un rôle (si la table contient des données)
+        // Check that there is at least one role (if the table contains data)
         if (!empty($roles)) {
-            // Vérifier la structure du premier rôle
+            // Check the structure of the first role
             $firstRole = $roles[0];
-            $this->assertObjectHasAttribute('id_role', $firstRole);
-            $this->assertObjectHasAttribute('name_role', $firstRole);
-            $this->assertObjectHasAttribute('priority_role', $firstRole);
+            $this->assertObjectHasProperty('id_role', $firstRole);
+            $this->assertObjectHasProperty('name_role', $firstRole);
+            $this->assertObjectHasProperty('priority_role', $firstRole);
         }
     }
 
     /**
-     * Test de la méthode getRoleByID() avec un ID valide
+     * Test for getRoleByID() method with a valid ID
      */
     public function testGetRoleByIDValid()
     {
         $model = new Roles_model();
 
-        // Récupérer tous les rôles pour obtenir un ID valide
+        // Get all roles to obtain a valid ID
         $allRoles = $model->getRoles();
 
         if (!empty($allRoles)) {
             $firstRoleId = $allRoles[0]->id_role;
 
-            // Récupérer un rôle par son ID
+            // Get a role by its ID
             $role = $model->getRoleByID($firstRoleId);
 
-            // Vérifier que le résultat n'est pas null
+            // Check that the result is not null
             $this->assertNotNull($role);
 
-            // Vérifier que l'ID correspond (si le rôle est un objet)
+            // Check that the ID matches (if the role is an object)
             if (is_object($role)) {
                 $this->assertEquals($firstRoleId, $role->id_role);
             } elseif (is_array($role)) {
@@ -67,21 +67,21 @@ final class RolesModelTest extends CIUnitTestCase
     }
 
     /**
-     * Test de la méthode getRoleByID() avec un ID invalide
+     * Test for getRoleByID() method with an invalid ID
      */
     public function testGetRoleByIDInvalid()
     {
         $model = new Roles_model();
 
-        // Tester avec un ID qui n'existe probablement pas
+        // Test with an ID that probably doesn't exist
         $role = $model->getRoleByID(99999);
 
-        // Vérifier que le résultat est null
+        // Check that the result is null
         $this->assertNull($role);
     }
 
     /**
-     * Test que la méthode getRoles() retourne les mêmes résultats que findAll()
+     * Test that getRoles() method returns the same results as findAll()
      */
     public function testGetRolesEqualsFindAll()
     {
@@ -90,7 +90,7 @@ final class RolesModelTest extends CIUnitTestCase
         $rolesFromMethod = $model->getRoles();
         $rolesFromFindAll = $model->findAll();
 
-        // Vérifier que les deux méthodes retournent le même nombre de résultats
+        // Check that both methods return the same number of results
         $this->assertCount(count($rolesFromFindAll), $rolesFromMethod);
     }
 }

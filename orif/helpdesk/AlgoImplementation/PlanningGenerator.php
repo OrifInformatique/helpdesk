@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Classe principale pour la génération automatique du planning de la semaine prochaine
+ * Main class for automatic generation of next week's planning
  * 
- * Implémentation de l'algorithme décrit dans les fichiers Mermaid
+ * Implementation of the algorithm described in Mermaid files
  * 
  * @author      Orif
  * @link        https://github.com/OrifInformatique
@@ -44,51 +44,53 @@ class PlanningGenerator
     }
 
     /**
-     * Fonction principale : génère le planning de la semaine prochaine
+     * Main function: generates next week's planning
      * 
-     * @return array Tableau des périodes avec les attributions
+     * @return array Array of periods with assignments
      */
     public function generateNextWeekPlanning()
     {
-        // Initialiser les tableaux
+        // Initialize arrays
         $periods = [];
         $users = [];
         $presences = [];
 
-        // Obtenir les informations de calendrier de la semaine prochaine
+        // Get next week's calendar information
         $periods = $this->getNextWeekPeriodsOn();
 
-        // Obtenir les informations des utilisateurs
+        // Get user information
         $users = $this->getUsersPresentNextWeekWithThereRoles();
 
-        // Obtenir les informations de présence
+        // Get presence information
         $presences = $this->getUsersPresencesPerPeriods($periods, $users);
 
-        // Vérifier si le planning peut être copié
+        // Check if planning can be copied
         $canCopy = $this->canPlanningBeCopiedFromCurrentWeek();
 
         if ($canCopy) {
-            // Copier le planning de la semaine actuelle
+            // Copy current week's planning to next week
+            $periods = $this->copyCurrentWeekPlanningToNextWeek();
             return $periods;
         } else {
-            // Exécuter la logique d'attribution
+            // Execute assignment logic
             $periods = $this->generateNextWeekPlanningAttribution($periods, $users, $presences);
             return $periods;
         }
     }
 
     /**
-     * Récupère les périodes de la semaine prochaine (en supprimant les périodes off)
+     * Gets next week's periods (removing off periods)
      * 
-     * @return array Tableau des périodes de la semaine prochaine
+     * @return array Array of next week's periods
      */
     public function getNextWeekPeriodsOn()
     {
-        // Initialiser un tableau periods[]
+        // Initialize periods[] array
         $periods = [];
 
-        // Obtenir les périodes de la semaine prochaine
+        // Get next week's periods
         $next_monday = strtotime('next monday');
+        
         $next_week = [
             'monday' => $next_monday,
             'tuesday' => strtotime('+1 day', $next_monday),
@@ -118,12 +120,12 @@ class PlanningGenerator
             ];
         }
 
-        // SQL - Supprimer les périodes off (jours fériés)
+        // SQL - Remove off periods (holidays)
         $holidays_data = $this->holidays_model->getHolidays();
 
         foreach ($holidays_data as $holiday) {
             foreach ($periods as $period_name => $period) {
-                // Si la période est dans une période de jour férié
+                // If the period is within a holiday period
                 if ($period['start'] >= strtotime($holiday['start_date_holiday']) && 
                     $period['end'] <= strtotime($holiday['end_date_holiday'])) {
                     unset($periods[$period_name]);
@@ -135,21 +137,21 @@ class PlanningGenerator
     }
 
     /**
-     * Récupère les utilisateurs présents la semaine prochaine avec leurs rôles
+     * Gets users present next week with their roles
      * 
-     * @return array Tableau des utilisateurs avec leurs informations
+     * @return array Array of users with their information
      */
     public function getUsersPresentNextWeekWithThereRoles()
     {
-        // Initialiser un tableau users[]
+        // Initialize users[] array
         $users = [];
 
-        // SQL - Obtenir tous les rôles où priority_role n'est pas 0
+        // SQL - Get all roles where priority_role is not 0
         $roles_data = $this->roles_model->where('priority_role !=', 0)->findAll();
 
-        // Pour chaque rôle
+        // For each role
         foreach ($roles_data as $role) {
-            // SQL - Obtenir tous les user_ids avec au moins 1 PRESENT ou PARTIALLY_ABSENT qui ont ce rôle
+            // SQL - Get all user_ids with at least 1 PRESENT or PARTIALLY_ABSENT who have this role
             $presence_fields = [
                 'presence_mon_m1', 'presence_mon_m2', 'presence_mon_a1', 'presence_mon_a2',
                 'presence_tue_m1', 'presence_tue_m2', 'presence_tue_a1', 'presence_tue_a2',
@@ -158,7 +160,7 @@ class PlanningGenerator
                 'presence_fri_m1', 'presence_fri_m2', 'presence_fri_a1', 'presence_fri_a2'
             ];
 
-            // Construire la requête pour trouver les utilisateurs avec ce rôle et au moins une présence
+            // Build query to find users with this role and at least one presence
             $builder = $this->db->table('tbl_presences')
                 ->select('tbl_presences.fk_user_id')
                 ->distinct()
@@ -167,7 +169,7 @@ class PlanningGenerator
                 ->where('tbl_user_data.fk_role_id', $role['id_role'])
                 ->where('user.archive', null);
 
-            // Construire la condition OR pour au moins une présence PRESENT ou PARTIALLY_ABSENT
+            // Build OR condition for at least one PRESENT or PARTIALLY_ABSENT presence
             $builder->groupStart();
             $first = true;
             foreach ($presence_fields as $field) {
@@ -188,11 +190,11 @@ class PlanningGenerator
 
             $users_with_role = $builder->get()->getResultArray();
 
-            // Pour chaque utilisateur
+            // For each user
             foreach ($users_with_role as $user_data) {
                 $user_id = $user_data['fk_user_id'];
 
-                // Ajouter à cet utilisateur les tableaux :
+                // Add to this user the arrays:
                 // role_priority, technician_1_assignation[0,0,0], technician_2_assignation[0,0,0], 
                 // technician_3_assignation[0,0,0], available_periods_counter
                 if (!isset($users[$user_id])) {
@@ -224,18 +226,18 @@ class PlanningGenerator
     }
 
     /**
-     * Récupère les présences des utilisateurs par période
+     * Gets user presences by period
      * 
-     * @param array $periods Tableau des périodes
-     * @param array $users Tableau des utilisateurs (passé par référence pour modifier available_periods_counter)
-     * @return array Tableau des présences enrichi avec les techniciens disponibles
+     * @param array $periods Array of periods
+     * @param array $users Array of users (passed by reference to modify available_periods_counter)
+     * @return array Array of presences enriched with available technicians
      */
     public function getUsersPresencesPerPeriods($periods, &$users)
     {
-        // Initialiser un tableau de presences[] qui est une copie de periods[]
+        // Initialize presences[] array which is a copy of periods[]
         $presences = $periods;
 
-        // Initialiser les tableaux dans chaque presences[]
+        // Initialize arrays in each presences[]
         // available_first_technicians[], available_second_technicians[], 
         // available_third_technicians[], all_available_technicians[]
         foreach ($presences as $period_name => $period) {
@@ -245,18 +247,18 @@ class PlanningGenerator
             $presences[$period_name]['all_available_technicians'] = [];
         }
 
-        // Pour chaque utilisateur
+        // For each user
         foreach ($users as $user_id => $user) {
-            // SQL - Obtenir les User_presences pour cet utilisateur
+            // SQL - Get User_presences for this user
             $user_presences = $this->presences_model->getPresencesUser($user_id);
 
             if ($user_presences === null) {
                 continue;
             }
 
-            // Pour chaque présence
+            // For each presence
             foreach ($user_presences as $presence_name => $presence_value) {
-                // Convertir le nom de présence en nom de période
+                // Convert presence name to period name
                 $period_name = str_replace('presence_', '', $presence_name);
                 $period_name = str_replace('_', '-', $period_name);
 
@@ -264,7 +266,7 @@ class PlanningGenerator
                     continue;
                 }
 
-                // Comparer User_presence pour cette présence
+                // Compare User_presence for this presence
                 // SWITCH(presence)
                 switch ($presence_value) {
                     case TechnicianPresence::ABSENT->value:
@@ -273,9 +275,9 @@ class PlanningGenerator
 
                     case TechnicianPresence::PRESENT->value:
                         // CASE Present:
-                        // Ajouter cet utilisateur à
+                        // Add this user to
                         // available_first_technicians[], available_second_technicians[], 
-                        // available_third_technicians[] pour cette présence
+                        // available_third_technicians[] for this presence
                         $presences[$period_name]['available_first_technicians'][] = $user_id;
                         $presences[$period_name]['available_second_technicians'][] = $user_id;
                         $presences[$period_name]['available_third_technicians'][] = $user_id;
@@ -283,15 +285,15 @@ class PlanningGenerator
 
                     case TechnicianPresence::PARTLY_ABSENT->value:
                         // CASE Partially Absent:
-                        // Ajouter cet utilisateur à available_third_technicians[] pour cette présence
+                        // Add this user to available_third_technicians[] for this presence
                         $presences[$period_name]['available_third_technicians'][] = $user_id;
                         break;
                 }
 
-                // Ajouter cet utilisateur à all_available_technicians[] pour cette présence
+                // Add this user to all_available_technicians[] for this presence
                 $presences[$period_name]['all_available_technicians'][] = $user_id;
 
-                // Incrémenter pour cet utilisateur available_periods_counter
+                // Increment available_periods_counter for this user
                 $users[$user_id]['available_periods_counter']++;
             }
         }
@@ -300,45 +302,290 @@ class PlanningGenerator
     }
 
     /**
-     * Vérifie si le planning peut être copié depuis la semaine actuelle
+     * Checks if presences have been updated recently (within the last 7 days)
      * 
-     * @return bool True si le planning peut être copié, false sinon
+     * This method determines if planning should be regenerated
+     * due to recent presence modifications.
+     * 
+     * @param int $days Number of days to check (default: 7)
+     * @return bool True if at least one presence has been updated, false otherwise
      */
-    public function canPlanningBeCopiedFromCurrentWeek()
+    public function hasPresencesBeenUpdatedRecently($days = 7)
     {
-        // SQL - Obtenir les présences de la semaine actuelle
-        $current_week_planning = $this->planning_model->getPlanningData();
-        
-        // TODO: Vérifier si possible de copier la semaine actuelle vers la semaine prochaine
-        // Pour l'instant, retourner false pour forcer la génération
-        return false;
+        $recently_updated_presences = $this->presences_model->getPresencesUpdatedWithinDays($days);
+        return !empty($recently_updated_presences);
     }
 
     /**
-     * Génère l'attribution du planning de la semaine prochaine
+     * Gets current week's periods (removing off periods)
      * 
-     * @param array $periods Tableau des périodes
-     * @param array $users Tableau des utilisateurs
-     * @param array $presences Tableau des présences
-     * @return array Tableau des périodes avec les attributions
+     * @return array Array of current week's periods
+     */
+    public function getCurrentWeekPeriodsOn()
+    {
+        // Initialize periods[] array
+        $periods = [];
+
+        // Get current week's periods
+        $current_monday = strtotime('monday this week');
+        
+        $current_week = [
+            'monday' => $current_monday,
+            'tuesday' => strtotime('+1 day', $current_monday),
+            'wednesday' => strtotime('+2 days', $current_monday),
+            'thursday' => strtotime('+3 days', $current_monday),
+            'friday' => strtotime('+4 days', $current_monday)
+        ];
+        
+        foreach ($current_week as $key => $day) {
+            $periods += [
+                substr($key, 0, 3) . '-m1' => [
+                    'start' => strtotime(date('Y-m-d', $day) . ' 08:00:00'),
+                    'end' => strtotime(date('Y-m-d', $day) . ' 10:00:00')
+                ],
+                substr($key, 0, 3) . '-m2' => [
+                    'start' => strtotime(date('Y-m-d', $day) . ' 10:00:00'),
+                    'end' => strtotime(date('Y-m-d', $day) . ' 12:00:00')
+                ],
+                substr($key, 0, 3) . '-a1' => [
+                    'start' => strtotime(date('Y-m-d', $day) . ' 12:45:00'),
+                    'end' => strtotime(date('Y-m-d', $day) . ' 14:45:00')
+                ],
+                substr($key, 0, 3) . '-a2' => [
+                    'start' => strtotime(date('Y-m-d', $day) . ' 15:00:00'),
+                    'end' => strtotime(date('Y-m-d', $day) . ' 16:57:00')
+                ]
+            ];
+        }
+
+        // SQL - Remove off periods (holidays)
+        $holidays_data = $this->holidays_model->getHolidays();
+
+        foreach ($holidays_data as $holiday) {
+            foreach ($periods as $period_name => $period) {
+                // If period is within a holiday period
+                if ($period['start'] >= strtotime($holiday['start_date_holiday']) && 
+                    $period['end'] <= strtotime($holiday['end_date_holiday'])) {
+                    unset($periods[$period_name]);
+                }
+            }
+        }
+
+        return $periods;
+    }
+
+    /**
+     * Checks if planning can be copied from current week
+     * 
+     * Planning can only be copied if:
+     * - Current planning exists and is not empty
+     * - No presences have been updated in the last 7 days
+     * - Number of periods in current week matches next week
+     * 
+     * @return bool True if planning can be copied, false otherwise
+     */
+    public function canPlanningBeCopiedFromCurrentWeek()
+    {
+        // SQL - Get current week's planning
+        $current_week_planning = $this->planning_model->getPlanningData();
+        
+        // If current planning is empty, cannot copy (must generate)
+        if (empty($current_week_planning)) {
+            return false;
+        }
+        
+        // Check if presences have been updated in the last 7 days
+        if ($this->hasPresencesBeenUpdatedRecently(7)) {
+            return false;
+        }
+        
+        // Check if number of periods matches
+        $current_week_periods = $this->getCurrentWeekPeriodsOn();
+        $next_week_periods = $this->getNextWeekPeriodsOn();
+        
+        if (count($current_week_periods) !== count($next_week_periods)) {
+            return false;
+        }
+        
+        // If all conditions are met, can copy
+        return true;
+    }
+
+    /**
+     * Copies current week's planning to next week
+     * 
+     * This method maps current week's periods to next week's periods
+     * taking into account holidays and off periods.
+     * 
+     * @return array Array of periods with copied assignments
+     */
+    public function copyCurrentWeekPlanningToNextWeek()
+    {
+        // Get periods from both weeks
+        $current_week_periods = $this->getCurrentWeekPeriodsOn();
+        $next_week_periods = $this->getNextWeekPeriodsOn();
+        
+        // Get current week's planning
+        $current_week_planning = $this->planning_model->getPlanningData();
+        
+        // Mapping period names: current week -> next week
+        $period_mapping = [];
+        $current_period_names = array_keys($current_week_periods);
+        $next_period_names = array_keys($next_week_periods);
+        
+        // Create mapping based on period order (same order = same period)
+        for ($i = 0; $i < count($current_period_names) && $i < count($next_period_names); $i++) {
+            $period_mapping[$current_period_names[$i]] = $next_period_names[$i];
+        }
+        
+        // Create period mapping: current week period -> next week period
+        // Based on period order (same position = same logical period)
+        $current_period_list = array_values($current_period_names);
+        $next_period_list = array_values($next_period_names);
+        
+        // Mapping des noms de colonnes SQL : planning_xxx -> nw_planning_xxx
+        $sql_column_mapping = [
+            'planning_mon_m1' => 'nw_planning_mon_m1',
+            'planning_mon_m2' => 'nw_planning_mon_m2',
+            'planning_mon_a1' => 'nw_planning_mon_a1',
+            'planning_mon_a2' => 'nw_planning_mon_a2',
+            'planning_tue_m1' => 'nw_planning_tue_m1',
+            'planning_tue_m2' => 'nw_planning_tue_m2',
+            'planning_tue_a1' => 'nw_planning_tue_a1',
+            'planning_tue_a2' => 'nw_planning_tue_a2',
+            'planning_wed_m1' => 'nw_planning_wed_m1',
+            'planning_wed_m2' => 'nw_planning_wed_m2',
+            'planning_wed_a1' => 'nw_planning_wed_a1',
+            'planning_wed_a2' => 'nw_planning_wed_a2',
+            'planning_thu_m1' => 'nw_planning_thu_m1',
+            'planning_thu_m2' => 'nw_planning_thu_m2',
+            'planning_thu_a1' => 'nw_planning_thu_a1',
+            'planning_thu_a2' => 'nw_planning_thu_a2',
+            'planning_fri_m1' => 'nw_planning_fri_m1',
+            'planning_fri_m2' => 'nw_planning_fri_m2',
+            'planning_fri_a1' => 'nw_planning_fri_a1',
+            'planning_fri_a2' => 'nw_planning_fri_a2',
+        ];
+        
+        // Create reverse mapping: logical period (mon-m1) -> SQL column
+        $period_to_current_col = [];
+        $period_to_next_col = [];
+        
+        foreach ($sql_column_mapping as $current_col => $next_col) {
+            // Convert planning_mon_m1 -> mon-m1
+            $period_key = str_replace(['planning_', 'nw_planning_'], '', $current_col);
+            $period_key = str_replace('_', '-', $period_key);
+            $period_to_current_col[$period_key] = $current_col;
+            $period_to_next_col[$period_key] = $next_col;
+        }
+        
+        // Prepare data for insertion into tbl_nw_planning
+        $nw_planning_data = [];
+        
+        foreach ($current_week_planning as $planning_entry) {
+            $nw_entry = [
+                'fk_user_id' => $planning_entry['fk_user_id']
+            ];
+            
+            // Initialize all next week columns to null
+            foreach ($sql_column_mapping as $current_col => $next_col) {
+                $nw_entry[$next_col] = null;
+            }
+            
+            // Copy values for periods that exist in both weeks
+            for ($i = 0; $i < count($current_period_list) && $i < count($next_period_list); $i++) {
+                $current_period = $current_period_list[$i];
+                $next_period = $next_period_list[$i];
+                
+                // Find corresponding SQL columns
+                if (isset($period_to_current_col[$current_period]) && isset($period_to_next_col[$next_period])) {
+                    $current_col = $period_to_current_col[$current_period];
+                    $next_col = $period_to_next_col[$next_period];
+                    
+                    // Copy value if it exists
+                    if (isset($planning_entry[$current_col])) {
+                        $nw_entry[$next_col] = $planning_entry[$current_col];
+                    }
+                }
+            }
+            
+            $nw_planning_data[] = $nw_entry;
+        }
+        
+        // Clear nw_planning table before inserting new data
+        $this->db->table('tbl_nw_planning')->truncate();
+        
+        // Insert copied data
+        if (!empty($nw_planning_data)) {
+            $this->nw_planning_model->insertBatch($nw_planning_data);
+        }
+        
+        // Return next week's periods with assignments
+        // Build return array in expected format (same format as generateNextWeekPlanningAttribution)
+        $result_periods = [];
+        
+        // Get next week's planning from database
+        $nw_planning_from_db = $this->nw_planning_model->getNwPlanningData();
+        
+        // Build period -> SQL columns mapping
+        $period_to_col = [];
+        foreach ($sql_column_mapping as $current_col => $next_col) {
+            $period_key = str_replace(['planning_', 'nw_planning_'], '', $current_col);
+            $period_key = str_replace('_', '-', $period_key);
+            $period_to_col[$period_key] = $next_col;
+        }
+        
+        // Initialize all periods with start and end
+        foreach ($next_week_periods as $period_name => $period_info) {
+            $result_periods[$period_name] = [
+                'start' => $period_info['start'],
+                'end' => $period_info['end']
+            ];
+            
+            // Extract assignments for this period from database
+            if (isset($period_to_col[$period_name])) {
+                $period_col = $period_to_col[$period_name];
+                
+                foreach ($nw_planning_from_db as $planning_row) {
+                    $assignment_value = is_array($planning_row) ? ($planning_row[$period_col] ?? null) : ($planning_row->$period_col ?? null);
+                    
+                    if (!empty($assignment_value)) {
+                        // Values in database are 1, 2, 3 for first, second, third technician
+                        if ($assignment_value == 1) {
+                            $user_id = is_array($planning_row) ? $planning_row['fk_user_id'] : $planning_row->fk_user_id;
+                            $result_periods[$period_name]['first_technician'] = $user_id;
+                        } elseif ($assignment_value == 2) {
+                            $user_id = is_array($planning_row) ? $planning_row['fk_user_id'] : $planning_row->fk_user_id;
+                            $result_periods[$period_name]['second_technician'] = $user_id;
+                        } elseif ($assignment_value == 3) {
+                            $user_id = is_array($planning_row) ? $planning_row['fk_user_id'] : $planning_row->fk_user_id;
+                            $result_periods[$period_name]['third_technician'] = $user_id;
+                        }
+                    }
+                }
+            }
+        }
+        
+        return $result_periods;
+    }
+
+    /**
+     * Generates next week's planning assignment
+     * 
+     * @param array $periods Array of periods
+     * @param array $users Array of users
+     * @param array $presences Array of presences
+     * @return array Array of periods with assignments
      */
     public function generateNextWeekPlanningAttribution($periods, $users, $presences)
     {
-        // Obtenir le planning de la semaine actuelle
-        $current_week_planning = $this->planning_model->getPlanningData();
-        $current_week_period_count = count($current_week_planning);
-        $next_week_period_count = count($periods);
+        // Note: Period count verification is done in generateNextWeekPlanning()
+        // via canPlanningBeCopiedFromCurrentWeek(). This function is only called if planning
+        // cannot be copied, so we proceed directly with assignment.
 
-        // Le nombre de périodes de la semaine actuelle === le nombre de périodes de la semaine prochaine ?
-        if ($current_week_period_count === $next_week_period_count) {
-            // Copier le planning de la semaine actuelle
-            // TODO: Implémenter la copie du planning
-            return $periods;
-        }
-
-        // Trier users_ids[] avec le moins d'assignations possible, puis la priorité de rôle au début du tableau
+        // Sort users_ids[] with least assignments possible, then role priority at the beginning of array
         uasort($users, function($a, $b) {
-            // D'abord par nombre d'assignations (ascendant)
+            // First by number of assignments (ascending)
             $a_assignations = $a['technician_1_assignation']['assigned'] + 
                             $a['technician_2_assignation']['assigned'] + 
                             $a['technician_3_assignation']['assigned'];
@@ -350,16 +597,16 @@ class PlanningGenerator
                 return $a_assignations <=> $b_assignations;
             }
             
-            // Ensuite par priorité de rôle (descendant)
+            // Then by role priority (descending)
             return $b['role_priority'] <=> $a['role_priority'];
         });
 
-        // Trier presences[] avec le moins de all_available_technician au début du tableau
+        // Sort presences[] with least all_available_technician at the beginning of array
         uasort($presences, function($a, $b) {
             return count($a['all_available_technicians']) <=> count($b['all_available_technicians']);
         });
 
-        // Pour chaque présence
+        // For each presence
         foreach ($presences as $period_name => $presence) {
             // SWITCH(all_available_technicians) count
             $available_count = count($presence['all_available_technicians']);
@@ -385,12 +632,12 @@ class PlanningGenerator
     }
 
     /**
-     * Attribution pour le cas de 1 à 3 techniciens disponibles
+     * Assignment for case of 1 to 3 available technicians
      * 
-     * @param string $period_name Nom de la période
-     * @param array $presence Données de présence pour cette période
-     * @param array $users Tableau des utilisateurs (modifié par référence)
-     * @param array $periods Tableau des périodes (modifié par référence)
+     * @param string $period_name Period name
+     * @param array $presence Presence data for this period
+     * @param array $users Array of users (modified by reference)
+     * @param array $periods Array of periods (modified by reference)
      */
     protected function assignCaseOneToThreeTechnicians($period_name, $presence, &$users, &$periods)
     {
@@ -398,78 +645,78 @@ class PlanningGenerator
         $available_second = $presence['available_second_technicians'];
         $available_third = $presence['available_third_technicians'];
 
-        // Pour chaque available_first_technician
+        // For each available_first_technician
         foreach ($available_first as $user_id) {
-            // L'assignation max de user_id comme first_technician est-elle atteinte ?
+            // Is max assignment of user_id as first_technician reached?
             if ($users[$user_id]['technician_1_assignation']['assigned'] >= 
                 $users[$user_id]['technician_1_assignation']['max']) {
                 continue;
             }
 
-            // Assigner ce user_id à cette période comme first_technician
+            // Assign this user_id to this period as first_technician
             $periods[$period_name]['first_technician'] = $user_id;
             $users[$user_id]['technician_1_assignation']['assigned']++;
 
-            // available_second_technician est-il >= 2 ?
+            // Is available_second_technician >= 2?
             if (count($available_second) >= 2) {
-                // Pour chaque available_second_technician
+                // For each available_second_technician
                 foreach ($available_second as $second_user_id) {
-                    // user_id est-il égal à first_technician dans cette période ?
+                    // Is user_id equal to first_technician in this period?
                     if ($second_user_id == $user_id) {
                         continue;
                     }
 
-                    // L'assignation max de user_id comme second_technician est-elle atteinte ?
+                    // Is max assignment of user_id as second_technician reached?
                     if ($users[$second_user_id]['technician_2_assignation']['assigned'] >= 
                         $users[$second_user_id]['technician_2_assignation']['max']) {
                         continue;
                     }
 
-                    // Assigner ce user_id à cette période comme second_technician
+                    // Assign this user_id to this period as second_technician
                     $periods[$period_name]['second_technician'] = $second_user_id;
                     $users[$second_user_id]['technician_2_assignation']['assigned']++;
 
-                    // available_third_technician est-il >= 3 ?
+                    // Is available_third_technician >= 3?
                     if (count($available_third) >= 3) {
-                        // Pour chaque available_third_technician
+                        // For each available_third_technician
                         foreach ($available_third as $third_user_id) {
-                            // user_id est-il égal à first_technician ou second_technician dans cette période ?
+                            // Is user_id equal to first_technician or second_technician in this period?
                             if ($third_user_id == $user_id || $third_user_id == $second_user_id) {
                                 continue;
                             }
 
-                            // L'assignation max de user_id comme third_technician est-elle atteinte ?
+                            // Is max assignment of user_id as third_technician reached?
                             if ($users[$third_user_id]['technician_3_assignation']['assigned'] >= 
                                 $users[$third_user_id]['technician_3_assignation']['max']) {
                                 continue;
                             }
 
-                            // Assigner ce user_id à cette période comme third_technician
+                            // Assign this user_id to this period as third_technician
                             $periods[$period_name]['third_technician'] = $third_user_id;
                             $users[$third_user_id]['technician_3_assignation']['assigned']++;
-                            break 2; // Sortir des deux boucles foreach
+                            break 2; // Exit both foreach loops
                         }
                     }
-                    break; // Sortir de la boucle second_technician
+                    break; // Exit second_technician loop
                 }
             }
-            break; // Sortir de la boucle first_technician
+            break; // Exit first_technician loop
         }
     }
 
     /**
-     * Attribution pour le cas de 4+ techniciens disponibles
+     * Assignment for case of 4+ available technicians
      * 
-     * @param string $period_name Nom de la période
-     * @param array $presence Données de présence pour cette période
-     * @param array $users Tableau des utilisateurs (modifié par référence)
-     * @param array $periods Tableau des périodes (modifié par référence)
+     * @param string $period_name Period name
+     * @param array $presence Presence data for this period
+     * @param array $users Array of users (modified by reference)
+     * @param array $periods Array of periods (modified by reference)
      */
     protected function assignCaseFourOrMoreTechnicians($period_name, $presence, &$users, &$periods)
     {
-        // Pour chaque technician_X_assignation (où X = 1 à 3)
+        // For each technician_X_assignation (where X = 1 to 3)
         for ($technician_num = 1; $technician_num <= 3; $technician_num++) {
-            // Obtenir la liste des utilisateurs possibles pour cette assignation
+            // Get list of possible users for this assignment
             $available_list = [];
             
             switch ($technician_num) {
@@ -484,9 +731,9 @@ class PlanningGenerator
                     break;
             }
 
-            // Pour chaque user_id
+            // For each user_id
             foreach ($available_list as $user_id) {
-                // Vérifier si l'utilisateur n'est pas déjà assigné à cette période
+                // Check if user is not already assigned to this period
                 if (isset($periods[$period_name]['first_technician']) && 
                     $periods[$period_name]['first_technician'] == $user_id) {
                     continue;
@@ -500,14 +747,14 @@ class PlanningGenerator
                     continue;
                 }
 
-                // L'assignation max de user_id comme X_technician est-elle atteinte ?
+                // Is max assignment of user_id as X_technician reached?
                 $assignation_key = 'technician_' . $technician_num . '_assignation';
                 if ($users[$user_id][$assignation_key]['assigned'] >= 
                     $users[$user_id][$assignation_key]['max']) {
                     continue;
                 }
 
-                // Assigner ce user_id à cette période comme X_technician
+                // Assign this user_id to this period as X_technician
                 switch ($technician_num) {
                     case 1:
                         $periods[$period_name]['first_technician'] = $user_id;
@@ -522,8 +769,8 @@ class PlanningGenerator
 
                 $users[$user_id][$assignation_key]['assigned']++;
 
-                // Avons-nous terminé toutes les assignations technician_X_assignation ?
-                break; // Passer au technicien suivant
+                // Have we completed all technician_X_assignation assignments?
+                break; // Move to next technician
             }
         }
     }

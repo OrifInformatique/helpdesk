@@ -21,33 +21,33 @@ class TestPlanningCommand extends BaseCommand
 
     public function run(array $params)
     {
-        // Créer le nom du fichier avec timestamp
+        // Create filename with timestamp
         $timestamp = date('Ymd_His');
         $filename = WRITEPATH . 'algorithm_attempt_' . $timestamp . '.md';
         
-        // Tableau pour capturer les sorties Markdown
+        // Array to capture Markdown outputs
         $markdown = [];
         
-        // Fonction pour écrire à la fois dans CLI et dans le tableau Markdown
+        // Function to write both to CLI and Markdown array
         $writeBoth = function($text, $color = 'white', $markdown_format = null) use (&$markdown) {
             CLI::write($text, $color);
-            // Si un format Markdown spécifique est fourni, l'utiliser, sinon utiliser le texte tel quel
+            // If a specific Markdown format is provided, use it, otherwise use text as is
             $markdown[] = $markdown_format !== null ? $markdown_format : $text;
         };
         
-        // Fonction pour les nouvelles lignes
+        // Function for new lines
         $newLine = function() use (&$markdown) {
             CLI::newLine();
             $markdown[] = '';
         };
         
-        // Fonction pour les erreurs
+        // Function for errors
         $writeError = function($text) use (&$markdown) {
             CLI::error($text);
             $markdown[] = '**❌ ERREUR:** ' . $text;
         };
 
-        // En-tête Markdown
+        // Markdown header
         $markdown[] = '# Test de Génération de Planning';
         $markdown[] = '';
         $markdown[] = '**Date:** ' . date('Y-m-d H:i:s');
@@ -56,7 +56,7 @@ class TestPlanningCommand extends BaseCommand
         $markdown[] = '---';
         $markdown[] = '';
         
-        // Afficher aussi dans CLI
+        // Also display in CLI
         CLI::write('========================================', 'white');
         CLI::write('TEST DE GÉNÉRATION DE PLANNING', 'white');
         CLI::write('Date: ' . date('Y-m-d H:i:s'), 'white');
@@ -65,13 +65,13 @@ class TestPlanningCommand extends BaseCommand
         CLI::newLine();
 
         try {
-            // Créer une instance du générateur
+            // Create generator instance
             $generator = new PlanningGenerator();
             
             $writeBoth('✓ Générateur de planning initialisé', 'green', '✅ **Générateur de planning initialisé**');
             $newLine();
             
-            // Test 1: Obtenir les périodes de la semaine prochaine
+            // Test 1: Get next week's periods
             $markdown[] = '## TEST 1: Récupération des périodes';
             $markdown[] = '';
             CLI::write('--- TEST 1: Récupération des périodes ---', 'yellow');
@@ -90,7 +90,7 @@ class TestPlanningCommand extends BaseCommand
             }
             $newLine();
             
-            // Test 2: Obtenir les utilisateurs avec leurs rôles
+            // Test 2: Get users with their roles
             $markdown[] = '## TEST 2: Récupération des utilisateurs';
             $markdown[] = '';
             CLI::write('--- TEST 2: Récupération des utilisateurs ---', 'yellow');
@@ -115,7 +115,7 @@ class TestPlanningCommand extends BaseCommand
             }
             $newLine();
             
-            // Test 3: Obtenir les présences par période
+            // Test 3: Get presences by period
             $markdown[] = '## TEST 3: Récupération des présences';
             $markdown[] = '';
             CLI::write('--- TEST 3: Récupération des présences ---', 'yellow');
@@ -137,7 +137,7 @@ class TestPlanningCommand extends BaseCommand
             }
             $newLine();
             
-            // Test 4: Vérifier si le planning peut être copié
+            // Test 4: Check if planning can be copied
             $markdown[] = '## TEST 4: Vérification de copie du planning';
             $markdown[] = '';
             CLI::write('--- TEST 4: Vérification de copie du planning ---', 'yellow');
@@ -146,7 +146,7 @@ class TestPlanningCommand extends BaseCommand
                       '- **Le planning peut être copié:** ' . ($canCopy ? '✅ Oui' : '❌ Non'));
             $newLine();
             
-            // Test 5: Génération complète du planning
+            // Test 5: Complete planning generation
             $markdown[] = '## TEST 5: Génération complète du planning';
             $markdown[] = '';
             CLI::write('--- TEST 5: Génération complète du planning ---', 'yellow');
@@ -158,7 +158,7 @@ class TestPlanningCommand extends BaseCommand
             $writeBoth('✓ Planning généré avec succès!', 'green', '✅ **Planning généré avec succès!**');
             $newLine();
             
-            // Debug: Vérifier la structure des données (à retirer après debug)
+            // Debug: Check data structure (to remove after debug)
             $debug_count = 0;
             foreach ($generated_periods as $period_name => $period) {
                 if (isset($period['first_technician']) || isset($period['second_technician']) || isset($period['third_technician'])) {
@@ -167,7 +167,7 @@ class TestPlanningCommand extends BaseCommand
             }
             CLI::write('DEBUG: Périodes avec assignations détectées: ' . $debug_count, 'yellow');
             
-            // Afficher les résultats
+            // Display results
             $markdown[] = '## RÉSULTATS DE LA GÉNÉRATION';
             $markdown[] = '';
             CLI::write('--- RÉSULTATS DE LA GÉNÉRATION ---', 'yellow');
@@ -177,7 +177,7 @@ class TestPlanningCommand extends BaseCommand
             $periods_with_assignments = 0;
             $total_assignments = 0;
             
-            // Récupérer les noms et rôles des utilisateurs pour l'affichage
+            // Get user names and roles for display
             $user_data_model = new User_data_model();
             $user_names = [];
             $user_roles = [];
@@ -213,18 +213,18 @@ class TestPlanningCommand extends BaseCommand
                 }
             }
             
-            // Fonction helper pour formater l'affichage avec le nom
+            // Helper function to format display with name
             $formatUser = function($user_id) use ($user_names) {
                 $name = $user_names[$user_id] ?? 'Nom inconnu';
                 return $user_id . ' (' . $name . ')';
             };
             
-            // Fonction pour obtenir juste le nom (sans ID)
+            // Function to get just the name (without ID)
             $getUserName = function($user_id) use ($user_names) {
                 return $user_names[$user_id] ?? 'Nom inconnu';
             };
             
-            // Organiser les périodes par jour et type
+            // Organize periods by day and type
             $periods_by_day = [
                 'mon' => ['m1' => null, 'm2' => null, 'a1' => null, 'a2' => null],
                 'tue' => ['m1' => null, 'm2' => null, 'a1' => null, 'a2' => null],
@@ -233,7 +233,7 @@ class TestPlanningCommand extends BaseCommand
                 'fri' => ['m1' => null, 'm2' => null, 'a1' => null, 'a2' => null],
             ];
             
-            // Mapper les noms de périodes vers les heures
+            // Map period names to times
             $period_times = [
                 'm1' => '8h-10h',
                 'm2' => '10h-12h',
@@ -242,17 +242,17 @@ class TestPlanningCommand extends BaseCommand
             ];
             
             foreach ($generated_periods as $period_name => $period) {
-                // Extraire le jour et le type de période (ex: "mon-m1" -> "mon" et "m1")
+                // Extract day and period type (e.g.: "mon-m1" -> "mon" and "m1")
                 $parts = explode('-', $period_name);
                 if (count($parts) === 2) {
                     $day = $parts[0];
                     $period_type = $parts[1];
                     
-                    // Vérifier que cette période existe dans notre structure
+                    // Check that this period exists in our structure
                     if (isset($periods_by_day[$day]) && array_key_exists($period_type, $periods_by_day[$day])) {
                         $technicians = [];
                         
-                        // Vérifier et ajouter les techniciens assignés (vérifier avec isset ET !empty)
+                        // Check and add assigned technicians (check with isset AND !empty)
                         if (isset($period['first_technician']) && $period['first_technician'] !== null && $period['first_technician'] !== '') {
                             $technicians[] = $getUserName($period['first_technician']);
                             $total_assignments++;
@@ -266,13 +266,13 @@ class TestPlanningCommand extends BaseCommand
                             $total_assignments++;
                         }
                         
-                        // Toujours stocker, même si vide (pour afficher "-")
+                        // Always store, even if empty (to display "-")
                         $periods_by_day[$day][$period_type] = !empty($technicians) ? $technicians : null;
                         
                         if (!empty($technicians)) {
                             $periods_with_assignments++;
                             
-                            // Afficher aussi dans le CLI
+                            // Also display in CLI
                             CLI::write('Période: ' . $period_name, 'cyan');
                             CLI::write('  ' . date('Y-m-d H:i', $period['start']) . ' -> ' . date('Y-m-d H:i', $period['end']), 'white');
                             CLI::write('  Assignations: ' . implode(', ', array_map($formatUser, array_filter([
@@ -285,13 +285,13 @@ class TestPlanningCommand extends BaseCommand
                 }
             }
             
-            // Créer le tableau Markdown
+            // Create Markdown table
             $markdown[] = '### Planning de la semaine';
             $markdown[] = '';
             $markdown[] = '| | Lundi | Mardi | Mercredi | Jeudi | Vendredi |';
             $markdown[] = '|---|---|---|---|---|---|';
             
-            // Pour chaque type de période
+            // For each period type
             foreach (['m1', 'm2', 'a1', 'a2'] as $period_type) {
                 $time_label = ucfirst($period_type) . ' : ' . $period_times[$period_type];
                 $row = ['**' . $time_label . '**'];
@@ -299,7 +299,7 @@ class TestPlanningCommand extends BaseCommand
                 foreach (['mon', 'tue', 'wed', 'thu', 'fri'] as $day) {
                     $technicians = $periods_by_day[$day][$period_type];
                     if ($technicians !== null && !empty($technicians)) {
-                        // Utiliser <br> pour les retours à la ligne dans Markdown (format HTML dans tableaux)
+                        // Use <br> for line breaks in Markdown (HTML format in tables)
                         $row[] = implode('<br>', $technicians);
                     } else {
                         $row[] = '-';
@@ -353,7 +353,7 @@ class TestPlanningCommand extends BaseCommand
                 }
             }
             
-            // Tableau Markdown pour les statistiques utilisateurs
+            // Markdown table for user statistics
             $markdown[] = '| User ID | Nom | Rôle | Tech1 | Tech2 | Tech3 | Total |';
             $markdown[] = '|---------|-----|------|-------|-------|-------|-------|';
             
@@ -380,7 +380,7 @@ class TestPlanningCommand extends BaseCommand
             CLI::write('TEST TERMINÉ AVEC SUCCÈS!', 'green');
             CLI::write('========================================', 'white');
             
-            // Écrire tout dans le fichier Markdown
+            // Write everything to Markdown file
             file_put_contents($filename, implode("\n", $markdown));
             CLI::newLine();
             CLI::write('Résultats sauvegardés dans: ' . $filename, 'cyan');
@@ -399,7 +399,7 @@ class TestPlanningCommand extends BaseCommand
             $markdown[] = '```';
             CLI::write($e->getTraceAsString());
             
-            // Écrire l'erreur dans le fichier aussi
+            // Also write error to file
             file_put_contents($filename, implode("\n", $markdown));
             
             return EXIT_ERROR;

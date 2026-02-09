@@ -23,6 +23,8 @@ CREATE USER 'ci4_user'@'%' IDENTIFIED BY 'ci4_password';
 
 -- Grant privileges
 GRANT ALL PRIVILEGES ON ci4.* TO 'ci4_user'@'%';
+-- Grant privileges on test database as well (for phpMyAdmin access)
+GRANT ALL PRIVILEGES ON ci4_test.* TO 'ci4_user'@'%';
 FLUSH PRIVILEGES;
 
 -- Switch to the created database

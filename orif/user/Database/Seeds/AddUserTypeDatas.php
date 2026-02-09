@@ -15,7 +15,16 @@ class AddUserTypeDatas extends \CodeIgniter\Database\Seeder
             ['name'=>'Technicien parrain','access_level'=>3]
         ];
         foreach($data as $row)
-            $this->db->table('user_type')->insert($row);
+        {
+            // Check if record already exists before inserting (idempotent)
+            $exists = $this->db->table('user_type')
+                ->where('name', $row['name'])
+                ->countAllResults();
+            
+            if ($exists === 0) {
+                $this->db->table('user_type')->insert($row);
+            }
+        }
 
     }
 }

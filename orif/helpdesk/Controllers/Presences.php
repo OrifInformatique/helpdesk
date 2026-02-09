@@ -122,33 +122,33 @@ class Presences extends Home
             if(!$this->isTechnician())
                 return redirect()->to(uri_string());
 
-            // Récupérer l'enregistrement de présence existant
+            // Get existing presence record
             $presence_record = $this->presences_model->getPresenceId($user_id);
             
-            // Extraire l'ID de présence si l'enregistrement existe
+            // Extract presence ID if record exists
             $id_presence = null;
             if ($presence_record !== null) {
-                // Si c'est un objet, extraire l'ID
+                // If it's an object, extract the ID
                 if (is_object($presence_record)) {
                     $id_presence = $presence_record->id_presence ?? null;
                 } 
-                // Si c'est un tableau, extraire l'ID
+                // If it's an array, extract the ID
                 elseif (is_array($presence_record)) {
                     $id_presence = $presence_record['id_presence'] ?? null;
                 }
             }
 
-            // Supprimer les doublons existants pour cet utilisateur avant la mise à jour
+            // Delete existing duplicates for this user before update
             if ($id_presence !== null) {
-                // Supprimer toutes les autres entrées pour cet utilisateur (garder seulement celle avec l'ID récupéré)
+                // Delete all other entries for this user (keep only the one with the retrieved ID)
                 $this->presences_model->where('fk_user_id', $user_id)
                                       ->where('id_presence !=', $id_presence)
                                       ->delete();
             } else {
-                // S'il n'y a pas d'enregistrement, supprimer tous les doublons potentiels
+                // If there's no record, delete all potential duplicates
                 $existing_presences = $this->presences_model->where('fk_user_id', $user_id)->findAll();
                 if (count($existing_presences) > 0) {
-                    // Garder seulement le premier et supprimer les autres
+                    // Keep only the first one and delete the others
                     $first_id = is_object($existing_presences[0]) ? $existing_presences[0]->id_presence : $existing_presences[0]['id_presence'];
                     $this->presences_model->where('fk_user_id', $user_id)
                                           ->where('id_presence !=', $first_id)
@@ -196,7 +196,7 @@ class Presences extends Home
                 'presence_fri_a2' => $_POST['presence_fri_a2']
             ];
 
-            // Ajouter l'ID seulement si on met à jour un enregistrement existant
+            // Add ID only if updating an existing record
             if ($id_presence !== null) {
                 $data_to_save['id_presence'] = $id_presence;
             }
