@@ -119,6 +119,21 @@ class Holidays extends Home
                     'end_date_holiday'   => $_POST['end_date'],
                 ];
 
+                // Check if a holiday with the same name and dates already exists
+                $existingHoliday = $this->holidays_model
+                    ->where('name_holiday', $data_to_save['name_holiday'])
+                    ->where('start_date_holiday', $data_to_save['start_date_holiday'])
+                    ->where('end_date_holiday', $data_to_save['end_date_holiday'])
+                    ->first();
+
+                // If a holiday already exists and it's not the same one (different ID or new holiday)
+                if ($existingHoliday && 
+                    (empty($data_to_save['id_holiday']) || 
+                     $existingHoliday['id_holiday'] != $data_to_save['id_holiday'])) {
+                    $this->session->setFlashdata('error', lang('Errors.holiday_already_exists') ?? 'Cette vacance existe déjà avec ces dates.');
+                    return redirect()->to('/helpdesk/holidays/saveHoliday/' . ($data_to_save['id_holiday'] ?? 0));
+                }
+
                 $this->holidays_model->save($data_to_save);
 
                 $this->session->setFlashdata('success', lang('Success.holiday_updated'));

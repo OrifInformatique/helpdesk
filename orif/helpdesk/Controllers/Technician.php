@@ -62,11 +62,11 @@ class Technician extends Home
 
         $user = $this->user_data_model->getUserData($user_id)[0];
         
-        // Récupérer le rôle depuis tbl_roles via Roles_model
+        // Get role from tbl_roles via Roles_model
         $role = '';
         $role_data = null;
         
-        // Utiliser directement Roles_model si fk_role_id est disponible
+        // Use Roles_model directly if fk_role_id is available
         if (isset($user['fk_role_id']) && !empty($user['fk_role_id'])) {
             $role_data = $this->roles_model->getRoleByID($user['fk_role_id']);
             if ($role_data !== null && !empty($role_data)) {
@@ -74,7 +74,7 @@ class Technician extends Home
             }
         }
         
-        // Si aucun rôle n'est trouvé via Roles_model, utiliser getUserRole comme fallback
+        // If no role is found via Roles_model, use getUserRole as fallback
         if (empty($role)) {
             $user_role = $this->user_data_model->getUserRole($user_id);
             if ($user_role !== null && !empty($user_role)) {
@@ -83,7 +83,7 @@ class Technician extends Home
             }
         }
         
-        // Fallback vers l'ancien système si aucun rôle n'est défini
+        // Fallback to old system if no role is defined
         if (empty($role)) {
             switch($user['fk_user_type'])
             {
@@ -108,7 +108,7 @@ class Technician extends Home
             }
         }
 
-        // Récupérer l'ID de présence de manière sécurisée
+        // Get presence ID securely
         $presence_record = $this->presences_model->getPresenceId($user_id);
         $id_presence = null;
         if ($presence_record !== null) {

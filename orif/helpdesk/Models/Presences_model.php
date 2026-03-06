@@ -25,10 +25,20 @@ class Presences_model extends \CodeIgniter\Model
         'presence_tue_m1', 'presence_tue_m2', 'presence_tue_a1', 'presence_tue_a2',
         'presence_wed_m1', 'presence_wed_m2', 'presence_wed_a1', 'presence_wed_a2',
         'presence_thu_m1', 'presence_thu_m2', 'presence_thu_a1', 'presence_thu_a2',
-        'presence_fri_m1', 'presence_fri_m2', 'presence_fri_a1', 'presence_fri_a2'
+        'presence_fri_m1', 'presence_fri_m2', 'presence_fri_a1', 'presence_fri_a2',
+        'updated_at'
     ];
+    protected $useTimestamps = true;
+    protected $createdField = null; // No created_at field
+    protected $updatedField = 'updated_at';
     protected $validationRules;
     protected $validationMessages;
+    
+    /**
+     * Simulated reference date for tests (format Y-m-d)
+     * If set, will be used instead of current date in getPresencesUpdatedWithinDays
+     */
+    protected static $simulatedReferenceDate = null;
 
 
     public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
@@ -170,5 +180,88 @@ class Presences_model extends \CodeIgniter\Model
         $users_presences_ids = array_column($users_presences_ids, 'fk_user_id');
         
         return $users_presences_ids;
+    }
+
+    /**
+     * Check if a presence was updated within the last N days
+     * 
+     * @param int $user_id ID of the user
+     * @param int $days Number of days to check (default: 7)
+     * 
+     * @return bool True if updated within the last N days, false otherwise
+     * 
+     */
+    public function wasUpdatedWithinDays($user_id, $days = 7)
+    {
+        $presence = $this->where('fk_user_id', $user_id)->first();
+        
+        if (empty($presence)) {
+            return false;
+        }
+
+        // Handle different data formats (object, array, string)
+        $updated_at = null;
+        if (is_object($presence)) {
+            $updated_at = $presence->updated_at ?? null;
+        } elseif (is_array($presence)) {
+            $updated_at = $presence['updated_at'] ?? null;
+        }
+
+        if (empty($updated_at)) {
+            return false;
+        }
+
+        // Convert to timestamp
+        if (is_string($updated_at)) {
+            $timestamp = strtotime($updated_at);
+        } elseif (is_object($updated_at) && method_exists($updated_at, 'getTimestamp')) {
+            $timestamp = $updated_at->getTimestamp();
+        } else {
+            return false;
+        }
+        
+        $days_ago = strtotime("-{$days} days");
+        
+        return $timestamp >= $days_ago;
+    }
+
+    /**
+     * Get all presences that were updated within the last N days
+     * 
+     * @param int $days Number of days to check (default: 7)
+     * 
+     * @return array Array of presence records
+     * 
+     */
+    /**
+     * Sets the simulated reference date for tests
+     * 
+     * @param string|null $date Date in Y-m-d format or null to use current date
+     */
+    public static function setSimulatedReferenceDate($date)
+    {
+        self::$simulatedReferenceDate = $date;
+    }
+    
+    /**
+     * Get presences updated within the last N days
+     * 
+     * @param int $days Number of days to check (default: 7)
+     * 
+     * @return array Array of presence records
+     * 
+     */
+    public function getPresencesUpdatedWithinDays($days = 7)
+    {
+        if (self::$simulatedReferenceDate !== null) {
+            // Use simulated date for tests
+            $date_threshold = date('Y-m-d H:i:s', strtotime(self::$simulatedReferenceDate . " -{$days} days"));
+        } else {
+            // Use current date (normal behavior)
+            $date_threshold = date('Y-m-d H:i:s', strtotime("-{$days} days"));
+        }
+        
+        return $this->where('updated_at >=', $date_threshold)
+                    ->findAll();
     }
 }

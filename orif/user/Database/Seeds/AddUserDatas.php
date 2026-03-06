@@ -36,7 +36,14 @@ class AddUserDatas extends \CodeIgniter\Database\Seeder
         ];
 
         foreach ($data as $row) {
-            $this->db->table('user')->insert($row);
+            // Check if user already exists before inserting
+            $exists = $this->db->table('user')
+                ->where('username', $row['username'])
+                ->countAllResults();
+            
+            if ($exists == 0) {
+                $this->db->table('user')->insert($row);
+            }
         }
     }
 }

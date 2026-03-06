@@ -6,20 +6,25 @@ class AddAzureMail extends \CodeIgniter\Database\Migration
 {
     public function up()
     {
-        $forge = \Config\Database::forge();
+        // Check if the column already exists with a direct SQL query
+        $db = \Config\Database::connect();
+        $query = $db->query("SHOW COLUMNS FROM `user` LIKE 'azure_mail'");
+        $columnExists = $query->getNumRows() > 0;
 
-        $fields = [
-            'azure_mail' =>[
-                'type'              => 'VARCHAR',
-                'constraint'        => '100',
-                'null'              => true,
-                'default'           => null,
-                
-                // Where to place the field
-                'after'             => 'email',
-            ],
-        ];
-        $forge->addColumn('user', $fields);
+        if (!$columnExists) {
+            $fields = [
+                'azure_mail' =>[
+                    'type'              => 'VARCHAR',
+                    'constraint'        => '100',
+                    'null'              => true,
+                    'default'           => null,
+                    
+                    // Where to place the field
+                    'after'             => 'email',
+                ],
+            ];
+            $this->forge->addColumn('user', $fields);
+        }
     }
 
     /**

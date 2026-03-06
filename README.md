@@ -16,6 +16,7 @@ This app uses [CodeIgniter](https://codeigniter.com/), along with HTML, CSS (wit
   - [Differences with Laragon](#differences-with-laragon)
   - [Application Access](#application-access)
   - [Useful Commands](#useful-commands)
+  - [Integration Tests](#integration-tests)
   - [Quick Troubleshooting](#quick-troubleshooting)
 - [You're all set!](#youre-all-set)
 
@@ -258,6 +259,68 @@ docker compose exec apache bash
 
 # Access MariaDB container shell
 docker compose exec mariadb bash
+```
+
+---
+
+### Integration Tests
+
+This section describes how to configure the databases and run integration tests for the planning system.
+
+#### Database Configuration
+
+##### Main Database Migration (ci4)
+
+Before running migrations, make sure the `.env` file contains:
+
+```env
+CI_ENVIRONMENT=development
+```
+
+Then, run the migration:
+
+```bash
+docker exec -i helpdesk-apache-1 php spark migrate --all
+```
+
+##### Test Database Migration (ci4_test)
+
+For the test database, configure the `.env` file with:
+
+```env
+CI_ENVIRONMENT=testing
+```
+
+Then run the test migration:
+
+```bash
+docker exec -i helpdesk-apache-1 php spark migrate:test
+```
+
+#### Adding Holidays
+
+To add or manage holidays (for integration tests) in the database:
+
+```bash
+docker exec -i helpdesk-apache-1 php spark holidays:manage
+```
+
+#### Planning Tests
+
+##### Full Generation (20 weeks + summaries)
+
+To generate 20 weeks of planning with summaries in the `/writable` folder:
+
+```bash
+docker exec -i helpdesk-apache-1 php spark test:planning:integration
+```
+
+##### Single Week Generation
+
+To generate a single week of planning:
+
+```bash
+docker exec -i helpdesk-apache-1 php spark test:planning
 ```
 
 ---
