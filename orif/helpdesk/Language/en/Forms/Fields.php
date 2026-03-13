@@ -15,5 +15,6 @@ return[
     'mail'              => 'Email',
     'password'          => 'Password',
     'password_confirm'  => 'Comfirm password',
-    'photo'             => 'Face picture'
+    'photo'             => 'Profile picture',
+    'role'              => 'Role'
 ];

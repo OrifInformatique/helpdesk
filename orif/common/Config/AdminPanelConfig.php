@@ -19,5 +19,6 @@ class AdminPanelConfig extends \CodeIgniter\Config\BaseConfig
     */
     public $tabs=[
         ['label'=>'user_lang.title_user_list', 'pageLink'=>'user/admin/listUser'],
+        ['label'=>'role_lang.title_list_role', 'pageLink'=>'helpdesk/role'],
     ];
 }

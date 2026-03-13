@@ -30,7 +30,7 @@ class Role extends BaseController
     {
         // Set Access level before calling parent constructor
         // Accessibility reserved to admin users
-        $this->access_level = config('Config\UserConfig')->access_lvl_admin;
+        $this->access_level = config('\User\Config\UserConfig')->access_lvl_admin;
         parent::initController($request, $response, $logger);
 
         // Load required helpers
@@ -209,10 +209,12 @@ class Role extends BaseController
         switch($action) {
             case 0: // Display confirmation
                 $data = array(
-                    'role' => $role,
-                    'title' => lang('role_lang.title_role_delete') ?? 'Supprimer le rôle'
+                    'title' => lang('role_lang.title_role_delete') ?? 'Supprimer le rôle',
+                    'entry' => esc($role['name_role']),
+                    'delete_url' => 'helpdesk/role/deleteRole/'.$role_id.'/1',
+                    'btn_back_url' => base_url('helpdesk/role/listRole')
                 );
-                return $this->display_view('\Helpdesk\delete_role', $data);
+                return $this->display_view('\Helpdesk\delete_entry', $data);
                 break;
             case 1: // Delete role
                 $this->roles_model->delete($role_id, TRUE);

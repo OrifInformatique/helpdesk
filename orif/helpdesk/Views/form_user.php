@@ -100,6 +100,10 @@ $validation=\Config\Services::validation();
 
                 ?>
                 <?= form_dropdown('user_usertype', $user_types, $user_usertype ?? $user['fk_user_type'] ?? NULL, $dropdown_options); ?>
+                <div class="form-group mt-3">
+                    <?= form_label(lang('Forms/Fields.role'), 'user_role', ['class' => 'form-label']); ?>
+                    <?= form_dropdown('user_role', $roles, $user_role ?? 1, ['class' => 'form-control', 'id' => 'user_role', 'required' => '']); ?>
+                </div>
             </div>
         </div>
         

@@ -20,6 +20,7 @@ use User\Models\User_model;
 use Helpdesk\Models\User_data_model;
 use Helpdesk\Models\Presences_model;
 use Helpdesk\Models\Planning_model;
+use Helpdesk\Models\Roles_model;
 use CodeIgniter\HTTP\Response;
 
 class User extends Admin
@@ -28,6 +29,7 @@ class User extends Admin
     protected $presences_model;
     protected $planning_model;
     protected $user_model;
+    protected $roles_model;
 
     public function initController(RequestInterface $request, ResponseInterface $response, LoggerInterface $logger)
     {
@@ -36,6 +38,7 @@ class User extends Admin
         $this->user_model = new User_model();
         $this->presences_model = new Presences_model();
         $this->planning_model = new Planning_model();
+        $this->roles_model = new Roles_model();
     }
 
     /**
@@ -69,7 +72,8 @@ class User extends Admin
                 'fk_user_id'            => $user_id != 0 ? $user_id : null,
                 'first_name_user_data'  => $this->request->getPost('first_name_user_data'),
                 'last_name_user_data'   => $this->request->getPost('last_name_user_data'),
-                'photo_user_data'       => $this->request->getFile('photo_user_data')->getSize() > 0 ? $this->request->getFile('photo_user_data') : null
+                'photo_user_data'       => $this->request->getFile('photo_user_data')->getSize() > 0 ? $this->request->getFile('photo_user_data') : null,
+                'fk_role_id'            => $this->request->getPost('user_role')
             );
 
             $validation = \Config\Services::validation();
@@ -103,6 +107,10 @@ class User extends Admin
                     'photo_user_data' => [
                         'label' => lang('Forms/Fields.photo'),
                         'rules' => 'if_exist|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
+                    ],
+                    'fk_role_id' => [
+                        'label' => lang('Forms/Fields.role'),
+                        'rules' => 'required|integer'
                     ],
                     'user_password' => [
                         'label' => lang('Forms/Fields.password'),
@@ -147,6 +155,10 @@ class User extends Admin
                     'photo_user_data' => [
                         'label' => lang('Forms/Fields.photo'),
                         'rules' => 'if_exist|is_image[photo_user_data]|ext_in[photo_user_data,png,jpg,jpeg]'
+                    ],
+                    'fk_role_id' => [
+                        'label' => lang('Forms/Fields.role'),
+                        'rules' => 'required|integer'
                     ]]);
             }
             if(!$validation->run($post_data))
@@ -185,6 +197,7 @@ class User extends Admin
                 {
                     $this->user_model->insert($user);
                     $user_data['fk_user_id'] = $this->user_model->insertID();
+                    $user_data['fk_role_id'] = $post_data['fk_role_id'];
                     $this->user_data_model->insert($user_data);
                 } 
                 
@@ -205,6 +218,8 @@ class User extends Admin
                     }
                     catch(\Exception){/* No data being updated in this table */}
                     
+                    $user_data['fk_role_id'] = $post_data['fk_role_id'];
+
                     try {
                         $this->user_data_model->update($user_data['id_user_data'], $user_data);
                     }
@@ -225,10 +240,24 @@ class User extends Admin
             $usertypes[$row['id']]=lang('Technician.'.$row['name']);
         }
         $user_data_data = $this->user_data_model->getUserFullName($user_id);
+
+        // Build roles dropdown array
+        $roles_list = $this->roles_model->getRoles();
+        $roles_dropdown = [];
+        foreach ($roles_list as $r) {
+            $roles_dropdown[$r['id_role']] = $r['name_role'];
+        }
+
+        // Get the user's current role, default to "No Role" (id=1)
+        $current_user_data = $user_id ? $this->user_data_model->where('fk_user_id', $user_id)->first() : null;
+        $current_role_id = $post_data['fk_role_id'] ?? (is_array($current_user_data) ? ($current_user_data['fk_role_id'] ?? 1) : (isset($current_user_data->fk_role_id) ? $current_user_data->fk_role_id : 1));
+
         $data = array(
             'title'         => lang('user_lang.title_user_'.((bool)$user_id ? 'update' : 'new')),
             'user'          => $this->user_model->withDeleted()->find($user_id),
             'user_types'    => $usertypes,
+            'roles'         => $roles_dropdown,
+            'user_role'     => $current_role_id,
             'user_name'     => $old_name,
             'user_usertype' => $old_usertype,
             'email'         => $post_data['email'] ?? null,

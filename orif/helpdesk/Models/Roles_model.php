@@ -50,9 +50,7 @@ class Roles_model extends \CodeIgniter\Model
      */
     public function getRoles()
     {
-        $roles = $this->findAll();
-
-        return $roles;
+        return $this->orderBy('priority_role', 'ASC')->findAll();
     }
 
 
