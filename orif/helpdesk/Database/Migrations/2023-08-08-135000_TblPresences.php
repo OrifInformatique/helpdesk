@@ -58,9 +58,9 @@ class AddPresences extends Migration
         }
 
         $this->forge->createTable('tbl_presences');
-
-        $seeder = \Config\Database::seeder();
-        $seeder->call('\Helpdesk\Database\Seeds\InsertPresencesData');
+        // -- Test data insertion
+        // $seeder = \Config\Database::seeder();
+        // $seeder->call('\Helpdesk\Database\Seeds\InsertPresencesData');
 
         $this->db->query('SET FOREIGN_KEY_CHECKS=1');
     }

@@ -30,15 +30,18 @@ INSERT INTO `migrations` (`id`, `version`, `class`, `group`, `namespace`, `time`
 (2, '2021-03-19-090828', 'User\\Database\\Migrations\\AddUserType', 'default', 'User', 1702381436, 1),
 (3, '2021-03-19-090829', 'User\\Database\\Migrations\\AddUser', 'default', 'User', 1702381436, 1),
 (4, '2023-07-05-160700', 'User\\Database\\Migrations\\AddAzureMail', 'default', 'User', 1702381436, 1),
-(5, '2023-08-08-133000', 'App\\Database\\Migrations\\AddHolidays', 'default', 'Helpdesk', 1702381436, 1),
-(6, '2023-08-08-133000', 'App\\Database\\Migrations\\AddPlanning', 'default', 'Helpdesk', 1702381436, 1),
-(7, '2023-08-08-133000', 'App\\Database\\Migrations\\AddPresences', 'default', 'Helpdesk', 1702381436, 1),
+(5, '2023-08-08-133000', 'App\\Database\\Migrations\\AddAssignation', 'default', 'Helpdesk', 1702381436, 1),
+(6, '2023-08-08-133000', 'App\\Database\\Migrations\\AddHolidays', 'default', 'Helpdesk', 1702381436, 1),
+(7, '2023-08-08-133000', 'App\\Database\\Migrations\\AddPlanning', 'default', 'Helpdesk', 1702381436, 1),
 (8, '2023-08-08-133000', 'App\\Database\\Migrations\\AddRoles', 'default', 'Helpdesk', 1702381437, 1),
 (9, '2023-08-08-133000', 'App\\Database\\Migrations\\AddStatuses', 'default', 'Helpdesk', 1702381437, 1),
 (10, '2023-08-08-133000', 'App\\Database\\Migrations\\AddTerminal', 'default', 'Helpdesk', 1702381437, 1),
 (11, '2023-08-08-133000', 'App\\Database\\Migrations\\AddUserData', 'default', 'Helpdesk', 1702381437, 1),
-(12, '2023-08-15-150000', 'App\\Database\\Migrations\\AddLwPlanning', 'default', 'Helpdesk', 1702381437, 1),
-(13, '2023-08-15-150000', 'App\\Database\\Migrations\\AddNwPlanning', 'default', 'Helpdesk', 1702381437, 1);
+(12, '2023-08-08-135000', 'App\\Database\\Migrations\\AddPresences', 'default', 'Helpdesk', 1702381437, 1),
+(13, '2023-08-08-140000', 'App\\Database\\Migrations\\AddFkRoleToUserData', 'default', 'Helpdesk', 1702381437, 1),
+(14, '2023-08-15-150000', 'App\\Database\\Migrations\\AddLwPlanning', 'default', 'Helpdesk', 1702381437, 1),
+(15, '2023-08-15-150000', 'App\\Database\\Migrations\\AddNwPlanning', 'default', 'Helpdesk', 1702381437, 1),
+(16, '2026-01-29-100000', 'App\\Database\\Migrations\\AddUpdatedAtToPresences', 'default', 'Helpdesk', 1702381437, 1);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
