@@ -4,7 +4,6 @@ namespace Config;
 
 use CodeIgniter\Config\BaseConfig;
 use CodeIgniter\Session\Handlers\BaseHandler;
-use CodeIgniter\Session\Handlers\FileHandler;
 
 class Session extends BaseConfig
 {
@@ -14,6 +13,7 @@ class Session extends BaseConfig
      * --------------------------------------------------------------------------
      *
      * The session storage driver to use:
+    * - `CodeIgniter\Session\Handlers\ArrayHandler` (for testing)
      * - `CodeIgniter\Session\Handlers\FileHandler`
      * - `CodeIgniter\Session\Handlers\DatabaseHandler`
      * - `CodeIgniter\Session\Handlers\MemcachedHandler`
@@ -99,4 +99,14 @@ class Session extends BaseConfig
      * DB Group for the database session.
      */
     public ?string $DBGroup = null;
+
+    /**
+     * Lock retry interval in microseconds for RedisHandler.
+     */
+    public int $lockRetryInterval = 100_000;
+
+    /**
+     * Maximum lock acquisition attempts for RedisHandler.
+     */
+    public int $lockMaxRetries = 300;
 }

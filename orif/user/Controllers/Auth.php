@@ -18,6 +18,9 @@ use CodeIgniter\HTTP\Response;
 use Config\UserConfig;
 
 class Auth extends BaseController {
+    protected $validation;
+    protected $user_model;
+    protected $db;
 
     /**
      * Constructor

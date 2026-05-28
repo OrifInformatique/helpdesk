@@ -37,7 +37,7 @@ $update = !is_null($role);
 
         <!-- HIDDEN FIELD FOR ROLE ID -->
         <?php if ($update): ?>
-            <?= form_hidden('id_role', $role['id_role']); ?>
+            <?= form_hidden('id_role', (string) $role['id_role']); ?>
         <?php endif ?>
 
         <!-- ROLE FIELDS -->

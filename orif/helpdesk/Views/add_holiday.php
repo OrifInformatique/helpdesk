@@ -21,7 +21,7 @@
         <?= form_hidden('id_holiday', esc($holiday['id_holiday'])) ?>
     <?php else: ?>
         <?= form_open(base_url('/helpdesk/holidays/saveHoliday/0')) ?>
-        <?= form_hidden('id_holiday', 0) ?>
+        <?= form_hidden('id_holiday', '0') ?>
     <?php endif; ?>
 
     <div class="form-fields">

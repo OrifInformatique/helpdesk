@@ -36,7 +36,7 @@ class User_Data_model extends \CodeIgniter\Model
     protected $roles_model;
 
 
-    public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
+    public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
     {
         $this->validationRules = [];
 
@@ -152,10 +152,7 @@ class User_Data_model extends \CodeIgniter\Model
         if(empty($result))
             return NULL;
 
-        foreach($result as $row)
-            $users_without_presences[] = $row;
-    
-        return $users_without_presences;
+        return $result;
     }
 
 

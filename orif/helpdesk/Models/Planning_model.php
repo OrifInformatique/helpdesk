@@ -31,7 +31,7 @@ class Planning_model extends \CodeIgniter\Model
     protected $validationMessages;
 
 
-    public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
+    public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
     {
         $this->validationRules = [];
 
@@ -125,19 +125,6 @@ class Planning_model extends \CodeIgniter\Model
                         ->orderBy($period, 'ASC')
                         ->findAll();
 
-        if(!empty($results))
-        {
-            foreach($results as $row)
-            {
-                $technicians[] = $row;
-            }
-
-            return $technicians;
-        }
-
-        else
-        {
-            return null;
-        }
+        return !empty($results) ? $results : null;
     }
 }

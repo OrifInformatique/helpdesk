@@ -38,8 +38,8 @@
             <tbody>
                 <?php if(isset($planning_data)) : ?>
                     <?php foreach($planning_data as $planning) : ?>
-                        <?= form_hidden("planning[".$planning['id_planning']."][id_planning]", $planning['id_planning']) ?>
-                        <?= form_hidden("planning[".$planning['id_planning']."][fk_user_id]", $planning['fk_user_id']) ?>
+                        <?= form_hidden("planning[".$planning['id_planning']."][id_planning]", (string) $planning['id_planning']) ?>
+                        <?= form_hidden("planning[".$planning['id_planning']."][fk_user_id]", (string) $planning['fk_user_id']) ?>
                         <tr>
                             <th>
                                 <?= $planning['last_name_user_data'].'<br>'.$planning['first_name_user_data']; ?>
@@ -61,8 +61,8 @@
                     <?php endforeach; ?>
                 <?php elseif(isset($nw_planning_data)): ?>
                     <?php foreach($nw_planning_data as $nw_planning) : ?>
-                        <?= form_hidden("nw_planning[".$nw_planning['id_nw_planning']."][id_nw_planning]", $nw_planning['id_nw_planning']) ?>
-                        <?= form_hidden("nw_planning[".$nw_planning['id_nw_planning']."][fk_user_id]", $nw_planning['fk_user_id']) ?>
+                        <?= form_hidden("nw_planning[".$nw_planning['id_nw_planning']."][id_nw_planning]", (string) $nw_planning['id_nw_planning']) ?>
+                        <?= form_hidden("nw_planning[".$nw_planning['id_nw_planning']."][fk_user_id]", (string) $nw_planning['fk_user_id']) ?>
                         <tr>
                             <th>
                                 <?= $nw_planning['last_name_user_data'].'<br>'.$nw_planning['first_name_user_data']; ?>

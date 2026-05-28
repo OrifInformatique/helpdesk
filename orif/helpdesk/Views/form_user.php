@@ -31,7 +31,7 @@ $validation=\Config\Services::validation();
         'name' => 'user_form'
     );
     echo form_open_multipart('helpdesk/user/saveUser', $attributes, [
-        'id' => $user['id'] ?? 0
+        'id' => (string) ($user['id'] ?? 0)
     ]);
     ?>
         <!-- ERROR MESSAGES -->
@@ -94,7 +94,7 @@ $validation=\Config\Services::validation();
                     $dropdown_options = ['class' => 'form-control', 'id' => 'user_usertype'];
                     if(isset($user) && isset($_SESSION['user_id']) && $_SESSION['user_id'] == $user['id']){
                         $dropdown_options['disabled'] = 'disabled';
-                        echo form_hidden('user_usertype', $user_usertype ?? $user['fk_user_type'] ?? "");
+                        echo form_hidden('user_usertype', (string) ($user_usertype ?? $user['fk_user_type'] ?? ""));
                         echo "<div class=\"alert alert-info\">".lang('user_lang.user_update_usertype_himself')."</div>";
                     }
 

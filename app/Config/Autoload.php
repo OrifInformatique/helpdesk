@@ -45,7 +45,6 @@ class Autoload extends AutoloadConfig
         'Common'      => ROOTPATH . 'orif/common',
         'Helpdesk'     => ROOTPATH . 'orif/helpdesk',
         'User'        => ROOTPATH . 'orif/user',
-        'Migration'   => ROOTPATH . 'orif/migration'
     ];
 
     /**

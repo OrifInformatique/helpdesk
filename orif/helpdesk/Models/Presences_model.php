@@ -41,7 +41,7 @@ class Presences_model extends \CodeIgniter\Model
     protected static $simulatedReferenceDate = null;
 
 
-    public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
+    public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
     {
         $this->validationRules = [];
 

@@ -3,7 +3,7 @@
 A project by Pomy's IT department, aimed at automating the process of assigning roles and displaying on-call technicians on a terminal. All modifications can be made easily via a web interface.
 Wtih this tool, plannings can be generated manually, and, if configured, automatically.
 
-This app uses [CodeIgniter](https://codeigniter.com/), along with HTML, CSS (with [Bootstrap](https://getbootstrap.com/)) and JavaScript.
+This app uses [CodeIgniter](https://codeigniter.com/) 4.7.x, along with HTML, CSS (with [Bootstrap](https://getbootstrap.com/)) and JavaScript.
 
 ## Table of Contents
 
@@ -22,7 +22,24 @@ This app uses [CodeIgniter](https://codeigniter.com/), along with HTML, CSS (wit
 
 ### Software requirements
 
-To make this app work, you'll need to have both [PHP](https://www.php.net/) and [Composer](https://getcomposer.org/) installed.
+To make this app work, you'll need to have both [PHP](https://www.php.net/) 8.4 and [Composer](https://getcomposer.org/) installed.
+
+Required PHP extensions for normal operation are `intl`, `mbstring`, `mysqli`, `json`, `xml`, `libxml`, `ctype`, and `tokenizer`. Composer/test tooling also expects `dom`, `phar`, and `xmlwriter` in a development environment.
+
+Install dependencies from the project root:
+
+```bash
+composer install
+composer check-platform-reqs
+```
+
+When intentionally refreshing dependencies on the PHP 8.4 upgrade line, run:
+
+```bash
+composer update --with-all-dependencies
+composer audit
+composer check-platform-reqs
+```
 
 Installation processes are not detailled here.
 
@@ -30,18 +47,19 @@ Installation processes are not detailled here.
 
 1. Clone the repository into your server root.
 2. Open the project in your text editor.
-3. Copy-paste the `env_dist` file.
-4. Rename the new file `.env` and edit it :
+3. Run `composer install` from the project root.
+4. Copy-paste the `env_dist` file.
+5. Rename the new file `.env` and edit it :
     - Make sure that the `CI_ENVIRONMENT` variable is set to the correct value.
         - _`development` when working on the project, `production` when publishing the application._
     - `app.baseURL` must contain the URL to the root of your website.
         - Example : `app.baseURL = 'https://orif.ch/'`
     - Modify the `database.default.` fields with the informations matching your server.
     - Don't forget to uncomment the code you edited.
-5. On your server, create manually a new database.
+6. On your server, create manually a new database.
     - Its name has to be the same as defined in the `.env` file, in the `database.default.database` field.
     - Use utf8_general_ci or utf8mb4_general_ci collation.
-6. On a new terminal, on project root, execute `php spark migrate --all`. This inserts all tables and default values in the database.
+7. On a new terminal, on project root, execute `php spark migrate --all`. This inserts all tables and default values in the database.
 
 ## Docker Quick Start Guide
 

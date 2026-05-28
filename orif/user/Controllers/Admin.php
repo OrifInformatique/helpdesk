@@ -17,6 +17,11 @@ use CodeIgniter\HTTP\Response;
 
 class Admin extends BaseController
 {
+    protected $validation;
+    protected $user_model;
+    protected $user_type_model;
+    protected $db;
+
     /**
      * Constructor
      */

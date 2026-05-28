@@ -7,17 +7,16 @@
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  */
 
-namespace Config;
+namespace Common\Config;
 
+use CodeIgniter\Config\BaseConfig;
 
-use User\Controllers\Admin;
-
-class AdminPanelConfig extends \CodeIgniter\Config\BaseConfig
+class AdminPanelConfig extends BaseConfig
 {
     /** Update this array to customize admin pannel tabs for your needs 
      *  Syntax : ['label'=>'tab label','pageLink'=>'tab link']
     */
-    public $tabs=[
+    public array $tabs = [
         ['label'=>'user_lang.title_user_list', 'pageLink'=>'user/admin/listUser'],
         ['label'=>'role_lang.title_list_role', 'pageLink'=>'helpdesk/role'],
     ];

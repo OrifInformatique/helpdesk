@@ -13,7 +13,6 @@ class Home extends BaseController
         ResponseInterface $response, LoggerInterface $logger): void
     {
         parent::initController($request, $response, $logger);
-        $this->session=\Config\Services::session();
 
         helper('form');
     }

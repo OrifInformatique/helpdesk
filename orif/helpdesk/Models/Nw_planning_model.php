@@ -31,7 +31,7 @@ class Nw_planning_model extends \CodeIgniter\Model
     protected $validationMessages;
 
 
-    public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
+    public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
     {
         $this->validationRules = [];
 

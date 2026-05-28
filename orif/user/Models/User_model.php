@@ -24,7 +24,7 @@ class User_model extends \CodeIgniter\Model{
     protected $beforeInsert = ['hashPassword'];
     protected $beforeUpdate = ['hashPassword'];
 
-    public function __construct(ConnectionInterface &$db = null, ValidationInterface $validation = null)
+    public function __construct(?ConnectionInterface &$db = null, ?ValidationInterface $validation = null)
     {
         $this->user_type_model=new User_type_model();
         $this->validationRules=[

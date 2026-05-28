@@ -14,7 +14,7 @@
 <?= view('Helpdesk\Common\body_start') ?>
 
 <?= form_open($delete_url, ['id' => 'delete-entry']) ?>
-    <?= form_hidden('delete_confirmation', true) ?>
+    <?= form_hidden('delete_confirmation', '1') ?>
 
     <div>
         <p><?= lang('MiscTexts.delete_confirmation') ?></p>

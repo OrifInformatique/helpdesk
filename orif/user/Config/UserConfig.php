@@ -6,27 +6,27 @@
  * @link        https://github.com/OrifInformatique
  * @copyright   Copyright (c), Orif (https://www.orif.ch)
  */
-namespace Config;
+namespace User\Config;
 
 use CodeIgniter\Config\BaseConfig;
 
 class UserConfig extends BaseConfig
 {
     /* Access levels */
-    public $access_lvl_guest            =   1;
-    public $access_lvl_registered       =   2;
-    public $access_lvl_admin            =   4;
+    public int $access_lvl_guest            =   1;
+    public int $access_lvl_registered       =   2;
+    public int $access_lvl_admin            =   4;
 
     /* Default access level for Azure logged in users */
-    public $azure_default_access_lvl    =   2;
+    public int $azure_default_access_lvl    =   2;
     
     /* Validation rules */
-    public $username_min_length         =   3;
-    public $username_max_length         =   45;
-    public $password_min_length         =   6;
-    public $password_max_length         =   72;
-    public $email_max_length            =   100;
+    public int $username_min_length         =   3;
+    public int $username_max_length         =   45;
+    public int $password_min_length         =   6;
+    public int $password_max_length         =   72;
+    public int $email_max_length            =   100;
     
     /* Other rules */
-    public $password_hash_algorithm     =   PASSWORD_BCRYPT;
+    public string $password_hash_algorithm     =   PASSWORD_BCRYPT;
 }

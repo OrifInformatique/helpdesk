@@ -1,7 +1,7 @@
 # Helpdesk — Production Deployment Guide
 
 > **Branch:** `pre-production`  
-> **Date:** 2026-04-13  
+> **Date:** 2026-05-28  
 > **Target:** Production server (no Docker)
 
 ---
@@ -36,8 +36,9 @@
 
 | Requirement         | Details                                      |
 |---------------------|----------------------------------------------|
-| **PHP**             | >= 8.0 and < 8.2 (see `composer.json`)       |
-| **PHP Extensions**  | `intl`, `mysqli`, `mbstring`, `json`, `zip`   |
+| **PHP**             | 8.4 (see `composer.json`)                     |
+| **CodeIgniter**     | 4.7.x                                         |
+| **PHP Extensions**  | `intl`, `mysqli`, `mbstring`, `json`, `xml`, `libxml`, `ctype`, `tokenizer`, `phar`, `xmlwriter` |
 | **Web Server**      | Apache with `mod_rewrite` enabled             |
 | **Database**        | MariaDB or MySQL                              |
 | **Composer**        | Installed on the server or dependencies pre-installed via `vendor/` |
@@ -61,6 +62,22 @@ Copy the entire project to the production server. **Exclude** the following:
 | `.env` from dev                | Must create a new one for prod     |
 
 **Keep** the `vendor/` directory (or run `composer install --no-dev` on the server).
+
+For Infomaniak deployment, prefer installing production dependencies on the server after verifying PHP 8.4:
+
+```bash
+php -v
+php -m
+composer install --no-dev --optimize-autoloader
+composer check-platform-reqs
+php spark migrate:status
+```
+
+Run migrations only after a production database backup:
+
+```bash
+php spark migrate --all
+```
 
 ---
 
@@ -148,6 +165,8 @@ FLUSH PRIVILEGES;
 From the project root directory:
 
 ```bash
+composer install --no-dev --optimize-autoloader
+php spark migrate:status
 php spark migrate --all
 ```
 
